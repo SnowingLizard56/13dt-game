@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://sv7nhq2fas6s"]
+
+[ext_resource type="PackedScene" uid="uid://dwsxd5ttvjxsu" path="res://Assets/E127_orbital.tscn" id="1_sgibm"]
+[ext_resource type="PackedScene" uid="uid://8fmrvoi5rg7i" path="res://Assets/xaragiln_profile.tscn" id="2_ne44h"]
+[ext_resource type="PackedScene" uid="uid://do8gbvq05s7vo" path="res://Assets/namurant_profile.tscn" id="3_pgm14"]
+[ext_resource type="PackedScene" uid="uid://dygaid8lgxbhk" path="res://Assets/s_profile.tscn" id="4_opi31"]
+
+[node name="Profile Test" type="Node2D"]
+
+[node name="E127 Orbital" parent="." instance=ExtResource("1_sgibm")]
+position = Vector2(88, 88)
+
+[node name="Xaragiln Profile" parent="." instance=ExtResource("2_ne44h")]
+position = Vector2(264, 88)
+
+[node name="Namurant Profile" parent="." instance=ExtResource("3_pgm14")]
+position = Vector2(440, 88)
+
+[node name="S Profile" parent="." instance=ExtResource("4_opi31")]
+position = Vector2(616, 88)
