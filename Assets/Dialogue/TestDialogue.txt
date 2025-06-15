@@ -1,0 +1,45 @@
+Hello! This is test dialogue.
+Each line here will appear in a seperate line in the game.
+
+A break in lines will require an input to continue past.
+The following line means that the player is prompted with that many options.
+
+>2
+>So what?
+
+Each option will be given following an arrow.
+All text between that option and the next will be shown only if the player chooses that option.
+
+>1
+>Nesting?
+Yup, nesting these works.
+>
+
+>I see...
+
+To exit out of a choice (to end it) just put another arrow underneath.
+
+>
+
+{Text in curly brackets seperated by a bar|will be shown at random.
+|
+A new line cannot be used in place of a bar, but if you put a bar in the new line it will work.}
+
+These can also be used in the {middle|midst|between} other text in a line.
+
+{Doubling up|Using them twice} in one line {works too|also works}.
+
+Element Prime's associated colour is #BAFDA8.
+[b][color=#BAFDA8]Element Prime
+Element 127
+EPS-127
+Minthe
+E127[/color][/b]
+
+The Xaragiln-associated colour is #EB5851.
+[b][color=#EB5851]Xaragiln
+Kiki[/color][/b]
+
+The Namurant-associated colour is #6D71F6.
+[b][color=#6D71F6]Namurant
+Baluma[/color][/b]
