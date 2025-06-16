@@ -5,15 +5,16 @@ var num: int
 
 
 func _process(delta:float) -> void:
-	# Increment display number by 01001
-	num = 2*int(1000*Time.get_unix_time_from_system())+1
 	# Update texture
 	queue_redraw()
 
 
 func _draw() -> void:
+	num = 2*int(1000*Time.get_unix_time_from_system())+1
 	var points : PackedVector2Array = []
+	# Get binary representation
 	var string : String = String.num_int64(num, 2)
+	# Iterate over it
 	for i in len(string):
 		if string[i] == "1":
 			# If bit is on, then draw connection to this point

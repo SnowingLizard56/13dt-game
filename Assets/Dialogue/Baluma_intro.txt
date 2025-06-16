@@ -1,0 +1,11 @@
+Hello. You are the chosen spokesperson of [color=#BAFDA8]EPS-127[/color]?
+>1
+
+>Yes
+Thank you for taking the time to speak with me. I am [color=#6D71F6]Baluma[/color], one of the [color=#6D71F6]Namurant[/color].
+We have spent a great deal of time deciphering your language. The truth is, we need your help. 
+Your planet is in possession of [color=#BAFDA8]an element with 127 protons[/color]. There is a great deal of it beneath your planet's crust.
+We need it. Please begin extracting it.
+>
+
+Thank you. We will be in further contact soon.

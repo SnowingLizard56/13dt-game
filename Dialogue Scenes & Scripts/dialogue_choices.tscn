@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://lw7or2nvifo3"]
+
+[ext_resource type="Script" uid="uid://c1c8f1f8gjet2" path="res://Dialogue Scenes & Scripts/dialogue_choices.gd" id="1_87ec7"]
+
+[node name="DialogueChoices" type="MarginContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_87ec7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://4qpsxc5tqw1v"]
+
+[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://main_theme.tres" id="1_lksi8"]
+[ext_resource type="Script" uid="uid://bsntxg5ip58s3" path="res://Dialogue Scenes & Scripts/read_text.gd" id="2_dg04b"]
+[ext_resource type="PackedScene" uid="uid://bwcvik785ys0m" path="res://Dialogue Scenes & Scripts/dialogue_box.tscn" id="2_j8vks"]
+
+[node name="Dialogue Container" type="Control" node_paths=PackedStringArray("delay_timer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lksi8")
+script = ExtResource("2_dg04b")
+dialogue_box_scene = ExtResource("2_j8vks")
+delay_timer = NodePath("NextDialogueTimer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -648.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="NextDialogueTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="NextDialogueTimer" to="." method="next_content"]
