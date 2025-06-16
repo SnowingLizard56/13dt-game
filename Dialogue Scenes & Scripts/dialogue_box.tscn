@@ -1,20 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwcvik785ys0m"]
+[gd_scene load_steps=3 format=3 uid="uid://bwcvik785ys0m"]
 
 [ext_resource type="Script" uid="uid://bfwrd683xilcb" path="res://Dialogue Scenes & Scripts/dialogue_box.gd" id="1_n23yb"]
+[ext_resource type="PackedScene" uid="uid://lw7or2nvifo3" path="res://Dialogue Scenes & Scripts/dialogue_choices.tscn" id="2_m1csq"]
 
-[node name="DialogueBox" type="MarginContainer" node_paths=PackedStringArray("panel_container", "rich_text_label")]
+[node name="DialogueBox" type="MarginContainer"]
 script = ExtResource("1_n23yb")
-panel_container = NodePath("PanelContainer")
-rich_text_label = NodePath("PanelContainer/ReadText")
+dialogue_choices_scene = ExtResource("2_m1csq")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
 [node name="ReadText" type="RichTextLabel" parent="PanelContainer"]
 layout_mode = 2
 bbcode_enabled = true
+text = "askjlak"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
