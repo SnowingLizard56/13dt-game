@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var colour: = Color.WHITE
 @export var count : Array[int] = [2,7,19,31,37,17,11,3]
 @export var first_radius : int = 8
 @export var radius_per_layer : int = 10
@@ -24,9 +25,9 @@ func _process(delta: float) -> void:
 func draw_dot_layer(num:int, distance:float, node:Node2D):
 	# Draw circles spaced equally around a circle
 	for i in num:
-		node.draw_circle(Vector2.from_angle(i*TAU/num - TAU/4)*distance, 2, Color.WHITE)
+		node.draw_circle(Vector2.from_angle(i*TAU/num - TAU/4)*distance, 2, colour)
 
 
 func _draw() -> void:
 	# Draw outline
-	draw_circle(Vector2.ZERO, first_radius + 8*radius_per_layer, Color.WHITE, false)
+	draw_circle(Vector2.ZERO, first_radius + 8*radius_per_layer, colour, false)

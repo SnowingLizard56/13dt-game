@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var colour: = Color.WHITE
 @export var count : Array[int] = [2,7,19,31,37,17,11,3]
 @export var radius : int = 24
 @export var radius_per_layer : int = 8
@@ -33,9 +34,9 @@ func draw_line_layer(count:int, radius:float, node:Node2D):
 	# Add first point again to form loop
 	points.append(Vector2.from_angle(-TAU/4)*radius)
 	# Draw line
-	node.draw_polyline(points, Color.WHITE)
+	node.draw_polyline(points, colour)
 
 
 func _draw() -> void:
 	# Draw outline
-	draw_circle(Vector2.ZERO, radius + radius_per_layer*8, Color.WHITE, false)
+	draw_circle(Vector2.ZERO, radius + radius_per_layer*8, colour, false)

@@ -10,13 +10,18 @@ config_version=5
 
 [application]
 
-config/name="13dt game"
+config/name="Element 127"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://global.gd"
+
+[display]
+
+window/size/mode=3
+window/stretch/mode="canvas_items"
 
 [input]
 

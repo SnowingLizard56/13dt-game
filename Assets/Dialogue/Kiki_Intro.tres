@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="Dialogue" load_steps=9 format=3 uid="uid://y2mdv3li8efv"]
+
+[ext_resource type="Script" uid="uid://0djkccs4fxq" path="res://Assets/Dialogue/dialogue.gd" id="1_2fue4"]
+[ext_resource type="Script" uid="uid://b3tlhew81q0ta" path="res://Assets/Dialogue/sentence.gd" id="2_cqa6p"]
+[ext_resource type="Script" uid="uid://75mvp3hjppdv" path="res://Assets/Dialogue/prompt.gd" id="3_cqa6p"]
+
+[sub_resource type="Resource" id="Resource_rdbus"]
+script = ExtResource("2_cqa6p")
+text = "{NAME}!"
+choices = Array[ExtResource("3_cqa6p")]([])
+delay = 0.2
+metadata/_custom_type_script = "uid://b3tlhew81q0ta"
+
+[sub_resource type="Resource" id="Resource_n38ta"]
+script = ExtResource("2_cqa6p")
+text = "The [color=#6D71F6]Namurant[/color] have spent a great deal of time deciphering your language.
+And we have spent very little time taking their work!"
+choices = Array[ExtResource("3_cqa6p")]([])
+delay = 0.2
+metadata/_custom_type_script = "uid://b3tlhew81q0ta"
+
+[sub_resource type="Resource" id="Resource_u5les"]
+script = ExtResource("2_cqa6p")
+text = "I suppose they've told you that we're at war, and they're winning.
+The former is true. The latter is debateable."
+choices = Array[ExtResource("3_cqa6p")]([])
+delay = 0.2
+metadata/_custom_type_script = "uid://b3tlhew81q0ta"
+
+[sub_resource type="Resource" id="Resource_vy3kw"]
+script = ExtResource("2_cqa6p")
+text = "Anyway, we know there's stuff they want from you."
+choices = Array[ExtResource("3_cqa6p")]([])
+delay = 0.2
+metadata/_custom_type_script = "uid://b3tlhew81q0ta"
+
+[sub_resource type="Resource" id="Resource_0lu13"]
+script = ExtResource("2_cqa6p")
+text = "Whatever it is, bring it to us instead."
+choices = Array[ExtResource("3_cqa6p")]([])
+delay = 0.2
+metadata/_custom_type_script = "uid://b3tlhew81q0ta"
+
+[resource]
+script = ExtResource("1_2fue4")
+sentences = Array[ExtResource("2_cqa6p")]([SubResource("Resource_rdbus"), SubResource("Resource_n38ta"), SubResource("Resource_u5les"), SubResource("Resource_vy3kw"), SubResource("Resource_0lu13")])
+random_sentence = false
+metadata/_custom_type_script = "uid://0djkccs4fxq"

@@ -1,10 +1,12 @@
 extends Node2D
 
+@export var colour: Color = Color.WHITE
 @export var radius := 88
 var num: int
 
 
 func _process(delta:float) -> void:
+	rotate(delta/16)
 	# Update texture
 	queue_redraw()
 
@@ -18,8 +20,8 @@ func _draw() -> void:
 	for i in len(string):
 		if string[i] == "1":
 			# If bit is on, then draw connection to this point
-			points.append(Vector2.from_angle(12*i*TAU/67-TAU/4)*radius)
+			points.append(Vector2.from_angle(7*i*TAU/64-TAU/4)*radius)
 	# Draw line
-	draw_polyline(points, Color.WHITE)
+	draw_polyline(points, colour)
 	# Draw outline
-	draw_circle(Vector2.ZERO, radius, Color.WHITE, false)
+	draw_circle(Vector2.ZERO, radius, colour, false)

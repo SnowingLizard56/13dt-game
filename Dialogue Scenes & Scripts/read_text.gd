@@ -13,7 +13,8 @@ signal finish_sequence
 func _ready() -> void:
 	# Display. Testing purposes.
 	# TEST
-	next_content()
+	if content:
+		next_content()
 
 
 func next_content() -> void:
