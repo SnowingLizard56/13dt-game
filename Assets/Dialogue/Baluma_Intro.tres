@@ -43,5 +43,5 @@ metadata/_custom_type_script = "uid://b3tlhew81q0ta"
 [resource]
 script = ExtResource("1_lptxj")
 sentences = Array[ExtResource("2_ti3o8")]([SubResource("Resource_5xyda"), SubResource("Resource_i5lj0")])
-random_sentence = false
+owner = 1
 metadata/_custom_type_script = "uid://0djkccs4fxq"

@@ -1,6 +1,8 @@
 extends Node
 
-var num_regex: RegEx
-
-func _ready() -> void:
-	num_regex = RegEx.create_from_string(r'^([0-9]+(\.[0-9]+)?)$')
+func process_sentence(sen:Sentence) -> String:
+	var out = sen.text
+	out = out.replace("{NAME}", "Player")
+	#out.replace("{NAME}", "Player")
+	#out.replace("{NAME}", "Player")
+	return out

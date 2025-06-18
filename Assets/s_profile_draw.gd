@@ -4,6 +4,8 @@ extends Node2D
 @export var radius := 88
 var num: int
 
+@export var line_width := 1.0
+
 
 func _process(delta:float) -> void:
 	rotate(delta/16)
@@ -22,6 +24,6 @@ func _draw() -> void:
 			# If bit is on, then draw connection to this point
 			points.append(Vector2.from_angle(7*i*TAU/64-TAU/4)*radius)
 	# Draw line
-	draw_polyline(points, colour)
+	draw_polyline(points, colour, line_width)
 	# Draw outline
-	draw_circle(Vector2.ZERO, radius, colour, false)
+	draw_circle(Vector2.ZERO, radius, colour, false, line_width + 1)

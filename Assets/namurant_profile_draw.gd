@@ -6,6 +6,9 @@ extends Node2D
 @export var radius_per_layer : int = 5
 @export var arc_gap_length : float = 5
 
+@export var line_width := 1.0
+
+
 func _ready() -> void:
 	for i in 8:
 		# Instantiate
@@ -26,4 +29,4 @@ func _process(delta: float) -> void:
 func draw_arc_layer(num:int, distance:float, node:Node2D):
 	for i in num:
 		# Draw arc from i*TAU/num to (i+1)*TAU/num, with a gap of arc_gap_length
-		node.draw_arc(Vector2.ZERO, distance, i*TAU/num, (i+1)*TAU/num - (arc_gap_length/distance), ceil(distance/num), colour)
+		node.draw_arc(Vector2.ZERO, distance, i*TAU/num, (i+1)*TAU/num - (arc_gap_length/distance), ceil(distance/num), colour, line_width)

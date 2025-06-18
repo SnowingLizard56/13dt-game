@@ -5,5 +5,5 @@ class_name Sentence extends Resource
 @export var delay: float = 0.2
 
 
-func get_sentence(str:String = "") -> Array[Sentence]:
-	return []
+func get_text() -> String:
+	return Global.process_sentence(self)

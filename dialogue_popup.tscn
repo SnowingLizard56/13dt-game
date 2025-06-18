@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://blanup12hpsbn"]
+[gd_scene load_steps=7 format=3 uid="uid://bwvvsvhlw2iop"]
 
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://main_theme.tres" id="1_omt58"]
 [ext_resource type="PackedScene" uid="uid://dwsxd5ttvjxsu" path="res://Assets/E127_orbital.tscn" id="2_3wq6e"]
+[ext_resource type="Script" uid="uid://n6u4nu8hlt86" path="res://dialogue_popup.gd" id="2_fan7c"]
+[ext_resource type="PackedScene" uid="uid://do8gbvq05s7vo" path="res://Assets/namurant_profile.tscn" id="4_2doop"]
+[ext_resource type="PackedScene" uid="uid://8fmrvoi5rg7i" path="res://Assets/xaragiln_profile.tscn" id="5_wsmg0"]
+[ext_resource type="PackedScene" uid="uid://dygaid8lgxbhk" path="res://Assets/s_profile.tscn" id="6_e4dmy"]
 
 [node name="Dialogue Popup" type="Control"]
 layout_mode = 3
@@ -11,32 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_omt58")
-
-[node name="TEST BACKGROUND" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Background (TEST)" type="ColorRect" parent="TEST BACKGROUND"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0588235, 0.105882, 0.14902, 1)
-
-[node name="Background (TEST)2" type="ColorRect" parent="TEST BACKGROUND"]
-layout_mode = 1
-offset_left = 64.0
-offset_top = -75.0
-offset_right = 645.0
-offset_bottom = 504.0
-rotation = 0.78144
-color = Color(0.960784, 0.909804, 0.819608, 1)
+script = ExtResource("2_fan7c")
 
 [node name="Dim" type="ColorRect" parent="."]
 layout_mode = 1
@@ -47,18 +26,61 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.458824)
 
-[node name="Minthe" parent="." instance=ExtResource("2_3wq6e")]
+[node name="Backgrounds" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+
+[node name="Minthe" parent="Backgrounds" instance=ExtResource("2_3wq6e")]
 visible = false
 position = Vector2(576, 324)
 scale = Vector2(3, 3)
-colour = Color(0.113725, 0.290196, 0.0627451, 0.196078)
+colour = Color(0.0941176, 0.231373, 0.109804, 0.313726)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_left = 28.0
-offset_top = 465.0
-offset_right = 714.0
-offset_bottom = 616.0
+[node name="Baluma" parent="Backgrounds" instance=ExtResource("4_2doop")]
+visible = false
+position = Vector2(576, 324)
+scale = Vector2(3, 3)
+colour = Color(0.122866, 0.180073, 0.228238, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+[node name="Kiki" parent="Backgrounds" instance=ExtResource("5_wsmg0")]
+visible = false
+position = Vector2(576, 324)
+scale = Vector2(3, 3)
+colour = Color(0.521569, 0.0980392, 0.0588235, 0.196078)
+
+[node name="S" parent="Backgrounds" instance=ExtResource("6_e4dmy")]
+visible = false
+position = Vector2(576, 324)
+scale = Vector2(3, 3)
+colour = Color(0.0874586, 0.133561, 0.172365, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
+offset_left = 164.0
+offset_top = 498.0
+offset_right = 964.0
+offset_bottom = 598.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="ChoiceContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.835
+anchor_top = 0.722568
+anchor_right = 0.835
+anchor_bottom = 0.722568
+offset_left = -217.92
+offset_top = -290.224
+offset_right = 0.0799561
+offset_bottom = -0.22406
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="Button" type="Button" parent="ChoiceContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8

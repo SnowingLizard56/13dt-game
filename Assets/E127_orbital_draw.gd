@@ -5,6 +5,8 @@ extends Node2D
 @export var first_radius : int = 8
 @export var radius_per_layer : int = 10
 
+@export var line_width := 1.0
+
 func _ready() -> void:
 	for i in 8:
 		# Instantiate
@@ -30,4 +32,4 @@ func draw_dot_layer(num:int, distance:float, node:Node2D):
 
 func _draw() -> void:
 	# Draw outline
-	draw_circle(Vector2.ZERO, first_radius + 8*radius_per_layer, colour, false)
+	draw_circle(Vector2.ZERO, first_radius + 8*radius_per_layer, colour, false, line_width)

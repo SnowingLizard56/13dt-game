@@ -2,22 +2,40 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_470mv"]
 draw_center = false
-corner_radius_top_left = 25
-corner_radius_bottom_left = 25
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 shadow_color = Color(1, 1, 1, 1)
-shadow_size = 1
+shadow_size = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_466ly"]
 bg_color = Color(0.133333, 0.172549, 0.203922, 0.980392)
-corner_radius_top_left = 25
-corner_radius_bottom_left = 25
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
 shadow_color = Color(1, 1, 1, 1)
 shadow_size = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2l2q"]
 bg_color = Color(0.133333, 0.172549, 0.203922, 0.980392)
-corner_radius_top_left = 25
-corner_radius_bottom_left = 25
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0omi4"]
 bg_color = Color(0.083485, 0.111979, 0.131918, 1)
