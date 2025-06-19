@@ -13,7 +13,7 @@ signal finish_sequence
 
 
 func _ready() -> void:
-	display_dialogue(preload("res://Assets/Dialogue/Kiki_Intro.tres"))
+	display_dialogue(preload("res://Assets/Dialogue/TestDialogue.tres"))
 
 
 func display_dialogue(content: Dialogue):

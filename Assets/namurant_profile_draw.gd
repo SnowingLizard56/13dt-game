@@ -6,7 +6,7 @@ extends Node2D
 @export var radius_per_layer : int = 5
 @export var arc_gap_length : float = 5
 
-@export var line_width := 1.0
+@export var line_width := -1.0
 
 
 func _ready() -> void:

@@ -5,7 +5,7 @@ extends Node2D
 @export var radius : int = 24
 @export var radius_per_layer : int = 8
 
-@export var line_width := 1.0
+@export var line_width := -1.0
 
 
 func _ready() -> void:

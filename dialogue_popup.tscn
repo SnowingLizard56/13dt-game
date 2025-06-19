@@ -41,18 +41,21 @@ visible = false
 position = Vector2(576, 324)
 scale = Vector2(3, 3)
 colour = Color(0.122866, 0.180073, 0.228238, 1)
+line_width = 1.0
 
 [node name="Kiki" parent="Backgrounds" instance=ExtResource("5_wsmg0")]
 visible = false
 position = Vector2(576, 324)
 scale = Vector2(3, 3)
 colour = Color(0.521569, 0.0980392, 0.0588235, 0.196078)
+line_width = 1.0
 
 [node name="S" parent="Backgrounds" instance=ExtResource("6_e4dmy")]
 visible = false
 position = Vector2(576, 324)
 scale = Vector2(3, 3)
 colour = Color(0.0874586, 0.133561, 0.172365, 1)
+line_width = 1.0
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2

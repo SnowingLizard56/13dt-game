@@ -4,7 +4,7 @@ extends Node2D
 @export var radius := 88
 var num: int
 
-@export var line_width := 1.0
+@export var line_width := -1.0
 
 
 func _process(delta:float) -> void:

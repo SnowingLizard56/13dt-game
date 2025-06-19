@@ -44,6 +44,5 @@ metadata/_custom_type_script = "uid://b3tlhew81q0ta"
 [resource]
 script = ExtResource("1_2fue4")
 sentences = Array[ExtResource("2_cqa6p")]([SubResource("Resource_rdbus"), SubResource("Resource_n38ta"), SubResource("Resource_u5les"), SubResource("Resource_vy3kw"), SubResource("Resource_0lu13")])
-random_sentence = false
 owner = 2
 metadata/_custom_type_script = "uid://0djkccs4fxq"
