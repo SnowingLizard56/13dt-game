@@ -28,3 +28,9 @@ var play_modifier: play_modifiers = play_modifiers.NONE
 
 # Bodies. Handled by a GravityController.
 var bodies: Dictionary[String, Variant]
+
+# Connections
+var connections: Array[Nebula]
+
+# int pos
+var cell_pos: Vector2i

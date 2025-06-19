@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccbersjv5r4sb"]
+[gd_scene load_steps=3 format=3 uid="uid://ccbersjv5r4sb"]
 
+[ext_resource type="Script" uid="uid://bbqvt6cu8ft80" path="res://map_gen.gd" id="1_0seoh"]
 [ext_resource type="Script" uid="uid://bi7yxatns26l1" path="res://map_icon.gd" id="1_kuced"]
 
 [node name="MapIconTest" type="Node2D"]
+script = ExtResource("1_0seoh")
 
 [node name="MapIcon2" type="Node2D" parent="."]
 position = Vector2(119, 95)
