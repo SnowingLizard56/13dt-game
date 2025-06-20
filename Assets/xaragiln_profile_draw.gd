@@ -25,17 +25,17 @@ func _process(delta: float) -> void:
 		get_child(i, true).rotate(2*delta/(i+2))
 
 
-func draw_line_layer(count:int, radius:float, node:Node2D):
+func draw_line_layer(n:int, layer_radius:float, node:Node2D):
 	var points: PackedVector2Array = []
 	# Add count points equidistant around a circle of radius radius
-	for i: int in count:
-		if count == 3:
-			points.append(Vector2.from_angle(i*TAU/count - TAU/4)*radius)
+	for i: int in n:
+		if n == 3:
+			points.append(Vector2.from_angle(i*TAU/n - TAU/4)*layer_radius)
 		else:
-			points.append(Vector2.from_angle(3*i*TAU/count - TAU/4)*radius)
+			points.append(Vector2.from_angle(3*i*TAU/n - TAU/4)*layer_radius)
 			
 	# Add first point again to form loop
-	points.append(Vector2.from_angle(-TAU/4)*radius)
+	points.append(Vector2.from_angle(-TAU/4)*layer_radius)
 	# Draw line
 	node.draw_polyline(points, colour, line_width)
 

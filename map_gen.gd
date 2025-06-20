@@ -1,36 +1,81 @@
 extends Node2D
 
+const SIZE: Vector2i = Vector2i(7, 6)
+const PATH_COUNT: int = 6
+const SEPERATION: Vector2 = Vector2(120, 100.0)
+const SHIMMY: float = 25.0
+const ICON_SIZE: float = 0.38
+
+
 func _ready() -> void:
-	generate_map(1)
+	generate_map(randi())
 
 
-func generate_map(seed:int):
-	var random: RandomNumberGenerator = RandomNumberGenerator.new()
-	random.seed = seed
-	# How many cells
-	var cell_count: int = [14, 17, 19, 23].pick_random()
-	# Create map
-	var bitmap: BitMap = BitMap.new()
-	bitmap.create(Vector2i(7, 5))
+func generate_map(seeded:int):
+	Global.random = RandomNumberGenerator.new()
+	Global.random.seed = seeded
+	var map: Array[MapIcon]
+	map.resize(SIZE.x * SIZE.y)
+	for i in SIZE.x * SIZE.y:
+		map[i] = MapIcon.new()
 	
-	var rep: int = 0
+	# Prevent line cross
+	var line_cross_left: Array[bool]
+	line_cross_left.resize(SIZE.x * SIZE.y)
+	line_cross_left.fill(false)
+	var line_cross_right: Array[bool] = line_cross_left.duplicate()
 	
-	while cell_count > 0:
-		var pos: int = randi() % 35
-		# If a cell is already there, retry
-		if bitmap.get_bit(pos % 7, pos / 7):
-			rep += 1
-			continue
-		# This has potential to go on forever but it shouldnt
-		bitmap.set_bit(pos % 7, pos / 7, true)
-		cell_count -= 1
-		var n: Nebula = Nebula.new()
+	# Iterate PATH_COUNT times
+	for nth_path in PATH_COUNT:
+		# Traverse a path
+		var current: int
+		var next: int
+		current = Global.random.randi_range(1, SIZE.x - 2)
+		map[current].in_map = true
+		
+		while current < map.size() - SIZE.x:
+			# Clamp next within the bounds of the map
+			var diff: int
+			
+			# Disallow left/right if already far left/right, or line cross
+			var disallow_left = current % SIZE.x == 0 or line_cross_right[current - 1]
+			var disallow_right = (current + 1) % SIZE.x == 0 or line_cross_left[current + 1]
+			
+			diff = Global.random.randi_range(-int(!disallow_left), int(!disallow_right))
+			
+			# Next index
+			next = current + SIZE.x + diff
+			# if its diagonal, there's potential for line crossing
+			if diff == -1:
+				line_cross_left[current] = true
+			elif diff == 1:
+				line_cross_right[current] = true
+			
+			# Update connections
+			if not map[next] in map[current].connections:
+				map[current].connections.append(map[next])
+			
+			map[next].in_map = true
+			current = next
 	
-	for i in bitmap.get_size().y:
-		var line: String = ""
-		for j in bitmap.get_size().x:
-			if bitmap.get_bit(j, i):
-				line += "."
-			else:
-				line += " "
-		print("|"+line+"|")
+	for i in len(map):
+		# Add to tree if not there
+		var map_node = map[i]
+		if map_node.in_map:
+			add_child(map_node)
+			map_node.nebula = Nebula.random()
+			# Position the node and offset it slightly
+			map_node.position = Vector2(i % SIZE.x, -i / SIZE.x) * SEPERATION + Vector2.ONE * SHIMMY * randf()
+			map_node.scale *= ICON_SIZE
+	
+	queue_redraw()
+
+
+func _draw():
+	for icon: MapIcon in get_children():
+		for next: MapIcon in icon.connections:
+			# Make line	
+			var direction: Vector2 = icon.position.direction_to(next.position)
+			var start: Vector2 = icon.position + direction * 100 * ICON_SIZE
+			var end: Vector2 = next.position - direction * 100 * ICON_SIZE
+			draw_dashed_line(start, end, Color("f5e8d1"), 0.6, 2.0, true)

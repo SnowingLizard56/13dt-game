@@ -4,6 +4,8 @@ class_name MapIcon extends Node2D
 @onready var namurant: PackedScene = preload("res://Assets/namurant_profile.tscn")
 @onready var shop: PackedScene = preload("res://Assets/s_profile.tscn")
 
+var in_map: bool = false
+var connections: Array[MapIcon]
 var nebula: Nebula
 
 func _ready() -> void:
@@ -13,7 +15,8 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	scale = Vector2.ONE * 0.2
+	# Background
+	draw_circle(Vector2.ZERO, 100, Color("0f1b26"))
 	if !nebula:
 		return
 	for i in get_children():
