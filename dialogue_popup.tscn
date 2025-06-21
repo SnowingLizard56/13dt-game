@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://bwvvsvhlw2iop"]
 
-[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://main_theme.tres" id="1_omt58"]
-[ext_resource type="PackedScene" uid="uid://dwsxd5ttvjxsu" path="res://Assets/E127_orbital.tscn" id="2_3wq6e"]
+[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://Assets/main_theme.tres" id="1_omt58"]
+[ext_resource type="PackedScene" uid="uid://dwsxd5ttvjxsu" path="res://Assets/Profiles/E127_orbital.tscn" id="2_3wq6e"]
 [ext_resource type="Script" uid="uid://n6u4nu8hlt86" path="res://dialogue_popup.gd" id="2_fan7c"]
-[ext_resource type="PackedScene" uid="uid://do8gbvq05s7vo" path="res://Assets/namurant_profile.tscn" id="4_2doop"]
-[ext_resource type="PackedScene" uid="uid://8fmrvoi5rg7i" path="res://Assets/xaragiln_profile.tscn" id="5_wsmg0"]
-[ext_resource type="PackedScene" uid="uid://dygaid8lgxbhk" path="res://Assets/s_profile.tscn" id="6_e4dmy"]
+[ext_resource type="PackedScene" uid="uid://do8gbvq05s7vo" path="res://Assets/Profiles/namurant_profile.tscn" id="4_2doop"]
+[ext_resource type="PackedScene" uid="uid://8fmrvoi5rg7i" path="res://Assets/Profiles/xaragiln_profile.tscn" id="5_wsmg0"]
+[ext_resource type="PackedScene" uid="uid://dygaid8lgxbhk" path="res://Assets/Profiles/s_profile.tscn" id="6_e4dmy"]
 
 [node name="Dialogue Popup" type="Control"]
 layout_mode = 3

@@ -2,7 +2,7 @@ extends Node2D
 
 const SIZE: Vector2i = Vector2i(7, 6)
 const PATH_COUNT: int = 6
-const SEPERATION: Vector2 = Vector2(120, 100.0)
+const SEPERATION: Vector2 = Vector2(120, -100.0)
 const SHIMMY: float = 25.0
 const ICON_SIZE: float = 0.38
 
@@ -37,7 +37,7 @@ func generate_map(seeded:int):
 			# Clamp next within the bounds of the map
 			var diff: int
 			
-			# Disallow left/right if already far left/right, or line cross
+			# Disallow left / right if already far left / right, or line cross
 			var disallow_left = current % SIZE.x == 0 or line_cross_right[current - 1]
 			var disallow_right = (current + 1) % SIZE.x == 0 or line_cross_left[current + 1]
 			
@@ -45,7 +45,7 @@ func generate_map(seeded:int):
 			
 			# Next index
 			next = current + SIZE.x + diff
-			# if its diagonal, there's potential for line crossing
+			# If its diagonal, there's potential for line crossing
 			if diff == -1:
 				line_cross_left[current] = true
 			elif diff == 1:
@@ -63,10 +63,16 @@ func generate_map(seeded:int):
 		var map_node = map[i]
 		if map_node.in_map:
 			add_child(map_node)
+			map_node.list_position = i
+			map_node.map_position = Vector2(i % SIZE.x, i / SIZE.x)
+			# Make nebula obj
 			map_node.nebula = Nebula.random()
 			# Position the node and offset it slightly
-			map_node.position = Vector2(i % SIZE.x, -i / SIZE.x) * SEPERATION + Vector2.ONE * SHIMMY * randf()
+			map_node.position = map_node.map_position * SEPERATION + Vector2.ONE * SHIMMY * randf()
 			map_node.scale *= ICON_SIZE
+			# Sort connections by list_position
+			map_node.connections.sort_custom(
+				func (x: MapIcon, y: MapIcon): return x.list_position < y.list_position)
 	
 	queue_redraw()
 

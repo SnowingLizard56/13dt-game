@@ -49,7 +49,7 @@ func next_content() -> void:
 	label.text = current_sentence.get_text()
 	label.visible_characters = 0
 	sentence_fully_displayed = false
-	
+
 
 func dialogue_option_chosen(prompt: Prompt):
 	# Add sentences to sentence queue

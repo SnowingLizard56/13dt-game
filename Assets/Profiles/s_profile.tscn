@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dygaid8lgxbhk"]
+
+[ext_resource type="Script" uid="uid://hhp8vxa6jcah" path="res://Assets/Profiles/s_profile_draw.gd" id="1_lo4sp"]
+
+[node name="S Profile" type="Node2D"]
+script = ExtResource("1_lo4sp")
