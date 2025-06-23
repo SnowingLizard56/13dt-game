@@ -1,8 +1,10 @@
 class_name MapIcon extends Node2D	
 
-@onready var xaragiln: PackedScene = preload("res://Assets/xaragiln_profile.tscn")
-@onready var namurant: PackedScene = preload("res://Assets/namurant_profile.tscn")
-@onready var shop: PackedScene = preload("res://Assets/s_profile.tscn")
+@onready var xaragiln: PackedScene = preload("res://Assets/Profiles/xaragiln_profile.tscn")
+@onready var namurant: PackedScene = preload("res://Assets/Profiles/namurant_profile.tscn")
+@onready var shop: PackedScene = preload("res://Assets/Profiles/s_profile.tscn")
+@onready var unclaimed: PackedScene = preload("res://Assets/Profiles/unclaimed_profile.tscn")
+@onready var event: PackedScene = preload("res://Assets/Profiles/random_profile.tscn")
 
 var in_map: bool = false
 var connections: Array[MapIcon]
@@ -20,12 +22,15 @@ func _draw() -> void:
 	for i in get_children():
 		i.queue_free()
 	# Match for nebula type
-	var pf:Node2D
+	var pf: Node2D
 	match nebula.type:
+		nebula.EVENT:
+			pf = event.instantiate()
+			pf.colour = Color("ffefa1")
 		nebula.UNCLAIMED:
 			# Circle
-			pf = Node2D.new()
-			pf.draw.connect(pf.draw_circle.bind(Vector2.ZERO, 88, Color("f5e8d1"), false))
+			pf = unclaimed.instantiate()
+			pf.colour = Color("f5e8d1")
 		nebula.XARAGILN:
 			# Namurant profile
 			pf = xaragiln.instantiate()

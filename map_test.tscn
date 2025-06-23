@@ -14,4 +14,4 @@ color = Color(0.0588235, 0.105882, 0.14902, 1)
 [node name="MapIconTest" parent="." instance=ExtResource("1_q1m20")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(498, -240)
+position = Vector2(488, -238)

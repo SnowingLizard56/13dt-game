@@ -25,6 +25,8 @@ func generate_map(seeded:int):
 	line_cross_left.fill(false)
 	var line_cross_right: Array[bool] = line_cross_left.duplicate()
 	
+	var node_count: int = 0
+	
 	# Iterate PATH_COUNT times
 	for nth_path in PATH_COUNT:
 		# Traverse a path
@@ -32,7 +34,6 @@ func generate_map(seeded:int):
 		var next: int
 		current = Global.random.randi_range(1, SIZE.x - 2)
 		map[current].in_map = true
-		
 		while current < map.size() - SIZE.x:
 			# Clamp next within the bounds of the map
 			var diff: int
@@ -55,8 +56,15 @@ func generate_map(seeded:int):
 			if not map[next] in map[current].connections:
 				map[current].connections.append(map[next])
 			
+			if not map[next].in_map:
+				node_count += 1
+			
 			map[next].in_map = true
 			current = next
+	
+	# Generate node pool
+	var pool: Array[Nebula] = Nebula.generate_pool(node_count)
+	pool = Global.array_shuffle(pool)
 	
 	for i in len(map):
 		# Add to tree if not there
@@ -65,8 +73,20 @@ func generate_map(seeded:int):
 			add_child(map_node)
 			map_node.list_position = i
 			map_node.map_position = Vector2(i % SIZE.x, i / SIZE.x)
-			# Make nebula obj
-			map_node.nebula = Nebula.random()
+			# First rank
+			if map_node.map_position.y == 0:
+				var allow: Array = [Nebula.UNCLAIMED]
+				
+				if !Global.is_xaragiln_friendly:
+					allow.append(Nebula.XARAGILN)
+				if !Global.is_namurant_friendly:
+					allow.append(Nebula.NAMURANT)
+				map_node.nebula = Nebula.new()
+				while not map_node.nebula.type in allow:
+					map_node.nebula = Nebula.new()
+			else:
+				# Take from pool
+				map_node.nebula = pool.pop_back()
 			# Position the node and offset it slightly
 			map_node.position = map_node.map_position * SEPERATION + Vector2.ONE * SHIMMY * randf()
 			map_node.scale *= ICON_SIZE

@@ -1,7 +1,7 @@
 class_name Nebula extends Resource
 
 # Base type of the node
-enum {UNCLAIMED, SHOP, XARAGILN, NAMURANT}
+enum {EVENT, UNCLAIMED, SHOP, XARAGILN, NAMURANT}
 var type := UNCLAIMED: 
 	set(v):
 		match v:
@@ -30,31 +30,57 @@ var play_modifier: play_modifiers = play_modifiers.NONE
 var bodies: Dictionary[String, Variant]
 
 
-static func random() -> Nebula:
-	var out: Nebula = Nebula.new()
+func _init(type=null, mod=null) -> void:
+	if type == null:
+		# Type
+		var data: Array = [UNCLAIMED, SHOP, NAMURANT, XARAGILN, EVENT]
+		var weights: PackedFloat32Array = get_weights()
+		# Choose type
+		self.type = data[Global.random.rand_weighted(weights)]
+	else:
+		self.type = type
 	
-	# Type
-	var data: Array = [UNCLAIMED, SHOP, NAMURANT, XARAGILN]
-	var weights: PackedFloat32Array = PackedFloat32Array([3, 1, 7, 7])
+	if mod == null:
+		# Play modifiers
+		if (self.type == NAMURANT or self.type == XARAGILN) and Global.random.randf() < 0.2:
+			# 20 % chance for under attack
+			self.play_modifier = play_modifiers.UNDER_ATTACK
+		else:
+			if Global.random.randf() < 0.3:
+				# 30 % chance for special
+				self.play_modifier = play_modifiers.SPECIAL
+
+
+static func generate_pool(n: int) -> Array[Nebula]:
+	var pool: Array[Nebula] = []
+	
+	var data: Array = [UNCLAIMED, SHOP, NAMURANT, XARAGILN, EVENT]
+	
+	var weights = get_weights()
+	
+	var weight: float = 0.0
+	for w in weights:
+		weight += w
+	
+	for i in len(weights):
+		var num = n * weights[i] / weight
+		if num <= 1:
+			pool.append(Nebula.new(data[i]))
+		else:
+			for j in floor(num):
+				pool.append(Nebula.new(data[i]))
+	for i in n - len(pool):
+		pool.append(Nebula.new())
+	return pool
+
+
+static func get_weights() -> PackedFloat32Array:
+	# Unclaimed, shop, nam, xar, event
+	var weights: PackedFloat32Array = [3, 2, 6, 6, 3]
 	
 	if Global.is_namurant_friendly:
-		weights[2] = 1
+		weights[2] = 2
 	if Global.is_xaragiln_friendly:
-		weights[3] = 1
+		weights[3] = 2
 	
-	# Choose type
-	out.type = data[Global.random.rand_weighted(weights)]
-	
-	# Play modifiers
-	if (out.type == NAMURANT or out.type == XARAGILN) and Global.random.randf() < 0.2:
-		# 20 % chance for under attack
-		out.play_modifier = play_modifiers.UNDER_ATTACK
-	else:
-		if Global.random.randf() < 0.3:
-			# 30 % chance for rechart
-			out.play_modifier = play_modifiers.SPECIAL
-	
-	# Level generation
-	
-	return out
-	
+	return weights
