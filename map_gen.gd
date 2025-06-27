@@ -8,12 +8,10 @@ const ICON_SIZE: float = 0.38
 
 
 func _ready() -> void:
-	generate_map(randi())
+	generate_map()
 
 
-func generate_map(seeded:int):
-	Global.random = RandomNumberGenerator.new()
-	Global.random.seed = seeded
+func generate_map():
 	var map: Array[MapIcon]
 	map.resize(SIZE.x * SIZE.y)
 	for i in SIZE.x * SIZE.y:

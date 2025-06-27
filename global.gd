@@ -4,7 +4,7 @@ extends Node
 var is_xaragiln_friendly: bool = false
 var is_namurant_friendly: bool = true
 
-var random: RandomNumberGenerator
+@onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func process_sentence(sen:Sentence) -> String:

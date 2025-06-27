@@ -13,6 +13,7 @@ signal finish_sequence
 
 
 func _ready() -> void:
+	# DEBUG
 	display_dialogue(preload("res://Assets/Dialogue/TestDialogue.tres"))
 
 
