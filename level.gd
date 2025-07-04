@@ -2,9 +2,9 @@ class_name Level extends GravityController
 
 const BODIES: int = 1000
 const DISTRIBUTION_RADIUS: float = 1000
-const MASS_MIDPOINT: float = 1e5
-const IV_MIDPOINT: float = 1.0
-const RADIUS_MIDPOINT: float = 5
+const MASS_MIDPOINT: float = 5e4
+const IV_MIDPOINT: float = 0.1
+const RADIUS_MIDPOINT: float = 5.0
 
 var bodies: int
 var distribution_radius: float
@@ -40,10 +40,8 @@ func distribute_bodies() -> void:
 	distribution_radius = DISTRIBUTION_RADIUS
 	
 	mass_midpoint = MASS_MIDPOINT
-	
 	radius_midpoint = RADIUS_MIDPOINT
-	
-	var iv_magnitude: float = sqrt((mass_midpoint * bodies) * 6.67e-11 / distribution_radius) / distribution_radius
+	iv_midpoint = IV_MIDPOINT
 	
 	for i in bodies:
 		var mass: float = mass_coefficient() * mass_midpoint
@@ -54,14 +52,18 @@ func distribute_bodies() -> void:
 		var distance: float = sqrt(randf()) * distribution_radius
 		var position_x: float = cos(angle) * distance
 		var position_y: float = sin(angle) * distance
-		var ivx = iv_magnitude * position_y
-		var ivy = -iv_magnitude * position_x
 		
-		add_body(mass, radius, position_x, position_y, 0, ivx, ivy)
+		var iv: Vector2 = Vector2.from_angle(randf_range(0, TAU)) * iv_midpoint * iv_coefficient()
+		
+		add_body(mass, radius, position_x, position_y, 0, iv.x, iv.y)
 
 func mass_coefficient() -> float:
-	return 10 ** (2 - (randf() + randf()) ** 0.6)
+	return 100 ** (2 - (randf() + randf()) ** 0.6)
 
 
 func radius_coefficient() -> float:
 	return 0.75 + ((randf() + randf()) ** 1.7) / 2.0
+
+
+func iv_coefficient() -> float:
+	return 0.75 + (randf() + randf()) / 4
