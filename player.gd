@@ -10,6 +10,8 @@ var player_yv: float = 0.0
 
 var acceleration: float = 200.0
 
+@onready var ship: Array[ShipComponent] = Global.player_ship
+
 
 func _process(delta: float) -> void:
 	rotate(-delta)

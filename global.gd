@@ -1,6 +1,8 @@
 extends Node
 
 
+var player_ship: Array[ShipComponent]
+
 var is_xaragiln_friendly: bool = false
 var is_namurant_friendly: bool = true
 
