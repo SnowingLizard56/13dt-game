@@ -1,4 +1,4 @@
-extends Node2D
+class_name Player extends Node2D
 
 const SPRITE_RADIUS: int = 5
 
@@ -25,10 +25,16 @@ func _process(delta: float) -> void:
 	player_xv += acceleration * acceleration_input.x * delta
 	player_yv += acceleration * acceleration_input.y * delta
 	
+	if get_parent().level:
+		var gravity: Dictionary = get_parent().level.barnes_hut_probe(delta * 1e6, player_x, player_y, 1.0, 5.0)
+		if gravity.has("collision_id"):
+			pass
+		else:
+			player_xv += gravity.ax
+			player_yv += gravity.ay
+	
 	player_x += player_xv * delta
 	player_y += player_yv * delta
-	
-	position = Vector2(player_x, player_y)
 
 
 func _draw() -> void:

@@ -24,6 +24,8 @@ func thread_main() -> void:
 			var level = Level.new()
 			
 			level.distribute_bodies()
+			for i in 10:
+				level.naive_step(1)
 			
 			# Increment levels_ready
 			levels_ready.append(level)
