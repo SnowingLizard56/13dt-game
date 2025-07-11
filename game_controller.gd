@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if level:
-		level.barnes_hut_step(delta * 10000, 1.0)
+		level.step(delta * 10000)
 		
 		game_rect = camera.get_viewport_rect()
 		game_rect.size /= camera.zoom.x

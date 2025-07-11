@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 	player_yv += acceleration * acceleration_input.y * delta
 	
 	if get_parent().level:
-		var gravity: Dictionary = get_parent().level.barnes_hut_probe(delta * 1e6, player_x, player_y, 1.0, 5.0)
+		var gravity: Dictionary = get_parent().level.probe(delta * 1e8, player_x, player_y)
 		if gravity.has("collision_id"):
 			pass
 		else:
