@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShipThruster" load_steps=2 format=3 uid="uid://die46de8ofiu1"]
+
+[ext_resource type="Script" uid="uid://bjn3qcowugx7q" path="res://Objects/ship_thruster.gd" id="1_r3kel"]
+
+[resource]
+script = ExtResource("1_r3kel")
+thrust = 400.0
+name = "Burner Thruster"
+mass = 5.0
+metadata/_custom_type_script = "uid://bjn3qcowugx7q"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ShipHull" load_steps=2 format=3 uid="uid://cx6qjtcurogox"]
+
+[ext_resource type="Script" uid="uid://na18bgp2ofyr" path="res://Objects/ship_hull.gd" id="1_dkmxn"]
+
+[resource]
+script = ExtResource("1_dkmxn")
+max_hp = 100.0
+damage_threshold = 5.0
+name = "Steel Hull"
+mass = 10.0
+metadata/_custom_type_script = "uid://na18bgp2ofyr"

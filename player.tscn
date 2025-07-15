@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://dy7y8ni7184re"]
+[gd_scene load_steps=3 format=3 uid="uid://dy7y8ni7184re"]
 
 [ext_resource type="Script" uid="uid://cijjyr2evynnk" path="res://player.gd" id="1_4flbx"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4flbx"]
+size = Vector2(10, 10)
+
 [node name="Player" type="Node2D"]
 script = ExtResource("1_4flbx")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_4flbx")

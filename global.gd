@@ -1,10 +1,12 @@
 extends Node
 
 
-var player_ship: Array[ShipComponent]
+var player_ship: Ship
 
 var is_xaragiln_friendly: bool = false
 var is_namurant_friendly: bool = true
+
+var time_scale: float = 4.8e5
 
 @onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
 

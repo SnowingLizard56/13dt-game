@@ -1,8 +1,8 @@
 class_name Level extends E127Controller
 
-const DENSITIES: PackedFloat64Array = [1.2e7, 1.2e6]
+const DENSITIES: PackedFloat64Array = [1.1e6, 1.3e6]
 const BIG_G: float = 6.67e-11
-const WELL_STRENGTH_CUTOFF: float = BIG_G * 8
+const WELL_STRENGTH_CUTOFF: float = BIG_G * 80
 
 
 var total_mass: float
@@ -12,7 +12,7 @@ var clockwise: float
 func _init() -> void:
 	# Randomly generate some parameters
 	total_mass = 10 ** randf_range(14.25, 14.75)
-	distance_scale = 1000
+	distance_scale = 10000
 	if randi_range(0, 1) == 0:
 		clockwise = TAU / 4
 	else:
@@ -20,11 +20,11 @@ func _init() -> void:
 
 
 func distribute_bodies() -> void:
-	add_bodies(total_mass, Vector2.ZERO, Vector2.ZERO, 0, 1800)
+	add_bodies(total_mass, Vector2.ZERO, Vector2.ZERO, 0, 1)
 
 
 func add_bodies(mass: float, centre: Vector2, velocity: Vector2, min_radius: float, max_radius: float) -> void:
-	var moon_mass: float = mass * randf_range(0.013, 0.13)
+	var moon_mass: float = mass * randf_range(0.13, 0.19)
 	mass -= moon_mass
 	
 	# Main body
@@ -61,7 +61,7 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2, min_radius: flo
 	
 	for i in moon_count:
 		if i > 0:
-			moon_distances[i] = min_radius + moon_influences[i] + moon_influences[i - 1]
+			moon_distances[i] = min_radius + moon_influences[i] + moon_distances[i - 1]
 		else:
 			moon_distances[i] = min_radius + moon_influences[i]
 		min_radius = moon_distances[i]
@@ -82,5 +82,5 @@ func generate_body(mass: float, position: Vector2, velocity: Vector2, density: f
 	# Cube root of 3m/4πd = r
 	var r = pow(3 * mass / (2 * TAU * density), 1.0 / 3.0)
 	if r > 1:
-		add_body(mass, r, position.x, position.y, 0.0, velocity.x, velocity.y)
+		add_body(mass, r, position.x, position.y, velocity.x, velocity.y)
 	return r

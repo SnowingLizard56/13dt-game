@@ -2,15 +2,19 @@ class_name Player extends Node2D
 
 const SPRITE_RADIUS: int = 5
 
-# floats are stored with double precision.
-var player_x: float = 0.0
-var player_y: float = 0.0
-var player_xv: float = 0.0
-var player_yv: float = 0.0
+signal player_died
+
+# floats are stored with double precision. Vector2s are single precision.
+var x: float = 500.0
+var y: float = 500.0
+var xv: float = 00.0
+var yv: float = 00.0
 
 var acceleration: float = 200.0
 
-@onready var ship: Array[ShipComponent] = Global.player_ship
+var level: Level
+
+@onready var ship: Ship = Global.player_ship
 
 
 func _process(delta: float) -> void:
@@ -22,19 +26,22 @@ func _process(delta: float) -> void:
 	).normalized()
 	
 	# Velocity then position
-	player_xv += acceleration * acceleration_input.x * delta
-	player_yv += acceleration * acceleration_input.y * delta
+	xv += acceleration * acceleration_input.x * delta
+	yv += acceleration * acceleration_input.y * delta
 	
-	if get_parent().level:
-		var gravity: Dictionary = get_parent().level.probe(delta * 1e8, player_x, player_y)
-		if gravity.has("collision_id"):
-			pass
-		else:
-			player_xv += gravity.ax
-			player_yv += gravity.ay
+	if !level:
+		level = get_parent().level
 	
-	player_x += player_xv * delta
-	player_y += player_yv * delta
+	var gravity: Dictionary = level.barnes_hut_probe(delta * Global.time_scale ** 2, x, y, 1.0, 0.0)
+	if gravity.has("collision_id"):
+		player_died.emit()
+		get_tree().paused = true
+	else:
+		xv += gravity.ax
+		yv += gravity.ay
+	
+	x += xv * delta
+	y += yv * delta
 
 
 func _draw() -> void:

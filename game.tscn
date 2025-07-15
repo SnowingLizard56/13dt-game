@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3dl8amhu3pcq"]
+[gd_scene load_steps=4 format=3 uid="uid://c3dl8amhu3pcq"]
 
 [ext_resource type="Script" uid="uid://cefbhjfki8lhm" path="res://game_controller.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dy7y8ni7184re" path="res://player.tscn" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://qhecmcb4b8gc" path="res://UI/minimap.tscn" id="3_feb5d"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_80nbo")
 
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
+zoom = Vector2(0.8, 0.8)
 
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
 unique_name_in_owner = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Minimap" parent="CanvasLayer" node_paths=PackedStringArray("levelcontroller") instance=ExtResource("3_feb5d")]
+offset_left = 851.0
+offset_top = 40.0
+offset_right = -80.0
+offset_bottom = -357.0
+zoom = 0.016
+levelcontroller = NodePath("../..")
+follow_player = true
