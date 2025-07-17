@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BasicCoilgun" load_steps=3 format=3 uid="uid://c5jl81m7fc4vy"]
+
+[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/Base/basic_coilgun.gd" id="1_xrker"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrker"]
+
+[resource]
+script = ExtResource("1_xrker")
+projectile_speed = 200.0
+projectile_shape = SubResource("CircleShape2D_xrker")
+trigger_cooldown = 0.5
+name = "Basic Coilgun"
+mass = 3.0
+metadata/_custom_type_script = "uid://dry63dly8f3dp"

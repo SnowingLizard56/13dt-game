@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_r3kel")
-thrust = 400.0
+thrust = 1600.0
 name = "Burner Thruster"
 mass = 5.0
 metadata/_custom_type_script = "uid://bjn3qcowugx7q"

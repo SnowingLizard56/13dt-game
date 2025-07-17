@@ -5,7 +5,7 @@ class_name TriggerComponent extends ShipComponent
 var trigger_ready: bool = true
 
 
-func _trigger(player: Player, ship: Ship):
+func _trigger(player: Player, _ship: Ship):
 	trigger_ready = false
 	await player.get_tree().create_timer(trigger_cooldown).timeout
 	trigger_ready = true

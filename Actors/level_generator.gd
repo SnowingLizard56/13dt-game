@@ -18,7 +18,6 @@ func _ready() -> void:
 func thread_main() -> void:
 	while true:
 		if len(levels_ready) < STORE_LEVELS:
-			var tick = Time.get_ticks_msec()
 			# If levels_ready < STORE_LEVELS
 			# Add GravityController
 			var level = Level.new()

@@ -1,0 +1,26 @@
+[gd_scene load_steps=9 format=3 uid="uid://dy7y8ni7184re"]
+
+[ext_resource type="Script" uid="uid://cijjyr2evynnk" path="res://Actors/player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Objects/ship_component.gd" id="2_l3d2q"]
+[ext_resource type="Resource" uid="uid://die46de8ofiu1" path="res://Assets/ShipComponents/Base/burner_thruster.tres" id="3_4bcxw"]
+[ext_resource type="Resource" uid="uid://cx6qjtcurogox" path="res://Assets/ShipComponents/Base/steel_hull.tres" id="4_1c8hm"]
+[ext_resource type="Resource" uid="uid://c5jl81m7fc4vy" path="res://Assets/ShipComponents/Base/basic_coilgun.tres" id="5_4bcxw"]
+[ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Objects/ship.gd" id="5_sinrj"]
+
+[sub_resource type="Resource" id="Resource_ks2ow"]
+script = ExtResource("5_sinrj")
+components = Array[ExtResource("2_l3d2q")]([ExtResource("3_4bcxw"), ExtResource("4_1c8hm"), ExtResource("5_4bcxw")])
+metadata/_custom_type_script = "uid://c46e5p1ib570o"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4flbx"]
+size = Vector2(10, 10)
+
+[node name="Collision" type="Area2D"]
+collision_mask = 10
+script = ExtResource("1_4flbx")
+ship = SubResource("Resource_ks2ow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4flbx")
+
+[connection signal="area_entered" from="." to="." method="_on_collision_area_entered"]

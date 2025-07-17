@@ -11,7 +11,7 @@ func _ready() -> void:
 	get_child(0).position = size / 2
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !level:
 		level = levelcontroller.level
 		return
@@ -28,5 +28,4 @@ func _on_drawer_draw() -> void:
 		x = levelcontroller.player.x
 		y = levelcontroller.player.y
 	for b in level.get_bodies():
-		var p: Vector2
-		d.draw_circle(Vector2(b.x-x, b.y-y)*zoom, max(b.r*zoom, 2), Color.WHITE)
+		d.draw_circle(Vector2(b.x - x, b.y - y) * zoom, max(b.r * zoom, 2), Color.WHITE)

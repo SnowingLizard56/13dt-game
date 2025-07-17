@@ -1,8 +1,16 @@
-extends TriggerComponent
+class_name BasicCoilgun extends TriggerComponent
 
+@export var projectile_speed: float
+@export var projectile_shape: Shape2D
+@export var projectile_mass: float
 
 func _trigger(player: Player, ship: Ship):
 	if !trigger_ready:
 		return
-	#player.add_child()
+	Projectile.new(
+		player,
+		Global.aim.x * projectile_speed,
+		Global.aim.y * projectile_speed,
+		projectile_shape
+		)
 	super(player, ship)

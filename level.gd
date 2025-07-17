@@ -34,7 +34,7 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2, min_radius: flo
 	
 	# Moons
 	# Set count
-	var moon_count: int = randi_range(6, 12)
+	var moon_count: int = 6
 	# Set randoms
 	var moon_masses: PackedFloat64Array = []
 	moon_masses.resize(moon_count + 1)

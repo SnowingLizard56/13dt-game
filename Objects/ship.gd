@@ -1,8 +1,8 @@
 class_name Ship extends Resource
 
-var components: Array[ShipComponent] = []
+@export var components: Array[ShipComponent] = []
 
-var trigger_components: Array[ShipComponent] = []
+var trigger_components: Array[TriggerComponent] = []
 
 # Warnings
 var no_hull: bool
@@ -16,15 +16,23 @@ var mass: float = 0
 var max_hp: float = 0
 var damage_threshold: float = 0
 
-# ? other stuff i guess idk
+var damage_resistances: Dictionary[DamageTypes.Types, float] = {}
+
+# ther stuff
 var acceleration: float = 0
 var hp: float = 0
 
+var thrust_modifier: float = 0:
+	set(v):
+		thrust_modifier = v
+		acceleration = (thrust + thrust_modifier) / mass
 
-func set_components(_components: Array[ShipComponent] = []):
+
+func set_components(_components: Array[ShipComponent] = []) -> void:
 	# Set
 	if _components:
 		components = _components
+	
 	# Reset
 	thrust = 0
 	mass = 0
@@ -33,9 +41,16 @@ func set_components(_components: Array[ShipComponent] = []):
 	has_multiple_hulls = false
 	has_multiple_thrusters = false
 	too_many_triggers = false
+	
 	# Iterate
 	for cmpnt in components:
 		mass += cmpnt.mass
+		if cmpnt.disabled:
+			continue
+		
+		for key in cmpnt.damage_resistances:
+			damage_resistances[key] = damage_resistances.get(key) + cmpnt.damage_resistances[key]
+		
 		if cmpnt is ShipThruster:
 			if !no_thruster:
 				has_multiple_thrusters = true
@@ -52,5 +67,18 @@ func set_components(_components: Array[ShipComponent] = []):
 				too_many_triggers = true
 			else:
 				trigger_components.append(cmpnt)
+		
+		cmpnt._installed(self)
 	acceleration = thrust / mass
 	hp = max_hp
+
+
+func damage(amnt: float, type: DamageTypes.Types = DamageTypes.Types.NONDESCRIPT):
+	# TODO
+	pass
+
+
+func trigger(trigger_index: int, player: Player) -> void:
+	assert(trigger_index < 4)
+	if trigger_index < len(trigger_components):
+		trigger_components[trigger_index]._trigger(player, self)

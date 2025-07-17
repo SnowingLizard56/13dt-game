@@ -8,6 +8,12 @@ var is_namurant_friendly: bool = true
 
 var time_scale: float = 4.8e5
 
+var mouse_aim: Vector2 = Vector2.RIGHT
+var joy_aim: Vector2 = Vector2.ZERO
+var aim: Vector2 = Vector2.ZERO
+var mouse_stale := false
+var joy_stale := true
+
 @onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
@@ -28,3 +34,24 @@ func array_shuffle(array: Array) -> Array:
 		array[rand_idx] = array[i]
 		array[i] = temp
 	return array
+
+
+func _process(_delta: float) -> void:
+	# Get each device aim
+	var new_mouse: Vector2 = (get_viewport().get_mouse_position() - get_viewport().get_visible_rect().get_center()).normalized()
+	if new_mouse == mouse_aim:
+		mouse_stale = true
+	else:
+		mouse_aim = new_mouse
+	
+	var new_joy: Vector2 = Vector2(Input.get_axis("aim_left", "aim_right"),Input.get_axis("aim_up", "aim_down"))
+	if new_joy == joy_aim:
+		joy_stale = true
+	else:
+		joy_aim = new_joy
+	
+	# Decide which to use
+	if !joy_stale:
+		aim = joy_aim
+	elif joy_stale and !mouse_stale:
+		aim = mouse_aim
