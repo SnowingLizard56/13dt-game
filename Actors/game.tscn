@@ -17,11 +17,12 @@ zoom = Vector2(0.8, 0.8)
 unique_name_in_owner = true
 process_mode = 1
 process_priority = -1
+z_index = 1
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Foreground (UI)" type="CanvasLayer" parent="."]
 process_mode = 1
 
-[node name="Minimap" parent="CanvasLayer" node_paths=PackedStringArray("levelcontroller") instance=ExtResource("3_feb5d")]
+[node name="Minimap" parent="Foreground (UI)" node_paths=PackedStringArray("levelcontroller") instance=ExtResource("3_feb5d")]
 offset_left = 851.0
 offset_top = 40.0
 offset_right = -80.0
@@ -29,3 +30,16 @@ offset_bottom = -357.0
 zoom = 0.016
 levelcontroller = NodePath("../..")
 follow_player = true
+
+[node name="Background" type="CanvasLayer" parent="."]
+process_mode = 1
+layer = -1
+
+[node name="Background" type="ColorRect" parent="Background"]
+z_index = -255
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.105882, 0.14902, 1)

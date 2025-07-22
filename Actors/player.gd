@@ -5,10 +5,10 @@ const SPRITE_RADIUS: int = 5
 signal player_died
 
 # floats are stored with double precision. Vector2s are single precision.
-var x: float = 500.0
-var y: float = 500.0
-var vx: float = 50.0
-var vy: float = 50.0
+var x: float = 750.0
+var y: float = 750.0
+var vx: float = 0.0
+var vy: float = 0.0
 
 var level: Level
 

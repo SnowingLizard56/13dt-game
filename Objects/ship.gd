@@ -69,6 +69,7 @@ func set_components(_components: Array[ShipComponent] = []) -> void:
 				trigger_components.append(cmpnt)
 		
 		cmpnt._installed(self)
+	# Totals & Calculations
 	acceleration = thrust / mass
 	hp = max_hp
 

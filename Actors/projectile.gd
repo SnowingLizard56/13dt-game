@@ -15,7 +15,7 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D) -> void:
 	vy = src.vy + dvy
 	source = src
 	process_priority = source.process_priority + 1
-	root = get_tree().current_scene
+	root = Global.get_tree().current_scene
 	root.add_child(self)
 	add_child(CollisionShape2D.new())
 	get_child(0).shape = shape

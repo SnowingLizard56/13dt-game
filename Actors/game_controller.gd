@@ -17,6 +17,10 @@ func _ready() -> void:
 	level.body_collided.connect(delete_body_area)
 	add_child(level)
 	update_areas()
+	player.x = level.player_spawn_x
+	player.y = level.player_spawn_y
+	player.vx = level.player_spawn_vx
+	player.vy = level.player_spawn_vy
 
 
 func _process(delta: float) -> void:
@@ -34,12 +38,6 @@ func _process(delta: float) -> void:
 			queue_redraw()
 
 
-func _draw() -> void:
-	if level:
-		for b in level.get_bodies():
-			draw_circle(Vector2(b.x - player.x, b.y - player.y), b.r, Color.WHITE)
-
-
 func update_areas() -> void:
 	for b in level.get_bodies():
 		if !areas.has(b.id):
@@ -52,7 +50,11 @@ func update_areas() -> void:
 			areas[b.id].add_child(col)
 			areas[b.id].collision_layer = 2
 			areas[b.id].collision_mask = 0
-		
+			areas[b.id].draw.connect(areas[b.id].draw_circle.bind(
+				Vector2.ZERO,
+				b.r,
+				"f5e8d1"
+				))
 		areas[b.id].position = Vector2(b.x-player.x, b.y-player.y)
 
 

@@ -8,6 +8,11 @@ const WELL_STRENGTH_CUTOFF: float = BIG_G * 80
 var total_mass: float
 var clockwise: float
 
+var player_spawn_x: float
+var player_spawn_y: float
+var player_spawn_vx: float
+var player_spawn_vy: float
+
 
 func _init() -> void:
 	# Randomly generate some parameters
@@ -59,22 +64,38 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2, min_radius: flo
 	var moon_distances: PackedFloat64Array = []
 	moon_distances.resize(moon_count + 1)
 	
+	var star_radius: float = min_radius
+	
 	for i in moon_count:
 		if i > 0:
 			moon_distances[i] = min_radius + moon_influences[i] + moon_distances[i - 1]
+			
 		else:
 			moon_distances[i] = min_radius + moon_influences[i]
 		min_radius = moon_distances[i]
 	
 	# Make them
+	var first_moon_radius: float
 	for i in moon_count:
 		var angle: float = randf_range(0, TAU)
-		generate_body(
+		var radius: float = generate_body(
 			moon_masses[i], 
 			centre + Vector2.from_angle(angle) * moon_distances[i],
 			velocity + Vector2.from_angle(angle + clockwise) * sqrt(mass * BIG_G / moon_distances[i]) / distance_scale,
 			DENSITIES[1]
 		)
+		if !first_moon_radius:
+			first_moon_radius = radius
+	
+	var distance: float = star_radius + (moon_distances[0] - first_moon_radius - star_radius) / 2
+	var angle: float = randf_range(0, TAU)
+	
+	player_spawn_x = cos(angle) * distance
+	player_spawn_y = sin(angle) * distance
+	
+	var vel: float = sqrt(mass * BIG_G / distance) * 42
+	player_spawn_vx = cos(angle + clockwise) * vel
+	player_spawn_vy = sin(angle + clockwise) * vel
 
 
 func generate_body(mass: float, position: Vector2, velocity: Vector2, density: float) -> float:
