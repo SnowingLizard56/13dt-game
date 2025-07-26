@@ -3,6 +3,7 @@ extends ColorRect
 @export var zoom: float = 1.0
 @export var levelcontroller: Node2D
 @export var follow_player: bool = false
+@export var draw_player: bool = true
 
 var level: Level
 
@@ -29,3 +30,5 @@ func _on_drawer_draw() -> void:
 		y = levelcontroller.player.y
 	for b in level.get_bodies():
 		d.draw_circle(Vector2(b.x - x, b.y - y) * zoom, max(b.r * zoom, 2), Color.WHITE)
+	if draw_player:
+		d.draw_circle(Vector2(levelcontroller.player.x - x, levelcontroller.player.y - y) * zoom, 1, "20a5a6")

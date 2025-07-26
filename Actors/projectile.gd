@@ -7,6 +7,7 @@ var vy: float
 var source: Node2D
 var root: LevelController 
 
+signal hit_body(id: int)
 
 func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D) -> void:
 	x = src.x
@@ -20,24 +21,31 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D) -> void:
 	add_child(CollisionShape2D.new())
 	get_child(0).shape = shape
 	collision_layer = 8
-	collision_mask = 5
+	collision_mask = 7
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	area_entered.connect(_on_collision_area_entered)
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var grav: Dictionary = root.level.barnes_hut_probe(delta * Global.time_scale ** 2, x, y, 1.4)
 	vx += grav.ax
 	vy += grav.ay
-	x += vx
-	y += vy
+	x += vx * delta
+	y += vy * delta
 	position = Vector2(x - root.player.x, y - root.player.y)
 
 
 func _on_collision_area_entered(area: Area2D) -> void:
-	# TODO
-	pass
+	if area.collision_layer == 2:
+		# Hit body. by bye
+		hit_body.emit(area.get_meta("id"))
+		queue_free()
 
 
 func _draw() -> void:
-	# TODO
-	pass
+	if get_child(0).shape is CircleShape2D:
+		draw_circle(
+			Vector2.ZERO,
+			get_child(0).shape.radius,
+			Color.WHITE
+		)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dy7y8ni7184re"]
+[gd_scene load_steps=10 format=3 uid="uid://dy7y8ni7184re"]
 
 [ext_resource type="Script" uid="uid://cijjyr2evynnk" path="res://Actors/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Objects/ship_component.gd" id="2_l3d2q"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://cx6qjtcurogox" path="res://Assets/ShipComponents/Base/steel_hull.tres" id="4_1c8hm"]
 [ext_resource type="Resource" uid="uid://c5jl81m7fc4vy" path="res://Assets/ShipComponents/Base/basic_coilgun.tres" id="5_4bcxw"]
 [ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Objects/ship.gd" id="5_sinrj"]
+[ext_resource type="Script" uid="uid://dl4qpcoxkafh3" path="res://Actors/thrust_feedback.gd" id="7_1c8hm"]
 
 [sub_resource type="Resource" id="Resource_ks2ow"]
 script = ExtResource("5_sinrj")
@@ -16,6 +17,7 @@ metadata/_custom_type_script = "uid://c46e5p1ib570o"
 b = Vector2(0, 0)
 
 [node name="Collision" type="Area2D"]
+z_index = 1
 collision_mask = 10
 script = ExtResource("1_4flbx")
 ship = SubResource("Resource_ks2ow")
@@ -23,4 +25,8 @@ ship = SubResource("Resource_ks2ow")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("SegmentShape2D_4bcxw")
 
-[connection signal="area_entered" from="." to="." method="_on_collision_area_entered"]
+[node name="AccelerationFeedback" type="Node2D" parent="."]
+z_index = -1
+script = ExtResource("7_1c8hm")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

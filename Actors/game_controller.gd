@@ -8,6 +8,8 @@ var game_rect: Rect2
 
 var areas: Dictionary[int, Area2D] = {}
 
+var quad_tl: Vector2i = -Vector2i.ONE
+
 
 func _ready() -> void:
 	get_tree().paused = true
@@ -21,21 +23,26 @@ func _ready() -> void:
 	player.y = level.player_spawn_y
 	player.vx = level.player_spawn_vx
 	player.vy = level.player_spawn_vy
+	
+	game_rect = camera.get_viewport_rect()
+	game_rect.size /= camera.zoom.x
+	
+	get_node("Background").new_layer(0.005)
+	get_node("Background").new_layer(0.007)
+	get_node("Background").new_layer(0.01)
+	get_node("Background").new_layer(0.02)
+	get_node("Background").new_layer(0.025)
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if get_tree().paused:
 		pass
 	else:
-		if level:
-			level.naive_step(delta * Global.time_scale)
-			
-			game_rect = camera.get_viewport_rect()
-			game_rect.size /= camera.zoom.x
-			
-			game_rect.position = Vector2(player.x, player.y) - game_rect.size / 2
-			update_areas()
-			queue_redraw()
+		level.naive_step(delta * Global.time_scale)
+		
+		game_rect.position = Vector2(player.x, player.y) - game_rect.size / 2
+		update_areas()
+		queue_redraw()
 
 
 func update_areas() -> void:
@@ -55,9 +62,10 @@ func update_areas() -> void:
 				b.r,
 				"f5e8d1"
 				))
+			areas[b.id].set_meta("id", b.id)
 		areas[b.id].position = Vector2(b.x-player.x, b.y-player.y)
 
 
-func delete_body_area(old_id: int, _new_id: int):
+func delete_body_area(old_id: int, _new_id: int) -> void:
 	areas[old_id].queue_free()
 	areas.erase(old_id)

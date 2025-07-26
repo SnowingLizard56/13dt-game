@@ -14,6 +14,8 @@ var aim: Vector2 = Vector2.ZERO
 var mouse_stale := false
 var joy_stale := true
 
+var level_seed: int = 1
+
 @onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
@@ -43,15 +45,18 @@ func _process(_delta: float) -> void:
 		mouse_stale = true
 	else:
 		mouse_aim = new_mouse
+		mouse_stale = false
 	
 	var new_joy: Vector2 = Vector2(Input.get_axis("aim_left", "aim_right"),Input.get_axis("aim_up", "aim_down"))
 	if new_joy == joy_aim:
 		joy_stale = true
 	else:
 		joy_aim = new_joy
+		joy_stale = false
 	
 	# Decide which to use
 	if !joy_stale:
 		aim = joy_aim
 	elif joy_stale and !mouse_stale:
 		aim = mouse_aim
+	
