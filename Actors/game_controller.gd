@@ -63,7 +63,7 @@ func update_areas() -> void:
 				"f5e8d1"
 				))
 			areas[b.id].set_meta("id", b.id)
-		areas[b.id].position = Vector2(b.x-player.x, b.y-player.y)
+		areas[b.id].position = Vector2(b.x - player.x, b.y - player.y)
 
 
 func delete_body_area(old_id: int, _new_id: int) -> void:

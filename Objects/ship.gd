@@ -36,20 +36,17 @@ func set_components(_components: Array[ShipComponent] = []) -> void:
 	# Reset
 	thrust = 0
 	mass = 0
+	max_hp = 0
 	no_hull = true
 	no_thruster = true
 	has_multiple_hulls = false
 	has_multiple_thrusters = false
 	too_many_triggers = false
+	trigger_components = []
 	
 	# Iterate
 	for cmpnt in components:
 		mass += cmpnt.mass
-		if cmpnt.disabled:
-			continue
-		
-		for key in cmpnt.damage_resistances:
-			damage_resistances[key] = damage_resistances.get(key) + cmpnt.damage_resistances[key]
 		
 		if cmpnt is ShipThruster:
 			if !no_thruster:
@@ -71,6 +68,8 @@ func set_components(_components: Array[ShipComponent] = []) -> void:
 		cmpnt._installed(self)
 	# Totals & Calculations
 	acceleration = thrust / mass
+	if is_nan(acceleration):
+		acceleration = 0
 	hp = max_hp
 
 

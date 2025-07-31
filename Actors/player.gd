@@ -4,7 +4,8 @@ const SPRITE_RADIUS: int = 5
 
 signal player_died
 
-# floats are stored with double precision. Vector2s are single precision.
+# Fun fact! floats are stored with double precision,
+# while floats that are part of Vector2s are single precision.
 var x: float = 750.0
 var y: float = 750.0
 var vx: float = 0.0
@@ -16,21 +17,43 @@ var level: Level
 @export var ship: Ship
 
 
+var trigger_queue: PackedInt32Array = []
+var trigger_timer_queue: PackedFloat32Array = []
+
+
+func add_to_trigger_queue(id: int):
+	if not id in trigger_queue:
+		trigger_queue.append(id)
+		if len(trigger_timer_queue):
+			trigger_timer_queue.append(0.05)
+		else:
+			trigger_timer_queue.append(0.0)
+
+
 func _ready() -> void:
 	ship.set_components()
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	# Triggers
-	if Input.is_action_just_pressed("trigger_1"):
-		ship.trigger(0, self)
-	if Input.is_action_just_pressed("trigger_2"):
-		ship.trigger(1, self)
-	if Input.is_action_just_pressed("trigger_3"):
-		ship.trigger(2, self)
-	if Input.is_action_just_pressed("trigger_4"):
-		ship.trigger(3, self)
+	if Input.is_action_pressed("trigger_1"):
+		add_to_trigger_queue(0)
+	if Input.is_action_pressed("trigger_2"):
+		add_to_trigger_queue(1)
+	if Input.is_action_pressed("trigger_3"):
+		add_to_trigger_queue(2)
+	if Input.is_action_pressed("trigger_4"):
+		add_to_trigger_queue(3)
 	
+	if trigger_timer_queue:
+		trigger_timer_queue[0] -= delta
+		if trigger_timer_queue[0] <= 0.0:
+			ship.trigger(trigger_queue[0], self)
+			trigger_queue.remove_at(0)
+			trigger_timer_queue.remove_at(0)
+
+
+func _physics_process(delta: float) -> void:
 	# Take input
 	var acceleration_input = Vector2(
 		Input.get_axis("player_left", "player_right"),

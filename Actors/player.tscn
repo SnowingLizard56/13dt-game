@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dy7y8ni7184re"]
+[gd_scene load_steps=13 format=3 uid="uid://dy7y8ni7184re"]
 
 [ext_resource type="Script" uid="uid://cijjyr2evynnk" path="res://Actors/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Objects/ship_component.gd" id="2_l3d2q"]
@@ -6,11 +6,26 @@
 [ext_resource type="Resource" uid="uid://cx6qjtcurogox" path="res://Assets/ShipComponents/Base/steel_hull.tres" id="4_1c8hm"]
 [ext_resource type="Resource" uid="uid://c5jl81m7fc4vy" path="res://Assets/ShipComponents/Base/basic_coilgun.tres" id="5_4bcxw"]
 [ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Objects/ship.gd" id="5_sinrj"]
+[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/Base/basic_coilgun.gd" id="6_sinrj"]
 [ext_resource type="Script" uid="uid://dl4qpcoxkafh3" path="res://Actors/thrust_feedback.gd" id="7_1c8hm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrker"]
+radius = 5.0
+
+[sub_resource type="Resource" id="Resource_tvot5"]
+script = ExtResource("6_sinrj")
+projectile_speed = 200.0
+projectile_shape = SubResource("CircleShape2D_xrker")
+projectile_mass = 1.0
+trigger_cooldown = 0.5
+name = "Beam Gun Yay()"
+description = "--"
+mass = 3.0
+metadata/_custom_type_script = "uid://dry63dly8f3dp"
 
 [sub_resource type="Resource" id="Resource_ks2ow"]
 script = ExtResource("5_sinrj")
-components = Array[ExtResource("2_l3d2q")]([ExtResource("3_4bcxw"), ExtResource("4_1c8hm"), ExtResource("5_4bcxw")])
+components = Array[ExtResource("2_l3d2q")]([ExtResource("3_4bcxw"), ExtResource("4_1c8hm"), ExtResource("5_4bcxw"), SubResource("Resource_tvot5")])
 metadata/_custom_type_script = "uid://c46e5p1ib570o"
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_4bcxw"]
