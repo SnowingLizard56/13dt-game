@@ -24,7 +24,7 @@ var trigger_timer_queue: PackedFloat32Array = []
 func add_to_trigger_queue(id: int):
 	if not id in trigger_queue:
 		trigger_queue.append(id)
-		if len(trigger_timer_queue):
+		if trigger_timer_queue:
 			trigger_timer_queue.append(0.05)
 		else:
 			trigger_timer_queue.append(0.0)
@@ -73,9 +73,9 @@ func _physics_process(delta: float) -> void:
 	if !level:
 		level = get_parent().level
 	
-	var grav: Dictionary = level.barnes_hut_probe(delta * Global.time_scale ** 2, x, y, 1.0, 0.0)
-	vx += grav.ax
-	vy += grav.ay
+	var grav: Dictionary = level.barnes_hut_probe(Global.time_scale, x, y, 1.0, 0.0)
+	vx += grav.ax * delta
+	vy += grav.ay * delta
 	
 	x += vx * delta
 	y += vy * delta

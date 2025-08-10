@@ -19,8 +19,6 @@ const SHIP_SPRITE_RADIUS = 20
 @export var spare_components: VBoxContainer
 @export var continue_button: CustomButton
 
-signal finished
-
 
 func _ready() -> void:
 	# DEBUG
@@ -113,6 +111,7 @@ func reprocess() -> void:
 		player.ship.max_hp,
 	], 2))
 
+
 # Handle hover of component button
 func update_component_stat_display(component: ShipComponent):
 	cmpnt_title.text = component.name
@@ -140,6 +139,20 @@ func round_to_dp(data: Array, dp: int) -> Array:
 	return data
 
 
-func _on_continue_pressed() -> void:
-	finished.emit()
+func start(available_components: Array[ShipComponent]) -> Array[ShipComponent]:
+	# Setup
+	for c in available_components:
+		add_component_option(c, spare_components)
+	
+	# Wait
+	get_tree().paused = true
+	show()
+	await continue_button.pressed
+	get_tree().paused = false
 	hide()
+	
+	# Setdown
+	var out: Array[ShipComponent] = []
+	for n: ShipComponentNode in spare_components.get_children():
+		out.append(n.component)
+	return out

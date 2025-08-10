@@ -7,7 +7,7 @@ var target_rotation: float:
 		target_rotation = v
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	queue_redraw()
 	global_rotation = lerp_angle(global_rotation, target_rotation, 0.3)
 

@@ -77,11 +77,11 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2, min_radius: flo
 	# Make them
 	var first_moon_radius: float
 	for i in moon_count:
-		var angle: float = randf_range(0, TAU)
+		var pos_angle: float = randf_range(0, TAU)
 		var radius: float = generate_body(
 			moon_masses[i], 
-			centre + Vector2.from_angle(angle) * moon_distances[i],
-			velocity + Vector2.from_angle(angle + clockwise) * sqrt(mass * BIG_G / moon_distances[i]) / distance_scale,
+			centre + Vector2.from_angle(pos_angle) * moon_distances[i],
+			velocity + Vector2.from_angle(pos_angle + clockwise) * sqrt(mass * BIG_G / moon_distances[i]) / distance_scale,
 			DENSITIES[1]
 		)
 		if !first_moon_radius:

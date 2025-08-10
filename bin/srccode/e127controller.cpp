@@ -227,8 +227,8 @@ Dictionary E127Controller::naive_probe(double delta, double x, double y) {
         ax += axis_cf * dx;
         ay += axis_cf * dy;
     }
-    out.set("ax", ax);
-    out.set("ay", ay);
+    out.set("ax", ax * delta);
+    out.set("ay", ay * delta);
     return out;
 }
 
@@ -503,8 +503,8 @@ Dictionary E127Controller::barnes_hut_probe(double delta, double x, double y, do
         ax += axis_cf * dx;
         ay += axis_cf * dy;
     }
-    out.set("ax", ax);
-    out.set("ay", ay);
+    out.set("ax", ax * delta);
+    out.set("ay", ay * delta);
     return out;
 }
 

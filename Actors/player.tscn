@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://dy7y8ni7184re"]
+[gd_scene load_steps=14 format=3 uid="uid://dy7y8ni7184re"]
 
 [ext_resource type="Script" uid="uid://cijjyr2evynnk" path="res://Actors/player.gd" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Objects/ship_component.gd" id="2_l3d2q"]
+[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/ship_component.gd" id="2_l3d2q"]
 [ext_resource type="Resource" uid="uid://die46de8ofiu1" path="res://Assets/ShipComponents/Base/burner_thruster.tres" id="3_4bcxw"]
 [ext_resource type="Resource" uid="uid://cx6qjtcurogox" path="res://Assets/ShipComponents/Base/steel_hull.tres" id="4_1c8hm"]
 [ext_resource type="Resource" uid="uid://c5jl81m7fc4vy" path="res://Assets/ShipComponents/Base/basic_coilgun.tres" id="5_4bcxw"]
-[ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Objects/ship.gd" id="5_sinrj"]
+[ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Assets/ShipComponents/ship.gd" id="5_sinrj"]
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/ship_property_modifier.gd" id="6_ks2ow"]
 [ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/Base/basic_coilgun.gd" id="6_sinrj"]
 [ext_resource type="Script" uid="uid://dl4qpcoxkafh3" path="res://Actors/thrust_feedback.gd" id="7_1c8hm"]
 
@@ -21,6 +22,8 @@ trigger_cooldown = 0.5
 name = "Beam Gun Yay()"
 description = "--"
 mass = 3.0
+sell_value = 0.0
+misc_properties = Array[ExtResource("6_ks2ow")]([])
 metadata/_custom_type_script = "uid://dry63dly8f3dp"
 
 [sub_resource type="Resource" id="Resource_ks2ow"]
@@ -33,7 +36,7 @@ b = Vector2(0, 0)
 
 [node name="Collision" type="Area2D"]
 z_index = 1
-collision_mask = 10
+collision_mask = 26
 script = ExtResource("1_4flbx")
 ship = SubResource("Resource_ks2ow")
 

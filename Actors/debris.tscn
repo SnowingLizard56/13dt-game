@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8r4p02rporyc"]
+
+[ext_resource type="Script" uid="uid://y6nepifo3v8j" path="res://Actors/debris.gd" id="1_8qqyi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s4x4s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8qqyi"]
+radius = 50.0
+
+[node name="Debris" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_8qqyi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s4x4s")
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("CircleShape2D_8qqyi")

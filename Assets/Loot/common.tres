@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=2 format=3 uid="uid://dc0kvoufr8sps"]
+
+[ext_resource type="Script" uid="uid://ddyfayvy5r4u6" path="res://Assets/Loot/loot_table.gd" id="1_6rf0d"]
+
+[resource]
+script = ExtResource("1_6rf0d")
+weight = 75.0
+table = Array[ExtResource("1_6rf0d")]([])
+metadata/_custom_type_script = "uid://ddyfayvy5r4u6"

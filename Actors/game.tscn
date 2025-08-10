@@ -42,6 +42,7 @@ follow_player = true
 
 [node name="ComponentControl" type="Control" parent="Foreground (UI)" node_paths=PackedStringArray("ship_display", "ship_desc", "warning_display", "warning_label", "cmpnt_title", "cmpnt_desc", "installed_count_label", "spare_count_label", "installed_components", "spare_components", "continue_button")]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

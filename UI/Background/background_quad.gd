@@ -23,7 +23,7 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	Global.random.seed = grid_pos.x + grid_pos.y * 2**16 + Global.level_seed + layer.seed
+	Global.random.seed = grid_pos.x + grid_pos.y * 2**16 + Global.level_seed + layer.layer_seed
 	var count: float =  Global.random.randf_range(3, 8)
 	while count > 0:
 		var idx: int = Global.random.rand_weighted(DECORATION_WEIGHTS[layer.group])

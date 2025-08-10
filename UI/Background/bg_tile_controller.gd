@@ -21,13 +21,13 @@ func new_layer(factor: float, group: BackgroundQuad.DecorationGroup = Background
 	return layer
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	for i in layers:
 		i.update_position(player)
 
 
 class Layer:
-	var seed: int = randi() % 2 ** 32
+	var layer_seed: int = randi() % 2 ** 32
 	var parallax_factor: float = 1.0
 	var quads: Array[BackgroundQuad] = []
 	var game_size: Vector2

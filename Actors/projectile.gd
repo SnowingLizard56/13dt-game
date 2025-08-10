@@ -35,9 +35,9 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	var grav: Dictionary = root.level.barnes_hut_probe(delta * Global.time_scale ** 2, x, y, 1.4)
-	vx += grav.ax
-	vy += grav.ay
+	var grav: Dictionary = root.level.barnes_hut_probe(Global.time_scale, x, y, 1.4)
+	vx += grav.ax * delta
+	vy += grav.ay * delta
 	x += vx * delta
 	y += vy * delta
 	position = Vector2(x - root.player.x, y - root.player.y)

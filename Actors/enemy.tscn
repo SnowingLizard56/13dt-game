@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5tp3v3da81oa"]
+[gd_scene load_steps=3 format=3 uid="uid://cidqu50k3u2fj"]
 
-[ext_resource type="Script" uid="uid://ias2oxk8emxg" path="res://Actors/foe.gd" id="1_pgd2a"]
+[ext_resource type="Script" uid="uid://dsgbbp84queou" path="res://Actors/enemy.gd" id="1_pgd2a"]
 
-[node name="Enemy" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_rracr"]
+radius = 5.0
+
+[node name="Enemy" type="Area2D"]
+collision_layer = 4
+collision_mask = 9
 script = ExtResource("1_pgd2a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rracr")

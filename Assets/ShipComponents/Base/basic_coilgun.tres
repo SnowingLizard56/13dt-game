@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="BasicCoilgun" load_steps=3 format=3 uid="uid://c5jl81m7fc4vy"]
+[gd_resource type="Resource" script_class="BasicCoilgun" load_steps=4 format=3 uid="uid://c5jl81m7fc4vy"]
 
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/ship_property_modifier.gd" id="1_48gtp"]
 [ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/Base/basic_coilgun.gd" id="1_xrker"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrker"]
@@ -14,5 +15,6 @@ trigger_cooldown = 0.5
 name = "Basic Coilgun"
 description = "--"
 mass = 3.0
-damage_resistances = Dictionary[int, float]({})
+sell_value = 0.0
+misc_properties = Array[ExtResource("1_48gtp")]([])
 metadata/_custom_type_script = "uid://dry63dly8f3dp"
