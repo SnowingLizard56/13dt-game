@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://cidqu50k3u2fj"]
+
+[ext_resource type="Script" uid="uid://dsgbbp84queou" path="res://Actors/Enemies/flying_enemy.gd" id="1_pgd2a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rracr"]
+radius = 5.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_pgd2a"]
+b = Vector2(0, 0)
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_pgd2a")
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_rracr")
+
+[node name="Position" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Position"]
+shape = SubResource("SegmentShape2D_pgd2a")
+
+[node name="PathPrediction" type="Node2D" parent="."]
+
+[node name="Segment0" type="RayCast2D" parent="PathPrediction"]
+position = Vector2(0, 50)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Segment1" type="RayCast2D" parent="PathPrediction"]
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Segment2" type="RayCast2D" parent="PathPrediction"]
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Segment3" type="RayCast2D" parent="PathPrediction"]
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Segment4" type="RayCast2D" parent="PathPrediction"]
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Segment5" type="RayCast2D" parent="PathPrediction"]
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Segment6" type="RayCast2D" parent="PathPrediction"]
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Segment7" type="RayCast2D" parent="PathPrediction"]
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[connection signal="draw" from="Sprite" to="." method="draw_sprite"]
+[connection signal="area_entered" from="Position" to="." method="collide_with_planet"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://dy7y8ni7184re"]
 
-[ext_resource type="Script" uid="uid://cijjyr2evynnk" path="res://Actors/player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://cijjyr2evynnk" path="res://Actors/Player/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/ship_component.gd" id="2_l3d2q"]
 [ext_resource type="Resource" uid="uid://die46de8ofiu1" path="res://Assets/ShipComponents/Base/burner_thruster.tres" id="3_4bcxw"]
 [ext_resource type="Resource" uid="uid://cx6qjtcurogox" path="res://Assets/ShipComponents/Base/steel_hull.tres" id="4_1c8hm"]
@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Assets/ShipComponents/ship.gd" id="5_sinrj"]
 [ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/ship_property_modifier.gd" id="6_ks2ow"]
 [ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/Base/basic_coilgun.gd" id="6_sinrj"]
-[ext_resource type="Script" uid="uid://dl4qpcoxkafh3" path="res://Actors/thrust_feedback.gd" id="7_1c8hm"]
+[ext_resource type="Script" uid="uid://dl4qpcoxkafh3" path="res://Actors/Player/thrust_feedback.gd" id="7_1c8hm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrker"]
 radius = 5.0

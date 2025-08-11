@@ -1,19 +1,21 @@
 extends Area2D
 
-var x: float
-var y: float
+@onready var x: float = position.x
+@onready var y: float = position.y
 var vx: float = 0
 var vy: float = 0
 
-@onready var levelcontroller: LevelController = get_tree().current_scene
+@onready var root: LevelController = get_tree().current_scene
 
 
 func _physics_process(delta: float) -> void:
-	var grav: Dictionary = levelcontroller.level.barnes_hut_probe(Global.time_scale, x, y)
+	if !root.level: return
+	var grav: Dictionary = root.level.barnes_hut_probe(Global.time_scale, x, y)
 	vx += grav.ax * delta
 	vy += grav.ay * delta
 	x += vx * delta
 	y += vy * delta
+	position = Vector2(x - root.player.x, y - root.player.y)
 
 
 func _process(delta: float) -> void:

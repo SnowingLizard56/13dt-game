@@ -6,9 +6,10 @@ var game_rect: Rect2
 @onready var player: Player = %Player
 @onready var camera: Camera2D = %Camera
 
-var areas: Dictionary[int, Area2D] = {}
-
 var quad_tl: Vector2i = -Vector2i.ONE
+
+var areas: Dictionary[int, Area2D] = {}
+var predictions: Dictionary[float, Level] = {}
 
 
 func _ready() -> void:
@@ -39,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		pass
 	else:
 		level.naive_step(delta * Global.time_scale)
-		
+		predictions = {}
 		game_rect.position = Vector2(player.x, player.y) - game_rect.size / 2
 		update_areas()
 		queue_redraw()
@@ -63,9 +64,22 @@ func update_areas() -> void:
 				"f5e8d1"
 				))
 			areas[b.id].set_meta("id", b.id)
+			
 		areas[b.id].position = Vector2(b.x - player.x, b.y - player.y)
 
 
 func delete_body_area(old_id: int, _new_id: int) -> void:
 	areas[old_id].queue_free()
 	areas.erase(old_id)
+
+
+func get_prediction(in_time: float) -> Level:
+	if predictions.has(in_time):
+		return predictions[in_time]
+	
+	var out: Level = level.duplicate()
+	for i in level.get_bodies():
+		out.add_body(i.m, i.r, i.x, i.y, i.vx, i.vy)
+	out.barnes_hut_step(in_time * Global.time_scale, 2.0)
+	predictions[in_time] = out
+	return out

@@ -14,8 +14,8 @@ metadata/_custom_type_script = "uid://cd5jy5orofv6u"
 script = ExtResource("2_l7d12")
 name = "Four-Leaf Panel"
 description = "--
-Increases your chances of finding rare items."
+Increases your chances of finding rare components."
 mass = 4.0
-sell_value = 0.0
+sell_value = 0.4
 misc_properties = Array[ExtResource("1_4ru1k")]([SubResource("Resource_jicb6")])
 metadata/_custom_type_script = "uid://bvhobxwrsqcti"

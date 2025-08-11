@@ -16,8 +16,8 @@ signal hit_body(id: int)
 func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D) -> void:
 	vx = src.vx + dvx
 	vy = src.vy + dvy
-	x = src.x + vx / 60 + dvx * 0.1
-	y = src.y + vy / 60 + dvy * 0.1
+	x = src.x + dvx * 0.1
+	y = src.y + dvy * 0.1
 	source = src
 	process_priority = source.process_priority + 1
 	root = Global.get_tree().current_scene

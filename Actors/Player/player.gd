@@ -16,7 +16,6 @@ var level: Level
 #@onready var ship: Ship = Global.player_ship
 @export var ship: Ship
 
-
 var trigger_queue: PackedInt32Array = []
 var trigger_timer_queue: PackedFloat32Array = []
 
