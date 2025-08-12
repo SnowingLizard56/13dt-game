@@ -31,42 +31,42 @@ shape = SubResource("SegmentShape2D_pgd2a")
 
 [node name="Segment0" type="RayCast2D" parent="PathPrediction"]
 position = Vector2(0, 50)
-collision_mask = 2
+collision_mask = 258
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment1" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 2
+collision_mask = 770
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment2" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 2
+collision_mask = 1794
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment3" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 2
+collision_mask = 3584
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment4" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 2
+collision_mask = 7168
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment5" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 2
+collision_mask = 14336
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment6" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 2
+collision_mask = 28672
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment7" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 2
+collision_mask = 57344
 collide_with_areas = true
 collide_with_bodies = false
 

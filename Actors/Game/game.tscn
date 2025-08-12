@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cefbhjfki8lhm" path="res://Actors/Game/game_controller.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dy7y8ni7184re" path="res://Actors/Player/player.tscn" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://d23yrshdacsq" path="res://Actors/Game/body.tscn" id="2_evbej"]
 [ext_resource type="Script" uid="uid://b8xt6xjhk1wib" path="res://UI/Background/bg_tile_controller.gd" id="2_u58dc"]
 [ext_resource type="PackedScene" uid="uid://qhecmcb4b8gc" path="res://UI/minimap.tscn" id="3_feb5d"]
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="5_1qbs2"]
@@ -9,14 +10,19 @@
 [ext_resource type="Script" uid="uid://dwgfpgetncjn7" path="res://UI/warning_display.gd" id="6_eb0fe"]
 [ext_resource type="PackedScene" uid="uid://r58cdlaud3e7" path="res://UI/component.tscn" id="8_7t8eg"]
 [ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="9_eiboj"]
-[ext_resource type="PackedScene" uid="uid://cidqu50k3u2fj" path="res://Actors/Enemies/flying_enemy.tscn" id="10_66ihh"]
 
 [node name="Game" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_80nbo")
+body_scene = ExtResource("2_evbej")
+
+[node name="Bodies" type="Node2D" parent="."]
 
 [node name="Background" type="Node2D" parent="."]
 script = ExtResource("2_u58dc")
+
+[node name="Entities" type="Node2D" parent="."]
+process_mode = 1
 
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
@@ -42,7 +48,6 @@ follow_player = true
 
 [node name="ComponentControl" type="Control" parent="Foreground (UI)" node_paths=PackedStringArray("ship_display", "ship_desc", "warning_display", "warning_label", "cmpnt_title", "cmpnt_desc", "installed_count_label", "spare_count_label", "installed_components", "spare_components", "continue_button")]
 process_mode = 2
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -300,40 +305,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0588235, 0.105882, 0.14902, 1)
-
-[node name="Entities" type="Node2D" parent="."]
-process_mode = 1
-position = Vector2(-4, 0)
-
-[node name="Enemy" parent="Entities" instance=ExtResource("10_66ihh")]
-position = Vector2(814, -253)
-
-[node name="Enemy2" parent="Entities" instance=ExtResource("10_66ihh")]
-position = Vector2(-985, -1706)
-
-[node name="Enemy3" parent="Entities" instance=ExtResource("10_66ihh")]
-position = Vector2(-1258, 248)
-
-[node name="Enemy4" parent="Entities" instance=ExtResource("10_66ihh")]
-position = Vector2(838, 1046)
-
-[node name="Enemy5" parent="Entities" instance=ExtResource("10_66ihh")]
-position = Vector2(1693, -1038)
-
-[node name="Enemy6" parent="Entities" instance=ExtResource("10_66ihh")]
-position = Vector2(1002, 271)
-
-[node name="Enemy7" parent="Entities" instance=ExtResource("10_66ihh")]
-position = Vector2(-797, -1182)
-
-[node name="Enemy8" parent="Entities" instance=ExtResource("10_66ihh")]
-position = Vector2(-1070, 772)
-
-[node name="Enemy9" parent="Entities" instance=ExtResource("10_66ihh")]
-position = Vector2(1026, 1570)
-
-[node name="Enemy10" parent="Entities" instance=ExtResource("10_66ihh")]
-position = Vector2(1881, -514)
 
 [connection signal="draw" from="Foreground (UI)/ComponentControl/HBoxContainer/VBoxContainer3/ShipInfo/ShipDisplay" to="Foreground (UI)/ComponentControl" method="draw_player"]
 [connection signal="focus_entered" from="Foreground (UI)/ComponentControl/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="Foreground (UI)/ComponentControl/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="show"]

@@ -23,8 +23,6 @@ void E127Controller::_bind_methods() {
     ClassDB::bind_method(D_METHOD("build_tree"), &E127Controller::build_tree);
     ClassDB::bind_method(D_METHOD("barnes_hut_step", "delta", "theta"), &E127Controller::barnes_hut_step, DEFVAL(1.0));
     ClassDB::bind_method(D_METHOD("barnes_hut_probe", "delta", "x", "y", "theta", "r"), &E127Controller::barnes_hut_probe, DEFVAL(1.0), DEFVAL(0.0));
-
-    ClassDB::bind_method(D_METHOD("clamp_to_circle", "r"), &E127Controller::clamp_to_circle);
     
     // Getters & Setters
     ClassDB::bind_method(D_METHOD("get_mass_scale"), &E127Controller::get_mass_scale);
@@ -222,13 +220,13 @@ Dictionary E127Controller::naive_probe(double delta, double x, double y) {
         }
 
         // Using the similar triangles present in the vector calculation
-        double axis_cf = delta * bodies[i].m * pow(dx*dx + dy*dy, -1.5) * total_scale;
+        double axis_cf = delta * delta * bodies[i].m * pow(dx*dx + dy*dy, -1.5) * total_scale;
         // Apply acceleration
         ax += axis_cf * dx;
         ay += axis_cf * dy;
     }
-    out.set("ax", ax * delta);
-    out.set("ay", ay * delta);
+    out.set("ax", ax);
+    out.set("ay", ay);
     return out;
 }
 
@@ -368,8 +366,8 @@ std::vector<int32_t> E127Controller::get_bh_nodes(double x, double y, double the
         return out;
     }
     
-    double dx = node.cx - x;
-    double dy = node.cy - y;
+    double dx = node.com_x - x;
+    double dy = node.com_y - y;
     double d_squared = dx*dx + dy*dy;
 
     // this is equivalent to width / distance < theta. Rearranged to remove the sqrt (in distance calc) and division.
@@ -503,8 +501,8 @@ Dictionary E127Controller::barnes_hut_probe(double delta, double x, double y, do
         ax += axis_cf * dx;
         ay += axis_cf * dy;
     }
-    out.set("ax", ax * delta);
-    out.set("ay", ay * delta);
+    out.set("ax", ax);
+    out.set("ay", ay);
     return out;
 }
 

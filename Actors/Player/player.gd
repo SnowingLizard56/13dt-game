@@ -91,7 +91,7 @@ func _draw() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.collision_layer == 2:
+	if area is Body:
 		# Bounce off. Come back to this  MAYBE
 		# DEPRECATED
 		#var body: Dictionary = level.get_body(area.get_meta("id"))

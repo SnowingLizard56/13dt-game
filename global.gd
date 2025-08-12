@@ -1,6 +1,7 @@
 extends Node
 
 
+const PREDICTION_TIMESTEP: float = 5.0 / 8
 var player_ship: Ship
 
 var is_xaragiln_friendly: bool = false

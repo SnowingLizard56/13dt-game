@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Element 127"
-run/main_scene="uid://bwvvsvhlw2iop"
+run/main_scene="uid://c3dl8amhu3pcq"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -121,3 +121,11 @@ trigger_4={
 2d_physics/layer_3="Enemies"
 2d_physics/layer_4="Projectiles"
 2d_physics/layer_5="Interactable"
+2d_physics/layer_9="Pred0"
+2d_physics/layer_10="Pred1"
+2d_physics/layer_11="Pred2"
+2d_physics/layer_12="Pred3"
+2d_physics/layer_13="Pred4"
+2d_physics/layer_14="Pred5"
+2d_physics/layer_15="Pred6"
+2d_physics/layer_16="Pred7"
