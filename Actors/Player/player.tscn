@@ -1,50 +1,68 @@
-[gd_scene load_steps=14 format=3 uid="uid://dy7y8ni7184re"]
+[gd_scene load_steps=12 format=3 uid="uid://dy7y8ni7184re"]
 
 [ext_resource type="Script" uid="uid://cijjyr2evynnk" path="res://Actors/Player/player.gd" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/ship_component.gd" id="2_l3d2q"]
+[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/Scripts/ship_component.gd" id="2_l3d2q"]
 [ext_resource type="Resource" uid="uid://die46de8ofiu1" path="res://Assets/ShipComponents/Base/burner_thruster.tres" id="3_4bcxw"]
 [ext_resource type="Resource" uid="uid://cx6qjtcurogox" path="res://Assets/ShipComponents/Base/steel_hull.tres" id="4_1c8hm"]
 [ext_resource type="Resource" uid="uid://c5jl81m7fc4vy" path="res://Assets/ShipComponents/Base/basic_coilgun.tres" id="5_4bcxw"]
-[ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Assets/ShipComponents/ship.gd" id="5_sinrj"]
-[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/ship_property_modifier.gd" id="6_ks2ow"]
-[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/Base/basic_coilgun.gd" id="6_sinrj"]
-[ext_resource type="Script" uid="uid://dl4qpcoxkafh3" path="res://Actors/Player/thrust_feedback.gd" id="7_1c8hm"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_xrker"]
-radius = 5.0
-
-[sub_resource type="Resource" id="Resource_tvot5"]
-script = ExtResource("6_sinrj")
-projectile_speed = 200.0
-projectile_shape = SubResource("CircleShape2D_xrker")
-projectile_mass = 1.0
-trigger_cooldown = 0.5
-name = "Beam Gun Yay()"
-description = "--"
-mass = 3.0
-sell_value = 0.0
-misc_properties = Array[ExtResource("6_ks2ow")]([])
-metadata/_custom_type_script = "uid://dry63dly8f3dp"
+[ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Assets/ShipComponents/Scripts/ship.gd" id="5_sinrj"]
 
 [sub_resource type="Resource" id="Resource_ks2ow"]
 script = ExtResource("5_sinrj")
-components = Array[ExtResource("2_l3d2q")]([ExtResource("3_4bcxw"), ExtResource("4_1c8hm"), ExtResource("5_4bcxw"), SubResource("Resource_tvot5")])
+components = Array[ExtResource("2_l3d2q")]([ExtResource("3_4bcxw"), ExtResource("4_1c8hm"), ExtResource("5_4bcxw")])
 metadata/_custom_type_script = "uid://c46e5p1ib570o"
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_4bcxw"]
 b = Vector2(0, 0)
 
-[node name="Collision" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_pnakb"]
+radius = 5.0
+
+[sub_resource type="Curve" id="Curve_isd1h"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, -0.0333676, 0, 0, Vector2(0.868534, 0.523914), -5.57043, -5.57043, 0, 0, Vector2(1, 0.124315), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_8gtf5"]
+offsets = PackedFloat32Array(0, 0.409756, 0.756098, 1)
+colors = PackedColorArray(0.25, 0.25, 0.25, 1, 0.86, 0.86, 0.86, 1, 0.86, 0.86, 0.86, 1, 1, 1, 1, 1)
+
+[node name="Player" type="Area2D"]
 z_index = 1
-collision_mask = 26
+collision_layer = 0
+collision_mask = 18
 script = ExtResource("1_4flbx")
 ship = SubResource("Resource_ks2ow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("SegmentShape2D_4bcxw")
 
-[node name="AccelerationFeedback" type="Node2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_pnakb")
+
+[node name="Thrust" type="CPUParticles2D" parent="."]
 z_index = -1
-script = ExtResource("7_1c8hm")
+emitting = false
+amount = 32
+randomness = 0.04
+lifetime_randomness = 0.03
+direction = Vector2(-1, 0)
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 60.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+linear_accel_max = 50.0
+radial_accel_min = -5.0
+radial_accel_max = 5.0
+tangential_accel_min = -10.0
+tangential_accel_max = 10.0
+scale_amount_curve = SubResource("Curve_isd1h")
+color = Color(0.866667, 0.337255, 0.223529, 1)
+color_initial_ramp = SubResource("Gradient_8gtf5")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

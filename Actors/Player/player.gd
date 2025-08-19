@@ -1,6 +1,7 @@
 class_name Player extends Area2D
 
 const SPRITE_RADIUS: int = 5
+const DAMAGE_LEEWAY: float = 1.7
 
 signal player_died
 
@@ -15,6 +16,7 @@ var level: Level
 
 #@onready var ship: Ship = Global.player_ship
 @export var ship: Ship
+@onready var ui: Control = %UI
 
 var trigger_queue: PackedInt32Array = []
 var trigger_timer_queue: PackedFloat32Array = []
@@ -61,9 +63,10 @@ func _physics_process(delta: float) -> void:
 	# Visual
 	rotate(-delta * ship.acceleration / 80)
 	if acceleration_input:
-		get_node("AccelerationFeedback").target_rotation = acceleration_input.angle()
+		$Thrust.emitting = true
+		$Thrust.global_rotation = acceleration_input.angle()
 	else:
-		get_node("AccelerationFeedback").active = false
+		$Thrust.emitting = false
 	
 	# Velocity then position
 	vx += ship.acceleration * acceleration_input.x * delta
@@ -110,3 +113,10 @@ func _on_area_entered(area: Area2D) -> void:
 		# Kill
 		player_died.emit()
 		get_tree().paused = true
+
+
+func damage(amount: float):
+	ship.hp -= amount
+	if ship.hp >= -DAMAGE_LEEWAY and ship.hp <= 0:
+		ship.hp = 1.0	
+	ui.update_health(ship)

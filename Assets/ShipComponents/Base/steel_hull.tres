@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ShipHull" load_steps=3 format=3 uid="uid://cx6qjtcurogox"]
 
-[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/ship_property_modifier.gd" id="1_cwg4c"]
-[ext_resource type="Script" uid="uid://na18bgp2ofyr" path="res://Assets/ShipComponents/ship_hull.gd" id="1_dkmxn"]
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/Scripts/ship_property_modifier.gd" id="1_cwg4c"]
+[ext_resource type="Script" uid="uid://na18bgp2ofyr" path="res://Assets/ShipComponents/Scripts/ship_hull.gd" id="1_dkmxn"]
 
 [resource]
 script = ExtResource("1_dkmxn")

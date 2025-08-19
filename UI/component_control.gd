@@ -20,13 +20,6 @@ const SHIP_SPRITE_RADIUS = 20
 @export var continue_button: CustomButton
 
 
-func _ready() -> void:
-	# DEBUG
-	# TEMP
-	load_ship(player.ship)
-	reprocess()
-
-
 func _process(delta: float) -> void:
 	ship_display.rotation -= delta
 
@@ -140,6 +133,9 @@ func round_to_dp(data: Array, dp: int) -> Array:
 
 
 func start(available_components: Array[ShipComponent]) -> Array[ShipComponent]:
+	load_ship(player.ship)
+	reprocess()
+	
 	# Setup
 	for c in available_components:
 		add_component_option(c, spare_components)

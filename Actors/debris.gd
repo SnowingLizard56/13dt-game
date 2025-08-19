@@ -5,6 +5,7 @@ extends Area2D
 var vx: float = 0
 var vy: float = 0
 
+
 @onready var root: LevelController = get_tree().current_scene
 
 

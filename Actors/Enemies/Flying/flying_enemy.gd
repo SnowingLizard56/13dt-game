@@ -1,4 +1,4 @@
-class_name FlyingEnemy extends Node2D
+class_name FlyingEnemy extends Enemy
 
 const SPRITE: PackedVector2Array = [
 	Vector2(8, 0),
@@ -12,7 +12,12 @@ const SPRITE: PackedVector2Array = [
 const MAX_ω: float = TAU
 # Actually important
 const MAX_THRUST: float = 120
-const PLAYER_STOP_APPROACHING: float = 10
+const PLAYER_STOP_APPROACHING: float = 300
+const PLAYER_RUN_AWAY: float = 100
+const ORBIT_SPEED: float = 127
+const ORBIT_THRUST_PROPORTION: float = 0.31
+const PROJECTILE_SPEED: float = 100
+const MAX_HP: float = 50
 
 @onready var root: LevelController = get_tree().current_scene
 
@@ -20,12 +25,18 @@ const PLAYER_STOP_APPROACHING: float = 10
 @onready var y: float = position.y
 @onready var path: Node2D = $PathPrediction
 
+var can_shoot: bool = true
+var time_until_shoot_attempt: float = 1.0
 var vx: float = 0
 var vy: float = 0
+
+
 enum MovementModes {
+	UNASSIGNED = -1,
 	AVOID_BODY,
 	APPROACH_PLAYER,
 	MATCH_PLAYER,
+	ORBIT_PLAYER,
 }
 
 
@@ -48,20 +59,17 @@ func _physics_process(delta: float) -> void:
 		var player_dist: float = (x - root.player.x) ** 2 + (y - root.player.y) ** 2
 		if player_dist < PLAYER_STOP_APPROACHING ** 2:
 			# Within range: we are alg. no need to move too much
-			# TODO
-			pass
+			mode = MovementModes.MATCH_PLAYER
 		else:
 			# Out of range: something gotta change
-			var vel_diff: float = (root.player.vx ** 2 - vx ** 2) ** 2 + (root.player.vy ** 2 - vy ** 2) ** 2
-			if MAX_THRUST * 4 * player_dist < vel_diff:
+			var vel_diff: float = (root.player.vx - vx) ** 2 + (root.player.vy - vy) ** 2
+			if MAX_THRUST * 2 * sqrt(player_dist) < vel_diff:
 				# Decelerate, approach velocity of player
 				mode = MovementModes.MATCH_PLAYER
 			else:
 				# Accelerate, approach position of player
 				mode = MovementModes.APPROACH_PLAYER
-		
-		
-		var target_velocity
+
 	
 	match mode:
 		MovementModes.AVOID_BODY:
@@ -78,12 +86,17 @@ func _physics_process(delta: float) -> void:
 			target_thrust = me_rel_coll.rotated(sign(angle_to_pred) * TAU/4)
 		
 		MovementModes.MATCH_PLAYER:
-			target_thrust = Vector2(root.player.vx - vx, root.player.vy - vy)
+			if position.length_squared() < PLAYER_RUN_AWAY ** 2:
+				target_thrust = position
+			else:
+				target_thrust = Vector2(root.player.vx - vx, root.player.vy - vy)
 		
 		MovementModes.APPROACH_PLAYER:
-			target_thrust = -position
-	
-	
+			if Vector2(vx - root.player.vx, vy - root.player.vy).slide(position.normalized()).length_squared() ** 2 / position.length_squared() > MAX_THRUST ** 2:
+				target_thrust = Vector2(root.player.vx - vx, root.player.vy - vy)
+			else:
+				target_thrust = -position
+
 	var thrust: Vector2 = target_thrust.limit_length(MAX_THRUST)
 	
 	if thrust != Vector2.ZERO:
@@ -94,9 +107,24 @@ func _physics_process(delta: float) -> void:
 	vy += (grav.ay + thrust.y) * delta
 	x += vx * delta
 	y += vy * delta
-	
 	position = Vector2(x - root.player.x, y - root.player.y)
-
+	
+	# Attempt Projectile Generation
+	if position.length_squared() < PLAYER_STOP_APPROACHING ** 2 and position.length_squared() > PLAYER_RUN_AWAY ** 2:
+		time_until_shoot_attempt -= delta
+		if time_until_shoot_attempt < 0:
+			time_until_shoot_attempt = randf_range(3, 6)
+			if can_shoot:
+				var projectile_speed: Vector2 = -(position - delta * Vector2(root.player.vx, root.player.vy)).normalized() * PROJECTILE_SPEED
+				var projectile_shape := CircleShape2D.new()
+				projectile_shape.radius = 3
+				Projectile.new.call_deferred(
+					self, 
+					projectile_speed.x,
+					projectile_speed.y,
+					projectile_shape
+					)
+	
 	# Reset PathPrediction Casts
 	var next_grav: Dictionary = grav.duplicate()
 	var cast_start: Vector2 = Vector2.ZERO
@@ -116,8 +144,8 @@ func _physics_process(delta: float) -> void:
 
 
 func draw_sprite() -> void:
-	get_child(0).draw_colored_polygon(SPRITE, "dd5639")
+	get_child(0).draw_colored_polygon(SPRITE, ENEMY_COLOUR)
 
 
-func collide_with_planet(area: Area2D) -> void:
+func collide_with_planet(_area: Area2D) -> void:
 	queue_free()

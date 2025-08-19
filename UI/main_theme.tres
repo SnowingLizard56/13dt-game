@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://b3ou7d8b0fupu"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://b3ou7d8b0fupu"]
 
 [ext_resource type="FontFile" uid="uid://dhv161lwqx2w" path="res://Assets/Fonts/NunitoSans-BlackItalic.ttf" id="1_7m7pu"]
 [ext_resource type="FontFile" uid="uid://cj4306gnqlbor" path="res://Assets/Fonts/NowAlt-Regular.otf" id="1_h32ur"]
@@ -80,6 +80,24 @@ expand_margin_top = 10.0
 expand_margin_right = 10.0
 expand_margin_bottom = 10.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5f78n"]
+bg_color = Color(0.096, 0.1704, 0.24, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_daddk"]
+bg_color = Color(0.866667, 0.337255, 0.223529, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ou33m"]
 bg_color = Color(0.1248, 0.225653, 0.32, 1)
 corner_radius_top_left = 5
@@ -121,6 +139,8 @@ MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_gsqoc")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_5f78n")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_daddk")
 StatsContainer/base_type = &"Panel"
 StatsContainer/styles/panel = SubResource("StyleBoxFlat_ou33m")
 StatsDescription/base_type = &"Label"

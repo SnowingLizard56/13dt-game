@@ -1,19 +1,21 @@
-[gd_resource type="Resource" script_class="BasicCoilgun" load_steps=4 format=3 uid="uid://c5jl81m7fc4vy"]
+[gd_resource type="Resource" script_class="ProjectileWeapon" load_steps=4 format=3 uid="uid://c5jl81m7fc4vy"]
 
-[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/ship_property_modifier.gd" id="1_48gtp"]
-[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/Base/basic_coilgun.gd" id="1_xrker"]
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/Scripts/ship_property_modifier.gd" id="1_48gtp"]
+[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/Scripts/projectile_weapon.gd" id="2_4aekt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrker"]
-radius = 3.0
+radius = 2.0
+height = 10.0
 
 [resource]
-script = ExtResource("1_xrker")
+script = ExtResource("2_4aekt")
 projectile_speed = 600.0
 projectile_shape = SubResource("CapsuleShape2D_xrker")
 projectile_mass = 1.0
 trigger_cooldown = 0.5
 name = "Basic Coilgun"
-description = "--"
+description = "--
+Simple magnet-based projectile propulsion system."
 mass = 3.0
 sell_value = 0.0
 misc_properties = Array[ExtResource("1_48gtp")]([])

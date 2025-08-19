@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cidqu50k3u2fj"]
 
-[ext_resource type="Script" uid="uid://dsgbbp84queou" path="res://Actors/Enemies/flying_enemy.gd" id="1_pgd2a"]
+[ext_resource type="Script" uid="uid://dsgbbp84queou" path="res://Actors/Enemies/Flying/flying_enemy.gd" id="1_pgd2a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rracr"]
 radius = 5.0

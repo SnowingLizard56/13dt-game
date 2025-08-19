@@ -5,12 +5,14 @@ var game_rect: Rect2
 
 @onready var player: Player = %Player
 @onready var camera: Camera2D = %Camera
+@onready var body_holder: Node2D = $Bodies
+@onready var entities: Node2D = %Entities
 
 var quad_tl: Vector2i = -Vector2i.ONE
 
 var areas: Dictionary[int, Area2D] = {}
 var predictions: Dictionary[int, Level] = {}
-
+ 
 @export var body_scene: PackedScene
 
 
@@ -35,6 +37,9 @@ func _ready() -> void:
 	get_node("Background").new_layer(0.01)
 	get_node("Background").new_layer(0.02)
 	get_node("Background").new_layer(0.025)
+	
+	# TEMP
+	%UI.update_health(player.ship)
 
 
 func _physics_process(delta: float) -> void:
@@ -55,7 +60,7 @@ func update_areas() -> void:
 			areas[b.id] = k
 			k.id = b.id
 			k.radius = b.r
-			$Bodies.add_child(k)
+			body_holder.add_child(k)
 			
 		areas[b.id].position = Vector2(b.x - player.x, b.y - player.y)
 
@@ -84,5 +89,4 @@ func get_prediction(pred_idx: int) -> Level:
 			pred_idx, 
 			Vector2(body_pred.x - body_real.x, body_pred.y - body_real.y)
 			)
-	
 	return out

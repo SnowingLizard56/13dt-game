@@ -9,19 +9,22 @@ var vx: float
 var vy: float
 var source: Node2D
 var root: LevelController 
+var mass: float
+var is_enemy: bool
 
 signal hit_body(id: int)
 
 
-func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D) -> void:
+func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1) -> void:
+	hide()
 	vx = src.vx + dvx
 	vy = src.vy + dvy
 	x = src.x + dvx * 0.1
 	y = src.y + dvy * 0.1
 	source = src
-	process_priority = source.process_priority + 1
+	process_priority = source.process_priority - 1
 	root = Global.get_tree().current_scene
-	root.add_child(self)
+	root.entities.add_child(self)
 	add_child(CollisionShape2D.new())
 	get_child(0).shape = shape
 	collision_layer = 8
@@ -32,24 +35,35 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D) -> void:
 		get_child(0).rotation = TAU / 4
 	rotation = Vector2(dvx, dvy).angle()
 	position = Vector2(x - root.player.x, y - root.player.y)
+	mass = m
+	is_enemy = src is Enemy
 
 
 func _physics_process(delta: float) -> void:
 	var grav: Dictionary = root.level.barnes_hut_probe(Global.time_scale, x, y, 1.4)
+	position = Vector2(x - root.player.x, y - root.player.y)
 	vx += grav.ax * delta
 	vy += grav.ay * delta
 	x += vx * delta
 	y += vy * delta
-	position = Vector2(x - root.player.x, y - root.player.y)
 	if position.length_squared() > CULLING_DISTANCE ** 2:
 		queue_free()
+	show()
 
 
 func _on_collision_area_entered(area: Area2D) -> void:
-	if area.collision_layer == 2:
+	if area is Body:
 		# Hit body. by bye
 		hit_body.emit(area.get_meta("id"))
 		queue_free()
+		return
+	var target: Node2D = area.get_parent()
+	if target is Enemy and is_enemy:
+		return
+	if target is Player and not is_enemy:
+		return	
+	target.damage(calculate_damage(target))
+	queue_free()
 
 
 func _draw() -> void:
@@ -75,3 +89,7 @@ func _draw() -> void:
 			Rect2(-pos - Vector2(0, radius), 2 * (pos + Vector2(0, radius))),
 			COLOUR
 		)
+
+
+func calculate_damage(target: Node2D):
+	return Vector2(target.vx - vx, target.vy - vy).length_squared() ** 0.25 * mass
