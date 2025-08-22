@@ -1,0 +1,264 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1ojd40bw65n1"]
+
+[ext_resource type="Script" uid="uid://dcg2ah83nh5wl" path="res://UI/main_menu_controller.gd" id="1_p8ccj"]
+[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_tk8dj"]
+[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="3_d8nwk"]
+[ext_resource type="PackedScene" uid="uid://dwsxd5ttvjxsu" path="res://Assets/Profiles/E127_orbital.tscn" id="4_4cwpn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8nwk"]
+bg_color = Color(0.0507, 0.0916717, 0.13, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.866667, 0.337255, 0.223529, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cwpn"]
+bg_color = Color(0.0507, 0.0916717, 0.13, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.937255, 0.631373, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_tk8dj")
+script = ExtResource("1_p8ccj")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Distant" type="ColorRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.105882, 0.14902, 1)
+
+[node name="Planet" type="Control" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Orbit" type="Control" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Player" type="Control" parent="Background/Orbit"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 300.0
+offset_right = 300.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Foreground" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Foreground"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.5
+offset_top = -52.0
+offset_right = 192.5
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"GameTitle"
+text = "ELEMENT 127"
+horizontal_alignment = 1
+
+[node name="Exit" type="Button" parent="Foreground"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -336.0
+offset_top = -88.0
+offset_right = -144.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_neighbor_top = NodePath("../Play")
+theme_type_variation = &"MainMenuButton"
+theme_override_colors/font_hover_pressed_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_colors/font_hover_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_colors/font_focus_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_d8nwk")
+text = "EXIT"
+script = ExtResource("3_d8nwk")
+
+[node name="Play" type="Button" parent="Foreground"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -88.0
+offset_right = 96.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_neighbor_top = NodePath("../Options")
+focus_neighbor_bottom = NodePath("../Exit")
+theme_type_variation = &"MainMenuButton"
+text = "TAKE OFF"
+script = ExtResource("3_d8nwk")
+
+[node name="Options" type="Button" parent="Foreground"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 144.0
+offset_top = -88.0
+offset_right = 336.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_neighbor_bottom = NodePath("../Play")
+theme_type_variation = &"MainMenuButton"
+theme_override_colors/font_hover_pressed_color = Color(1, 0.937255, 0.631373, 1)
+theme_override_colors/font_hover_color = Color(1, 0.937255, 0.631373, 1)
+theme_override_colors/font_focus_color = Color(1, 0.937255, 0.631373, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_4cwpn")
+text = "OPTIONS"
+script = ExtResource("3_d8nwk")
+
+[node name="Splash" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Splash"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.105882, 0.14902, 1)
+
+[node name="Symbol" type="Control" parent="Splash"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SymbolCover" type="Control" parent="Splash"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fade" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LoadingScreen" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="E127" parent="LoadingScreen" instance=ExtResource("4_4cwpn")]
+z_index = 4
+position = Vector2(576, 324)
+colour = Color(0.960784, 0.909804, 0.819608, 1)
+first_radius = 100
+radius_per_layer = 30
+electron_radius = 10.0
+rotation_speed = 0.5
+draw_inner_circles = true
+draw_outer_circle = false
+
+[connection signal="draw" from="Background/Distant" to="." method="_on_distant_draw"]
+[connection signal="draw" from="Background/Planet" to="." method="_on_planet_draw"]
+[connection signal="draw" from="Background/Orbit/Player" to="." method="_on_player_draw"]
+[connection signal="pressed" from="Foreground/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Foreground/Play" to="." method="_on_play_pressed"]
+[connection signal="draw" from="Splash/Symbol" to="." method="_on_symbol_draw"]
+[connection signal="draw" from="Splash/SymbolCover" to="." method="_on_symbol_cover_draw"]

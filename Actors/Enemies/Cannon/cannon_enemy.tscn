@@ -17,6 +17,5 @@ shape = SubResource("CircleShape2D_bfv8t")
 [node name="Barrel" type="Node2D" parent="."]
 
 [node name="Barrel" type="Node2D" parent="Barrel"]
-position = Vector2(0, -4)
 
 [connection signal="draw" from="Barrel/Barrel" to="." method="_on_barrel_draw"]

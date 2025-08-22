@@ -31,7 +31,8 @@ func draw_blob(node: Node2D) -> void:
 	var distance: float = randf() * radius - outer_ring_dist - max_blob_radius
 	var radius: float = randf_range(min_blob_radius, max_blob_radius)
 	for i in subglob_number:
-		var subglob_position = Vector2(distance, 0) + Vector2.from_angle(randf_range(0, TAU)) * sqrt(randf()) * radius
+		var subglob_position = Vector2(distance, 0) + Vector2.from_angle(
+			randf_range(0, TAU)) * sqrt(randf()) * radius
 		node.draw_circle(subglob_position, 1, colour)
 
 

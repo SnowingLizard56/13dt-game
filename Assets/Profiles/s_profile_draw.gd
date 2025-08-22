@@ -21,7 +21,7 @@ func _process(delta:float) -> void:
 
 
 func _draw() -> void:
-	num = 2*int(1000*Time.get_unix_time_from_system())+1
+	num = 2 * int(1000 * Time.get_unix_time_from_system()) + 1
 	var points : PackedVector2Array = []
 	# Get binary representation
 	var string : String = String.num_int64(num, 2)
@@ -29,7 +29,7 @@ func _draw() -> void:
 	for i in len(string):
 		if string[i] == "1":
 			# If bit is on, then draw connection to this point
-			points.append(Vector2.from_angle(7*i*TAU/64-TAU/4)*radius)
+			points.append(Vector2.from_angle(7 * i * TAU / 64 - TAU / 4) * radius)
 	# Draw line
 	draw_polyline(points, colour, line_width)
 	# Draw outline

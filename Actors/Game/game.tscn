@@ -21,8 +21,6 @@ body_scene = ExtResource("2_evbej")
 unique_name_in_owner = true
 process_mode = 1
 
-[node name="Bodies" type="Node2D" parent="."]
-
 [node name="Background" type="Node2D" parent="."]
 script = ExtResource("2_u58dc")
 

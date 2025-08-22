@@ -1,8 +1,10 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://b3ou7d8b0fupu"]
+[gd_resource type="Theme" load_steps=27 format=3 uid="uid://b3ou7d8b0fupu"]
 
 [ext_resource type="FontFile" uid="uid://dhv161lwqx2w" path="res://Assets/Fonts/NunitoSans-BlackItalic.ttf" id="1_7m7pu"]
 [ext_resource type="FontFile" uid="uid://cj4306gnqlbor" path="res://Assets/Fonts/NowAlt-Regular.otf" id="1_h32ur"]
 [ext_resource type="FontFile" uid="uid://by1xkrgvgmeu6" path="res://Assets/Fonts/Economica-Bold.ttf" id="2_7m7pu"]
+[ext_resource type="FontFile" uid="uid://0okyiao7xttn" path="res://Assets/Fonts/BigShouldersDisplay-ExtraBold.ttf" id="2_cfsd7"]
+[ext_resource type="FontFile" uid="uid://na7ngyssryv6" path="res://Assets/Fonts/BigShouldersDisplay-SemiBold.ttf" id="3_qm5hq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_470mv"]
 draw_center = false
@@ -69,6 +71,45 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cfsd7"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_431p2"]
+bg_color = Color(0.0507, 0.0916717, 0.13, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.12549, 0.647059, 0.65098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qm5hq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f78n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8wpuh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_daddk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovyjt"]
+bg_color = Color(0.0975, 0.176292, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6lkj0"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsqoc"]
 bg_color = Color(0.364706, 0.384314, 0.403922, 1)
 corner_radius_top_left = 10
@@ -134,6 +175,25 @@ Component/styles/focus = SubResource("StyleBoxFlat_7m7pu")
 Component/styles/hover = SubResource("StyleBoxFlat_qm5hq")
 Component/styles/normal = SubResource("StyleBoxFlat_8wpuh")
 Component/styles/pressed = SubResource("StyleBoxEmpty_cfsd7")
+GameTitle/base_type = &"Label"
+GameTitle/font_sizes/font_size = 86
+GameTitle/fonts/font = ExtResource("2_cfsd7")
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 36
+Label/fonts/font = ExtResource("2_cfsd7")
+MainMenuButton/base_type = &"Button"
+MainMenuButton/colors/font_focus_color = Color(0.12549, 0.647059, 0.65098, 1)
+MainMenuButton/colors/font_hover_color = Color(0.12549, 0.647059, 0.65098, 1)
+MainMenuButton/colors/font_hover_pressed_color = Color(0.12549, 0.647059, 0.65098, 1)
+MainMenuButton/font_sizes/font_size = 36
+MainMenuButton/fonts/font = ExtResource("3_qm5hq")
+MainMenuButton/styles/focus = SubResource("StyleBoxFlat_431p2")
+MainMenuButton/styles/hover = SubResource("StyleBoxEmpty_qm5hq")
+MainMenuButton/styles/hover_mirrored = SubResource("StyleBoxEmpty_5f78n")
+MainMenuButton/styles/hover_pressed = SubResource("StyleBoxEmpty_8wpuh")
+MainMenuButton/styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_daddk")
+MainMenuButton/styles/normal = SubResource("StyleBoxFlat_ovyjt")
+MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_6lkj0")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10

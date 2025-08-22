@@ -44,7 +44,8 @@ func _draw() -> void:
 		var polyline: PackedVector2Array = [point]
 		
 		for i in ceilf((radius - inner_radius) / delta_r):
-			point = Vector2.from_angle(angle + randf_range(-1, 1) * sector_dist) * (radius - (i + 1) * delta_r)
+			point = Vector2.from_angle(
+				angle + randf_range(-1, 1) * sector_dist) * (radius - (i + 1) * delta_r)
 			polyline.append(point)
 		draw_polyline(polyline, colour)
 

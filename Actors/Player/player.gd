@@ -95,21 +95,6 @@ func _draw() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Body:
-		# Bounce off. Come back to this  MAYBE
-		# DEPRECATED
-		#var body: Dictionary = level.get_body(area.get_meta("id"))
-		#var player_v: Vector2 = Vector2(vx - body.vx, vy - body.vy)
-		#var penetration: Vector2 = player_v.limit_length(body.r - area.position.length())
-		#var normal: Vector2 = (area.position - penetration).normalized()
-		#var perpendicular: Vector2 = normal.rotated(TAU/4)
-		#
-		#var velocity_diff: Vector2 = 2 * player_v.project(normal)
-		#var position_diff: Vector2 = penetration - 2 * penetration.project(perpendicular)
-		#vx -= velocity_diff.x
-		#vy -= velocity_diff.y
-		#x -= position_diff.x
-		#x -= position_diff.x
-		
 		# Kill
 		player_died.emit()
 		get_tree().paused = true

@@ -9,7 +9,7 @@ const SPRITE: PackedVector2Array = [
 
 
 # Visual only
-const MAX_ω: float = TAU
+const MAX_TURN_SPEED: float = TAU
 # Actually important
 const MAX_THRUST: float = 120
 const PLAYER_STOP_APPROACHING: float = 300
@@ -101,7 +101,7 @@ func _physics_process(delta: float) -> void:
 	
 	if thrust != Vector2.ZERO:
 		var theta_diff = angle_difference(get_child(0).rotation, target_thrust.angle())
-		get_child(0).rotation += sign(theta_diff) * min(abs(theta_diff), MAX_ω * delta)
+		get_child(0).rotation += sign(theta_diff) * min(abs(theta_diff), MAX_TURN_SPEED * delta)
 	
 	vx += (grav.ax + thrust.x) * delta
 	vy += (grav.ay + thrust.y) * delta

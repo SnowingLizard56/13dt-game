@@ -15,7 +15,7 @@ func _ready() -> void:
 		var node:Node2D = Node2D.new()
 		add_child(node, false, Node.INTERNAL_MODE_FRONT)
 		# Connect draw call with bound arguments to draw signal
-		node.draw.connect(draw_arc_layer.bind(count[i], first_radius+radius_per_layer*i, node))
+		node.draw.connect(draw_arc_layer.bind(count[i], first_radius + radius_per_layer * i, node))
 		# Set random rotation
 		node.rotation = randf_range(0, TAU)
 
@@ -23,7 +23,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	# Rotate all children
 	for i in get_child_count(true):
-		get_child(i, true).rotate(2*delta/(i+2))
+		get_child(i, true).rotate(2 * delta / (i + 2))
 
 
 func draw_arc_layer(num:int, distance:float, node:Node2D):

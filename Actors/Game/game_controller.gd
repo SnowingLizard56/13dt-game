@@ -5,7 +5,6 @@ var game_rect: Rect2
 
 @onready var player: Player = %Player
 @onready var camera: Camera2D = %Camera
-@onready var body_holder: Node2D = $Bodies
 @onready var entities: Node2D = %Entities
 
 var quad_tl: Vector2i = -Vector2i.ONE
@@ -17,9 +16,6 @@ var predictions: Dictionary[int, Level] = {}
 
 
 func _ready() -> void:
-	get_tree().paused = true
-	await LevelGenerator.level_generated
-	get_tree().paused = false
 	level = LevelGenerator.get_ready_level()
 	level.body_collided.connect(delete_body_area)
 	add_child(level)
@@ -60,7 +56,7 @@ func update_areas() -> void:
 			areas[b.id] = k
 			k.id = b.id
 			k.radius = b.r
-			body_holder.add_child(k)
+			entities.add_child(k)
 			
 		areas[b.id].position = Vector2(b.x - player.x, b.y - player.y)
 
