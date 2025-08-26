@@ -1,13 +1,31 @@
 class_name CannonEnemy extends Enemy
 
 const MAX_HP: float = 125
+const MAX_ANGLE: float = 0.2 * TAU
+const PROJECTILE_IV: float = 300
+const MAX_ROTATION_SPEED: float = 0.2 * TAU
+const PROJECTILE_OFFSET_DIST: float = 15.0
 
-@onready var barrel_vis: Node2D = $Barrel/Barrel
 @onready var barrel: Node2D = $Barrel
+@onready var barrel_vis: Node2D = $Barrel/Barrel
+
+var target_barrel_rotation: float
+var active: bool = false
+
+
+func _ready() -> void:
+	var body_dict: Dictionary = root.level.get_body(body_id)
+	rotation = randf() * TAU
+	position = Vector2.from_angle(rotation) * body_dict.r
 
 
 func _process(delta: float) -> void:
-	barrel.rotation = Global.aim.angle()
+	target_barrel_rotation = global_position.angle_to_point(root.player.position)
+	
+	var angle_diff: float = angle_difference(barrel.global_rotation, target_barrel_rotation)
+	barrel.global_rotation += sign(angle_diff) * min(abs(angle_diff), MAX_ROTATION_SPEED * delta)
+	
+	barrel.rotation = clampf(barrel.rotation, -MAX_ANGLE, MAX_ANGLE)
 
 
 func _draw() -> void:
@@ -28,11 +46,31 @@ func fire_bullet() -> void:
 	t.tween_property(barrel_vis, "position", Vector2(0, 0), 0.5)
 	
 	var shape = CircleShape2D.new()
+	var dir := Vector2.from_angle(barrel.global_rotation)
 	shape.radius = 5
 	# TODO
-	Projectile.new(
+	var p := Projectile.new(
 		self,
-		0,
-		0,
+		PROJECTILE_IV * dir.x,
+		PROJECTILE_IV * dir.y,
 		shape
 	)
+	p.x += dir.x * PROJECTILE_OFFSET_DIST
+	p.y += dir.y * PROJECTILE_OFFSET_DIST
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	active = true
+	$Firerate.paused = false
+	if $Firerate.is_stopped():
+		$Firerate.start()
+	$DisableTimer.stop()
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	$DisableTimer.start()
+
+
+func _on_disable_timer_timeout() -> void:
+	active = false
+	$Firerate.paused = true

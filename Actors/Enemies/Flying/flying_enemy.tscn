@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cidqu50k3u2fj"]
+[gd_scene load_steps=5 format=3 uid="uid://cidqu50k3u2fj"]
 
 [ext_resource type="Script" uid="uid://dsgbbp84queou" path="res://Actors/Enemies/Flying/flying_enemy.gd" id="1_pgd2a"]
 
@@ -8,7 +8,10 @@ radius = 5.0
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_pgd2a"]
 b = Vector2(0, 0)
 
-[node name="Enemy" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_jk8ol"]
+radius = 20.0
+
+[node name="Enemy" type="Node2D" groups=["enemies"]]
 script = ExtResource("1_pgd2a")
 
 [node name="Sprite" type="Node2D" parent="."]
@@ -69,6 +72,13 @@ collide_with_bodies = false
 collision_mask = 57344
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="FindFriends" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FindFriends"]
+shape = SubResource("CircleShape2D_jk8ol")
 
 [connection signal="draw" from="Sprite" to="." method="draw_sprite"]
 [connection signal="area_entered" from="Position" to="." method="collide_with_planet"]

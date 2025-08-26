@@ -101,7 +101,10 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func damage(amount: float):
-	ship.hp -= amount
-	if ship.hp >= -DAMAGE_LEEWAY and ship.hp <= 0:
-		ship.hp = 1.0	
+	if ship.hp - amount <= DAMAGE_LEEWAY and ship.hp > 1:
+		ship.hp = 1.0
+	else:
+		ship.hp -= amount
 	ui.update_health(ship)
+	if ship.hp <= 0:
+		get_tree().paused = true

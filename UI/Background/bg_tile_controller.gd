@@ -4,7 +4,8 @@ var layers: Array[Layer] = []
 @onready var player: Player = %Player
 
 
-func new_layer(factor: float, group: BackgroundQuad.DecorationGroup = BackgroundQuad.DecorationGroup.DISTANT) -> Layer:
+func new_layer(factor: float, 
+	group: BackgroundQuad.DecorationGroup = BackgroundQuad.DecorationGroup.DISTANT) -> Layer:
 	var layer := Layer.new()
 	
 	for i in [-Vector2i.ONE, Vector2i.UP, Vector2i.LEFT, Vector2i.ZERO]:

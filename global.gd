@@ -18,7 +18,7 @@ var joy_stale := true
 var level_seed: int = 1
 
 @onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
-
+signal frame_next
 
 func process_sentence(sen:Sentence) -> String:
 	var out = sen.text
@@ -40,15 +40,18 @@ func array_shuffle(array: Array) -> Array:
 
 
 func _process(_delta: float) -> void:
+	frame_next.emit()
 	# Get each device aim
-	var new_mouse: Vector2 = (get_viewport().get_mouse_position() - get_viewport().get_visible_rect().get_center()).normalized()
+	var new_mouse: Vector2 = (get_viewport().get_mouse_position() -\
+		get_viewport().get_visible_rect().get_center()).normalized()
 	if new_mouse == mouse_aim:
 		mouse_stale = true
 	else:
 		mouse_aim = new_mouse
 		mouse_stale = false
 	
-	var new_joy: Vector2 = Vector2(Input.get_axis("aim_left", "aim_right"),Input.get_axis("aim_up", "aim_down"))
+	var new_joy: Vector2 = Vector2(Input.get_axis("aim_left", "aim_right"), 
+		Input.get_axis("aim_up", "aim_down"))
 	if new_joy == joy_aim:
 		joy_stale = true
 	else:

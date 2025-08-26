@@ -31,13 +31,15 @@ func _process(delta: float) -> void:
 func draw_dot_layer(num: int, distance: float, node: Node2D):
 	# Draw circles spaced equally around a circle
 	for i in num:
-		node.draw_circle(Vector2.from_angle(i * TAU / num - TAU / 4) * distance, electron_radius, colour)
+		node.draw_circle(
+			Vector2.from_angle(i * TAU / num - TAU / 4) * distance, electron_radius, colour)
 
 
 func _draw() -> void:
 	if draw_inner_circles:
 		for i in 8:
-			draw_circle(Vector2.ZERO, first_radius + radius_per_layer * i, colour, false, line_width)
+			draw_circle(
+				Vector2.ZERO, first_radius + radius_per_layer * i, colour, false, line_width)
 	# Draw outline
 	if draw_outer_circle:
 		draw_circle(Vector2.ZERO, first_radius + 8 * radius_per_layer, colour, false, line_width)

@@ -31,4 +31,5 @@ func _on_drawer_draw() -> void:
 	for b in level.get_bodies():
 		d.draw_circle(Vector2(b.x - x, b.y - y) * zoom, max(b.r * zoom, 2), Color.WHITE)
 	if draw_player:
-		d.draw_circle(Vector2(levelcontroller.player.x - x, levelcontroller.player.y - y) * zoom, 1, "20a5a6")
+		d.draw_circle(Vector2(
+			levelcontroller.player.x - x, levelcontroller.player.y - y) * zoom, 1, "20a5a6")

@@ -62,30 +62,32 @@ func dialogue_option_chosen(prompt: Prompt):
 func _process(delta: float) -> void: 
 	if !current_sentence:
 		return
-	if label.visible_characters >= label.get_total_character_count():
-		if !sentence_fully_displayed:
-			if len(current_sentence.choices) > 0:
-				# Make a button for each choice
-				for prompt in current_sentence.choices:
-					# Make a new button
-					var b:Button = $ChoiceContainer.get_child(0).duplicate()
-					b.text = prompt.prompt
-					b.show()
-					b.pressed.connect(dialogue_option_chosen.bind(prompt))
-					$ChoiceContainer.add_child(b)
-					# Focus neighbours
-					if $ChoiceContainer.get_child_count() > 2:
-						b.focus_neighbor_bottom = $ChoiceContainer.get_child(-2).get_path()
-						$ChoiceContainer.get_child(-2).focus_neighbor_top = b.get_path()
-					else:
-						b.grab_focus.call_deferred()
-		
-		sentence_fully_displayed = true
-		if len(current_sentence.choices) == 0:
-			if Input.is_action_just_pressed("ui_accept"):
-				next_content()
-	else:
+	if label.visible_characters < label.get_total_character_count():
 		# Continue displaying
 		label.visible_characters += character_speed
 		if Input.is_action_pressed("ui_accept"):
 			label.visible_characters += character_speed
+		return
+		
+	if !sentence_fully_displayed:
+		if len(current_sentence.choices) > 0:
+			# Make a button for each choice
+			for prompt in current_sentence.choices:
+				# Make a new button
+				var b:Button = $ChoiceContainer.get_child(0).duplicate()
+				b.text = prompt.prompt
+				b.show()
+				b.pressed.connect(dialogue_option_chosen.bind(prompt))
+				$ChoiceContainer.add_child(b)
+				# Focus neighbours
+				if $ChoiceContainer.get_child_count() > 2:
+					b.focus_neighbor_bottom = $ChoiceContainer.get_child(-2).get_path()
+					$ChoiceContainer.get_child(-2).focus_neighbor_top = b.get_path()
+				else:
+					b.grab_focus.call_deferred()
+	
+	sentence_fully_displayed = true
+	if len(current_sentence.choices) == 0:
+		if Input.is_action_just_pressed("ui_accept"):
+			next_content()
+		

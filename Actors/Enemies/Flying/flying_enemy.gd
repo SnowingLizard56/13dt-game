@@ -7,7 +7,6 @@ const SPRITE: PackedVector2Array = [
 	Vector2(-5, 5),
 ]
 
-
 # Visual only
 const MAX_TURN_SPEED: float = TAU
 # Actually important
@@ -18,17 +17,13 @@ const ORBIT_SPEED: float = 127
 const ORBIT_THRUST_PROPORTION: float = 0.31
 const PROJECTILE_SPEED: float = 100
 const MAX_HP: float = 50
+const INACCURACY: float = 0.02 * TAU
+const SEPARATION: float = 50
 
-@onready var root: LevelController = get_tree().current_scene
-
-@onready var x: float = position.x
-@onready var y: float = position.y
 @onready var path: Node2D = $PathPrediction
 
 var can_shoot: bool = true
-var time_until_shoot_attempt: float = 1.0
-var vx: float = 0
-var vy: float = 0
+@onready var time_until_shoot_attempt: float = randf() + randf()
 
 
 enum MovementModes {
@@ -78,7 +73,8 @@ func _physics_process(delta: float) -> void:
 			var b: Dictionary = root.level.get_body(collided_area.get_meta(&"id"))
 			
 			var coll_pos: Vector2 = Vector2(b.x, b.y)
-			var me_rel_coll: Vector2 = Vector2(x, y) + path.get_child(colliding_idx).position - coll_pos
+			var me_rel_coll: Vector2 = Vector2(x, y) + \
+				path.get_child(colliding_idx).position - coll_pos
 			var pred_rel_coll: Vector2 = me_rel_coll + path.get_child(colliding_idx).target_position
 
 			var angle_to_pred: float = me_rel_coll.angle_to(pred_rel_coll)
@@ -92,11 +88,19 @@ func _physics_process(delta: float) -> void:
 				target_thrust = Vector2(root.player.vx - vx, root.player.vy - vy)
 		
 		MovementModes.APPROACH_PLAYER:
-			if Vector2(vx - root.player.vx, vy - root.player.vy).slide(position.normalized()).length_squared() ** 2 / position.length_squared() > MAX_THRUST ** 2:
+			if position.is_zero_approx():
+				target_thrust = Vector2.UP
+			elif Vector2(vx - root.player.vx, vy - root.player.vy).slide(position.normalized()
+				).length_squared() ** 2 / position.length_squared() > MAX_THRUST ** 2:
 				target_thrust = Vector2(root.player.vx - vx, root.player.vy - vy)
 			else:
 				target_thrust = -position
-
+	
+	for i in $FindFriends.get_overlapping_areas():
+		var friend = i.get_parent()
+		if friend is FlyingEnemy:
+			target_thrust += (position - friend.position).normalized() * SEPARATION
+	
 	var thrust: Vector2 = target_thrust.limit_length(MAX_THRUST)
 	
 	if thrust != Vector2.ZERO:
@@ -110,20 +114,25 @@ func _physics_process(delta: float) -> void:
 	position = Vector2(x - root.player.x, y - root.player.y)
 	
 	# Attempt Projectile Generation
-	if position.length_squared() < PLAYER_STOP_APPROACHING ** 2 and position.length_squared() > PLAYER_RUN_AWAY ** 2:
+	if position.length_squared() < PLAYER_STOP_APPROACHING ** 2 \
+	and position.length_squared() > PLAYER_RUN_AWAY ** 2:
 		time_until_shoot_attempt -= delta
 		if time_until_shoot_attempt < 0:
 			time_until_shoot_attempt = randf_range(3, 6)
 			if can_shoot:
-				var projectile_speed: Vector2 = -(position - delta * Vector2(root.player.vx, root.player.vy)).normalized() * PROJECTILE_SPEED
+				var projectile_speed: Vector2 = (-position + delta *
+					Vector2(root.player.vx, root.player.vy))\
+					.normalized().rotated((randf() - randf()) * INACCURACY) * PROJECTILE_SPEED
 				var projectile_shape := CircleShape2D.new()
 				projectile_shape.radius = 3
-				Projectile.new.call_deferred(
+				var p := Projectile.new(
 					self, 
 					projectile_speed.x,
 					projectile_speed.y,
 					projectile_shape
 					)
+				p.x = x + vx * delta
+				p.y = y + vy * delta
 	
 	# Reset PathPrediction Casts
 	var next_grav: Dictionary = grav.duplicate()

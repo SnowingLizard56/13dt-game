@@ -11,7 +11,6 @@ signal level_generated
 
 
 func _ready() -> void:
-	# DEBUG
 	thread.start(thread_main)
 
 

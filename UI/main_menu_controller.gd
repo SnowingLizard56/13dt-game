@@ -11,7 +11,7 @@ const SCREEN_CENTRE: Vector2 = Vector2(576, 324)
 const GAME_FILE_PATH: String = "res://Actors/Game/game.tscn"
 
 @onready var planet: Control = $Background/Planet
-@onready var distant: ColorRect = $Background/Distant
+@onready var distant: Node2D = $Background/Distant
 @onready var player: Control = $Background/Orbit/Player
 @onready var orbit: Control = $Background/Orbit
 @onready var splash: Control = $Splash
@@ -52,10 +52,10 @@ func _ready() -> void:
 	splash_tween.tween_property(splash.get_child(0), "modulate", Color(1.0, 1.0, 1.0, 0.0), 1.0)\
 		.set_trans(Tween.TRANS_CUBIC)
 	splash_tween.tween_callback(symbol_cover.hide)
-	splash_tween.tween_callback(fg.show)
-	splash_tween.tween_property(fg, "modulate", Color.WHITE, 1.0)
 	splash_tween.tween_callback(splash.hide)
+	splash_tween.tween_callback(fg.show)
 	splash_tween.tween_callback(play_button.grab_focus)
+	splash_tween.tween_property(fg, "modulate", Color.WHITE, 1.0)
 	play_button.grab_focus()
 
 
@@ -79,14 +79,15 @@ func _process(delta: float) -> void:
 	symbol.queue_redraw()
 	if get_load_threaded_progress(GAME_FILE_PATH) == 1.0:
 		game_scene_loaded.emit()
-		
 
 
 func _on_distant_draw() -> void:
+	distant.draw_rect(Rect2(-576, -324, 1152, 648), BG_COLOUR)
 	for i in 256:
 		var vrect: Rect2 = get_viewport_rect()
-		var pos: Vector2 = vrect.size * Vector2(randf(), randf())
+		var pos: Vector2 = vrect.size * Vector2(randf(), randf()) - vrect.size / 2
 		distant.draw_circle(pos, 1, Color.WHITE)
+	distant.draw_rect(Rect2(-72, -40, 144, 81), BG_COLOUR)
 
 
 func _on_player_draw() -> void:
@@ -138,8 +139,9 @@ func _on_play_pressed() -> void:
 	const PLANET_ZOOMOUT_TIME := 0.25
 	const ORBITALS_ZOOMIN_TIME := 2.0
 	
+	play_button.release_focus()
 	loading_screen.show()
-	e127.scale = Vector2.ONE * 7
+	e127.scale = Vector2.ONE * 8
 	var t: Tween = get_tree().create_tween()
 	t.tween_property(exit_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
 	t.tween_property(play_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
@@ -157,8 +159,7 @@ func _on_play_pressed() -> void:
 	game_started = true
 
 func play_animation_finished():
-	const SHIFT_DISTANCE := Vector2(0, 648)
-	const SHIFT_TIME := 1.0
+	const SHIFT_TIME := 3.0
 	if !get_load_threaded_progress(GAME_FILE_PATH) == 1.0:
 		await game_scene_loaded
 	if len(LevelGenerator.levels_ready) == 0:
@@ -166,8 +167,11 @@ func play_animation_finished():
 	
 	# mini animation, scene switch
 	var t: Tween = get_tree().create_tween()
-	t.tween_property(e127, "position", e127.position + SHIFT_DISTANCE, SHIFT_TIME)\
-		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SPRING)
+	t.tween_interval(0.5)
+	t.tween_property(e127, "scale", Vector2.ONE * 8, SHIFT_TIME * 0.1)\
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+	t.tween_property(distant, "scale", Vector2.ONE * 8, SHIFT_TIME * 0.9)\
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	t.tween_callback(get_tree().change_scene_to_packed.bind(
 		ResourceLoader.load_threaded_get(GAME_FILE_PATH)))
 

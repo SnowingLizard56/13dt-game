@@ -3,9 +3,35 @@ class_name Enemy extends Node2D
 const DAMAGE_LEEWAY: float = 1.0
 const ENEMY_COLOUR: Color = "dd5639"
 @onready var hp: float = get_max_hp()
+@onready var root: LevelController = get_tree().current_scene
+
+var body_id: int = -1
+
+var x:
+	get():
+		if body_id < 0:
+			return x
+		return root.level.get_body(body_id).x + position.x
+var y:
+	get():
+		if body_id < 0:
+			return y
+		return root.level.get_body(body_id).y + position.y
+var vx:
+	get():
+		if body_id < 0:
+			return vx
+		return root.level.get_body(body_id).vx * Global.time_scale
+var vy:
+	get():
+		if body_id < 0:
+			return vy
+		return root.level.get_body(body_id).vy * Global.time_scale
 
 
 func damage(amount: float) -> void:
+	if hp < 0:
+		return
 	hp -= amount
 	if hp <= DAMAGE_LEEWAY:
 		queue_free()
@@ -14,3 +40,12 @@ func damage(amount: float) -> void:
 func get_max_hp() -> float:
 	assert(&"MAX_HP" in self)
 	return self.MAX_HP
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_READY:
+		# Increment
+		root.enemy_gen.total_enemies_alive += 1
+	elif what == NOTIFICATION_PREDELETE:
+		# Decrement
+		root.enemy_gen.total_enemies_alive -= 1
+		

@@ -25,6 +25,10 @@ LevelGenerator="*res://Actors/Game/level_generator.gd"
 window/size/mode=3
 window/stretch/mode="canvas_items"
 
+[global_group]
+
+enemies=""
+
 [input]
 
 ui_accept={

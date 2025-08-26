@@ -57,7 +57,8 @@ func _draw() -> void:
 	match nebula.play_modifier:
 		nebula.play_modifiers.UNDER_ATTACK:
 			mdfr = Node2D.new()
-			if nebula.is_friendly or (!Global.is_xaragiln_friendly and !Global.is_namurant_friendly):
+			if nebula.is_friendly or (!Global.is_xaragiln_friendly
+			and !Global.is_namurant_friendly):
 				mdfr.draw.connect(mdfr.draw_circle.bind(Vector2.ZERO, 100, Color("dd5639"), false))
 			else:
 				mdfr.draw.connect(mdfr.draw_circle.bind(Vector2.ZERO, 100, Color("20a5a6"), false))

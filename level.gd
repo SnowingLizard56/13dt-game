@@ -28,7 +28,8 @@ func distribute_bodies() -> void:
 	add_bodies(total_mass, Vector2.ZERO, Vector2.ZERO, 0, 1)
 
 
-func add_bodies(mass: float, centre: Vector2, velocity: Vector2, min_radius: float, max_radius: float) -> void:
+func add_bodies(mass: float, centre: Vector2, velocity: Vector2,
+		min_radius: float, max_radius: float) -> void:
 	var moon_mass: float = mass * randf_range(0.13, 0.19)
 	mass -= moon_mass
 	
@@ -57,7 +58,7 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2, min_radius: flo
 		var proportion: float = moon_masses[i] - last
 		last = moon_masses[i]
 		moon_masses[i] = proportion * moon_mass
-		moon_influences[i] = sqrt(proportion * moon_mass * BIG_G / WELL_STRENGTH_CUTOFF) / distance_scale
+		moon_influences[i] = sqrt(moon_masses[i] / WELL_STRENGTH_CUTOFF) / distance_scale
 		
 	
 	# Arrange moon distances
@@ -81,7 +82,8 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2, min_radius: flo
 		var radius: float = generate_body(
 			moon_masses[i], 
 			centre + Vector2.from_angle(pos_angle) * moon_distances[i],
-			velocity + Vector2.from_angle(pos_angle + clockwise) * sqrt(mass * BIG_G / moon_distances[i]) / distance_scale,
+			velocity + Vector2.from_angle(pos_angle + clockwise)\
+				* sqrt(mass * BIG_G / moon_distances[i]) / distance_scale,
 			DENSITIES[1]
 		)
 		if !first_moon_radius:
@@ -93,7 +95,7 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2, min_radius: flo
 	player_spawn_x = cos(angle) * distance
 	player_spawn_y = sin(angle) * distance
 	
-	var vel: float = sqrt(mass * BIG_G / distance) * 42
+	var vel: float = sqrt(mass * BIG_G * distance_scale / distance) / 2
 	player_spawn_vx = cos(angle + clockwise) * vel
 	player_spawn_vy = sin(angle + clockwise) * vel
 

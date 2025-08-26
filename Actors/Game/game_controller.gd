@@ -6,11 +6,16 @@ var game_rect: Rect2
 @onready var player: Player = %Player
 @onready var camera: Camera2D = %Camera
 @onready var entities: Node2D = %Entities
+@onready var cover: ColorRect = $Foreground/Cover
+@onready var enemy_gen: EnemyGenerator = $EnemyGen
 
 var quad_tl: Vector2i = -Vector2i.ONE
 
 var areas: Dictionary[int, Area2D] = {}
 var predictions: Dictionary[int, Level] = {}
+
+var is_initial_areas_instantiated: bool = false
+signal initial_areas_instantiated
  
 @export var body_scene: PackedScene
 
@@ -36,6 +41,8 @@ func _ready() -> void:
 	
 	# TEMP
 	%UI.update_health(player.ship)
+	
+	get_tree().create_tween().tween_property(cover, "modulate", Color(1.0, 1.0, 1.0, 0.0), 2.0)
 
 
 func _physics_process(delta: float) -> void:
@@ -50,6 +57,8 @@ func _physics_process(delta: float) -> void:
 
 
 func update_areas() -> void:
+	const TICK_CUTOFF: int = 3
+	var this_frame: int = Time.get_ticks_msec()
 	for b in level.get_bodies():
 		if !areas.has(b.id):
 			var k: Body = body_scene.instantiate()
@@ -57,8 +66,15 @@ func update_areas() -> void:
 			k.id = b.id
 			k.radius = b.r
 			entities.add_child(k)
-			
+		
 		areas[b.id].position = Vector2(b.x - player.x, b.y - player.y)
+		
+		if this_frame - Time.get_ticks_msec() > TICK_CUTOFF:
+			print_debug("Reached msec cutoff in update_areas")
+			break
+	if not is_initial_areas_instantiated:
+		initial_areas_instantiated.emit()
+		is_initial_areas_instantiated = true
 
 
 func delete_body_area(old_id: int, _new_id: int) -> void:

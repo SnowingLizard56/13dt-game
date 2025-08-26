@@ -19,8 +19,15 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1) ->
 	hide()
 	vx = src.vx + dvx
 	vy = src.vy + dvy
-	x = src.x + dvx * 0.1
-	y = src.y + dvy * 0.1
+	var spawn_distance := Vector2(dvx, dvy).normalized()
+	if shape is CircleShape2D:
+		spawn_distance *= shape.radius
+	elif shape is CapsuleShape2D:
+		spawn_distance *= shape.height / 2
+	else:
+		spawn_distance = Vector2(dvx, dvy) * 0.1
+	x = src.x + spawn_distance.x
+	y = src.y + spawn_distance.y
 	source = src
 	process_priority = source.process_priority - 1
 	root = Global.get_tree().current_scene

@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://c3dl8amhu3pcq"]
+[gd_scene load_steps=14 format=3 uid="uid://c3dl8amhu3pcq"]
 
 [ext_resource type="Script" uid="uid://cefbhjfki8lhm" path="res://Actors/Game/game_controller.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dy7y8ni7184re" path="res://Actors/Player/player.tscn" id="2_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://d23yrshdacsq" path="res://Actors/Game/body.tscn" id="2_evbej"]
 [ext_resource type="Script" uid="uid://b8xt6xjhk1wib" path="res://UI/Background/bg_tile_controller.gd" id="2_u58dc"]
+[ext_resource type="Script" uid="uid://cquv2cqw3xkm6" path="res://Actors/Enemies/enemies_generator.gd" id="3_cny57"]
 [ext_resource type="PackedScene" uid="uid://qhecmcb4b8gc" path="res://UI/minimap.tscn" id="3_feb5d"]
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="5_1qbs2"]
 [ext_resource type="Script" uid="uid://yoxoaei6uvp3" path="res://UI/component_control.gd" id="5_cuaau"]
@@ -12,10 +13,28 @@
 [ext_resource type="PackedScene" uid="uid://r58cdlaud3e7" path="res://UI/component.tscn" id="8_7t8eg"]
 [ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="9_eiboj"]
 
+[sub_resource type="Curve2D" id="Curve2D_cny57"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -596, -344, 0, 0, 0, 0, -596, 344, 0, 0, 0, 0, 596, 344, 0, 0, 0, 0, 596, -344, 0, 0, 0, 0, -596, -344)
+}
+point_count = 5
+
 [node name="Game" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_80nbo")
 body_scene = ExtResource("2_evbej")
+
+[node name="EnemyGen" type="Node" parent="." node_paths=PackedStringArray("enemy_put_node")]
+script = ExtResource("3_cny57")
+enemy_put_node = NodePath("../Entities")
+
+[node name="FlyingEnemySpawnZone" type="Path2D" parent="EnemyGen"]
+curve = SubResource("Curve2D_cny57")
+
+[node name="FlyingEnemySpawnAttemptTimer" type="Timer" parent="EnemyGen"]
+wait_time = 60.0
+one_shot = true
+autostart = true
 
 [node name="Entities" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -323,6 +342,15 @@ grow_vertical = 2
 value = 5.0
 show_percentage = false
 
+[node name="Cover" type="ColorRect" parent="Foreground"]
+z_index = 255
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.105882, 0.14902, 1)
+
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 process_mode = 1
 layer = -1
@@ -336,6 +364,8 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0588235, 0.105882, 0.14902, 1)
 
+[connection signal="initial_areas_instantiated" from="." to="EnemyGen" method="_on_game_initial_areas_instantiated"]
+[connection signal="timeout" from="EnemyGen/FlyingEnemySpawnAttemptTimer" to="EnemyGen" method="_on_flying_enemy_spawn_attempt_timer_timeout"]
 [connection signal="draw" from="Foreground/UI/ComponentControl/HBoxContainer/VBoxContainer3/ShipInfo/ShipDisplay" to="Foreground/UI/ComponentControl" method="draw_player"]
 [connection signal="focus_entered" from="Foreground/UI/ComponentControl/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="Foreground/UI/ComponentControl/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="show"]
 [connection signal="focus_exited" from="Foreground/UI/ComponentControl/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="Foreground/UI/ComponentControl/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="hide"]

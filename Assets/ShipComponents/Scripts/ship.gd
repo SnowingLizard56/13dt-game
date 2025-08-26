@@ -92,7 +92,8 @@ func trigger(trigger_index: int, player: Player) -> void:
 func reset_misc_properties():
 	const PATH: String = "res://Assets/ShipComponents/Properties/"
 	for fp in DirAccess.get_files_at(PATH):
-		var property: ShipProperty = ResourceLoader.load(PATH + fp, "", ResourceLoader.CACHE_MODE_REUSE)
+		var property: ShipProperty = ResourceLoader.load(PATH + fp, "",
+			ResourceLoader.CACHE_MODE_REUSE)
 		misc_properties[property.property_name] = property
 
 

@@ -51,14 +51,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Distant" type="ColorRect" parent="Background"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0588235, 0.105882, 0.14902, 1)
+[node name="Distant" type="Node2D" parent="Background"]
+position = Vector2(576, 324)
 
 [node name="Planet" type="Control" parent="Background"]
 layout_mode = 1
@@ -188,7 +182,6 @@ text = "OPTIONS"
 script = ExtResource("3_d8nwk")
 
 [node name="Splash" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
