@@ -2,6 +2,7 @@ extends Node
 
 
 const PREDICTION_TIMESTEP: float = 5.0 / 8
+
 var player_ship: Ship
 
 var is_xaragiln_friendly: bool = false
@@ -17,8 +18,11 @@ var joy_stale := true
 
 var level_seed: int = 1
 
+var player_currency: int
+
 @onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
 signal frame_next
+
 
 func process_sentence(sen:Sentence) -> String:
 	var out = sen.text
@@ -41,6 +45,7 @@ func array_shuffle(array: Array) -> Array:
 
 func _process(_delta: float) -> void:
 	frame_next.emit()
+	
 	# Get each device aim
 	var new_mouse: Vector2 = (get_viewport().get_mouse_position() -\
 		get_viewport().get_visible_rect().get_center()).normalized()
@@ -63,4 +68,3 @@ func _process(_delta: float) -> void:
 		aim = joy_aim
 	elif joy_stale and !mouse_stale:
 		aim = mouse_aim
-	

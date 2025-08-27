@@ -39,9 +39,9 @@ func _ready() -> void:
 	get_node("Background").new_layer(0.02)
 	get_node("Background").new_layer(0.025)
 	
-	# TEMP
 	%UI.update_health(player.ship)
 	
+	cover.show()
 	get_tree().create_tween().tween_property(cover, "modulate", Color(1.0, 1.0, 1.0, 0.0), 2.0)
 
 

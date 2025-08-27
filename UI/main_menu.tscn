@@ -182,6 +182,7 @@ text = "OPTIONS"
 script = ExtResource("3_d8nwk")
 
 [node name="Splash" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

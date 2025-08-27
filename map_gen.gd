@@ -6,6 +6,7 @@ const SEPERATION: Vector2 = Vector2(120, -100.0)
 const SHIMMY: float = 25.0
 const ICON_SIZE: float = 0.38
 
+
 func _ready() -> void:
 	Global.random.seed = 1
 	generate_map()

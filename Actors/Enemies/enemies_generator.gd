@@ -3,10 +3,11 @@ class_name EnemyGenerator extends Node
 const FLYING_ENEMY: PackedScene = preload("res://Actors/Enemies/Flying/flying_enemy.tscn")
 const CANNON_ENEMY: PackedScene = preload("res://Actors/Enemies/Cannon/cannon_enemy.tscn")
 const LOOSE_ENEMY_LIMIT: int = 64
+const LOOSE_ENEMY_HARD_LIMIT: int = 256
 
 @export var enemy_put_node: Node2D
 @onready var flying_spawn_zone: Path2D = $FlyingEnemySpawnZone
-@onready var root : LevelController = get_tree().current_scene
+@onready var root: LevelController = get_tree().current_scene
 
 var total_enemies_alive: int = 0
 
@@ -29,8 +30,8 @@ func _on_flying_enemy_spawn_attempt_timer_timeout() -> void:
 		var k: FlyingEnemy = FLYING_ENEMY.instantiate()
 		enemy_put_node.add_child(k)
 		var shimmy := Vector2(randf_range(-15, 15), randf_range(-15, 15))
-		k.x = root.player.x + pos.x + shimmy.x
-		k.y = root.player.y + pos.y + shimmy.y
 		k.vx = root.player.vx
 		k.vy = root.player.vy
+		k.x = root.player.x + pos.x + shimmy.x - k.vx * get_process_delta_time()
+		k.y = root.player.y + pos.y + shimmy.y - k.vy * get_process_delta_time()
 	$FlyingEnemySpawnAttemptTimer.start(randf_range(18, 60))

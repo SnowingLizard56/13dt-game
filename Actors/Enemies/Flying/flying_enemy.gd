@@ -147,9 +147,9 @@ func _physics_process(delta: float) -> void:
 		
 		cast.position = cast_start
 		vel_offset += Vector2(next_grav.ax, next_grav.ay) * Global.PREDICTION_TIMESTEP
-		cast.target_position = vel_offset * Global.PREDICTION_TIMESTEP
+		cast.target_position = vel_offset * Global.PREDICTION_TIMESTEP * 3
 		
-		cast_start += cast.target_position
+		cast_start += vel_offset * Global.PREDICTION_TIMESTEP
 
 
 func draw_sprite() -> void:

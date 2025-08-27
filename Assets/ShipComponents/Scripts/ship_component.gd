@@ -3,7 +3,7 @@ class_name ShipComponent extends Resource
 @export var name: String
 @export_multiline var description: String = "--"
 @export var mass: float
-@export var sell_value: float
+@export var sell_value: int
 @export var misc_properties: Array[ShipPropertyModifier] = []
 
 

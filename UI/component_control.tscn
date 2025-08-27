@@ -1,0 +1,259 @@
+[gd_scene load_steps=6 format=3 uid="uid://1tgshqqd08qg"]
+
+[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_vbdhk"]
+[ext_resource type="Script" uid="uid://yoxoaei6uvp3" path="res://UI/component_control.gd" id="2_uks5t"]
+[ext_resource type="PackedScene" uid="uid://r58cdlaud3e7" path="res://UI/component.tscn" id="3_frvxf"]
+[ext_resource type="Script" uid="uid://dwgfpgetncjn7" path="res://UI/warning_display.gd" id="4_68qdt"]
+[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="5_u4yem"]
+
+[node name="ComponentControl" type="Control" node_paths=PackedStringArray("ship_display", "ship_desc", "warning_display", "warning_label", "cmpnt_title", "cmpnt_desc", "installed_count_label", "spare_count_label", "installed_components", "spare_components", "continue_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_vbdhk")
+script = ExtResource("2_uks5t")
+ship_display = NodePath("HBoxContainer/VBoxContainer3/ShipInfo/ShipDisplay")
+component_scene = ExtResource("3_frvxf")
+ship_desc = NodePath("HBoxContainer/VBoxContainer3/ShipInfo/Description")
+warning_display = NodePath("HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay")
+warning_label = NodePath("HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup")
+cmpnt_title = NodePath("HBoxContainer/VBoxContainer3/ComponentInfo/Title")
+cmpnt_desc = NodePath("HBoxContainer/VBoxContainer3/ComponentInfo/Description")
+installed_count_label = NodePath("HBoxContainer/InstalledComponents/Count")
+spare_count_label = NodePath("HBoxContainer/SpareComponents/Count")
+installed_components = NodePath("HBoxContainer/InstalledComponents/VBoxContainer")
+spare_components = NodePath("HBoxContainer/SpareComponents/VBoxContainer")
+continue_button = NodePath("Continue")
+
+[node name="DimBG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.376471)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.978
+offset_left = 140.0
+offset_top = 142.0
+offset_right = -140.0
+offset_bottom = -127.744
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(288, 0)
+layout_mode = 2
+
+[node name="ShipInfo" type="Panel" parent="HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+theme_type_variation = &"StatsContainer"
+
+[node name="ShipDisplay" type="Control" parent="HBoxContainer/VBoxContainer3/ShipInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 245.0
+offset_top = 90.0
+offset_right = -43.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WarningDisplay" type="Control" parent="HBoxContainer/VBoxContainer3/ShipInfo"]
+visible = false
+anchors_preset = 0
+offset_left = 245.0
+offset_top = 151.0
+offset_right = 245.0
+offset_bottom = 151.0
+focus_mode = 2
+script = ExtResource("4_68qdt")
+metadata/_edit_use_anchors_ = true
+
+[node name="Popup" type="Label" parent="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay"]
+visible = false
+z_index = 1
+layout_mode = 2
+offset_left = 7.0
+offset_top = -11.5
+offset_right = 156.0
+offset_bottom = 6.5
+mouse_filter = 1
+theme_type_variation = &"WarningPopup"
+text = "Warning - No Thruster"
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer3/ShipInfo"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -118.5
+offset_right = 118.5
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_type_variation = &"StatsTitle"
+text = "Current Ship Overview"
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer3/ShipInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 50.0
+offset_right = -88.0
+offset_bottom = -64.0
+theme_type_variation = &"StatsDescription"
+text = "Mass
+Thrust
+Acceleration"
+
+[node name="ComponentInfo" type="Panel" parent="HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+theme_type_variation = &"StatsContainer"
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer3/ComponentInfo"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -5.0
+offset_right = 5.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_type_variation = &"StatsTitle"
+text = "-"
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer3/ComponentInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 37.0
+offset_right = -91.0
+offset_bottom = -77.0
+theme_type_variation = &"StatsDescription"
+text = "Focus a component to see details."
+
+[node name="InstalledComponents" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(288, 0)
+layout_mode = 2
+theme_type_variation = &"StatsContainer"
+
+[node name="Title" type="Label" parent="HBoxContainer/InstalledComponents"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.0
+offset_right = 113.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_type_variation = &"StatsTitle"
+text = "Installed Components"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InstalledComponents"]
+clip_contents = true
+custom_minimum_size = Vector2(278, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -139.0
+offset_top = -321.0
+offset_right = 139.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Count" type="Label" parent="HBoxContainer/InstalledComponents"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 208.0
+offset_top = 343.0
+offset_right = -5.0
+offset_bottom = -5.0
+theme_type_variation = &"StatsDescription"
+theme_override_colors/font_color = Color(0.372, 0.500133, 0.62, 1)
+text = "/7"
+horizontal_alignment = 2
+
+[node name="SpareComponents" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(288, 0)
+layout_mode = 2
+theme_type_variation = &"StatsContainer"
+
+[node name="Title" type="Label" parent="HBoxContainer/SpareComponents"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -115.0
+offset_right = 115.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_type_variation = &"StatsTitle"
+text = "Available Components"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/SpareComponents"]
+custom_minimum_size = Vector2(278, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -139.0
+offset_top = -321.0
+offset_right = 139.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Count" type="Label" parent="HBoxContainer/SpareComponents"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 178.0
+offset_top = 343.0
+offset_right = -5.0
+offset_bottom = -5.0
+theme_type_variation = &"StatsDescription"
+theme_override_colors/font_color = Color(0.372, 0.500133, 0.62, 1)
+text = "/7"
+horizontal_alignment = 2
+
+[node name="Continue" type="Button" parent="."]
+layout_mode = 0
+offset_left = 857.0
+offset_top = 511.0
+offset_right = 1012.0
+offset_bottom = 561.0
+theme_type_variation = &"Component"
+text = "Continue"
+script = ExtResource("5_u4yem")
+metadata/_custom_type_script = "uid://dg7hgelew38lk"
+
+[connection signal="draw" from="HBoxContainer/VBoxContainer3/ShipInfo/ShipDisplay" to="." method="draw_player"]
+[connection signal="focus_entered" from="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="show"]
+[connection signal="focus_exited" from="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="hide"]
+[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" method="grab_focus"]
+[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]

@@ -25,10 +25,12 @@ const GAME_FILE_PATH: String = "res://Actors/Game/game.tscn"
 @onready var fade: ColorRect = $Fade
 @onready var loading_screen: Control = $LoadingScreen
 @onready var e127: Node2D = $LoadingScreen/E127
+@onready var bg_seed: int = randi()
 
 var symbol_lambda: float = 1.0
 var splash_tween: Tween
 var game_started: bool = false
+
 
 signal game_scene_loaded
 
@@ -79,15 +81,18 @@ func _process(delta: float) -> void:
 	symbol.queue_redraw()
 	if get_load_threaded_progress(GAME_FILE_PATH) == 1.0:
 		game_scene_loaded.emit()
+	distant.queue_redraw()
 
 
 func _on_distant_draw() -> void:
+	seed(bg_seed)
 	distant.draw_rect(Rect2(-576, -324, 1152, 648), BG_COLOUR)
 	for i in 256:
 		var vrect: Rect2 = get_viewport_rect()
 		var pos: Vector2 = vrect.size * Vector2(randf(), randf()) - vrect.size / 2
-		distant.draw_circle(pos, 1, Color.WHITE)
+		distant.draw_circle(pos, 1.0 / distant.scale.x, Color.WHITE)
 	distant.draw_rect(Rect2(-72, -40, 144, 81), BG_COLOUR)
+	randomize()
 
 
 func _on_player_draw() -> void:
@@ -102,10 +107,10 @@ func _on_planet_draw() -> void:
 
 
 func _on_symbol_draw() -> void:
-	const WIDTH := 5.0
+	const WIDTH := 2.0
 	const RADIUS := PLANET_RADIUS - WIDTH
 	const ROTATION := -TAU / 4
-	const SYMBOL_N: int = 47
+	const SYMBOL_N: int = 83
 	
 	symbol.draw_circle(Vector2.ZERO, RADIUS, SOLID_COLOUR, false, WIDTH)
 	

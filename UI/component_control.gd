@@ -1,7 +1,6 @@
-extends Control
+class_name ComponentControl extends Control
 
 const SHIP_SPRITE_RADIUS = 20
-@onready var player: Player = %Player
 
 @export var ship_display: Control
 @export var component_scene: PackedScene
@@ -19,6 +18,16 @@ const SHIP_SPRITE_RADIUS = 20
 @export var spare_components: VBoxContainer
 @export var continue_button: CustomButton
 
+var working_ship: Ship
+
+signal reprocessed
+signal continue_pressed
+signal swap_amount(value: int)
+
+
+func _ready() -> void:
+	continue_button.pressed.connect(continue_pressed.emit)
+
 
 func _process(delta: float) -> void:
 	ship_display.rotation -= delta
@@ -34,16 +43,18 @@ func draw_player():
 	ship_display.draw_colored_polygon(sq_pts, Color("20a5a6"))
 
 
-# Adds a component button to the scene and setss up signals
-func add_component_option(what: ShipComponent, where: Node):
+# Adds a component button to the scene and sets up signals
+func add_component_option(what: ShipComponent, where: Node, swap_cost: int = 0):
 	var k: ShipComponentNode = component_scene.instantiate()
 	k.component = what
 	where.add_child(k)
 	k.focus_entered.connect(update_component_stat_display.bind(what))
 	if where == installed_components:
 		k.pressed.connect(move_component_node.bind(k, spare_components))
+		k.swap_cost = what.sell_value
 	else:
 		k.pressed.connect(move_component_node.bind(k, installed_components))
+		k.swap_cost = swap_cost
 
 
 # Add all components from the given ship to the scene
@@ -54,23 +65,23 @@ func load_ship(ship: Ship) -> void:
 
 # Recalculate and display the overall ship
 func reprocess() -> void:
-	player.ship.components = []
+	working_ship.components = []
 	for i in installed_components.get_children():
-		player.ship.components.append(i.component)
-	player.ship.set_components()
+		working_ship.components.append(i.component)
+	working_ship.set_components()
 	
 	warning_display.hide()
 	warning_label.text = ""
 	
-	if player.ship.has_multiple_hulls:
+	if working_ship.has_multiple_hulls:
 		warning_label.text += "Ship has multiple hulls. Only the first is active.\n"
-	if player.ship.no_hull:
+	if working_ship.no_hull:
 		warning_label.text += "Ship has no hull.\n"
-	if player.ship.has_multiple_thrusters:
+	if working_ship.has_multiple_thrusters:
 		warning_label.text += "Ship has multiple thrusters. Only the first is active.\n"
-	if player.ship.no_thruster:
+	if working_ship.no_thruster:
 		warning_label.text += "Ship has no thruster.\n"
-	if player.ship.too_many_triggers:
+	if working_ship.too_many_triggers:
 		warning_label.text += "Only the first four components with triggers are accessible.\n"
 	
 	if warning_label.text != "":
@@ -98,11 +109,13 @@ func reprocess() -> void:
 	Mass: {0} T
 	Thrust: {1} kN
 	Acceleration: {2} pxs⁻²""".format(round_to_dp([
-		player.ship.mass,
-		player.ship.thrust,
-		player.ship.acceleration,
-		player.ship.max_hp,
+		working_ship.mass,
+		working_ship.thrust,
+		working_ship.acceleration,
+		working_ship.max_hp,
 	], 2))
+	
+	reprocessed.emit()
 
 
 # Handle hover of component button
@@ -112,16 +125,19 @@ func update_component_stat_display(component: ShipComponent):
 	
 
 # Handle the clicking of a component button
-func move_component_node(node: CustomButton, where: VBoxContainer):
+func move_component_node(node: ShipComponentNode, where: VBoxContainer):
 	if where.get_child_count() == 7:
 		return
 	node.reparent(where)
 	for c in node.pressed.get_connections():
 		node.pressed.disconnect(c.callable)
+	
 	if where == installed_components:
 		node.pressed.connect(move_component_node.bind(node, spare_components))
+		swap_amount.emit(-node.swap_cost)
 	else:
 		node.pressed.connect(move_component_node.bind(node, installed_components))
+		swap_amount.emit(node.swap_cost)
 	node.grab_focus()
 	reprocess()
 
@@ -132,21 +148,21 @@ func round_to_dp(data: Array, dp: int) -> Array:
 	return data
 
 
-func start(available_components: Array[ShipComponent]) -> Array[ShipComponent]:
-	load_ship(player.ship)
+func start(available_components: Array[ShipComponent], ship_initial: Ship, swap_costs: PackedInt32Array = []):
+	if len(swap_costs) != len(available_components):
+		swap_costs.resize(len(available_components))
+		swap_costs.fill(0)
+	working_ship = ship_initial.duplicate()
+	load_ship(working_ship)
 	reprocess()
 	
 	# Setup
-	for c in available_components:
-		add_component_option(c, spare_components)
-	
-	# Wait
-	get_tree().paused = true
-	show()
-	await continue_button.pressed
-	get_tree().paused = false
-	hide()
-	
+	for i in len(available_components):
+		add_component_option(available_components[i], spare_components, swap_costs[i])
+
+
+# Returns the unused components
+func finish() -> Array[ShipComponent]:
 	# Setdown
 	var out: Array[ShipComponent] = []
 	for n: ShipComponentNode in spare_components.get_children():

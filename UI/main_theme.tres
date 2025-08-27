@@ -1,7 +1,8 @@
-[gd_resource type="Theme" load_steps=27 format=3 uid="uid://b3ou7d8b0fupu"]
+[gd_resource type="Theme" load_steps=30 format=3 uid="uid://b3ou7d8b0fupu"]
 
 [ext_resource type="FontFile" uid="uid://dhv161lwqx2w" path="res://Assets/Fonts/NunitoSans-BlackItalic.ttf" id="1_7m7pu"]
 [ext_resource type="FontFile" uid="uid://cj4306gnqlbor" path="res://Assets/Fonts/NowAlt-Regular.otf" id="1_h32ur"]
+[ext_resource type="FontFile" uid="uid://dbaqv8ndbpdvk" path="res://Assets/Fonts/monofonto rg.otf" id="2_5f78n"]
 [ext_resource type="FontFile" uid="uid://by1xkrgvgmeu6" path="res://Assets/Fonts/Economica-Bold.ttf" id="2_7m7pu"]
 [ext_resource type="FontFile" uid="uid://0okyiao7xttn" path="res://Assets/Fonts/BigShouldersDisplay-ExtraBold.ttf" id="2_cfsd7"]
 [ext_resource type="FontFile" uid="uid://na7ngyssryv6" path="res://Assets/Fonts/BigShouldersDisplay-SemiBold.ttf" id="3_qm5hq"]
@@ -71,6 +72,13 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cfsd7"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu2f5"]
+bg_color = Color(0.0941176, 0.168627, 0.239216, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_431p2"]
 bg_color = Color(0.0507, 0.0916717, 0.13, 1)
 border_width_left = 2
@@ -99,7 +107,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
+border_color = Color(0.960784, 0.909804, 0.819608, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -109,6 +117,13 @@ expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6lkj0"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jbj0"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsqoc"]
 bg_color = Color(0.364706, 0.384314, 0.403922, 1)
@@ -169,19 +184,26 @@ Button/styles/hover = SubResource("StyleBoxFlat_466ly")
 Button/styles/normal = SubResource("StyleBoxFlat_a2l2q")
 Button/styles/pressed = SubResource("StyleBoxFlat_0omi4")
 Component/base_type = &"Button"
+Component/colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
 Component/font_sizes/font_size = 28
 Component/fonts/font = ExtResource("1_7m7pu")
 Component/styles/focus = SubResource("StyleBoxFlat_7m7pu")
 Component/styles/hover = SubResource("StyleBoxFlat_qm5hq")
 Component/styles/normal = SubResource("StyleBoxFlat_8wpuh")
 Component/styles/pressed = SubResource("StyleBoxEmpty_cfsd7")
+CurrencyLabel/base_type = &"Label"
+CurrencyLabel/colors/font_color = Color(0.96, 0.96, 0.96, 1)
+CurrencyLabel/fonts/font = ExtResource("2_5f78n")
 GameTitle/base_type = &"Label"
 GameTitle/font_sizes/font_size = 86
 GameTitle/fonts/font = ExtResource("2_cfsd7")
+HUDPanel/base_type = &"Panel"
+HUDPanel/styles/panel = SubResource("StyleBoxFlat_uu2f5")
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/font_sizes/font_size = 36
 Label/fonts/font = ExtResource("2_cfsd7")
 MainMenuButton/base_type = &"Button"
+MainMenuButton/colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
 MainMenuButton/colors/font_focus_color = Color(0.12549, 0.647059, 0.65098, 1)
 MainMenuButton/colors/font_hover_color = Color(0.12549, 0.647059, 0.65098, 1)
 MainMenuButton/colors/font_hover_pressed_color = Color(0.12549, 0.647059, 0.65098, 1)
@@ -198,15 +220,18 @@ MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
+Panel/styles/panel = SubResource("StyleBoxFlat_4jbj0")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_gsqoc")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_5f78n")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_daddk")
 StatsContainer/base_type = &"Panel"
 StatsContainer/styles/panel = SubResource("StyleBoxFlat_ou33m")
 StatsDescription/base_type = &"Label"
+StatsDescription/colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
 StatsDescription/font_sizes/font_size = 13
 StatsDescription/fonts/font = ExtResource("1_h32ur")
 StatsTitle/base_type = &"Label"
+StatsTitle/colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
 StatsTitle/font_sizes/font_size = 32
 StatsTitle/fonts/font = ExtResource("2_7m7pu")
 TabContainer/styles/panel = SubResource("StyleBoxFlat_58jnp")

@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh3uk0qgepwl5"]
+
+[ext_resource type="Script" uid="uid://54eb28m1u7wf" path="res://UI/currency_display.gd" id="1_sar5q"]
+[ext_resource type="PackedScene" uid="uid://dwsxd5ttvjxsu" path="res://Assets/Profiles/E127_orbital.tscn" id="2_ibcph"]
+
+[node name="CurrencyDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 13.0
+offset_top = 45.0
+offset_right = 172.0
+offset_bottom = 91.0
+script = ExtResource("1_sar5q")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HUDPanel"
+
+[node name="E127 Orbital" parent="." instance=ExtResource("2_ibcph")]
+position = Vector2(22.5, 22.5)
+first_radius = 2
+radius_per_layer = 2
+electron_radius = 0.5
+line_width = -1.0
+
+[node name="Currency" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -22.0
+offset_right = -4.0
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_type_variation = &"CurrencyLabel"
+text = "000000"

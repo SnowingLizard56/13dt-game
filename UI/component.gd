@@ -1,7 +1,9 @@
 class_name ShipComponentNode extends CustomButton
 
-var component: ShipComponent
+
 const TRIGGER_ICON_RADIUS: float = 20
+var component: ShipComponent
+var swap_cost: int
 
 
 func _ready() -> void:

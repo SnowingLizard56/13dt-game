@@ -49,27 +49,27 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment3" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 3584
+collision_mask = 3842
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment4" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 7168
+collision_mask = 7938
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment5" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 14336
+collision_mask = 15360
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment6" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 28672
+collision_mask = 30720
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Segment7" type="RayCast2D" parent="PathPrediction"]
-collision_mask = 57344
+collision_mask = 61440
 collide_with_areas = true
 collide_with_bodies = false
 
