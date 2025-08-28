@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b03vywmrkf42d"]
+[gd_scene load_steps=6 format=3 uid="uid://b03vywmrkf42d"]
 
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_offu1"]
 [ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/component_control.tscn" id="2_h1iqd"]
 [ext_resource type="Script" uid="uid://c5xilw8i0dtne" path="res://Actors/Game/shop.gd" id="2_y6pbu"]
+[ext_resource type="Resource" uid="uid://bhc5qcynkvq0a" path="res://Assets/LootTables/shop.tres" id="3_cpln2"]
 [ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/currency_display.tscn" id="3_y6pbu"]
 
 [node name="Shop" type="Control"]
@@ -14,6 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_offu1")
 script = ExtResource("2_y6pbu")
+shop_loot = ExtResource("3_cpln2")
 
 [node name="BG" type="Control" parent="."]
 layout_mode = 1

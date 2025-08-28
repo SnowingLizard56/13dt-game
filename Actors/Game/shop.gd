@@ -9,11 +9,16 @@ const ENEMY_COLOUR: Color = Color(0.867, 0.337, 0.224, 1.0)
 @onready var component_control: ComponentControl = $ComponentControl
 @onready var currency_display: CurrencyDisplay = $CurrencyDisplay
 var budget: int
+@export var shop_loot: LootTable
 
 
 func _ready() -> void:
 	budget = Global.player_currency
-	component_control.start([], Global.player_ship)
+	var available := shop_loot.get_loot(
+		randi_range(3, 5) - randi_range(0, 1),
+		Global.player_ship.get(&"Luck").value)
+	
+	component_control.start(available, Global.player_ship)
 
 
 func _on_bg_draw() -> void:
@@ -29,10 +34,16 @@ func _on_component_control_reprocessed() -> void:
 	pass # Replace with function body.
 
 
-func _on_component_control_continue_pressed() -> void:
-	pass # Replace with function body.
-
-
 func _on_component_control_swap_amount(value: int) -> void:
 	budget += value
 	currency_display.apply_amount(budget)
+
+
+func _on_component_control_continue_pressed() -> void:
+	if budget < 0:
+		# Declined animation
+		pass
+	else:
+		# Accepted animation:
+		# Switch to map
+		pass

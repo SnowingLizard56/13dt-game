@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Booster" load_steps=3 format=3 uid="uid://bo7benomsklhh"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/Scripts/ship_property_modifier.gd" id="1_l726n"]
+[ext_resource type="Script" uid="uid://c58sp5q1mwllg" path="res://Assets/ShipComponents/Scripts/Specialised/booster.gd" id="2_n6i4a"]
+
+[resource]
+script = ExtResource("2_n6i4a")
+extra_thrust = 3200.0
+duration = 2.0
+trigger_cooldown = 5.0
+name = ""
+description = "--
+"
+mass = 6.0
+misc_properties = Array[ExtResource("1_l726n")]([])
+sell_value = 0
+buy_value = 16
+random_extra_cost = 4
+metadata/_custom_type_script = "uid://c58sp5q1mwllg"

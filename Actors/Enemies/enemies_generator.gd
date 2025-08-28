@@ -7,7 +7,7 @@ const LOOSE_ENEMY_HARD_LIMIT: int = 256
 
 @export var enemy_put_node: Node2D
 @onready var flying_spawn_zone: Path2D = $FlyingEnemySpawnZone
-@onready var root: LevelController = get_tree().current_scene
+@onready var root: LevelController = Global.root
 
 var total_enemies_alive: int = 0
 

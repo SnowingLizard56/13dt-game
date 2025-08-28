@@ -143,10 +143,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 5.0
 offset_top = 37.0
-offset_right = -91.0
+offset_right = -5.0
 offset_bottom = -77.0
 theme_type_variation = &"StatsDescription"
 text = "Focus a component to see details."
+autowrap_mode = 2
 
 [node name="InstalledComponents" type="Panel" parent="HBoxContainer"]
 custom_minimum_size = Vector2(288, 0)

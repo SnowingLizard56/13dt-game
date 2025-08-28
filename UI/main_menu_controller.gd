@@ -163,6 +163,7 @@ func _on_play_pressed() -> void:
 	ResourceLoader.load_threaded_request(GAME_FILE_PATH)
 	game_started = true
 
+
 func play_animation_finished():
 	const SHIFT_TIME := 3.0
 	if !get_load_threaded_progress(GAME_FILE_PATH) == 1.0:
@@ -177,11 +178,15 @@ func play_animation_finished():
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	t.tween_property(distant, "scale", Vector2.ONE * 8, SHIFT_TIME * 0.9)\
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
-	t.tween_callback(get_tree().change_scene_to_packed.bind(
-		ResourceLoader.load_threaded_get(GAME_FILE_PATH)))
+	t.tween_callback(scene_switch)
 
 
 func get_load_threaded_progress(path: String) -> float:
 	var progress: Array = []
 	ResourceLoader.load_threaded_get_status(path, progress)
 	return progress[0]
+
+
+func scene_switch():
+	Global.switch_scene(ResourceLoader.load_threaded_get(GAME_FILE_PATH))
+	

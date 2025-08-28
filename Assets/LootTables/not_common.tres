@@ -1,9 +1,25 @@
-[gd_resource type="Resource" script_class="LootTable" load_steps=2 format=3 uid="uid://bb7n6io7kcjod"]
+[gd_resource type="Resource" script_class="LootTable" load_steps=6 format=3 uid="uid://bb7n6io7kcjod"]
 
 [ext_resource type="Script" uid="uid://ddyfayvy5r4u6" path="res://Assets/LootTables/loot_table.gd" id="1_mo57r"]
+[ext_resource type="Resource" uid="uid://ck5bie47363cg" path="res://Assets/ShipComponents/NotCommon/eight-leaf_panel.tres" id="2_c858m"]
+[ext_resource type="Resource" uid="uid://deyxdwl06ikyl" path="res://Assets/ShipComponents/NotCommon/impure_e127.tres" id="3_fdfdx"]
+
+[sub_resource type="Resource" id="Resource_jjdcp"]
+script = ExtResource("1_mo57r")
+weight = 1.0
+table = Array[ExtResource("1_mo57r")]([])
+component = ExtResource("2_c858m")
+metadata/_custom_type_script = "uid://ddyfayvy5r4u6"
+
+[sub_resource type="Resource" id="Resource_pwftu"]
+script = ExtResource("1_mo57r")
+weight = 1.0
+table = Array[ExtResource("1_mo57r")]([])
+component = ExtResource("3_fdfdx")
+metadata/_custom_type_script = "uid://ddyfayvy5r4u6"
 
 [resource]
 script = ExtResource("1_mo57r")
 weight = 5.0
-table = Array[ExtResource("1_mo57r")]([])
+table = Array[ExtResource("1_mo57r")]([SubResource("Resource_jjdcp"), SubResource("Resource_pwftu")])
 metadata/_custom_type_script = "uid://ddyfayvy5r4u6"

@@ -44,7 +44,7 @@ func draw_player():
 
 
 # Adds a component button to the scene and sets up signals
-func add_component_option(what: ShipComponent, where: Node, swap_cost: int = 0):
+func add_component_option(what: ShipComponent, where: Node):
 	var k: ShipComponentNode = component_scene.instantiate()
 	k.component = what
 	where.add_child(k)
@@ -54,7 +54,7 @@ func add_component_option(what: ShipComponent, where: Node, swap_cost: int = 0):
 		k.swap_cost = what.sell_value
 	else:
 		k.pressed.connect(move_component_node.bind(k, installed_components))
-		k.swap_cost = swap_cost
+		k.swap_cost = what.buy_value
 
 
 # Add all components from the given ship to the scene
@@ -148,17 +148,14 @@ func round_to_dp(data: Array, dp: int) -> Array:
 	return data
 
 
-func start(available_components: Array[ShipComponent], ship_initial: Ship, swap_costs: PackedInt32Array = []):
-	if len(swap_costs) != len(available_components):
-		swap_costs.resize(len(available_components))
-		swap_costs.fill(0)
-	working_ship = ship_initial.duplicate()
+func start(available_components: Array[ShipComponent], ship_initial: Ship):
+	working_ship = ship_initial
 	load_ship(working_ship)
 	reprocess()
 	
 	# Setup
 	for i in len(available_components):
-		add_component_option(available_components[i], spare_components, swap_costs[i])
+		add_component_option(available_components[i], spare_components)
 
 
 # Returns the unused components

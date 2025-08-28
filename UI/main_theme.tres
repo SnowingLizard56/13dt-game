@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=30 format=3 uid="uid://b3ou7d8b0fupu"]
+[gd_resource type="Theme" load_steps=31 format=3 uid="uid://b3ou7d8b0fupu"]
 
 [ext_resource type="FontFile" uid="uid://dhv161lwqx2w" path="res://Assets/Fonts/NunitoSans-BlackItalic.ttf" id="1_7m7pu"]
 [ext_resource type="FontFile" uid="uid://cj4306gnqlbor" path="res://Assets/Fonts/NowAlt-Regular.otf" id="1_h32ur"]
@@ -78,6 +78,9 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_okx7s"]
+bg_color = Color(0.12549, 0.647059, 0.65098, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_431p2"]
 bg_color = Color(0.0507, 0.0916717, 0.13, 1)
@@ -202,6 +205,8 @@ HUDPanel/styles/panel = SubResource("StyleBoxFlat_uu2f5")
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/font_sizes/font_size = 36
 Label/fonts/font = ExtResource("2_cfsd7")
+LevelUpBar/base_type = &"ProgressBar"
+LevelUpBar/styles/fill = SubResource("StyleBoxFlat_okx7s")
 MainMenuButton/base_type = &"Button"
 MainMenuButton/colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
 MainMenuButton/colors/font_focus_color = Color(0.12549, 0.647059, 0.65098, 1)

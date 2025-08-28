@@ -3,8 +3,10 @@ class_name ShipComponent extends Resource
 @export var name: String
 @export_multiline var description: String = "--"
 @export var mass: float
-@export var sell_value: int
 @export var misc_properties: Array[ShipPropertyModifier] = []
+@export var sell_value: int
+@export var buy_value: int
+@export var random_extra_cost: int
 
 
 func _installed(_ship: Ship):

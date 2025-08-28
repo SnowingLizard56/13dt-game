@@ -8,8 +8,11 @@ script = ExtResource("1_dkmxn")
 max_hp = 100.0
 damage_threshold = 5.0
 name = "Steel Hull"
-description = "--"
+description = "--
+Simple hull made of galvanized square steel."
 mass = 10.0
-sell_value = 0.0
-misc_properties = Dictionary[StringName, ExtResource("1_cwg4c")]({})
+misc_properties = Array[ExtResource("1_cwg4c")]([])
+sell_value = 0
+buy_value = 0
+random_extra_cost = 0
 metadata/_custom_type_script = "uid://na18bgp2ofyr"

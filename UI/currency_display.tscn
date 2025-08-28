@@ -23,12 +23,14 @@ theme_type_variation = &"HUDPanel"
 
 [node name="E127 Orbital" parent="." instance=ExtResource("2_ibcph")]
 position = Vector2(22.5, 22.5)
+colour = Color(0.960784, 0.909804, 0.819608, 1)
 first_radius = 2
 radius_per_layer = 2
 electron_radius = 0.5
 line_width = -1.0
 
 [node name="Currency" type="Label" parent="."]
+modulate = Color(0.960784, 0.909804, 0.819608, 1)
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0

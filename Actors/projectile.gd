@@ -30,7 +30,7 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1) ->
 	y = src.y + spawn_distance.y
 	source = src
 	process_priority = source.process_priority - 1
-	root = Global.get_tree().current_scene
+	root = Global.root
 	root.entities.add_child(self)
 	add_child(CollisionShape2D.new())
 	get_child(0).shape = shape

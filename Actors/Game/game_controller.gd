@@ -21,6 +21,7 @@ signal initial_areas_instantiated
 
 
 func _ready() -> void:
+	const BG_PARALLAX_DISTANCES: PackedFloat32Array = [0.005, 0.007, 0.01, 0.02, 0.025]
 	level = LevelGenerator.get_ready_level()
 	level.body_collided.connect(delete_body_area)
 	add_child(level)
@@ -33,16 +34,15 @@ func _ready() -> void:
 	game_rect = camera.get_viewport_rect()
 	game_rect.size /= camera.zoom.x
 	
-	get_node("Background").new_layer(0.005)
-	get_node("Background").new_layer(0.007)
-	get_node("Background").new_layer(0.01)
-	get_node("Background").new_layer(0.02)
-	get_node("Background").new_layer(0.025)
+	for d in BG_PARALLAX_DISTANCES:
+		get_node("Background").new_layer(d)
 	
 	%UI.update_health(player.ship)
 	
 	cover.show()
-	get_tree().create_tween().tween_property(cover, "modulate", Color(1.0, 1.0, 1.0, 0.0), 2.0)
+	var t: Tween = get_tree().create_tween()
+	t.tween_property(cover, "modulate", Color(1.0, 1.0, 1.0, 0.0), 1.0)
+	t.tween_callback(cover.hide)
 
 
 func _physics_process(delta: float) -> void:

@@ -1,6 +1,6 @@
 class_name LootTable extends Resource
 
-@export var weight: float = 0
+@export var weight: float = 1
 @export var table: Array[LootTable] = []
 @export var component: ShipComponent
 

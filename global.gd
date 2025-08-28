@@ -1,9 +1,8 @@
 extends Node
 
-
 const PREDICTION_TIMESTEP: float = 5.0 / 8
 
-var player_ship: Ship
+@onready var player_ship: Ship = Ship.new()
 
 var is_xaragiln_friendly: bool = false
 var is_namurant_friendly: bool = true
@@ -19,9 +18,15 @@ var joy_stale := true
 var level_seed: int = 1
 
 var player_currency: int
+@onready var root: Node = get_tree().current_scene
 
 @onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
+
 signal frame_next
+
+
+func _ready() -> void:
+	player_ship.set_components()
 
 
 func process_sentence(sen:Sentence) -> String:
@@ -30,7 +35,7 @@ func process_sentence(sen:Sentence) -> String:
 	return out
 
 
-# Not my function. An algorithm essentially the same as Array.shuffle()
+# Not my code. An algorithm essentially the same as Array.shuffle()
 # Except it uses its own random number generator
 func array_shuffle(array: Array) -> Array:
 	# Each item except last two
@@ -68,3 +73,10 @@ func _process(_delta: float) -> void:
 		aim = joy_aim
 	elif joy_stale and !mouse_stale:
 		aim = mouse_aim
+
+func switch_scene(new_scene: PackedScene):
+	var k: Node = new_scene.instantiate()
+	var old: Node = root
+	Global.root = k
+	old.get_parent().add_child(k)
+	old.queue_free()

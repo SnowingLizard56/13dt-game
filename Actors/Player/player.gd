@@ -2,6 +2,7 @@ class_name Player extends Area2D
 
 const SPRITE_RADIUS: int = 5
 const DAMAGE_LEEWAY: float = 1.7
+const MAX_ROTATION_SPEED: float = TAU
 
 signal player_died
 
@@ -17,6 +18,7 @@ var level: Level
 #@onready var ship: Ship = Global.player_ship
 @export var ship: Ship
 @onready var ui: Control = %UI
+@onready var thrust: CPUParticles2D = $Thrust
 
 var trigger_queue: PackedInt32Array = []
 var trigger_timer_queue: PackedFloat32Array = []
@@ -63,10 +65,11 @@ func _physics_process(delta: float) -> void:
 	# Visual
 	rotate(-delta * ship.acceleration / 80)
 	if acceleration_input:
-		$Thrust.emitting = true
-		$Thrust.global_rotation = acceleration_input.angle()
+		thrust.emitting = true
+		var diff: float = angle_difference(thrust.global_rotation, acceleration_input)
+		thrust.global_rotation = acceleration_input.angle()
 	else:
-		$Thrust.emitting = false
+		thrust.emitting = false
 	
 	# Velocity then position
 	vx += ship.acceleration * acceleration_input.x * delta

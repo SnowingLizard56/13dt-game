@@ -7,8 +7,11 @@
 script = ExtResource("1_r3kel")
 thrust = 1600.0
 name = "Burner Thruster"
-description = "--"
+description = "--
+Thrust is produced by burning fuel. We don't really question where the fuel comes from."
 mass = 5.0
-sell_value = 0.0
-misc_properties = Dictionary[StringName, ExtResource("1_ea5hx")]({})
+misc_properties = Array[ExtResource("1_ea5hx")]([])
+sell_value = 0
+buy_value = 0
+random_extra_cost = 0
 metadata/_custom_type_script = "uid://bjn3qcowugx7q"

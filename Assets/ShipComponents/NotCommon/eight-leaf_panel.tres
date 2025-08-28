@@ -16,6 +16,7 @@ name = "Eight-Leaf Panel"
 description = "--
 Greatly increases your chances of finding rare components."
 mass = 4.2
-sell_value = 1.8
 misc_properties = Array[ExtResource("1_3fiw3")]([SubResource("Resource_jicb6")])
+sell_value = 77
+buy_value = 277
 metadata/_custom_type_script = "uid://bvhobxwrsqcti"

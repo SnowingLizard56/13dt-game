@@ -3,7 +3,7 @@ class_name Enemy extends Node2D
 const DAMAGE_LEEWAY: float = 1.0
 const ENEMY_COLOUR: Color = "dd5639"
 @onready var hp: float = get_max_hp()
-@onready var root: LevelController = get_tree().current_scene
+@onready var root: LevelController = Global.root
 
 var body_id: int = -1
 
