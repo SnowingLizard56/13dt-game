@@ -19,4 +19,5 @@ mass = 4.0
 misc_properties = Array[ExtResource("1_4ru1k")]([SubResource("Resource_jicb6")])
 sell_value = 7
 buy_value = 77
+random_extra_cost = 0
 metadata/_custom_type_script = "uid://bvhobxwrsqcti"

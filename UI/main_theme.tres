@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=31 format=3 uid="uid://b3ou7d8b0fupu"]
+[gd_resource type="Theme" load_steps=33 format=3 uid="uid://b3ou7d8b0fupu"]
 
 [ext_resource type="FontFile" uid="uid://dhv161lwqx2w" path="res://Assets/Fonts/NunitoSans-BlackItalic.ttf" id="1_7m7pu"]
 [ext_resource type="FontFile" uid="uid://cj4306gnqlbor" path="res://Assets/Fonts/NowAlt-Regular.otf" id="1_h32ur"]
@@ -79,6 +79,15 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_431p2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmx4a"]
+bg_color = Color(0.866667, 0.337255, 0.223529, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_okx7s"]
 bg_color = Color(0.12549, 0.647059, 0.65098, 1)
 
@@ -151,7 +160,7 @@ expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_daddk"]
-bg_color = Color(0.866667, 0.337255, 0.223529, 1)
+bg_color = Color(0.960784, 0.909804, 0.819608, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -202,6 +211,9 @@ GameTitle/font_sizes/font_size = 86
 GameTitle/fonts/font = ExtResource("2_cfsd7")
 HUDPanel/base_type = &"Panel"
 HUDPanel/styles/panel = SubResource("StyleBoxFlat_uu2f5")
+HealthBarBuffer/base_type = &"ProgressBar"
+HealthBarBuffer/styles/background = SubResource("StyleBoxEmpty_431p2")
+HealthBarBuffer/styles/fill = SubResource("StyleBoxFlat_cmx4a")
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/font_sizes/font_size = 36
 Label/fonts/font = ExtResource("2_cfsd7")

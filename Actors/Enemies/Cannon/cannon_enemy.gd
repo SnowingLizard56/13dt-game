@@ -29,13 +29,13 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, 10, ENEMY_COLOUR)
+	draw_circle(Vector2.ZERO, 10, current_colour)
 
 
 func _on_barrel_draw() -> void:
 	barrel_vis.draw_rect(
 		Rect2(Vector2(0, -4), Vector2(20, 8)),
-		ENEMY_COLOUR
+		current_colour
 	)
 
 

@@ -8,6 +8,7 @@ var game_rect: Rect2
 @onready var entities: Node2D = %Entities
 @onready var cover: ColorRect = $Foreground/Cover
 @onready var enemy_gen: EnemyGenerator = $EnemyGen
+@onready var ui: Control = %UI
 
 var quad_tl: Vector2i = -Vector2i.ONE
 
@@ -37,7 +38,7 @@ func _ready() -> void:
 	for d in BG_PARALLAX_DISTANCES:
 		get_node("Background").new_layer(d)
 	
-	%UI.update_health(player.ship)
+	ui.set_health(player.ship)
 	
 	cover.show()
 	var t: Tween = get_tree().create_tween()

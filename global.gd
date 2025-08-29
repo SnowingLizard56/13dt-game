@@ -1,11 +1,9 @@
 extends Node
 
+const DEFAULT_SHIP: Ship = preload("res://Assets/ShipComponents/Base/base_ship.tres")
 const PREDICTION_TIMESTEP: float = 5.0 / 8
 
-@onready var player_ship: Ship = Ship.new()
-
-var is_xaragiln_friendly: bool = false
-var is_namurant_friendly: bool = true
+@onready var player_ship: Ship = DEFAULT_SHIP.duplicate(true)
 
 var time_scale: float = 4.8e5
 
@@ -14,13 +12,14 @@ var joy_aim: Vector2 = Vector2.ZERO
 var aim: Vector2 = Vector2.ZERO
 var mouse_stale := false
 var joy_stale := true
-
 var level_seed: int = 1
-
 var player_currency: int
+
 @onready var root: Node = get_tree().current_scene
 
 @onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
+
+var random_seed: int = randi()
 
 signal frame_next
 
@@ -73,6 +72,7 @@ func _process(_delta: float) -> void:
 		aim = joy_aim
 	elif joy_stale and !mouse_stale:
 		aim = mouse_aim
+
 
 func switch_scene(new_scene: PackedScene):
 	var k: Node = new_scene.instantiate()

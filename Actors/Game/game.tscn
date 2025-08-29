@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://d23yrshdacsq" path="res://Actors/Game/body.tscn" id="2_evbej"]
 [ext_resource type="Script" uid="uid://b8xt6xjhk1wib" path="res://UI/Background/bg_tile_controller.gd" id="2_u58dc"]
 [ext_resource type="Script" uid="uid://cquv2cqw3xkm6" path="res://Actors/Enemies/enemies_generator.gd" id="3_cny57"]
-[ext_resource type="PackedScene" uid="uid://qhecmcb4b8gc" path="res://UI/minimap.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://qhecmcb4b8gc" path="res://UI/InGame/minimap.tscn" id="3_feb5d"]
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="5_1qbs2"]
 [ext_resource type="Script" uid="uid://bdpmjaan8yghf" path="res://Actors/Game/ui_controller.gd" id="6_cny57"]
-[ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/component_control.tscn" id="9_xycor"]
-[ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/currency_display.tscn" id="13_cg6v3"]
+[ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/ComponentControl/component_control.tscn" id="9_xycor"]
+[ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="13_cg6v3"]
 
 [sub_resource type="Curve2D" id="Curve2D_cny57"]
 _data = {
@@ -87,13 +87,24 @@ offset_top = 16.0
 offset_right = 278.0
 offset_bottom = 34.0
 
-[node name="ProgressBar" type="ProgressBar" parent="Foreground/UI/HealthBar"]
+[node name="Buffer" type="ProgressBar" parent="Foreground/UI/HealthBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+value = 5.0
+show_percentage = false
+
+[node name="Health" type="ProgressBar" parent="Foreground/UI/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HealthBarBuffer"
 value = 5.0
 show_percentage = false
 
@@ -118,7 +129,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"LevelUpBar"
-step = 1.0
 show_percentage = false
 
 [node name="Cover" type="ColorRect" parent="Foreground"]

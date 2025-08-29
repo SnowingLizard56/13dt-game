@@ -2,10 +2,17 @@ class_name Enemy extends Node2D
 
 const DAMAGE_LEEWAY: float = 1.0
 const ENEMY_COLOUR: Color = "dd5639"
+const FLASH_COLOUR := Color.WHITE
+
+var current_colour:= ENEMY_COLOUR
+
 @onready var hp: float = get_max_hp()
 @onready var root: LevelController = Global.root
 
 var body_id: int = -1
+
+signal redraw
+
 
 var x:
 	get():
@@ -35,6 +42,14 @@ func damage(amount: float) -> void:
 	hp -= amount
 	if hp <= DAMAGE_LEEWAY:
 		queue_free()
+	else:
+		current_colour = FLASH_COLOUR
+		redraw.emit()
+		queue_redraw()
+		await get_tree().create_timer(0.1).timeout
+		current_colour = ENEMY_COLOUR
+		queue_redraw()
+		redraw.emit()
 
 
 func get_max_hp() -> float:

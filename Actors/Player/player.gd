@@ -2,7 +2,8 @@ class_name Player extends Area2D
 
 const SPRITE_RADIUS: int = 5
 const DAMAGE_LEEWAY: float = 1.7
-const MAX_ROTATION_SPEED: float = TAU
+const MAX_ROTATION_SPEED: float = TAU * 0.5
+const INVINCIBILITY_TIME: float = 0.2
 
 signal player_died
 
@@ -15,13 +16,15 @@ var vy: float = 0.0
 
 var level: Level
 
-#@onready var ship: Ship = Global.player_ship
-@export var ship: Ship
+var ship: Ship = null
 @onready var ui: Control = %UI
 @onready var thrust: CPUParticles2D = $Thrust
+@onready var hitbox: Area2D = $Hitbox
 
 var trigger_queue: PackedInt32Array = []
 var trigger_timer_queue: PackedFloat32Array = []
+
+var is_dead: bool = false
 
 
 func add_to_trigger_queue(id: int):
@@ -34,6 +37,8 @@ func add_to_trigger_queue(id: int):
 
 
 func _ready() -> void:
+	# This is so weird but it works whatever
+	ship = Global.get(&"player_ship")
 	ship.set_components()
 
 
@@ -57,6 +62,9 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		thrust.emitting = false
+		return
 	# Take input
 	var acceleration_input = Vector2(
 		Input.get_axis("player_left", "player_right"),
@@ -65,9 +73,12 @@ func _physics_process(delta: float) -> void:
 	# Visual
 	rotate(-delta * ship.acceleration / 80)
 	if acceleration_input:
+		if thrust.emitting:
+			var diff: float = angle_difference(thrust.global_rotation, acceleration_input.angle())
+			thrust.global_rotation += sign(diff) * min(abs(diff), MAX_ROTATION_SPEED * delta)
+		else:
+			thrust.global_rotation = acceleration_input.angle()
 		thrust.emitting = true
-		var diff: float = angle_difference(thrust.global_rotation, acceleration_input)
-		thrust.global_rotation = acceleration_input.angle()
 	else:
 		thrust.emitting = false
 	
@@ -111,3 +122,7 @@ func damage(amount: float):
 	ui.update_health(ship)
 	if ship.hp <= 0:
 		get_tree().paused = true
+	hitbox.collision_layer = 0
+	await get_tree().create_timer(INVINCIBILITY_TIME).timeout
+	hitbox.collision_layer = 1
+	

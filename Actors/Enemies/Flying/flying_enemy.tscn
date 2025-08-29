@@ -80,5 +80,6 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FindFriends"]
 shape = SubResource("CircleShape2D_jk8ol")
 
+[connection signal="redraw" from="." to="Sprite" method="queue_redraw"]
 [connection signal="draw" from="Sprite" to="." method="draw_sprite"]
 [connection signal="area_entered" from="Position" to="." method="collide_with_planet"]

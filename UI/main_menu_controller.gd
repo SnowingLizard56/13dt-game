@@ -141,7 +141,7 @@ func _on_exit_pressed() -> void:
 
 func _on_play_pressed() -> void:
 	const MENU_ELEMENT_FADE_TIME := 0.25
-	const PLANET_ZOOMOUT_TIME := 0.25
+	const PLANET_ZOOMOUT_TIME := 1.5
 	const ORBITALS_ZOOMIN_TIME := 2.0
 	
 	play_button.release_focus()
@@ -152,7 +152,7 @@ func _on_play_pressed() -> void:
 	t.tween_property(play_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
 	t.tween_property(options_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
 	t.tween_property(title, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
-	t.tween_property(orbit, "scale", Vector2.ZERO, PLANET_ZOOMOUT_TIME)\
+	t.tween_property(orbit, "scale", Vector2.ONE, PLANET_ZOOMOUT_TIME)\
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	t.parallel().tween_property(planet, "scale", Vector2.ZERO, PLANET_ZOOMOUT_TIME)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)

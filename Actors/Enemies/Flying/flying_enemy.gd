@@ -153,7 +153,7 @@ func _physics_process(delta: float) -> void:
 
 
 func draw_sprite() -> void:
-	get_child(0).draw_colored_polygon(SPRITE, ENEMY_COLOUR)
+	get_child(0).draw_colored_polygon(SPRITE, current_colour)
 
 
 func collide_with_planet(_area: Area2D) -> void:

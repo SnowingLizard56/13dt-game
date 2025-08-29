@@ -8,11 +8,13 @@ const ICON_SIZE: float = 0.38
 
 
 func _ready() -> void:
-	Global.random.seed = 1
 	generate_map()
 
 
 func generate_map():
+	# Ensure same map
+	Global.random.seed = Global.random_seed
+	
 	var map: Array[MapIcon]
 	map.resize(SIZE.x * SIZE.y)
 	for i in SIZE.x * SIZE.y:
@@ -33,6 +35,7 @@ func generate_map():
 		var next: int
 		current = Global.random.randi_range(1, SIZE.x - 2)
 		map[current].in_map = true
+		node_count += 1
 		while current < map.size() - SIZE.x:
 			# Clamp next within the bounds of the map
 			var diff: int
@@ -73,19 +76,7 @@ func generate_map():
 			map_node.list_position = i
 			map_node.map_position = Vector2(i % SIZE.x, i / SIZE.x)
 			# First rank
-			if map_node.map_position.y == 0:
-				var allow: Array = [Nebula.UNCLAIMED]
-				
-				if !Global.is_xaragiln_friendly:
-					allow.append(Nebula.XARAGILN)
-				if !Global.is_namurant_friendly:
-					allow.append(Nebula.NAMURANT)
-				map_node.nebula = Nebula.new()
-				while not map_node.nebula.type in allow:
-					map_node.nebula = Nebula.new()
-			else:
-				# Take from pool
-				map_node.nebula = pool.pop_back()
+			map_node.nebula = pool.pop_back()
 			# Position the node and offset it slightly
 			map_node.position = map_node.map_position * SEPERATION + Vector2.ONE * SHIMMY * randf()
 			map_node.scale *= ICON_SIZE
