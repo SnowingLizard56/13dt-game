@@ -4,6 +4,7 @@ const BG_COLOUR: Color = Color(0.059, 0.106, 0.149, 1.0)
 const SOLID_COLOUR: Color = Color(0.961, 0.91, 0.82, 1.0)
 const PLAYER_COLOUR: Color = Color(0.125, 0.647, 0.651, 1.0)
 const ENEMY_COLOUR: Color = Color(0.867, 0.337, 0.224, 1.0)
+const UNKNOWN_COLOUR: Color = Color(1.0, 0.937255, 0.631373, 1.0)
 const PLAYER_ROTATION_SPEED: float = 0.8
 const PLAYER_ORBIT_SPEED: float = TAU / 13
 const PLANET_RADIUS: float = 200.0
@@ -152,7 +153,7 @@ func _on_play_pressed() -> void:
 	t.tween_property(play_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
 	t.tween_property(options_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
 	t.tween_property(title, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
-	t.tween_property(orbit, "scale", Vector2.ONE, PLANET_ZOOMOUT_TIME)\
+	t.tween_property(orbit, "scale", Vector2.ZERO, PLANET_ZOOMOUT_TIME)\
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	t.parallel().tween_property(planet, "scale", Vector2.ZERO, PLANET_ZOOMOUT_TIME)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)

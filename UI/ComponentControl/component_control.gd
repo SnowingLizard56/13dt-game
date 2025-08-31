@@ -18,6 +18,8 @@ const SHIP_SPRITE_RADIUS = 20
 @export var spare_components: VBoxContainer
 @export var continue_button: CustomButton
 
+@export var for_moving: Control
+
 var working_ship: Ship
 
 signal reprocessed
@@ -164,4 +166,7 @@ func finish() -> Array[ShipComponent]:
 	var out: Array[ShipComponent] = []
 	for n: ShipComponentNode in spare_components.get_children():
 		out.append(n.component)
+		n.queue_free()
+	for n: ShipComponentNode in installed_components.get_children():
+		n.queue_free()
 	return out

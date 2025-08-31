@@ -13,6 +13,11 @@ var body_id: int = -1
 
 signal redraw
 
+@export var death_particle_count: int = 0
+@export var e127_proportion: float
+@export var xp_value_range: Vector2
+@export var e127_value_range: Vector2
+
 
 var x:
 	get():
@@ -37,11 +42,25 @@ var vy:
 
 
 func damage(amount: float) -> void:
+	amount *= root.player.ship.get(&"All Damage").value
+	
 	if hp < 0:
 		return
 	hp -= amount
 	if hp <= DAMAGE_LEEWAY:
 		queue_free()
+		
+		for i in death_particle_count:
+			if randf() < e127_proportion:
+				CollectParticle.new(
+					CollectParticle.Types.E127,
+					global_position,
+					randf_range(e127_value_range.x, e127_value_range.y))
+			else:
+				CollectParticle.new(
+					CollectParticle.Types.XP,
+					global_position,
+					randi_range(xp_value_range.x, xp_value_range.y))
 	else:
 		current_colour = FLASH_COLOUR
 		redraw.emit()

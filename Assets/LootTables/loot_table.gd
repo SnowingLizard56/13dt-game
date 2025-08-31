@@ -11,6 +11,7 @@ func get_loot(count: int, luck: float = 1) -> Array[ShipComponent]:
 	if table:
 		if 100 ** (1.0 / luck) == INF:
 			var max_item := LootTable.new()
+			max_item.weight = 0
 			for t in table:
 				if t.weight > max_item.weight:
 					max_item = t
@@ -22,7 +23,7 @@ func get_loot(count: int, luck: float = 1) -> Array[ShipComponent]:
 		for i in count:
 			output.append_array(table[Global.random.rand_weighted(weights)].get_loot(1, luck))
 		return output
-	return [component]
+	return [component.duplicate(true)]
 
 
 func get_event(luck: float = 1) -> MapEvent:

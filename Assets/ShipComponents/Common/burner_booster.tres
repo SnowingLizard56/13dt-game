@@ -5,12 +5,13 @@
 
 [resource]
 script = ExtResource("2_n6i4a")
-extra_thrust = 3200.0
+extra_thrust = 1000.0
 duration = 2.0
+kick_time = 0.1
 trigger_cooldown = 5.0
-name = ""
+name = "Burner Booster"
 description = "--
-"
+Stockpiles fuel for a short burst."
 mass = 6.0
 misc_properties = Array[ExtResource("1_l726n")]([])
 sell_value = 0

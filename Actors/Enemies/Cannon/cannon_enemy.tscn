@@ -7,6 +7,10 @@
 [node name="CannonEnemy" type="Node2D" groups=["enemies"]]
 z_index = -1
 script = ExtResource("1_ksc37")
+death_particle_count = 7
+e127_proportion = 0.1
+xp_value_range = Vector2(3, 5)
+e127_value_range = Vector2(1, 2)
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 4

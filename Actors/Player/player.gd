@@ -71,7 +71,6 @@ func _physics_process(delta: float) -> void:
 		Input.get_axis("player_up", "player_down")
 	).normalized()
 	# Visual
-	rotate(-delta * ship.acceleration / 80)
 	if acceleration_input:
 		if thrust.emitting:
 			var diff: float = angle_difference(thrust.global_rotation, acceleration_input.angle())
@@ -81,6 +80,8 @@ func _physics_process(delta: float) -> void:
 		thrust.emitting = true
 	else:
 		thrust.emitting = false
+	
+	rotate(-delta * ship.acceleration / 80)
 	
 	# Velocity then position
 	vx += ship.acceleration * acceleration_input.x * delta

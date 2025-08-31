@@ -13,7 +13,6 @@ var aim: Vector2 = Vector2.ZERO
 var mouse_stale := false
 var joy_stale := true
 var level_seed: int = 1
-var player_currency: int
 
 @onready var root: Node = get_tree().current_scene
 
@@ -22,6 +21,12 @@ var player_currency: int
 var random_seed: int = randi()
 
 signal frame_next
+signal level_up
+
+
+var player_currency: int
+var player_xp: float = 0.0
+var player_level: int = 0
 
 
 func _ready() -> void:

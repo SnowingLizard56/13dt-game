@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dwgfpgetncjn7" path="res://UI/ComponentControl/warning_display.gd" id="4_68qdt"]
 [ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="5_u4yem"]
 
-[node name="ComponentControl" type="Control" node_paths=PackedStringArray("ship_display", "ship_desc", "warning_display", "warning_label", "cmpnt_title", "cmpnt_desc", "installed_count_label", "spare_count_label", "installed_components", "spare_components", "continue_button")]
+[node name="ComponentControl" type="Control" node_paths=PackedStringArray("ship_display", "ship_desc", "warning_display", "warning_label", "cmpnt_title", "cmpnt_desc", "installed_count_label", "spare_count_label", "installed_components", "spare_components", "continue_button", "for_moving")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,18 +15,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_vbdhk")
 script = ExtResource("2_uks5t")
-ship_display = NodePath("HBoxContainer/VBoxContainer3/ShipInfo/ShipDisplay")
+ship_display = NodePath("Menu/HBoxContainer/VBoxContainer3/ShipInfo/ShipDisplay")
 component_scene = ExtResource("3_frvxf")
-ship_desc = NodePath("HBoxContainer/VBoxContainer3/ShipInfo/Description")
-warning_display = NodePath("HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay")
-warning_label = NodePath("HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup")
-cmpnt_title = NodePath("HBoxContainer/VBoxContainer3/ComponentInfo/Title")
-cmpnt_desc = NodePath("HBoxContainer/VBoxContainer3/ComponentInfo/Description")
-installed_count_label = NodePath("HBoxContainer/InstalledComponents/Count")
-spare_count_label = NodePath("HBoxContainer/SpareComponents/Count")
-installed_components = NodePath("HBoxContainer/InstalledComponents/VBoxContainer")
-spare_components = NodePath("HBoxContainer/SpareComponents/VBoxContainer")
-continue_button = NodePath("Continue")
+ship_desc = NodePath("Menu/HBoxContainer/VBoxContainer3/ShipInfo/Description")
+warning_display = NodePath("Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay")
+warning_label = NodePath("Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup")
+cmpnt_title = NodePath("Menu/HBoxContainer/VBoxContainer3/ComponentInfo/Title")
+cmpnt_desc = NodePath("Menu/HBoxContainer/VBoxContainer3/ComponentInfo/Description")
+installed_count_label = NodePath("Menu/HBoxContainer/InstalledComponents/Count")
+spare_count_label = NodePath("Menu/HBoxContainer/SpareComponents/Count")
+installed_components = NodePath("Menu/HBoxContainer/InstalledComponents/VBoxContainer")
+spare_components = NodePath("Menu/HBoxContainer/SpareComponents/VBoxContainer")
+continue_button = NodePath("Menu/Continue")
+for_moving = NodePath("Menu")
 
 [node name="DimBG" type="ColorRect" parent="."]
 layout_mode = 1
@@ -37,7 +38,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.376471)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Menu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -49,16 +58,16 @@ offset_bottom = -127.744
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="Menu/HBoxContainer"]
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
-[node name="ShipInfo" type="Panel" parent="HBoxContainer/VBoxContainer3"]
+[node name="ShipInfo" type="Panel" parent="Menu/HBoxContainer/VBoxContainer3"]
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 theme_type_variation = &"StatsContainer"
 
-[node name="ShipDisplay" type="Control" parent="HBoxContainer/VBoxContainer3/ShipInfo"]
+[node name="ShipDisplay" type="Control" parent="Menu/HBoxContainer/VBoxContainer3/ShipInfo"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,7 +79,7 @@ offset_bottom = -90.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="WarningDisplay" type="Control" parent="HBoxContainer/VBoxContainer3/ShipInfo"]
+[node name="WarningDisplay" type="Control" parent="Menu/HBoxContainer/VBoxContainer3/ShipInfo"]
 visible = false
 anchors_preset = 0
 offset_left = 245.0
@@ -81,7 +90,7 @@ focus_mode = 2
 script = ExtResource("4_68qdt")
 metadata/_edit_use_anchors_ = true
 
-[node name="Popup" type="Label" parent="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay"]
+[node name="Popup" type="Label" parent="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay"]
 visible = false
 z_index = 1
 layout_mode = 2
@@ -93,7 +102,7 @@ mouse_filter = 1
 theme_type_variation = &"WarningPopup"
 text = "Warning - No Thruster"
 
-[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer3/ShipInfo"]
+[node name="Title" type="Label" parent="Menu/HBoxContainer/VBoxContainer3/ShipInfo"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -105,7 +114,7 @@ grow_horizontal = 2
 theme_type_variation = &"StatsTitle"
 text = "Current Ship Overview"
 
-[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer3/ShipInfo"]
+[node name="Description" type="Label" parent="Menu/HBoxContainer/VBoxContainer3/ShipInfo"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -119,12 +128,12 @@ text = "Mass
 Thrust
 Acceleration"
 
-[node name="ComponentInfo" type="Panel" parent="HBoxContainer/VBoxContainer3"]
+[node name="ComponentInfo" type="Panel" parent="Menu/HBoxContainer/VBoxContainer3"]
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 theme_type_variation = &"StatsContainer"
 
-[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer3/ComponentInfo"]
+[node name="Title" type="Label" parent="Menu/HBoxContainer/VBoxContainer3/ComponentInfo"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -136,7 +145,7 @@ grow_horizontal = 2
 theme_type_variation = &"StatsTitle"
 text = "-"
 
-[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer3/ComponentInfo"]
+[node name="Description" type="Label" parent="Menu/HBoxContainer/VBoxContainer3/ComponentInfo"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -149,12 +158,12 @@ theme_type_variation = &"StatsDescription"
 text = "Focus a component to see details."
 autowrap_mode = 2
 
-[node name="InstalledComponents" type="Panel" parent="HBoxContainer"]
+[node name="InstalledComponents" type="Panel" parent="Menu/HBoxContainer"]
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 theme_type_variation = &"StatsContainer"
 
-[node name="Title" type="Label" parent="HBoxContainer/InstalledComponents"]
+[node name="Title" type="Label" parent="Menu/HBoxContainer/InstalledComponents"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -166,7 +175,7 @@ grow_horizontal = 2
 theme_type_variation = &"StatsTitle"
 text = "Installed Components"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InstalledComponents"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/HBoxContainer/InstalledComponents"]
 clip_contents = true
 custom_minimum_size = Vector2(278, 0)
 layout_mode = 1
@@ -182,7 +191,7 @@ offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Count" type="Label" parent="HBoxContainer/InstalledComponents"]
+[node name="Count" type="Label" parent="Menu/HBoxContainer/InstalledComponents"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -196,12 +205,12 @@ theme_override_colors/font_color = Color(0.372, 0.500133, 0.62, 1)
 text = "/7"
 horizontal_alignment = 2
 
-[node name="SpareComponents" type="Panel" parent="HBoxContainer"]
+[node name="SpareComponents" type="Panel" parent="Menu/HBoxContainer"]
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 theme_type_variation = &"StatsContainer"
 
-[node name="Title" type="Label" parent="HBoxContainer/SpareComponents"]
+[node name="Title" type="Label" parent="Menu/HBoxContainer/SpareComponents"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -213,7 +222,7 @@ grow_horizontal = 2
 theme_type_variation = &"StatsTitle"
 text = "Available Components"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/SpareComponents"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/HBoxContainer/SpareComponents"]
 custom_minimum_size = Vector2(278, 0)
 layout_mode = 1
 anchors_preset = 7
@@ -228,7 +237,7 @@ offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Count" type="Label" parent="HBoxContainer/SpareComponents"]
+[node name="Count" type="Label" parent="Menu/HBoxContainer/SpareComponents"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -242,7 +251,7 @@ theme_override_colors/font_color = Color(0.372, 0.500133, 0.62, 1)
 text = "/7"
 horizontal_alignment = 2
 
-[node name="Continue" type="Button" parent="."]
+[node name="Continue" type="Button" parent="Menu"]
 layout_mode = 0
 offset_left = 857.0
 offset_top = 511.0
@@ -253,8 +262,8 @@ text = "Continue"
 script = ExtResource("5_u4yem")
 metadata/_custom_type_script = "uid://dg7hgelew38lk"
 
-[connection signal="draw" from="HBoxContainer/VBoxContainer3/ShipInfo/ShipDisplay" to="." method="draw_player"]
-[connection signal="focus_entered" from="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="show"]
-[connection signal="focus_exited" from="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="hide"]
-[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" method="grab_focus"]
-[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]
+[connection signal="draw" from="Menu/HBoxContainer/VBoxContainer3/ShipInfo/ShipDisplay" to="." method="draw_player"]
+[connection signal="focus_entered" from="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="show"]
+[connection signal="focus_exited" from="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="hide"]
+[connection signal="mouse_entered" from="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" method="grab_focus"]
+[connection signal="pressed" from="Menu/Continue" to="." method="_on_continue_pressed"]
