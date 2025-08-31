@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c3dl8amhu3pcq"]
+[gd_scene load_steps=14 format=3 uid="uid://c3dl8amhu3pcq"]
 
 [ext_resource type="Script" uid="uid://cefbhjfki8lhm" path="res://Actors/Game/game_controller.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dy7y8ni7184re" path="res://Actors/Player/player.tscn" id="2_e2o6t"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bdpmjaan8yghf" path="res://Actors/Game/ui_controller.gd" id="6_cny57"]
 [ext_resource type="Resource" uid="uid://7ahlwcvohx00" path="res://Assets/LootTables/normal.tres" id="8_evbej"]
 [ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/ComponentControl/component_control.tscn" id="9_xycor"]
+[ext_resource type="PackedScene" uid="uid://beeae1s4baogj" path="res://UI/trigger_cooldown.tscn" id="12_cny57"]
 [ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="13_cg6v3"]
 
 [sub_resource type="Curve2D" id="Curve2D_cny57"]
@@ -133,6 +134,31 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"LevelUpBar"
 show_percentage = false
+
+[node name="TriggerCooldowns" type="VFlowContainer" parent="Foreground/UI"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 102.0
+offset_right = 84.0
+offset_bottom = -476.0
+grow_vertical = 2
+
+[node name="TriggerCooldown" parent="Foreground/UI/TriggerCooldowns" instance=ExtResource("12_cny57")]
+layout_mode = 2
+
+[node name="TriggerCooldown2" parent="Foreground/UI/TriggerCooldowns" instance=ExtResource("12_cny57")]
+layout_mode = 2
+trigger_index = 1
+
+[node name="TriggerCooldown3" parent="Foreground/UI/TriggerCooldowns" instance=ExtResource("12_cny57")]
+layout_mode = 2
+trigger_index = 2
+
+[node name="TriggerCooldown4" parent="Foreground/UI/TriggerCooldowns" instance=ExtResource("12_cny57")]
+layout_mode = 2
+trigger_index = 3
 
 [node name="Cover" type="ColorRect" parent="Foreground"]
 visible = false

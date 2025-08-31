@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://beeae1s4baogj"]
+
+[ext_resource type="Script" uid="uid://c835iptiduba4" path="res://UI/trigger_cooldown_display.gd" id="1_v1nv6"]
+
+[node name="TriggerCooldown" type="Control"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchor_right = 0.028
+anchor_bottom = 0.049
+offset_right = -16.256
+offset_bottom = -15.752
+script = ExtResource("1_v1nv6")

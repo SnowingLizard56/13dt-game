@@ -4,6 +4,7 @@ signal took_damage(amnt: float)
 
 @export var components: Array[ShipComponent] = []
 var trigger_components: Array[TriggerComponent] = []
+signal components_updated
 
 # Warnings
 var no_hull: bool
@@ -76,6 +77,7 @@ func set_components(_components: Array[ShipComponent] = []) -> void:
 	if is_nan(acceleration):
 		acceleration = 0
 	hp = max_hp
+	components_updated.emit()
 
 
 func damage(amnt: float):
