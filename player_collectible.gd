@@ -25,13 +25,13 @@ var value: float
 signal reach_player
 
 
-func _init(t: Types, pos: Vector2, value: float = 1.0) -> void:
+func _init(t: Types, pos: Vector2, v: float = 1.0) -> void:
 	type = t
 	pos += Vector2(randf_range(-1, 1), randf_range(-1, 1)) * 5
 	angle = pos.angle()
 	distance = pos.length()
 	Global.root.add_child(self)
-	self.value = value
+	value = v
 	_process(0)
 	colour = TYPE_COLOURS[t]
 	# Yayyyy magic function
@@ -42,20 +42,20 @@ func _init(t: Types, pos: Vector2, value: float = 1.0) -> void:
 func _ready() -> void:
 	rotation = randf() * TAU
 	var t: Tween = get_tree().create_tween()
-	var time = randf_range(TIME_MIN, TIME_MAX)
+	var lifetime = randf_range(TIME_MIN, TIME_MAX)
 	t.tween_property(self, "angle",
 		angle + randf_range(-ALLOWED_ANGLE_OFFSET, ALLOWED_ANGLE_OFFSET),
-		time
+		lifetime
 		)
 	t.parallel().tween_property(
 		self, "time",
 		1.0,
-		time
+		lifetime
 	)
 	t.tween_callback(finish)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	position = Vector2.from_angle(angle) * d(time) * distance
 
 
@@ -72,7 +72,7 @@ func finish():
 	if type == Types.XP:
 		Global.root.ui.add_xp(value)
 	elif type == Types.E127:
-		Global.player_currency += value
+		Global.player_currency += int(value)
 	elif type == Types.HP:
 		Global.root.player.ship.hp = min(Global.root.player.ship.max_hp, Global.root.player.ship.hp + value)
 	Global.root.ui.update_all()

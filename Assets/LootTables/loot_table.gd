@@ -38,6 +38,5 @@ func get_event(luck: float = 1) -> MapEvent:
 		var weights: PackedFloat32Array = []
 		for t in table:
 			weights.append(t.weight ** (1.0 / luck))
-		var output: Array[ShipComponent] = []
 		return table[Global.random.rand_weighted(weights)].get_event(luck)
 	return event

@@ -3,14 +3,15 @@ extends Node2D
 @export var colour: = Color.WHITE
 @export var count : Array[int] = [2,7,19,31,37,17,11,3]
 @export var first_radius : int = 43
-@export var radius_per_layer : int = 5
+@export var radius_per_layer : float = 5
 @export var arc_gap_length : float = 5
 
 @export var line_width := -1.0
+@export var draw_outer_circle := true
 
 
 func _ready() -> void:
-	for i in 8:
+	for i in len(count):
 		# Instantiate
 		var node:Node2D = Node2D.new()
 		add_child(node, false, Node.INTERNAL_MODE_FRONT)
@@ -34,10 +35,11 @@ func draw_arc_layer(num:int, distance:float, node:Node2D):
 			distance,
 			i * TAU / num,
 			(i + 1) * TAU / num - (arc_gap_length / distance),
-			ceil(distance / num),
+			8,
 			colour,
 			line_width)
 
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, 88, colour, false)
+	if draw_outer_circle:
+		draw_circle(Vector2.ZERO, 88, colour, false)

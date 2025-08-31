@@ -3,13 +3,14 @@ extends Node2D
 @export var colour: = Color.WHITE
 @export var count : Array[int] = [2,7,19,31,37,17,11,3]
 @export var radius : int = 24
-@export var radius_per_layer : int = 8
+@export var radius_per_layer : float = 8
 
 @export var line_width := -1.0
+@export var draw_outer_circle := true
 
 
 func _ready() -> void:
-	for i: int in 8:
+	for i: int in len(count):
 		# Instantiate
 		var node:Node2D = Node2D.new()
 		add_child(node, false, Node.INTERNAL_MODE_FRONT)
@@ -42,4 +43,5 @@ func draw_line_layer(n:int, layer_radius:float, node:Node2D):
 
 func _draw() -> void:
 	# Draw outline
-	draw_circle(Vector2.ZERO, radius + radius_per_layer * 8, colour, false, line_width)
+	if draw_outer_circle:
+		draw_circle(Vector2.ZERO, radius + radius_per_layer * 8, colour, false, line_width)

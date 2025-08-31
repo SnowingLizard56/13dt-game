@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 	
 	var target_thrust: Vector2 = Vector2.ZERO
 	
-	var mode: MovementModes = -1
+	var mode: MovementModes = MovementModes.UNASSIGNED
 	if colliding_idx != -1:
 		mode = MovementModes.AVOID_BODY
 	else:

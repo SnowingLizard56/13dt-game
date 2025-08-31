@@ -8,7 +8,7 @@ const ENEMY_COLOUR: Color = Color(0.867, 0.337, 0.224, 1.0)
 const UNKNOWN_COLOUR: Color = Color(1.0, 0.937255, 0.631373, 1.0)
 
 const HUD_BG_COLOUR: Color = Color(0.0941176, 0.168627, 0.239216, 1.0)
-const HUD_CD_COLOUR: Color = Color(0.184314, 0.301961, 0.411765, 0.5)
+const HUD_CD_COLOUR: Color = Color(0.265883, 0.371765, 0.470589, 1.0)
 
 @export var trigger_index := 0
 @export var segment_count := 15
@@ -34,7 +34,6 @@ func _draw() -> void:
 	
 	var pts: PackedVector2Array = [size / 2]
 	var lim = TAU * component.get_time_left_ratio()
-	
 	if lim != 0:
 		for i in segment_count + 1:
 			var angle = i * TAU / segment_count
@@ -54,7 +53,14 @@ func link_component():
 		return
 	show()
 	component = tcomponents[trigger_index]
+	
+	# Choose Display
+	for i in get_children():
+		i.hide()
+	
+	if component.category != TriggerComponent.Category.NONE:
+		get_child(component.category).show()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	queue_redraw()

@@ -13,6 +13,7 @@ projectile_speed = 600.0
 projectile_shape = SubResource("CapsuleShape2D_xrker")
 projectile_mass = 1.0
 trigger_cooldown = 0.5
+category = 2
 name = "Basic Coilgun"
 description = "--
 Simple magnet-based projectile propulsion system."

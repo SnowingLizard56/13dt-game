@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://beeae1s4baogj"]
+[gd_scene load_steps=5 format=3 uid="uid://beeae1s4baogj"]
 
 [ext_resource type="Script" uid="uid://c835iptiduba4" path="res://UI/trigger_cooldown_display.gd" id="1_v1nv6"]
+[ext_resource type="PackedScene" uid="uid://do8gbvq05s7vo" path="res://Assets/Profiles/namurant_profile.tscn" id="2_o7dku"]
+[ext_resource type="PackedScene" uid="uid://breeaqw12q6tx" path="res://Assets/Profiles/random_profile.tscn" id="3_gfmyi"]
+[ext_resource type="PackedScene" uid="uid://8fmrvoi5rg7i" path="res://Assets/Profiles/xaragiln_profile.tscn" id="4_vgpi4"]
 
 [node name="TriggerCooldown" type="Control"]
 custom_minimum_size = Vector2(32, 32)
@@ -10,3 +13,30 @@ anchor_bottom = 0.049
 offset_right = -16.256
 offset_bottom = -15.752
 script = ExtResource("1_v1nv6")
+
+[node name="Namurant Profile" parent="." instance=ExtResource("2_o7dku")]
+visible = false
+position = Vector2(16, 16)
+colour = Color(0.1235, 0.65, 0.65, 0.498039)
+count = Array[int]([2, 7, 19, 17, 11, 3])
+first_radius = 2
+radius_per_layer = 2.333
+arc_gap_length = 1.0
+draw_outer_circle = false
+
+[node name="RandomProfile" parent="." instance=ExtResource("3_gfmyi")]
+visible = false
+position = Vector2(16, 16)
+radius = 14.0
+inner_radius = 2.0
+delta_r = 1.0
+colour = Color(1, 0.938333, 0.63, 0.498039)
+
+[node name="Xaragiln Profile" parent="." instance=ExtResource("4_vgpi4")]
+visible = false
+position = Vector2(16, 16)
+colour = Color(0.87, 0.34423, 0.2262, 0.498039)
+count = Array[int]([2, 7, 19, 17, 11, 3])
+radius = 2
+radius_per_layer = 2.33
+draw_outer_circle = false

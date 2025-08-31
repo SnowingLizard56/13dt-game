@@ -141,8 +141,8 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 16.0
 offset_top = 102.0
-offset_right = 84.0
-offset_bottom = -476.0
+offset_right = 156.0
+offset_bottom = -514.0
 grow_vertical = 2
 
 [node name="TriggerCooldown" parent="Foreground/UI/TriggerCooldowns" instance=ExtResource("12_cny57")]

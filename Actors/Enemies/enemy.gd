@@ -60,7 +60,7 @@ func damage(amount: float) -> void:
 				CollectParticle.new(
 					CollectParticle.Types.XP,
 					global_position,
-					randi_range(xp_value_range.x, xp_value_range.y))
+					randi_range(int(xp_value_range.x), int(xp_value_range.y)))
 	else:
 		current_colour = FLASH_COLOUR
 		redraw.emit()

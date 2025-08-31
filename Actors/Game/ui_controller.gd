@@ -82,16 +82,19 @@ func give_level_up_reward():
 
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("test"):
 		give_level_up_reward()
 
 
 func level_up_finalised() -> void:
 	component_control.finish()
+	Engine.time_scale = 0.0
 	var t: Tween = get_tree().create_tween()
+	t.set_ignore_time_scale(true)
 	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	t.tween_property(component_control, "modulate", Color(1, 1, 1, 0), 0.3)
 	t.parallel().tween_property(component_control.for_moving, "position", Vector2(0, 648), 1.0).set_trans(Tween.TRANS_QUAD)
 	t.tween_callback(component_control.hide)
 	t.tween_callback(get_tree().set.bind(&"paused", false))
+	t.tween_property(Engine, "time_scale", 1.0, 1.0)

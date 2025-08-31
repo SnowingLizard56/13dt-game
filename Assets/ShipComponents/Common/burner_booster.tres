@@ -7,14 +7,15 @@
 script = ExtResource("2_n6i4a")
 extra_thrust = 1000.0
 duration = 2.0
-kick_time = 0.1
+kick_time = 0.05
 trigger_cooldown = 5.0
+category = 0
 name = "Burner Booster"
 description = "--
 Stockpiles fuel for a short burst."
 mass = 6.0
 misc_properties = Array[ExtResource("1_l726n")]([])
-sell_value = 0
+sell_value = 8
 buy_value = 16
 random_extra_cost = 4
 metadata/_custom_type_script = "uid://c58sp5q1mwllg"

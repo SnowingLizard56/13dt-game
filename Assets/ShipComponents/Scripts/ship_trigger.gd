@@ -1,9 +1,17 @@
 class_name TriggerComponent extends ShipComponent
 
 @export var trigger_cooldown: float
+@export var category: Category = Category.NONE
 
 var trigger_ready: bool = true
 var timer: SceneTreeTimer
+
+enum Category {
+	NONE = -1,
+	UTILITY = 0,
+	MISC = 1,
+	WEAPON = 2,
+}
 
 
 func _trigger(player: Player, _ship: Ship):
