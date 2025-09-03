@@ -23,3 +23,12 @@ func set_prediction(index: int, pos: Vector2):
 
 func _draw():
 	draw_circle(Vector2.ZERO, radius, "f5e8d1")
+
+
+func crash_particles(angle: float):
+	var emitter: CPUParticles2D = $CrashParticles.duplicate()
+	emitter.position = Vector2.from_angle(angle) * radius
+	emitter.rotation = angle
+	emitter.emitting = true
+	emitter.finished.connect(emitter.queue_free)
+	add_child(emitter)

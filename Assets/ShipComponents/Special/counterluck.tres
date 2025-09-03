@@ -1,18 +1,20 @@
-[gd_resource type="Resource" script_class="ShipComponent" load_steps=5 format=3 uid="uid://stjpfq8ilohi"]
+[gd_resource type="Resource" script_class="ShipComponent" load_steps=7 format=3 uid="uid://stjpfq8ilohi"]
 
 [ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/Scripts/ship_property_modifier.gd" id="1_ws2j8"]
 [ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/Scripts/ship_component.gd" id="2_hfsxm"]
+[ext_resource type="Resource" uid="uid://bdx5xvi8u6mch" path="res://Assets/ShipComponents/Properties/luck.tres" id="2_ut5kk"]
+[ext_resource type="Resource" uid="uid://btj7nchmemu1s" path="res://Assets/ShipComponents/Properties/damage.tres" id="3_gjo43"]
 
 [sub_resource type="Resource" id="Resource_jicb6"]
 script = ExtResource("1_ws2j8")
-property_name = &"Luck"
+property = ExtResource("2_ut5kk")
 modify_amount = 0.0
 modify_type = 1
 metadata/_custom_type_script = "uid://cd5jy5orofv6u"
 
 [sub_resource type="Resource" id="Resource_q0h62"]
 script = ExtResource("1_ws2j8")
-property_name = &"All Damage"
+property = ExtResource("3_gjo43")
 modify_amount = 2.0
 modify_type = 1
 metadata/_custom_type_script = "uid://cd5jy5orofv6u"
@@ -20,10 +22,11 @@ metadata/_custom_type_script = "uid://cd5jy5orofv6u"
 [resource]
 script = ExtResource("2_hfsxm")
 name = "Luck Counterweight"
-description = "--"
+description = "--
+"
 mass = -5.0
 misc_properties = Array[ExtResource("1_ws2j8")]([SubResource("Resource_jicb6"), SubResource("Resource_q0h62")])
-sell_value = -5.0
+sell_value = 1000
 buy_value = 0
 random_extra_cost = 0
 metadata/_custom_type_script = "uid://bvhobxwrsqcti"

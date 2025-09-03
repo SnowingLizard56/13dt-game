@@ -157,4 +157,5 @@ func draw_sprite() -> void:
 
 
 func collide_with_planet(_area: Area2D) -> void:
+	_area.crash_particles(_area.position.angle_to_point(position))
 	queue_free()

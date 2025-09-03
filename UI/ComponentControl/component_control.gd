@@ -26,6 +26,8 @@ signal reprocessed
 signal continue_pressed
 signal swap_amount(value: int)
 
+signal focused(what: ShipComponentNode)
+
 
 func _ready() -> void:
 	continue_button.pressed.connect(continue_pressed.emit)
@@ -51,6 +53,7 @@ func add_component_option(what: ShipComponent, where: Node):
 	k.component = what
 	where.add_child(k)
 	k.focus_entered.connect(update_component_stat_display.bind(what))
+	k.focus_entered.connect(focused.emit.bind(k))
 	if where == installed_components:
 		k.pressed.connect(move_component_node.bind(k, spare_components))
 		k.swap_cost = what.sell_value
@@ -85,6 +88,8 @@ func reprocess() -> void:
 		warning_label.text += "Ship has no thruster.\n"
 	if working_ship.too_many_triggers:
 		warning_label.text += "Only the first four components with triggers are accessible.\n"
+	if working_ship.no_triggers:
+		warning_label.text += "Ship has no triggers.\n"
 	
 	if warning_label.text != "":
 		warning_label.text = warning_label.text.rstrip("\n")
@@ -158,6 +163,7 @@ func start(available_components: Array[ShipComponent], ship_initial: Ship):
 	# Setup
 	for i in len(available_components):
 		add_component_option(available_components[i], spare_components)
+	spare_components.get_child(0).grab_focus()
 
 
 # Returns the unused components

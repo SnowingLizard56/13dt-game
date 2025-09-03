@@ -2,6 +2,7 @@ class_name ShipProperty extends Resource
 
 @export var property_name: StringName
 @export var default_value: float
+@export var unit: String
 
 var modifiers: Array[ShipPropertyModifier] = []
 

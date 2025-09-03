@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_n6i4a")
-extra_thrust = 1000.0
+extra_thrust = 1400.0
 duration = 2.0
 kick_time = 0.05
 trigger_cooldown = 5.0

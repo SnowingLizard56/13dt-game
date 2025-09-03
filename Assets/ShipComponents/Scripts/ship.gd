@@ -12,12 +12,12 @@ var has_multiple_hulls: bool
 var no_thruster: bool
 var has_multiple_thrusters: bool
 var too_many_triggers: bool
+var no_triggers: bool
 
 # Stats
 var thrust: float = 0
 var mass: float = 0
 var max_hp: float = 0
-var damage_threshold: float = 0
 
 # ther stuff
 var acceleration: float = 0
@@ -41,6 +41,7 @@ func set_components(_components: Array[ShipComponent] = []) -> void:
 	max_hp = 0
 	no_hull = true
 	no_thruster = true
+	no_triggers = true
 	has_multiple_hulls = false
 	has_multiple_thrusters = false
 	too_many_triggers = false
@@ -64,8 +65,8 @@ func set_components(_components: Array[ShipComponent] = []) -> void:
 				has_multiple_hulls = true
 			no_hull = false
 			max_hp = max(cmpnt.max_hp, max_hp)
-			damage_threshold = max(cmpnt.damage_threshold, damage_threshold)
 		elif cmpnt is TriggerComponent:
+			no_triggers = false
 			if len(trigger_components) == 4:
 				too_many_triggers = true
 			else:

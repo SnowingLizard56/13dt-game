@@ -11,11 +11,12 @@ var source: Node2D
 var root: LevelController 
 var mass: float
 var is_enemy: bool
+var trigger_particles: bool
 
 signal hit_body(id: int)
 
 
-func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1) -> void:
+func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1, cause_planet_particles: bool = false) -> void:
 	hide()
 	vx = src.vx + dvx
 	vy = src.vy + dvy
@@ -44,6 +45,7 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1) ->
 	position = Vector2(x - root.player.x, y - root.player.y)
 	mass = m
 	is_enemy = src is Enemy
+	trigger_particles = cause_planet_particles
 
 
 func _physics_process(delta: float) -> void:
@@ -62,6 +64,8 @@ func _on_collision_area_entered(area: Area2D) -> void:
 	if area is Body:
 		# Hit body. by bye
 		hit_body.emit(area.get_meta("id"))
+		if trigger_particles:
+			area.crash_particles(area.position.angle_to_point(position))
 		queue_free()
 		return
 	var target: Node2D = area.get_parent()

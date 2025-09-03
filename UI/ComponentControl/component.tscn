@@ -10,7 +10,6 @@ offset_bottom = 39.0
 theme = ExtResource("1_omsw8")
 theme_type_variation = &"Component"
 text = " Burner Thruster"
-alignment = 0
 script = ExtResource("2_omsw8")
 metadata/_custom_type_script = "uid://dg7hgelew38lk"
 

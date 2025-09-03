@@ -1,7 +1,7 @@
 class_name Enemy extends Node2D
 
 const DAMAGE_LEEWAY: float = 1.0
-const ENEMY_COLOUR: Color = "dd5639"
+const ENEMY_COLOUR: Color = Color(0.866667, 0.337255, 0.223529, 1.0)
 const FLASH_COLOUR := Color.WHITE
 
 var current_colour:= ENEMY_COLOUR
@@ -12,6 +12,7 @@ var current_colour:= ENEMY_COLOUR
 var body_id: int = -1
 
 signal redraw
+signal death
 
 @export var death_particle_count: int = 0
 @export var e127_proportion: float
@@ -48,8 +49,6 @@ func damage(amount: float) -> void:
 		return
 	hp -= amount
 	if hp <= DAMAGE_LEEWAY:
-		queue_free()
-		
 		for i in death_particle_count:
 			if randf() < e127_proportion:
 				CollectParticle.new(
@@ -61,6 +60,8 @@ func damage(amount: float) -> void:
 					CollectParticle.Types.XP,
 					global_position,
 					randi_range(int(xp_value_range.x), int(xp_value_range.y)))
+		death.emit()
+		queue_free()
 	else:
 		current_colour = FLASH_COLOUR
 		redraw.emit()
@@ -75,6 +76,7 @@ func get_max_hp() -> float:
 	assert(&"MAX_HP" in self)
 	return self.MAX_HP
 
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_READY:
 		# Increment
@@ -82,4 +84,3 @@ func _notification(what: int) -> void:
 	elif what == NOTIFICATION_PREDELETE:
 		# Decrement
 		root.enemy_gen.total_enemies_alive -= 1
-		

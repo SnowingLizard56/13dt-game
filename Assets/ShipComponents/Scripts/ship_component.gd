@@ -23,9 +23,9 @@ func get_description() -> String:
 		match property.modify_type:
 			ShipPropertyModifier.Types.ADD:
 				out += """
-				{property_name}: +{modify_amount}""".format(property)
+				{property_name}: +{modify_amount}{unit}""".format(property).format(property.property)
 			ShipPropertyModifier.Types.MULTIPLY:
 				out += """
-				{property_name}: x{modify_amount}""".format(property)
+				{property_name}: x{modify_amount}{unit}""".format(property).format(property.property)
 	return (out + """
 	{description}""").format(self)

@@ -2,6 +2,7 @@ extends Node
 
 const DEFAULT_SHIP: Ship = preload("res://Assets/ShipComponents/Base/base_ship.tres")
 const PREDICTION_TIMESTEP: float = 5.0 / 8
+const MAIN_MENU_SCENE: PackedScene = preload("res://UI/main_menu.tscn")
 
 @onready var player_ship: Ship = DEFAULT_SHIP.duplicate(true)
 

@@ -48,15 +48,17 @@ func fire_bullet() -> void:
 	var shape = CircleShape2D.new()
 	var dir := Vector2.from_angle(barrel.global_rotation)
 	shape.radius = 5
-	# TODO
 	var p := Projectile.new(
 		self,
 		PROJECTILE_IV * dir.x,
 		PROJECTILE_IV * dir.y,
-		shape
+		shape,
+		1.1,
+		true
 	)
 	p.x += dir.x * PROJECTILE_OFFSET_DIST
 	p.y += dir.y * PROJECTILE_OFFSET_DIST
+	p._physics_process(get_physics_process_delta_time())
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:

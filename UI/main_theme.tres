@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=33 format=3 uid="uid://b3ou7d8b0fupu"]
 
-[ext_resource type="FontFile" uid="uid://dhv161lwqx2w" path="res://Assets/Fonts/NunitoSans-BlackItalic.ttf" id="1_7m7pu"]
+[ext_resource type="FontFile" uid="uid://bx76lta0wwppb" path="res://Assets/Fonts/NowAlt-Medium.otf" id="1_5f78n"]
 [ext_resource type="FontFile" uid="uid://cj4306gnqlbor" path="res://Assets/Fonts/NowAlt-Regular.otf" id="1_h32ur"]
 [ext_resource type="FontFile" uid="uid://dbaqv8ndbpdvk" path="res://Assets/Fonts/monofonto rg.otf" id="2_5f78n"]
 [ext_resource type="FontFile" uid="uid://by1xkrgvgmeu6" path="res://Assets/Fonts/Economica-Bold.ttf" id="2_7m7pu"]
@@ -49,26 +49,35 @@ bg_color = Color(0.083485, 0.111979, 0.131918, 1)
 corner_radius_top_left = 25
 corner_radius_bottom_left = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7m7pu"]
-bg_color = Color(0.2881, 0.67, 0.549065, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qm5hq"]
-bg_color = Color(0, 0.317647, 0.458824, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wpuh"]
-bg_color = Color(0, 0.317647, 0.458824, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+bg_color = Color(0.0980392, 0.176471, 0.25098, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.960784, 0.909804, 0.819608, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_twr1u"]
+bg_color = Color(0.0980392, 0.176471, 0.25098, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y25vm"]
+bg_color = Color(0.0980392, 0.176471, 0.25098, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cfsd7"]
 
@@ -197,11 +206,14 @@ Button/styles/normal = SubResource("StyleBoxFlat_a2l2q")
 Button/styles/pressed = SubResource("StyleBoxFlat_0omi4")
 Component/base_type = &"Button"
 Component/colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
-Component/font_sizes/font_size = 28
-Component/fonts/font = ExtResource("1_7m7pu")
-Component/styles/focus = SubResource("StyleBoxFlat_7m7pu")
-Component/styles/hover = SubResource("StyleBoxFlat_qm5hq")
-Component/styles/normal = SubResource("StyleBoxFlat_8wpuh")
+Component/colors/font_focus_color = Color(0.960784, 0.909804, 0.819608, 1)
+Component/colors/font_hover_color = Color(0.960784, 0.909804, 0.819608, 1)
+Component/colors/font_pressed_color = Color(0.960784, 0.909804, 0.819608, 1)
+Component/font_sizes/font_size = 23
+Component/fonts/font = ExtResource("1_5f78n")
+Component/styles/focus = SubResource("StyleBoxFlat_8wpuh")
+Component/styles/hover = SubResource("StyleBoxFlat_twr1u")
+Component/styles/normal = SubResource("StyleBoxFlat_y25vm")
 Component/styles/pressed = SubResource("StyleBoxEmpty_cfsd7")
 CurrencyLabel/base_type = &"Label"
 CurrencyLabel/colors/font_color = Color(0.96, 0.96, 0.96, 1)

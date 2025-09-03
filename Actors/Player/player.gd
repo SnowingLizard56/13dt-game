@@ -9,8 +9,18 @@ signal player_died
 
 # Fun fact! floats are stored with double precision,
 # while floats that are part of Vector2s are single precision.
-var x: float = 750.0
-var y: float = 750.0
+var x: float = 750.0:
+	get():
+		if crashed:
+			return level.get_body(crashed_body).x + crashed_offset.x
+		else:
+			return x
+var y: float = 750.0:
+	get():
+		if crashed:
+			return level.get_body(crashed_body).y + crashed_offset.y
+		else:
+			return y
 var vx: float = 0.0
 var vy: float = 0.0
 
@@ -25,6 +35,9 @@ var trigger_queue: PackedInt32Array = []
 var trigger_timer_queue: PackedFloat32Array = []
 
 var is_dead: bool = false
+var crashed: bool = false
+var crashed_body: int
+var crashed_offset: Vector2
 
 
 func add_to_trigger_queue(id: int):
@@ -43,6 +56,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if is_dead:
+		return
 	# Triggers
 	if Input.is_action_pressed("trigger_1"):
 		add_to_trigger_queue(0)
@@ -64,6 +79,8 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		thrust.emitting = false
+		if not crashed:
+			grav_and_move(delta)
 		return
 	# Take input
 	var acceleration_input = Vector2(
@@ -90,6 +107,10 @@ func _physics_process(delta: float) -> void:
 	if !level:
 		level = get_parent().level
 	
+	grav_and_move(delta)
+
+
+func grav_and_move(delta):
 	var grav: Dictionary = level.barnes_hut_probe(Global.time_scale, x, y, 1.0, 0.0)
 	vx += grav.ax * delta
 	vy += grav.ay * delta
@@ -110,9 +131,15 @@ func _draw() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Body:
-		# Kill
-		player_died.emit()
-		get_tree().paused = true
+		crashed = true
+		crashed_body = area.id
+		crashed_offset = -area.position
+		if not is_dead:
+			area.crash_particles(area.position.angle() + PI)
+			player_died.emit()
+			ship.hp = 0.0
+			ui.update_health(ship)
+			generic_death()
 
 
 func damage(amount: float):
@@ -122,8 +149,13 @@ func damage(amount: float):
 		ship.hp -= amount
 	ui.update_health(ship)
 	if ship.hp <= 0:
-		get_tree().paused = true
+		generic_death()
 	hitbox.collision_layer = 0
 	await get_tree().create_timer(INVINCIBILITY_TIME).timeout
 	hitbox.collision_layer = 1
-	
+
+
+func generic_death():
+	is_dead = true
+	hitbox.collision_layer = 0
+	hide()

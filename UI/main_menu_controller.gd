@@ -32,6 +32,8 @@ var symbol_lambda: float = 1.0
 var splash_tween: Tween
 var game_started: bool = false
 
+var skip_splash_done: bool = false
+
 
 signal game_scene_loaded
 
@@ -63,15 +65,26 @@ func _ready() -> void:
 
 
 func skip_splash():
-	return
+	if skip_splash_done:
+		return
+	
 	if splash_tween:
 		splash_tween.kill()
 	
+	skip_splash_done = true
+	
 	symbol.hide()
-	symbol_cover.hide()
-	fg.modulate.a = 1.0
-	symbol_lambda = 2.0
-	splash.modulate.a = 0.0
+	
+	splash_tween = get_tree().create_tween()
+	splash_tween.tween_property(symbol_cover, "modulate", Color.WHITE, 0.2)
+	splash_tween.tween_property(splash.get_child(0), "modulate", Color(1.0, 1.0, 1.0, 0.0), 1.0)\
+		.set_trans(Tween.TRANS_CUBIC)
+	splash_tween.tween_callback(symbol_cover.hide)
+	splash_tween.tween_callback(splash.hide)
+	splash_tween.tween_callback(fg.show)
+	splash_tween.tween_callback(play_button.grab_focus)
+	splash_tween.tween_property(fg, "modulate", Color.WHITE, 1.0)
+	play_button.grab_focus()
 
 
 func _process(delta: float) -> void:

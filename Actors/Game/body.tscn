@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://d23yrshdacsq"]
+[gd_scene load_steps=4 format=3 uid="uid://d23yrshdacsq"]
 
 [ext_resource type="Script" uid="uid://j65gycgkkxjv" path="res://body.gd" id="1_rppho"]
+
+[sub_resource type="Curve" id="Curve_rppho"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.620635, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_rppho"]
+colors = PackedColorArray(0.920516, 0.824538, 0.652987, 1, 0.970604, 0.932298, 0.864607, 1)
 
 [node name="Body" type="Area2D"]
 z_index = 2
@@ -60,3 +67,20 @@ collision_mask = 0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Predictions/6"]
 debug_color = Color(0, 0.595, 0.7, 0.160784)
+
+[node name="CrashParticles" type="CPUParticles2D" parent="."]
+z_index = -1
+emitting = false
+amount = 30
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+spread = 10.0
+gravity = Vector2(-100, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 100.0
+scale_amount_min = 4.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_rppho")
+color_initial_ramp = SubResource("Gradient_rppho")
