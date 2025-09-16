@@ -1,4 +1,4 @@
-class_name MapIcon extends Area2D
+class_name MapIcon extends Control
 
 const XARAGILN: PackedScene = preload("res://Assets/Profiles/xaragiln_profile.tscn")
 const NAMURANT: PackedScene = preload("res://Assets/Profiles/namurant_profile.tscn")
@@ -48,20 +48,3 @@ func _draw() -> void:
 			draw_circle(Vector2.ZERO, 88, Color("f5e8d1"), false)
 	#
 	add_child(pf)
-
-
-func _ready() -> void:
-	var col: CollisionShape2D = CollisionShape2D.new()
-	col.shape = CircleShape2D.new()
-	col.shape.radius = 100
-	add_child(col)
-
-
-func _mouse_enter() -> void:
-	var tween: Tween = get_tree().create_tween()
-	tween.tween_property(self, "scale", Vector2.ONE * SCALE_HOVERED, 0.1)
-
-
-func _mouse_exit() -> void:
-	var tween: Tween = get_tree().create_tween()
-	tween.tween_property(self, "scale", Vector2.ONE * SCALE_NORMAL, 0.1)

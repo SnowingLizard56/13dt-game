@@ -57,6 +57,7 @@ func _on_component_control_continue_pressed() -> void:
 	else:
 		# Accepted animation:
 		# Switch to map
+		# TODO
 		pass
 
 

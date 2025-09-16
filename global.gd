@@ -23,6 +23,7 @@ var level_seed: int = 1
 @onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var random_seed: int = randi()
+var random_state: int
 
 signal frame_next
 signal level_up
