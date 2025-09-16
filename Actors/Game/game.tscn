@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c3dl8amhu3pcq"]
+[gd_scene load_steps=22 format=3 uid="uid://c3dl8amhu3pcq"]
 
 [ext_resource type="Script" uid="uid://cefbhjfki8lhm" path="res://Actors/Game/game_controller.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dy7y8ni7184re" path="res://Actors/Player/player.tscn" id="2_e2o6t"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://b8xt6xjhk1wib" path="res://UI/Background/bg_tile_controller.gd" id="2_u58dc"]
 [ext_resource type="Script" uid="uid://cquv2cqw3xkm6" path="res://Actors/Enemies/enemies_generator.gd" id="3_cny57"]
 [ext_resource type="PackedScene" uid="uid://qhecmcb4b8gc" path="res://UI/InGame/minimap.tscn" id="3_feb5d"]
+[ext_resource type="Script" uid="uid://cfddpq51ol3g5" path="res://Actors/Game/camera_effects.gd" id="5_0ac54"]
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="5_1qbs2"]
 [ext_resource type="Script" uid="uid://bdpmjaan8yghf" path="res://UI/ui_controller.gd" id="6_cny57"]
 [ext_resource type="Resource" uid="uid://7ahlwcvohx00" path="res://Assets/LootTables/normal.tres" id="8_evbej"]
@@ -14,6 +15,7 @@
 [ext_resource type="Script" uid="uid://y1ovawcvs6oi" path="res://UI/pause_menu.gd" id="13_8vj28"]
 [ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="13_cg6v3"]
 [ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://Actors/custom_button.gd" id="14_8vj28"]
+[ext_resource type="Script" uid="uid://6egkb8kxhwbb" path="res://Actors/Game/death_screen.gd" id="15_7ruru"]
 
 [sub_resource type="Curve2D" id="Curve2D_cny57"]
 _data = {
@@ -49,10 +51,34 @@ corner_radius_bottom_left = 5
 expand_margin_top = 5.0
 expand_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vj28"]
+bg_color = Color(0.0941176, 0.168627, 0.239216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ruru"]
+bg_color = Color(0.0507, 0.0916717, 0.13, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.866667, 0.337255, 0.223529, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
 [node name="Game" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_80nbo")
 body_scene = ExtResource("2_evbej")
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("2_u58dc")
 
 [node name="EnemyGen" type="Node" parent="." node_paths=PackedStringArray("enemy_put_node")]
 process_mode = 1
@@ -71,12 +97,11 @@ autostart = true
 unique_name_in_owner = true
 process_mode = 1
 
-[node name="Background" type="Node2D" parent="."]
-script = ExtResource("2_u58dc")
-
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 process_mode = 1
+ignore_rotation = false
+script = ExtResource("5_0ac54")
 
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
 unique_name_in_owner = true
@@ -263,6 +288,150 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_d8nwk")
 text = "Main Menu"
 script = ExtResource("14_8vj28")
 
+[node name="DeathScreen" type="Control" parent="Foreground/UI" node_paths=PackedStringArray("dim_bg", "title_label", "score_label", "killed_by_label", "tip_label", "quit_button", "again_button", "panel")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_7ruru")
+dim_bg = NodePath("DimBG")
+title_label = NodePath("Panel/Title")
+score_label = NodePath("Panel/Score")
+killed_by_label = NodePath("Panel/KilledBy")
+tip_label = NodePath("Panel/Tip")
+quit_button = NodePath("Panel/Quit")
+again_button = NodePath("Panel/Again")
+panel = NodePath("Panel")
+titles = PackedStringArray("Game Over", "You Died", "Nice Try!", "Next Time!")
+tips = PackedStringArray("Dying is generally not optimal.", "Watch ad to respawn?\nYes      Dismiss", "You control acceleration, not velocity. There\'s no friction in space.", "Bullets deal more damage the faster they\'re going compared to their target.", "You will always start in orbit around a large planet.")
+killed_by = PackedStringArray("You crashed into a planet.", "You died by mysterious means…", "You were killed by an enemy starfighter.", "You were killed by an enemy cannon.")
+
+[node name="DimBG" type="ColorRect" parent="Foreground/UI/DeathScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.376471)
+
+[node name="Panel" type="Panel" parent="Foreground/UI/DeathScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 384.0
+offset_top = 64.8
+offset_right = -384.0
+offset_bottom = -64.8
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HUDPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_8vj28")
+
+[node name="Title" type="Label" parent="Foreground/UI/DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -168.0
+offset_right = 168.0
+offset_bottom = 104.0
+grow_horizontal = 2
+theme_type_variation = &"GameTitle"
+theme_override_colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="Foreground/UI/DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -127.0
+offset_top = -133.0
+offset_right = 107.0
+offset_bottom = -89.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"CurrencyLabel"
+theme_override_colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
+text = "Score: 000000"
+
+[node name="KilledBy" type="Label" parent="Foreground/UI/DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -54.2
+offset_bottom = 40.8
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"CurrencyLabel"
+theme_override_colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
+text = "Killed by…"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Tip" type="Label" parent="Foreground/UI/DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 83.8
+offset_bottom = 161.8
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"StatsDescription"
+text = "Don't die next time. Just a thought. If this gets super super super long then what should it do??"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="Quit" type="Button" parent="Foreground/UI/DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -64.0
+offset_right = 181.0
+offset_bottom = -16.0
+grow_vertical = 0
+theme_type_variation = &"MainMenuButton"
+theme_override_colors/font_hover_pressed_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_colors/font_hover_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_colors/font_focus_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_7ruru")
+text = "Quit to Menu"
+script = ExtResource("14_8vj28")
+metadata/_custom_type_script = "uid://dg7hgelew38lk"
+
+[node name="Again" type="Button" parent="Foreground/UI/DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -181.0
+offset_top = -64.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_type_variation = &"MainMenuButton"
+text = "Play Again"
+script = ExtResource("14_8vj28")
+metadata/_custom_type_script = "uid://dg7hgelew38lk"
+
 [node name="Cover" type="ColorRect" parent="Foreground"]
 visible = false
 anchors_preset = 15
@@ -274,7 +443,10 @@ color = Color(0.0588235, 0.105882, 0.14902, 1)
 
 [connection signal="initial_areas_instantiated" from="." to="EnemyGen" method="_on_game_initial_areas_instantiated"]
 [connection signal="timeout" from="EnemyGen/FlyingEnemySpawnAttemptTimer" to="EnemyGen" method="_on_flying_enemy_spawn_attempt_timer_timeout"]
+[connection signal="player_died" from="Player" to="Foreground/UI/DeathScreen" method="_on_player_player_died"]
 [connection signal="continue_pressed" from="Foreground/UI/ComponentControl" to="Foreground/UI" method="level_up_finalised"]
 [connection signal="pressed" from="Foreground/UI/PauseMenu/Container/Resume" to="Foreground/UI/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="Foreground/UI/PauseMenu/Container/Options" to="Foreground/UI/PauseMenu" method="_on_options_pressed"]
 [connection signal="pressed" from="Foreground/UI/PauseMenu/Container/MainMenu" to="Foreground/UI/PauseMenu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Foreground/UI/DeathScreen/Panel/Quit" to="Foreground/UI/DeathScreen" method="_on_quit_pressed"]
+[connection signal="pressed" from="Foreground/UI/DeathScreen/Panel/Again" to="Foreground/UI/DeathScreen" method="_on_again_pressed"]

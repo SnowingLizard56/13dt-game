@@ -26,7 +26,7 @@ signal reprocessed
 signal continue_pressed
 signal swap_amount(value: int)
 
-signal focused(what: ShipComponentNode)
+signal focused(what: ShipComponentNode, left: bool)
 
 
 func _ready() -> void:
@@ -53,7 +53,7 @@ func add_component_option(what: ShipComponent, where: Node):
 	k.component = what
 	where.add_child(k)
 	k.focus_entered.connect(update_component_stat_display.bind(what))
-	k.focus_entered.connect(focused.emit.bind(k))
+	k.focus_entered.connect(focused.emit.bind(k, where == installed_components))
 	if where == installed_components:
 		k.pressed.connect(move_component_node.bind(k, spare_components))
 		k.swap_cost = what.sell_value
@@ -138,6 +138,11 @@ func move_component_node(node: ShipComponentNode, where: VBoxContainer):
 	node.reparent(where)
 	for c in node.pressed.get_connections():
 		node.pressed.disconnect(c.callable)
+	
+	for c in node.focus_entered.get_connections():
+		node.focus_entered.disconnect(c.callable)
+	
+	node.focus_entered.connect(focused.emit.bind(node, where == installed_components))
 	
 	if where == installed_components:
 		node.pressed.connect(move_component_node.bind(node, spare_components))

@@ -83,8 +83,9 @@ func give_level_up_reward():
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("test"):
-		give_level_up_reward()
+	#if Input.is_action_just_pressed("test"):
+		#give_level_up_reward()
+	pass
 
 
 func level_up_finalised() -> void:

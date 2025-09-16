@@ -39,6 +39,14 @@ var crashed: bool = false
 var crashed_body: int
 var crashed_offset: Vector2
 
+var death_source: DeathSource
+enum DeathSource {
+	PLANET = 0,
+	UNKNOWN = 1,
+	FLYING = 2,
+	CANNON = 3,
+}
+
 
 func add_to_trigger_queue(id: int):
 	if not id in trigger_queue:
@@ -136,19 +144,21 @@ func _on_area_entered(area: Area2D) -> void:
 		crashed_offset = -area.position
 		if not is_dead:
 			area.crash_particles(area.position.angle() + PI)
-			player_died.emit()
 			ship.hp = 0.0
 			ui.update_health(ship)
+			death_source = DeathSource.PLANET
 			generic_death()
 
 
-func damage(amount: float):
+func damage(amount: float, source: int = 1):
 	if ship.hp - amount <= DAMAGE_LEEWAY and ship.hp > 1:
 		ship.hp = 1.0
 	else:
 		ship.hp -= amount
 	ui.update_health(ship)
 	if ship.hp <= 0:
+		if not source:
+			death_source = DeathSource.UNKNOWN
 		generic_death()
 	hitbox.collision_layer = 0
 	await get_tree().create_timer(INVINCIBILITY_TIME).timeout
@@ -157,5 +167,6 @@ func damage(amount: float):
 
 func generic_death():
 	is_dead = true
-	hitbox.collision_layer = 0
+	player_died.emit()
+	hitbox.get_child(0).set_deferred(&"disabled", true)
 	hide()

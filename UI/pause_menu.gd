@@ -9,7 +9,7 @@ var main_menu_button_pressed_once: bool = false
 var paused: bool = false
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		if paused:
 			_on_resume_pressed()

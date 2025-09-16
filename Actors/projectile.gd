@@ -8,7 +8,8 @@ var y: float
 var vx: float
 var vy: float
 var source: Node2D
-var root: LevelController 
+var source_e := Player.DeathSource.UNKNOWN
+var root: LevelController
 var mass: float
 var is_enemy: bool
 var trigger_particles: bool
@@ -29,7 +30,12 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1, ca
 		spawn_distance = Vector2(dvx, dvy) * 0.1
 	x = src.x + spawn_distance.x
 	y = src.y + spawn_distance.y
+	z_index = 1
 	source = src
+	if source is FlyingEnemy:
+		source_e = Player.DeathSource.FLYING
+	if source is CannonEnemy:
+		source_e = Player.DeathSource.CANNON
 	process_priority = source.process_priority - 1
 	root = Global.root
 	root.entities.add_child(self)
@@ -72,9 +78,13 @@ func _on_collision_area_entered(area: Area2D) -> void:
 	if target is Enemy and is_enemy:
 		return
 	if target is Player and not is_enemy:
-		return	
-	target.damage(calculate_damage(target))
-	queue_free()
+		return
+	if target is Enemy:
+		target.damage(calculate_damage(target))
+		queue_free()
+	if target is Player:
+		target.damage(calculate_damage(target), source_e)
+		queue_free()
 
 
 func _draw() -> void:

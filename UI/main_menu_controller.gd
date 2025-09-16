@@ -9,7 +9,6 @@ const PLAYER_ROTATION_SPEED: float = 0.8
 const PLAYER_ORBIT_SPEED: float = TAU / 13
 const PLANET_RADIUS: float = 200.0
 const SCREEN_CENTRE: Vector2 = Vector2(576, 324)
-const GAME_FILE_PATH: String = "res://Actors/Game/game.tscn"
 
 @onready var planet: Control = $Background/Planet
 @onready var distant: Node2D = $Background/Distant
@@ -93,7 +92,7 @@ func _process(delta: float) -> void:
 	player.rotation += delta * PLAYER_ROTATION_SPEED
 	orbit.rotation += delta * PLAYER_ORBIT_SPEED
 	symbol.queue_redraw()
-	if get_load_threaded_progress(GAME_FILE_PATH) == 1.0:
+	if get_load_threaded_progress(Global.GAME_FILE_PATH) == 1.0:
 		game_scene_loaded.emit()
 	distant.queue_redraw()
 
@@ -174,13 +173,13 @@ func _on_play_pressed() -> void:
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
 	t.tween_callback(play_animation_finished)
 	
-	ResourceLoader.load_threaded_request(GAME_FILE_PATH)
+	ResourceLoader.load_threaded_request(Global.GAME_FILE_PATH)
 	game_started = true
 
 
 func play_animation_finished():
 	const SHIFT_TIME := 3.0
-	if !get_load_threaded_progress(GAME_FILE_PATH) == 1.0:
+	if !get_load_threaded_progress(Global.GAME_FILE_PATH) == 1.0:
 		await game_scene_loaded
 	if len(LevelGenerator.levels_ready) == 0:
 		await LevelGenerator.level_generated
@@ -202,5 +201,6 @@ func get_load_threaded_progress(path: String) -> float:
 
 
 func scene_switch():
-	Global.switch_scene(ResourceLoader.load_threaded_get(GAME_FILE_PATH))
+	Global.game_scene = ResourceLoader.load_threaded_get(Global.GAME_FILE_PATH)
+	Global.switch_scene(Global.game_scene)
 	

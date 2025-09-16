@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b03vywmrkf42d"]
+[gd_scene load_steps=7 format=3 uid="uid://b03vywmrkf42d"]
 
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_offu1"]
 [ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/ComponentControl/component_control.tscn" id="2_h1iqd"]
 [ext_resource type="Script" uid="uid://c5xilw8i0dtne" path="res://Actors/Game/shop.gd" id="2_y6pbu"]
 [ext_resource type="Resource" uid="uid://bhc5qcynkvq0a" path="res://Assets/LootTables/shop.tres" id="3_cpln2"]
 [ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="3_y6pbu"]
+[ext_resource type="Script" uid="uid://dyxox0r1oftf2" path="res://Actors/Game/delta_money.gd" id="6_cpln2"]
 
 [node name="Shop" type="Control"]
 layout_mode = 3
@@ -37,7 +38,44 @@ offset_top = 16.0
 offset_right = 175.0
 offset_bottom = 62.0
 
+[node name="DeltaMoney" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 185.0
+offset_top = 16.0
+offset_right = 265.0
+offset_bottom = 62.0
+script = ExtResource("6_cpln2")
+
+[node name="Panel" type="Panel" parent="DeltaMoney"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HUDPanel"
+
+[node name="Currency" type="Label" parent="DeltaMoney"]
+modulate = Color(0.960784, 0.909804, 0.819608, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -22.0
+offset_right = -4.0
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_type_variation = &"CurrencyLabel"
+text = "-000"
+horizontal_alignment = 2
+
 [connection signal="draw" from="BG" to="." method="_on_bg_draw"]
 [connection signal="continue_pressed" from="ComponentControl" to="." method="_on_component_control_continue_pressed"]
+[connection signal="focused" from="ComponentControl" to="." method="_on_component_control_focused"]
 [connection signal="reprocessed" from="ComponentControl" to="." method="_on_component_control_reprocessed"]
 [connection signal="swap_amount" from="ComponentControl" to="." method="_on_component_control_swap_amount"]

@@ -22,7 +22,7 @@ signal initial_areas_instantiated
 
 
 func _ready() -> void:
-	const BG_PARALLAX_DISTANCES: PackedFloat32Array = [0.005, 0.007, 0.01, 0.02, 0.025]
+	const BG_PARALLAX_DISTANCES: PackedFloat32Array = [0.005, 0.01, 0.02, 0.025, 0.05]
 	level = LevelGenerator.get_ready_level()
 	level.body_collided.connect(delete_body_area)
 	add_child(level)

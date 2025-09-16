@@ -14,7 +14,7 @@ var decoration_groups: Array[Array] = [
 	[pinprick, hole],
 ]
 const DECORATION_WEIGHTS: Array[Array] = [
-	[5, 0.001],
+	[5, 0],
 ]
 
 
