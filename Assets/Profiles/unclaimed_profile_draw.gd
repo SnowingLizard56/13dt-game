@@ -21,7 +21,7 @@ func _ready() -> void:
 		speeds.append(randf_range(min_speed, max_speed))
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	for i in number:
 		get_child(i).rotate(speeds[i])
 
@@ -29,10 +29,10 @@ func _process(delta: float) -> void:
 func draw_blob(node: Node2D) -> void:
 	node.rotation = randf_range(0, TAU)
 	var distance: float = randf() * radius - outer_ring_dist - max_blob_radius
-	var radius: float = randf_range(min_blob_radius, max_blob_radius)
+	var blob_radius: float = randf_range(min_blob_radius, max_blob_radius)
 	for i in subglob_number:
 		var subglob_position = Vector2(distance, 0) + Vector2.from_angle(
-			randf_range(0, TAU)) * sqrt(randf()) * radius
+			randf_range(0, TAU)) * sqrt(randf()) * blob_radius
 		node.draw_circle(subglob_position, 1, colour)
 
 

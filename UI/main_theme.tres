@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=33 format=3 uid="uid://b3ou7d8b0fupu"]
+[gd_resource type="Theme" load_steps=38 format=3 uid="uid://b3ou7d8b0fupu"]
 
 [ext_resource type="FontFile" uid="uid://bx76lta0wwppb" path="res://Assets/Fonts/NowAlt-Medium.otf" id="1_5f78n"]
 [ext_resource type="FontFile" uid="uid://cj4306gnqlbor" path="res://Assets/Fonts/NowAlt-Regular.otf" id="1_h32ur"]
@@ -175,6 +175,16 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovyjt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6lkj0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4jbj0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uu2f5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okx7s"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ou33m"]
 bg_color = Color(0.1248, 0.225653, 0.32, 1)
 corner_radius_top_left = 5
@@ -253,6 +263,12 @@ Panel/styles/panel = SubResource("StyleBoxFlat_4jbj0")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_gsqoc")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_5f78n")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_daddk")
+SemiButton/base_type = &"Button"
+SemiButton/styles/focus = SubResource("StyleBoxEmpty_ovyjt")
+SemiButton/styles/hover = SubResource("StyleBoxEmpty_6lkj0")
+SemiButton/styles/hover_pressed = SubResource("StyleBoxEmpty_4jbj0")
+SemiButton/styles/normal = SubResource("StyleBoxEmpty_uu2f5")
+SemiButton/styles/pressed = SubResource("StyleBoxEmpty_okx7s")
 StatsContainer/base_type = &"Panel"
 StatsContainer/styles/panel = SubResource("StyleBoxFlat_ou33m")
 StatsDescription/base_type = &"Label"

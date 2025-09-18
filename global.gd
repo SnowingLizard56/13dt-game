@@ -19,19 +19,19 @@ var joy_stale := true
 var level_seed: int = 1
 
 @onready var root: Node = get_tree().current_scene
+var map_scene: MapController
 
 @onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
-
 var random_seed: int = randi()
-var random_state: int
 
 signal frame_next
 signal level_up
 
 
-var player_currency: int
+var player_currency: int = 0
 var player_xp: float = 0.0
 var player_level: int = 0
+var tick
 
 
 func _ready() -> void:
@@ -59,6 +59,7 @@ func array_shuffle(array: Array) -> Array:
 
 func _process(_delta: float) -> void:
 	frame_next.emit()
+	tick = Time.get_ticks_usec()
 	
 	# Get each device aim
 	var new_mouse: Vector2 = (get_viewport().get_mouse_position() -\

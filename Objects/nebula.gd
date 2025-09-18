@@ -2,7 +2,7 @@ class_name Nebula extends Resource
 
 # Base type of the node
 # Unclaimed, shop, nam, xar, event
-const WEIGHTS: PackedFloat32Array = [2, 1, 5, 3]
+const WEIGHTS: PackedFloat32Array = [1, 1, 6, 4]
 # Type
 const DATA: Array = [SHOP, NAMURANT, XARAGILN, EVENT]
 
@@ -12,12 +12,12 @@ var type := UNCLAIMED
 var is_friendly: bool
 
 
-func _init(type=null) -> void:
-	if type == null:
+func _init(_type=null) -> void:
+	if _type == null:
 		# Choose type
 		self.type = DATA[Global.random.rand_weighted(WEIGHTS)]
 	else:
-		self.type = type
+		self.type = _type
 
 
 static func generate_pool(n: int) -> Array[Nebula]:

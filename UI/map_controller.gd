@@ -1,17 +1,32 @@
-extends Node2D
+class_name MapController extends Node2D
 
-const BUFFER_ROWS: int = 8
-const WIDTH: int = 7
-const PATH_COUNT: int = 6
+const STAR_COLOUR: Color = Color(0.960784, 0.909804, 0.819608, 1)
+const BUFFER_ROWS: int = 10
+const INITIAL_BUFFER: int = 6
+const WIDTH: int = 8
+const PATH_COUNT: int = 7
 const SEPARATION: Vector2 = Vector2(120, -125.0)
-const SHIMMY: float = 12.5
+const SHIMMY: float = 10
 const ICON_SIZE: float = 0.38
-const START_INDENT: int = 1
+const START_INDENT: int = 2
+const POOL_SIZE: int = 12
+const STAR_COUNT: int = 128
 
 var indices: PackedInt32Array = []
 var map: Array[MapIcon]
 
-var start: MapIcon
+var map_start: MapIcon
+var rows_travelled: int = 0
+var at_row: int = 0
+var pool: Array[Nebula]
+@onready var pool_idx: int = POOL_SIZE
+
+@export var theme: Theme
+@export var background: ColorRect
+@export var position_indi: Node2D
+
+var player_icon: MapIcon
+var focused_icon: MapIcon
 
 
 func _ready() -> void:
@@ -19,19 +34,41 @@ func _ready() -> void:
 	for i in PATH_COUNT:
 		indices[i] = -1
 	generate_map()
+	await Global.frame_next
+	player_icon = map_start
+	focus_connections(map_start)
 
 
-func generate_map():
-	start = MapIcon.new()
-	start.nebula = Nebula.new(Nebula.XARAGILN)
-	start.scale *= ICON_SIZE
-	add_child(start)
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("test"):
+		take_step()
+
+
+func take_step():
+	at_row += 1
+	_step()
+	var t := get_tree().create_tween()
+	t.tween_property(self, "position", position - Vector2(0, SEPARATION.y), 1.0)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	t.tween_callback(queue_redraw)
+	player_icon = focused_icon
+	t.tween_callback(focus_connections.bind(player_icon))
+
+
+func generate_map(state = null):
+	map_start = MapIcon.new()
+	map_start.nebula = Nebula.new(Nebula.XARAGILN)
+	map_start.scale *= ICON_SIZE
+	map_start.in_map = true
+	add_child(map_start)
+	#start.focus_mode = Control.FOCUS_NONE
+	position_indi.move_to(map_start)
 	# Ensure same map
 	# IK THIS LOOKS USELESS
 	# BUT IT AINT
 	Global.random.seed = Global.random_seed
 	
-	for i in BUFFER_ROWS:
+	for i in INITIAL_BUFFER:
 		_step()
 	
 	queue_redraw()
@@ -61,15 +98,15 @@ func _step():
 		var map_next: MapIcon
 		
 		if indices[i] < 0:
-			map_current = start
-			indices[i] = randi_range(1, WIDTH - 2)
+			map_current = map_start
+			indices[i] = randi_range(START_INDENT, WIDTH - 1 - START_INDENT)
 			map_next = map[indices[i]]
 		else:
 			# Disallow left / right if already far left / right, or line cross
 			var disallow_left = current == 0 or line_cross_right[current - 1]
 			var disallow_right = (current + 1) == WIDTH or line_cross_left[current + 1]
 			
-			var diff := Global.random.randi_range(-int(!disallow_left), int(!disallow_right))
+			var diff: int = Global.random.randi_range(-int(!disallow_left), int(!disallow_right))
 			
 			# Next index
 			indices[i] += diff
@@ -88,43 +125,84 @@ func _step():
 			map_current.connections.append(map_next)
 		
 		map_next.in_map = true
+		
+		# Apply nebulae for
+		if pool_idx == POOL_SIZE:
+			pool_idx = 0
+			pool = Global.array_shuffle(Nebula.generate_pool(POOL_SIZE))
+		map_next.nebula = pool[pool_idx]
+		pool_idx += 1
+		
+		# Ensure that choices are actually choices
+		if len(map_current.connections) > 1:
+			while map_current.connections[0].nebula.type == map_current.connections[1].nebula.type:
+				map_current.connections[randi_range(0, len(map_current.connections) - 1)].nebula = Nebula.new()
+			
 	
-	
-	for i in range(map.size() - WIDTH, map.size()):
+	var last_node: MapIcon = null
+	for i in WIDTH:
 		# Add new to tree
-		var map_node = map[i]
+		var map_node = map[map.size() - WIDTH + i]
 		# if theyre in-map
 		if map_node.in_map:
-			add_child(map_node)
-			if map.size() > WIDTH:
-				map_node.list_position = map[i - 1].list_position + 1
-			else:
-				map_node.list_position = i
-			map_node.map_position = Vector2(i % WIDTH, i / WIDTH)
+			map_node.list_position = i + WIDTH * rows_travelled
+			map_node.map_position = Vector2(i, rows_travelled)
 			# Position the node and offset it slightly
 			map_node.position = (map_node.map_position + Vector2(0, 1)) * SEPARATION\
-				+ Vector2.ONE * SHIMMY * randf()\
+				+ SHIMMY * Vector2(randf_range(-1, 1), randf_range(-1, 1))\
 				+ Vector2.LEFT * SEPARATION * (WIDTH - 1.0) / 2
 			map_node.scale *= ICON_SIZE
-			# Sort connections by list_position
-			map_node.connections.sort_custom(
-				func (x: MapIcon, y: MapIcon): return x.list_position < y.list_position)
-			map_node.nebula = Nebula.new()
+			add_child(map_node)
+			if last_node:
+				last_node.focus_neighbor_right = map_node.get_path()
+				map_node.focus_neighbor_left = last_node.get_path()
+			last_node = map_node
 	
 	# If overbuffered. Remove first WIDTH elements.
 	if map.size() / WIDTH > BUFFER_ROWS:
+		if map_start:
+			map_start.queue_free()
 		for i in WIDTH:
 			map[i].queue_free()
 		map = map.slice(WIDTH)
-	await Global.frame_next
-	queue_redraw()
+	rows_travelled += 1
 
 
 func _draw():
-	for icon: MapIcon in get_children():
+	for icon in get_children():
+		if not icon is MapIcon or icon.is_queued_for_deletion() or not icon.in_map:
+			continue
 		for next: MapIcon in icon.connections:
-			# Make line	
-			var direction: Vector2 = icon.position.direction_to(next.position)
-			var start: Vector2 = icon.position + direction * 100 * ICON_SIZE
-			var end: Vector2 = next.position - direction * 100 * ICON_SIZE
-			draw_dashed_line(start, end, Color("f5e8d1"), 0.6, 2.0, true)
+			if not next:
+				continue
+			# Make line
+			var p1 = icon.position + icon.size * icon.SCALE_NORMAL / 2
+			var p2 = next.position + next.size * icon.SCALE_NORMAL / 2
+			var direction: Vector2 = p1.direction_to(p2)
+			var start: Vector2 = p1 + direction * 100 * ICON_SIZE
+			var end: Vector2 = p2 - direction * 100 * ICON_SIZE
+			draw_dashed_line(start, end, Color("f5e8d1"), 1, 2.0, true)
+
+
+func focus_connections(source: MapIcon):
+	for i in map:
+		i.focus_mode = Control.FOCUS_NONE
+	var grabbed_focus: bool = false
+	for icon in source.connections:
+		icon.focus_mode = Control.FOCUS_ALL
+		if !grabbed_focus and icon.in_map:
+			grabbed_focus = true
+			icon.grab_focus()
+
+
+func _on_background_draw() -> void:
+	for i in STAR_COUNT:
+		background.draw_circle(
+			background.size * Vector2(randf(), randf()),
+			.5,
+			STAR_COLOUR,
+		)
+
+
+func icon_focused(icon: MapIcon):
+	focused_icon = icon
