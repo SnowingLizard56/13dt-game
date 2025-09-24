@@ -6,12 +6,14 @@ const SOLID_COLOUR: Color = Color(0.961, 0.91, 0.82, 1.0)
 const ENEMY_COLOUR: Color = Color(0.867, 0.337, 0.224, 1.0)
 const MONEY_SHAKE_SPEED: float = 5 * TAU
 const MONEY_SHAKE_AMPLITUDE: float = 10.0
+const FADE_IN_TIME: float = 0.5
 
 @onready var bg: Control = $BG
 @onready var component_control: ComponentControl = $ComponentControl
 @onready var currency_display: CurrencyDisplay = $CurrencyDisplay
 @onready var delta_money: Control = $DeltaMoney
 @onready var currency_position: Vector2 = $CurrencyDisplay.position
+@onready var fade_in: ColorRect = $FadeIn
 
 var budget: int
 @export var shop_loot: LootTable
@@ -23,6 +25,7 @@ var shake_money := 0.0:
 
 var shake_money_max := 0.0
 
+
 func _ready() -> void:
 	budget = Global.player_currency
 	var available := shop_loot.get_loot(
@@ -30,6 +33,8 @@ func _ready() -> void:
 		Global.player_ship.get(&"Luck").value)
 	
 	component_control.start(available, Global.player_ship)
+	var t := get_tree().create_tween()
+	t.tween_property(fade_in, "modulate", Color(1, 1, 1, 0), FADE_IN_TIME)
 
 
 func _on_bg_draw() -> void:

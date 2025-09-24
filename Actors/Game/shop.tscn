@@ -74,6 +74,15 @@ theme_type_variation = &"CurrencyLabel"
 text = "-000"
 horizontal_alignment = 2
 
+[node name="FadeIn" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.105882, 0.14902, 1)
+
 [connection signal="draw" from="BG" to="." method="_on_bg_draw"]
 [connection signal="continue_pressed" from="ComponentControl" to="." method="_on_component_control_continue_pressed"]
 [connection signal="focused" from="ComponentControl" to="." method="_on_component_control_focused"]

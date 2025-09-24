@@ -1,18 +1,256 @@
-[gd_scene load_steps=2 format=3 uid="uid://d8ylv7y4rhyv"]
+[gd_scene load_steps=7 format=3 uid="uid://d8ylv7y4rhyv"]
 
 [ext_resource type="PackedScene" uid="uid://ccbersjv5r4sb" path="res://UI/_map.tscn" id="1_c7s6e"]
+[ext_resource type="Script" uid="uid://ccd38pemkue7r" path="res://UI/map.gd" id="1_wijl4"]
+[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="3_e0an3"]
+[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://Actors/custom_button.gd" id="4_p5pve"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8nwk"]
+bg_color = Color(0.0507, 0.0916717, 0.13, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.866667, 0.337255, 0.223529, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 
-[node name="Map" parent="." node_paths=PackedStringArray("background") instance=ExtResource("1_c7s6e")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iw27f"]
+bg_color = Color(0.0507, 0.0916717, 0.13, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.866667, 0.337255, 0.223529, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[node name="Map" type="Node2D" node_paths=PackedStringArray("cam", "inner", "confirmation", "conf_title", "confirm_button", "cancel_button", "fadeout")]
+script = ExtResource("1_wijl4")
+cam = NodePath("Camera")
+inner = NodePath("_MapInner")
+confirmation = NodePath("UI/UI/TravelConfirm")
+conf_title = NodePath("UI/UI/TravelConfirm/Title")
+confirm_button = NodePath("UI/UI/TravelConfirm/Confirm")
+cancel_button = NodePath("UI/UI/TravelConfirm/Cancel")
+fadeout = NodePath("UI/Fadeout")
+
+[node name="_MapInner" parent="." node_paths=PackedStringArray("background") instance=ExtResource("1_c7s6e")]
 position = Vector2(576, 575)
-background = NodePath("../Background")
+background = NodePath("../BG/Background")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="BG" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="ColorRect" parent="BG"]
 z_index = -1
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_left = -1152.0
+offset_top = -648.0
+offset_right = 2304.0
+offset_bottom = 1296.0
 mouse_filter = 2
 color = Color(0.0588235, 0.105882, 0.14902, 1)
 
-[connection signal="draw" from="Background" to="Map" method="_on_background_draw"]
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("3_e0an3")
+
+[node name="TravelConfirm" type="Panel" parent="UI/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 257.0
+offset_right = 300.0
+offset_bottom = -257.0
+grow_vertical = 2
+theme_type_variation = &"HUDPanel"
+
+[node name="Title" type="Label" parent="UI/UI/TravelConfirm"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 46.0
+grow_horizontal = 2
+theme_type_variation = &"StatsTitle"
+text = "Battle -> Battle"
+horizontal_alignment = 1
+
+[node name="Confirm" type="Button" parent="UI/UI/TravelConfirm"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -64.0
+offset_right = 141.0
+offset_bottom = -16.0
+grow_vertical = 0
+theme_type_variation = &"MainMenuButton"
+text = "Confirm"
+script = ExtResource("4_p5pve")
+metadata/_custom_type_script = "uid://dg7hgelew38lk"
+
+[node name="Cancel" type="Button" parent="UI/UI/TravelConfirm"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -141.0
+offset_top = -64.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_type_variation = &"MainMenuButton"
+theme_override_colors/font_hover_pressed_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_colors/font_hover_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_colors/font_focus_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_d8nwk")
+text = "Cancel"
+script = ExtResource("4_p5pve")
+metadata/_custom_type_script = "uid://dg7hgelew38lk"
+
+[node name="DeathScreen" type="Control" parent="UI/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DimBG" type="ColorRect" parent="UI/UI/DeathScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.376471)
+
+[node name="Event" type="Panel" parent="UI/UI/DeathScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 384.0
+offset_top = 64.8
+offset_right = -384.0
+offset_bottom = -64.8
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HUDPanel"
+
+[node name="Title" type="Label" parent="UI/UI/DeathScreen/Event"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -168.0
+offset_right = 168.0
+offset_bottom = 68.0
+grow_horizontal = 2
+theme_type_variation = &"GameTitle"
+theme_override_colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
+theme_override_font_sizes/font_size = 56
+text = "A Brief Reprieve"
+horizontal_alignment = 1
+
+[node name="Tip" type="Label" parent="UI/UI/DeathScreen/Event"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -136.2
+offset_right = -5.0
+offset_bottom = -0.200012
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"StatsDescription"
+theme_override_font_sizes/font_size = 17
+text = "This system is empty."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Quit" type="Button" parent="UI/UI/DeathScreen/Event"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -64.0
+offset_right = 181.0
+offset_bottom = -16.0
+grow_vertical = 0
+theme_type_variation = &"MainMenuButton"
+theme_override_colors/font_hover_pressed_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_colors/font_hover_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_colors/font_focus_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_iw27f")
+text = "Quit to Menu"
+script = ExtResource("4_p5pve")
+metadata/_custom_type_script = "uid://dg7hgelew38lk"
+
+[node name="Again" type="Button" parent="UI/UI/DeathScreen/Event"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -181.0
+offset_top = -64.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_type_variation = &"MainMenuButton"
+text = "Play Again"
+script = ExtResource("4_p5pve")
+metadata/_custom_type_script = "uid://dg7hgelew38lk"
+
+[node name="Fadeout" type="ColorRect" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.105882, 0.14902, 1)
+
+[connection signal="icon_selected" from="." to="." method="_on_icon_selected"]
+[connection signal="any_icon_pressed" from="_MapInner" to="." method="_on__map_inner_any_icon_pressed"]
+[connection signal="draw" from="BG/Background" to="_MapInner" method="_on_background_draw"]
+[connection signal="pressed" from="UI/UI/TravelConfirm/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="UI/UI/TravelConfirm/Confirm" to="UI/UI/TravelConfirm/Confirm" method="set_disabled" binds= [true]]
+[connection signal="pressed" from="UI/UI/TravelConfirm/Confirm" to="UI/UI/TravelConfirm/Cancel" method="set_disabled" binds= [true]]
+[connection signal="pressed" from="UI/UI/TravelConfirm/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="UI/UI/TravelConfirm/Cancel" to="UI/UI/TravelConfirm/Confirm" method="set_disabled" binds= [true]]
+[connection signal="pressed" from="UI/UI/TravelConfirm/Cancel" to="UI/UI/TravelConfirm/Cancel" method="set_disabled" binds= [true]]
+[connection signal="pressed" from="UI/UI/DeathScreen/Event/Quit" to="UI/UI/DeathScreen" method="_on_quit_pressed"]
+[connection signal="pressed" from="UI/UI/DeathScreen/Event/Again" to="UI/UI/DeathScreen" method="_on_again_pressed"]

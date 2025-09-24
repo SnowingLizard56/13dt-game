@@ -10,7 +10,7 @@ const SHIMMY: float = 10
 const ICON_SIZE: float = 0.38
 const START_INDENT: int = 2
 const POOL_SIZE: int = 12
-const STAR_COUNT: int = 128
+const STAR_COUNT: int = 2304
 
 var indices: PackedInt32Array = []
 var map: Array[MapIcon]
@@ -24,9 +24,12 @@ var pool: Array[Nebula]
 @export var theme: Theme
 @export var background: ColorRect
 @export var position_indi: Node2D
+@export var cam: Camera2D
 
 var player_icon: MapIcon
 var focused_icon: MapIcon
+
+signal any_icon_pressed
 
 
 func _ready() -> void:
@@ -39,11 +42,6 @@ func _ready() -> void:
 	focus_connections(map_start)
 
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("test"):
-		take_step()
-
-
 func take_step():
 	at_row += 1
 	_step()
@@ -52,16 +50,17 @@ func take_step():
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	t.tween_callback(queue_redraw)
 	player_icon = focused_icon
-	t.tween_callback(focus_connections.bind(player_icon))
+	focused_icon = null
+	position_indi.move_to(player_icon)
 
 
-func generate_map(state = null):
+func generate_map(_state = null):
 	map_start = MapIcon.new()
 	map_start.nebula = Nebula.new(Nebula.XARAGILN)
 	map_start.scale *= ICON_SIZE
 	map_start.in_map = true
+	map_start.focus_mode = Control.FOCUS_NONE
 	add_child(map_start)
-	#start.focus_mode = Control.FOCUS_NONE
 	position_indi.move_to(map_start)
 	# Ensure same map
 	# IK THIS LOOKS USELESS
@@ -187,18 +186,22 @@ func _draw():
 func focus_connections(source: MapIcon):
 	for i in map:
 		i.focus_mode = Control.FOCUS_NONE
-	var grabbed_focus: bool = false
+	
+	var min_distance: float = INF
+	var mouse_position: Vector2 = get_local_mouse_position()
 	for icon in source.connections:
-		icon.focus_mode = Control.FOCUS_ALL
-		if !grabbed_focus and icon.in_map:
-			grabbed_focus = true
-			icon.grab_focus()
+		if icon.in_map:
+			icon.focus_mode = Control.FOCUS_ALL
+			var d: float = mouse_position.distance_squared_to(icon.position)
+			if d < min_distance:
+				icon.grab_focus()
+				min_distance = d
 
 
 func _on_background_draw() -> void:
 	for i in STAR_COUNT:
 		background.draw_circle(
-			background.size * Vector2(randf(), randf()),
+			background.size * Vector2(randf_range(-1, 2), randf_range(-1, 2)),
 			.5,
 			STAR_COLOUR,
 		)
@@ -206,3 +209,31 @@ func _on_background_draw() -> void:
 
 func icon_focused(icon: MapIcon):
 	focused_icon = icon
+
+
+func icon_pressed(icon: MapIcon):
+	if icon != focused_icon:
+		return
+	any_icon_pressed.emit()
+
+
+func icon_confirmed():
+	if focused_icon:
+		take_step()
+		focused_icon.release_focus()
+		focused_icon = null
+
+
+func grab_focus(force_focus: bool = false):
+	if focused_icon:
+		var current = focused_icon
+		focus_connections(player_icon)
+		current.grab_focus()
+	elif force_focus:
+		focus_connections(player_icon)
+
+
+func release_focus():
+	for i in player_icon.connections:
+		i.focus_mode = Control.FOCUS_NONE
+		i.release_focus()

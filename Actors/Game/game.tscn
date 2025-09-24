@@ -289,7 +289,6 @@ text = "Main Menu"
 script = ExtResource("14_8vj28")
 
 [node name="DeathScreen" type="Control" parent="Foreground/UI" node_paths=PackedStringArray("dim_bg", "title_label", "score_label", "killed_by_label", "tip_label", "quit_button", "again_button", "panel")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

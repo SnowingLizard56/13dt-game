@@ -7,6 +7,7 @@ const UNCLAIMED: PackedScene = preload("res://Assets/Profiles/unclaimed_profile.
 const EVENT: PackedScene = preload("res://Assets/Profiles/random_profile.tscn")
 
 const SCALE_HOVERED: float = 0.46
+const SCALE_PRESSED: float = 0.43
 const SCALE_NORMAL: float = 0.38
 const HITBOX_SIZE: float = 200.0
 
@@ -28,7 +29,7 @@ var profile: Node2D
 func _draw() -> void:
 	# Background
 	draw_circle(size / 2, 100 * scale_val / SCALE_NORMAL, HUD_COLOUR)
-	if has_focus():
+	if map.focused_icon == self:
 		draw_circle(size / 2, 100 * scale_val / SCALE_NORMAL, PLAYER_COLOUR, false, 3.0)
 	if !nebula:
 		return
@@ -65,25 +66,48 @@ func _ready() -> void:
 	position -= scale * size / 2
 	focus_entered.connect(_on_focus_entered)
 	focus_exited.connect(_on_focus_exited)
-	mouse_entered.connect(grab_focus)
+	mouse_entered.connect(hovered)
+	button_down.connect(_on_button_down)
+	button_up.connect(_on_button_up)
 	theme_type_variation = "SemiButton"
 	focus_entered.connect(map.icon_focused.bind(self))
+	pressed.connect(map.icon_pressed.bind(self))
 
 
 func _on_focus_entered():
 	var t := get_tree().create_tween()
-	t.tween_method(change_scale, SCALE_NORMAL, SCALE_HOVERED, 0.1)
-	t.parallel().tween_property(profile, "scale", Vector2.ONE * SCALE_HOVERED / SCALE_NORMAL, 0.1)
-	queue_redraw()
+	t.tween_method(change_scale, scale_val, SCALE_HOVERED, 0.2)
+	t.parallel().tween_property(profile, "scale", Vector2.ONE * SCALE_HOVERED / SCALE_NORMAL, 0.2)
 
 
 func _on_focus_exited():
 	var t := get_tree().create_tween()
-	t.tween_method(change_scale, SCALE_HOVERED, SCALE_NORMAL, 0.1)
-	t.parallel().tween_property(profile, "scale", Vector2.ONE, 0.1)
-	queue_redraw()
+	t.tween_method(change_scale, scale_val, SCALE_NORMAL, 0.2)
+	t.parallel().tween_property(profile, "scale", Vector2.ONE, 0.2)
+
+
+func _on_button_down():
+	if not has_focus():
+		return
+	var t := get_tree().create_tween()
+	t.tween_method(change_scale, scale_val, SCALE_PRESSED, 0.05)
+	t.parallel().tween_property(profile, "scale", Vector2.ONE * SCALE_PRESSED / SCALE_NORMAL, 0.05)
+
+
+func _on_button_up():
+	if not has_focus():
+		return
+	var t := get_tree().create_tween()
+	t.tween_method(change_scale, scale_val, SCALE_HOVERED, 0.05)
+	t.parallel().tween_property(profile, "scale", Vector2.ONE * SCALE_HOVERED / SCALE_NORMAL, 0.05)
 
 
 func change_scale(_scale):
 	scale_val = _scale
 	queue_redraw()
+
+
+func hovered():
+	if focus_mode == Control.FOCUS_ALL:
+		grab_focus()
+	

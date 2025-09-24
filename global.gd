@@ -1,9 +1,11 @@
 extends Node
 
 const DEFAULT_SHIP: Ship = preload("res://Assets/ShipComponents/Base/base_ship.tres")
-const PREDICTION_TIMESTEP: float = 5.0 / 8
 const MAIN_MENU_SCENE: PackedScene = preload("res://UI/main_menu.tscn")
+const SHOP_SCENE: PackedScene = preload("res://Actors/Game/shop.tscn")
+const MAP_SCENE: PackedScene = preload("res://map.tscn")
 const GAME_FILE_PATH: String = "res://Actors/Game/game.tscn"
+const PREDICTION_TIMESTEP: float = 5.0 / 8
 
 var game_scene: PackedScene
 
@@ -17,6 +19,7 @@ var aim: Vector2 = Vector2.ZERO
 var mouse_stale := false
 var joy_stale := true
 var level_seed: int = 1
+var map: MapOwner
 
 @onready var root: Node = get_tree().current_scene
 var map_scene: MapController
@@ -88,6 +91,12 @@ func _process(_delta: float) -> void:
 func switch_scene(new_scene: PackedScene):
 	var k: Node = new_scene.instantiate()
 	var old: Node = root
-	Global.root = k
+	root = k
 	old.get_parent().add_child(k)
+	old.queue_free()
+
+
+func switch_to_map():
+	var old: Node = root
+	root = map
 	old.queue_free()

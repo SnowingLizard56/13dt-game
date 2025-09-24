@@ -1,4 +1,4 @@
-extends Node2D
+class_name MapPlayer extends Node2D
 
 const RADIUS := 38.0
 const GAP := TAU * 0.1
@@ -41,3 +41,4 @@ func move_to(target: MapIcon):
 	t.tween_callback(destination_reached.emit)
 	await destination_reached
 	my_icon = target
+	target.queue_redraw()
