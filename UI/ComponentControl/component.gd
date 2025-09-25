@@ -16,5 +16,4 @@ func _ready() -> void:
 
 
 func draw_trigger_icon():
-	#draw_circle()
 	pass

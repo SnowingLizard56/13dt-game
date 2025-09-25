@@ -31,6 +31,9 @@ var thrust_modifier: float = 0:
 
 
 func set_components(_components: Array[ShipComponent] = []) -> void:
+	var hp_ratio = hp / max_hp
+	if max_hp == 0:
+		hp_ratio = 1
 	# Set
 	if _components:
 		components = _components
@@ -77,7 +80,7 @@ func set_components(_components: Array[ShipComponent] = []) -> void:
 	acceleration = thrust / mass
 	if is_nan(acceleration):
 		acceleration = 0
-	hp = max_hp
+	hp = max_hp * hp_ratio
 	components_updated.emit()
 
 

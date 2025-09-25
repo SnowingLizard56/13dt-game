@@ -15,6 +15,10 @@ const TYPE_NAMES: PackedStringArray = ["Event", "1", "Shop", "Battle", "Rest", "
 @onready var conf_start: Vector2 = confirmation.position
 @onready var conf_move: Vector2 = confirmation.size * Vector2.RIGHT
 
+var cover:
+	get():
+		return fadeout
+
 signal icon_selected(neb: Nebula)
 
 

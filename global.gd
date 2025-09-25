@@ -41,12 +41,6 @@ func _ready() -> void:
 	player_ship.set_components()
 
 
-func process_sentence(sen:Sentence) -> String:
-	var out = sen.text
-	out = out.replace("{NAME}", "Player")
-	return out
-
-
 # Not my code. An algorithm essentially the same as Array.shuffle()
 # Except it uses its own random number generator
 func array_shuffle(array: Array) -> Array:
@@ -100,3 +94,4 @@ func switch_to_map():
 	var old: Node = root
 	root = map
 	old.queue_free()
+	map.reinit()

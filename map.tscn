@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://d8ylv7y4rhyv"]
+[gd_scene load_steps=14 format=3 uid="uid://d8ylv7y4rhyv"]
 
 [ext_resource type="PackedScene" uid="uid://ccbersjv5r4sb" path="res://UI/_map.tscn" id="1_c7s6e"]
 [ext_resource type="Script" uid="uid://ccd38pemkue7r" path="res://UI/map.gd" id="1_wijl4"]
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="3_e0an3"]
+[ext_resource type="Script" uid="uid://b1gax8ljs4ucw" path="res://UI/map_ui.gd" id="4_71pa8"]
 [ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://Actors/custom_button.gd" id="4_p5pve"]
+[ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="5_iw27f"]
+[ext_resource type="Script" uid="uid://dyxox0r1oftf2" path="res://Actors/Game/delta_money.gd" id="6_71pa8"]
+[ext_resource type="Script" uid="uid://b6jo0u6c12615" path="res://event_screen.gd" id="6_oysan"]
+[ext_resource type="PackedScene" uid="uid://crgrq17w54hj5" path="res://UI/event_option_button.tscn" id="7_sb2pt"]
+[ext_resource type="PackedScene" uid="uid://dlmalknb0ogn6" path="res://UI/pause_menu.tscn" id="8_05x41"]
+[ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/ComponentControl/component_control.tscn" id="11_sb2pt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8nwk"]
 bg_color = Color(0.0507, 0.0916717, 0.13, 1)
@@ -19,19 +26,12 @@ corner_radius_bottom_left = 5
 expand_margin_top = 5.0
 expand_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iw27f"]
-bg_color = Color(0.0507, 0.0916717, 0.13, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.866667, 0.337255, 0.223529, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05x41"]
+bg_color = Color(0.866667, 0.337255, 0.223529, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="Map" type="Node2D" node_paths=PackedStringArray("cam", "inner", "confirmation", "conf_title", "confirm_button", "cancel_button", "fadeout")]
 script = ExtResource("1_wijl4")
@@ -64,7 +64,7 @@ color = Color(0.0588235, 0.105882, 0.14902, 1)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="UI" type="Control" parent="UI"]
+[node name="UI" type="Control" parent="UI" node_paths=PackedStringArray("currency_display", "currency_delta", "hp_bar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,6 +73,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("3_e0an3")
+script = ExtResource("4_71pa8")
+currency_display = NodePath("CurrencyDisplay")
+currency_delta = NodePath("DeltaMoney")
+hp_bar = NodePath("Health")
 
 [node name="TravelConfirm" type="Panel" parent="UI/UI"]
 visible = false
@@ -133,16 +137,22 @@ text = "Cancel"
 script = ExtResource("4_p5pve")
 metadata/_custom_type_script = "uid://dg7hgelew38lk"
 
-[node name="DeathScreen" type="Control" parent="UI/UI"]
-visible = false
+[node name="EventScreen" type="Control" parent="UI/UI" node_paths=PackedStringArray("dimmer", "title", "exposition", "options_holder", "map_ui")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("6_oysan")
+dimmer = NodePath("DimBG")
+option = ExtResource("7_sb2pt")
+title = NodePath("Event/Title")
+exposition = NodePath("Event/Exposition")
+options_holder = NodePath("Event/Options")
+map_ui = NodePath("..")
 
-[node name="DimBG" type="ColorRect" parent="UI/UI/DeathScreen"]
+[node name="DimBG" type="ColorRect" parent="UI/UI/EventScreen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -151,7 +161,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.376471)
 
-[node name="Event" type="Panel" parent="UI/UI/DeathScreen"]
+[node name="Event" type="Panel" parent="UI/UI/EventScreen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -164,7 +174,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"HUDPanel"
 
-[node name="Title" type="Label" parent="UI/UI/DeathScreen/Event"]
+[node name="Title" type="Label" parent="UI/UI/EventScreen/Event"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -179,7 +189,7 @@ theme_override_font_sizes/font_size = 56
 text = "A Brief Reprieve"
 horizontal_alignment = 1
 
-[node name="Tip" type="Label" parent="UI/UI/DeathScreen/Event"]
+[node name="Exposition" type="Label" parent="UI/UI/EventScreen/Event"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -197,42 +207,74 @@ text = "This system is empty."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Quit" type="Button" parent="UI/UI/DeathScreen/Event"]
+[node name="Options" type="VBoxContainer" parent="UI/UI/EventScreen/Event"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -64.0
-offset_right = 181.0
-offset_bottom = -16.0
-grow_vertical = 0
-theme_type_variation = &"MainMenuButton"
-theme_override_colors/font_hover_pressed_color = Color(0.866667, 0.337255, 0.223529, 1)
-theme_override_colors/font_hover_color = Color(0.866667, 0.337255, 0.223529, 1)
-theme_override_colors/font_focus_color = Color(0.866667, 0.337255, 0.223529, 1)
-theme_override_styles/focus = SubResource("StyleBoxFlat_iw27f")
-text = "Quit to Menu"
-script = ExtResource("4_p5pve")
-metadata/_custom_type_script = "uid://dg7hgelew38lk"
-
-[node name="Again" type="Button" parent="UI/UI/DeathScreen/Event"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -181.0
-offset_top = -64.0
-offset_right = -16.0
-offset_bottom = -16.0
-grow_horizontal = 0
+offset_left = 10.0
+offset_top = -259.4
+offset_right = -10.0
+offset_bottom = -20.4
+grow_horizontal = 2
 grow_vertical = 0
-theme_type_variation = &"MainMenuButton"
-text = "Play Again"
-script = ExtResource("4_p5pve")
-metadata/_custom_type_script = "uid://dg7hgelew38lk"
+alignment = 2
+
+[node name="CurrencyDisplay" parent="UI/UI" instance=ExtResource("5_iw27f")]
+
+[node name="DeltaMoney" type="Control" parent="UI/UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 182.0
+offset_top = 45.0
+offset_right = 262.0
+offset_bottom = 91.0
+script = ExtResource("6_71pa8")
+
+[node name="Panel" type="Panel" parent="UI/UI/DeltaMoney"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HUDPanel"
+
+[node name="Currency" type="Label" parent="UI/UI/DeltaMoney"]
+modulate = Color(0.960784, 0.909804, 0.819608, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -22.0
+offset_right = -4.0
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_type_variation = &"CurrencyLabel"
+text = "+000"
+horizontal_alignment = 2
+
+[node name="Health" type="ProgressBar" parent="UI/UI"]
+layout_mode = 1
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 259.0
+offset_bottom = 34.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_05x41")
+value = 10.0
+show_percentage = false
+
+[node name="PauseMenu" parent="UI/UI" instance=ExtResource("8_05x41")]
+layout_mode = 1
+
+[node name="ComponentControl" parent="UI/UI" instance=ExtResource("11_sb2pt")]
+visible = false
+layout_mode = 1
 
 [node name="Fadeout" type="ColorRect" parent="UI"]
 visible = false
@@ -252,5 +294,3 @@ color = Color(0.0588235, 0.105882, 0.14902, 1)
 [connection signal="pressed" from="UI/UI/TravelConfirm/Cancel" to="." method="_on_cancel_pressed"]
 [connection signal="pressed" from="UI/UI/TravelConfirm/Cancel" to="UI/UI/TravelConfirm/Confirm" method="set_disabled" binds= [true]]
 [connection signal="pressed" from="UI/UI/TravelConfirm/Cancel" to="UI/UI/TravelConfirm/Cancel" method="set_disabled" binds= [true]]
-[connection signal="pressed" from="UI/UI/DeathScreen/Event/Quit" to="UI/UI/DeathScreen" method="_on_quit_pressed"]
-[connection signal="pressed" from="UI/UI/DeathScreen/Event/Again" to="UI/UI/DeathScreen" method="_on_again_pressed"]

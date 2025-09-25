@@ -5,9 +5,11 @@ const ENEMY_COLOUR: Color = Color(0.867, 0.337, 0.224, 1.0)
 @export var length := 6
 @export var max_val := 999999
 @onready var label: Label = $Currency
+var value: int
 
 
 func apply_amount(v: int):
+	value = v
 	if v < 0:
 		v = -v
 		label.modulate = ENEMY_COLOUR
