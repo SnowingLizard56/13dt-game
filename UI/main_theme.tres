@@ -114,7 +114,19 @@ corner_radius_bottom_left = 5
 expand_margin_top = 5.0
 expand_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qm5hq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p47wn"]
+bg_color = Color(0.0975, 0.176292, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.960784, 0.909804, 0.819608, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f78n"]
 
@@ -249,7 +261,7 @@ MainMenuButton/colors/font_hover_pressed_color = Color(0.12549, 0.647059, 0.6509
 MainMenuButton/font_sizes/font_size = 36
 MainMenuButton/fonts/font = ExtResource("3_qm5hq")
 MainMenuButton/styles/focus = SubResource("StyleBoxFlat_431p2")
-MainMenuButton/styles/hover = SubResource("StyleBoxEmpty_qm5hq")
+MainMenuButton/styles/hover = SubResource("StyleBoxFlat_p47wn")
 MainMenuButton/styles/hover_mirrored = SubResource("StyleBoxEmpty_5f78n")
 MainMenuButton/styles/hover_pressed = SubResource("StyleBoxEmpty_8wpuh")
 MainMenuButton/styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_daddk")

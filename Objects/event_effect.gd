@@ -1,7 +1,7 @@
 class_name EventEffect extends Resource
 
 @export var title: String
-@export var description: String
+@export var _console: String
 @export_category("Health")
 ## Proportion of max health gained or lost between -1 and 1.
 @export var health_prop: float = 0.0
@@ -18,14 +18,19 @@ class_name EventEffect extends Resource
 ## Number of times to roll on table
 @export var table_roll_count: int = 0
 @export_category("Random Effects")
+## Random Effects
 @export var effects: Array[EventEffect] = []
+## Weights for the random effects
 @export var weights: Array[float] = []
 @export_category("Next Event")
+## Next Event
 @export var next_event: MapEvent = null
 
 
 func apply(map_ui: MapUI, ship: Ship) -> MapEvent:
-	var next_event: MapEvent = next_event
+	if _console:
+		print(_console)
+	var output: MapEvent = next_event
 	# Health
 	ship.hp += ship.max_hp * health_prop
 	ship.hp += health_change
@@ -40,8 +45,10 @@ func apply(map_ui: MapUI, ship: Ship) -> MapEvent:
 	# ShipComponents
 	map_ui
 	
-	# EventEffects
-	var other_event = effects[Global.random.rand_weighted(weights)].apply(map_ui, ship)
+	# Event
+	var other_event: MapEvent = null
+	if effects:
+		other_event = effects[Global.random.rand_weighted(weights)].apply(map_ui, ship)
 	if other_event:
-		next_event = other_event
-	return next_event
+		output = other_event
+	return output

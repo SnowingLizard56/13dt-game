@@ -12,14 +12,24 @@ const TYPE_NAMES: PackedStringArray = ["Event", "1", "Shop", "Battle", "Rest", "
 @export var confirm_button: CustomButton
 @export var cancel_button: CustomButton
 @export var fadeout: ColorRect
+@export var event_screen: Control
 @onready var conf_start: Vector2 = confirmation.position
 @onready var conf_move: Vector2 = confirmation.size * Vector2.RIGHT
 
 var cover:
 	get():
 		return fadeout
+var event_pool: Array[MapEvent] = []
 
 signal icon_selected(neb: Nebula)
+
+
+func _ready() -> void:
+	const PATH: String = "res://Assets/Events/"
+	for fp in DirAccess.get_files_at(PATH):
+		var event: MapEvent = ResourceLoader.load(PATH + fp, "",
+			ResourceLoader.CACHE_MODE_REUSE)
+		event_pool.append(event)
 
 
 func _on__map_inner_any_icon_pressed() -> void:
@@ -98,8 +108,12 @@ func _on_icon_selected(neb: Nebula) -> void:
 	else:
 		# TODO
 		# Event
-		# await event.finished
+		var event = event_pool.pick_random()
+		event_screen.handle_event(event)
+		await event_screen.event_finished
 		reset_cam(1.2)
+		await get_tree().create_timer(1.2).timeout
+		inner.grab_focus(true)
 
 
 func reinit():

@@ -1,25 +1,25 @@
 [gd_resource type="Resource" script_class="MapEvent" load_steps=5 format=3 uid="uid://by12kj0rfiurd"]
 
-[ext_resource type="Script" uid="uid://bv4bmnyy11eeh" path="res://Assets/Events/event_effect.gd" id="1_nyyxd"]
-[ext_resource type="Script" uid="uid://lcfv7m2vx331" path="res://Assets/Events/event.gd" id="2_7k716"]
+[ext_resource type="Script" uid="uid://bv4bmnyy11eeh" path="res://Objects/event_effect.gd" id="1_7k716"]
 [ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/Scripts/ship_component.gd" id="2_x2ju6"]
+[ext_resource type="Script" uid="uid://lcfv7m2vx331" path="res://Objects/event.gd" id="3_x2ju6"]
 
 [sub_resource type="Resource" id="Resource_xwq3s"]
-script = ExtResource("1_nyyxd")
-title = "Forge On"
-description = ""
+script = ExtResource("1_7k716")
+title = "Conduct Repairs"
+_console = ""
 health_prop = 0.2
 health_change = 0.0
 money = 0
 component_list = Array[ExtResource("2_x2ju6")]([])
 table_roll_count = 0
-effects = Array[ExtResource("1_nyyxd")]([])
+effects = Array[ExtResource("1_7k716")]([])
 weights = Array[float]([])
 metadata/_custom_type_script = "uid://bv4bmnyy11eeh"
 
 [resource]
-script = ExtResource("2_7k716")
+script = ExtResource("3_x2ju6")
 title = "A Brief Reprieve"
 exposition = "This system is empty. It provides a moment to conduct repairs before you move on."
-options = Array[ExtResource("1_nyyxd")]([SubResource("Resource_xwq3s")])
+options = Array[ExtResource("1_7k716")]([SubResource("Resource_xwq3s")])
 metadata/_custom_type_script = "uid://lcfv7m2vx331"

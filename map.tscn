@@ -33,7 +33,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="Map" type="Node2D" node_paths=PackedStringArray("cam", "inner", "confirmation", "conf_title", "confirm_button", "cancel_button", "fadeout")]
+[node name="Map" type="Node2D" node_paths=PackedStringArray("cam", "inner", "confirmation", "conf_title", "confirm_button", "cancel_button", "fadeout", "event_screen")]
 script = ExtResource("1_wijl4")
 cam = NodePath("Camera")
 inner = NodePath("_MapInner")
@@ -42,6 +42,7 @@ conf_title = NodePath("UI/UI/TravelConfirm/Title")
 confirm_button = NodePath("UI/UI/TravelConfirm/Confirm")
 cancel_button = NodePath("UI/UI/TravelConfirm/Cancel")
 fadeout = NodePath("UI/Fadeout")
+event_screen = NodePath("UI/UI/EventScreen")
 
 [node name="_MapInner" parent="." node_paths=PackedStringArray("background") instance=ExtResource("1_c7s6e")]
 position = Vector2(576, 575)
@@ -64,7 +65,7 @@ color = Color(0.0588235, 0.105882, 0.14902, 1)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="UI" type="Control" parent="UI" node_paths=PackedStringArray("currency_display", "currency_delta", "hp_bar")]
+[node name="UI" type="Control" parent="UI" node_paths=PackedStringArray("currency_display", "currency_delta", "hp_bar", "component_control")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,6 +78,7 @@ script = ExtResource("4_71pa8")
 currency_display = NodePath("CurrencyDisplay")
 currency_delta = NodePath("DeltaMoney")
 hp_bar = NodePath("Health")
+component_control = NodePath("ComponentControl")
 
 [node name="TravelConfirm" type="Panel" parent="UI/UI"]
 visible = false
@@ -138,6 +140,7 @@ script = ExtResource("4_p5pve")
 metadata/_custom_type_script = "uid://dg7hgelew38lk"
 
 [node name="EventScreen" type="Control" parent="UI/UI" node_paths=PackedStringArray("dimmer", "title", "exposition", "options_holder", "map_ui")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -157,6 +160,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -648.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.376471)
@@ -219,7 +223,14 @@ offset_right = -10.0
 offset_bottom = -20.4
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 15
 alignment = 2
+
+[node name="Option" parent="UI/UI/EventScreen/Event/Options" instance=ExtResource("7_sb2pt")]
+layout_mode = 2
+
+[node name="Option2" parent="UI/UI/EventScreen/Event/Options" instance=ExtResource("7_sb2pt")]
+layout_mode = 2
 
 [node name="CurrencyDisplay" parent="UI/UI" instance=ExtResource("5_iw27f")]
 

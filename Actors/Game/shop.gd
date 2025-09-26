@@ -35,6 +35,7 @@ func _ready() -> void:
 	component_control.start(available, Global.player_ship)
 	var t := get_tree().create_tween()
 	t.tween_property(fade_in, "modulate", Color(1, 1, 1, 0), FADE_IN_TIME)
+	t.tween_callback(fade_in.hide)
 
 
 func _on_bg_draw() -> void:

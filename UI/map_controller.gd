@@ -224,12 +224,12 @@ func icon_confirmed():
 		focused_icon = null
 
 
-func grab_focus(force_focus: bool = false):
+func grab_focus(force: bool = false):
 	if focused_icon:
 		var current = focused_icon
 		focus_connections(player_icon)
 		current.grab_focus()
-	elif force_focus:
+	elif force:
 		focus_connections(player_icon)
 
 

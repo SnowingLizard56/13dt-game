@@ -3,7 +3,7 @@ class_name MapUI extends Control
 @export var currency_display: CurrencyDisplay
 @export var currency_delta: Control	
 @export var hp_bar: ProgressBar
-@export var 
+@export var component_control: ComponentControl
 
 var transfer_amount: int = 0
 var transfer: bool = true
@@ -16,11 +16,13 @@ func _ready() -> void:
 
 
 func change_currency(amount: int):
+	if -amount > Global.player_currency:
+		amount = -Global.player_currency
 	Global.player_currency += amount
 	transfer_amount += amount
 	currency_delta.apply_amount(amount)
 	transfer = false
-	await get_tree().create_timer(log(transfer_amount) / log(100)).timeout
+	await get_tree().create_timer(log(abs(transfer_amount)) / log(100)).timeout
 	transfer = true
 
 
@@ -33,4 +35,5 @@ func _process(_delta: float) -> void:
 
 
 func offer_components(components: Array[ShipComponent]):
-	pass
+	component_control.start(components, Global.player_ship)
+	component_control.show()
