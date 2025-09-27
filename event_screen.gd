@@ -24,6 +24,7 @@ func handle_event(event: MapEvent, dim: bool = true):
 	var t := get_tree().create_tween()
 	if dim:
 		dimmer.modulate.a = 0
+		dimmer.show()
 		t.tween_property(dimmer, "modulate", Color.WHITE, DIM_TIME)
 	t.tween_property(self, "position", Vector2.ZERO, MOVE_TIME)
 	
@@ -49,7 +50,12 @@ func option_chosen(opt: EventEffect):
 	
 	if next_event:
 		t.tween_callback(handle_event.bind(next_event, false))
+	elif opt.has_components:
+		t.tween_callback(func(): map_ui.offer_components(opt.get_components()))
+		await map_ui.component_control_finished
+		event_finished.emit()
 	else:
 		t.tween_property(dimmer, "modulate", Color(1, 1, 1, 0), DIM_TIME)
 		t.tween_callback(hide)
+		t.tween_callback(dimmer.hide)
 		t.tween_callback(event_finished.emit)

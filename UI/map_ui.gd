@@ -1,18 +1,22 @@
 class_name MapUI extends Control
 
+const BG_SIZE := Vector2(1152, 648)
+
 @export var currency_display: CurrencyDisplay
 @export var currency_delta: Control	
 @export var hp_bar: ProgressBar
 @export var component_control: ComponentControl
+@export var dimmer: ColorRect
 
 var transfer_amount: int = 0
 var transfer: bool = true
 
+signal component_control_finished
+
 
 func _ready() -> void:
 	currency_display.apply_amount(Global.player_currency)
-	hp_bar.max_value = Global.player_ship.max_hp
-	hp_bar.value = Global.player_ship.hp
+	update_hp()
 
 
 func change_currency(amount: int):
@@ -37,3 +41,21 @@ func _process(_delta: float) -> void:
 func offer_components(components: Array[ShipComponent]):
 	component_control.start(components, Global.player_ship)
 	component_control.show()
+	
+	component_control.position.y += BG_SIZE.y
+	
+	var t1 := get_tree().create_tween()
+	t1.tween_property(component_control, "position", Vector2.ZERO, 0.75)
+	await component_control.continue_pressed
+	var t2 := get_tree().create_tween()
+	t2.tween_property(component_control, "position", Vector2(0, BG_SIZE.y), 0.75)
+	t2.tween_callback(component_control.finish)
+	t2.tween_callback(component_control.hide)
+	t2.tween_property(dimmer, "modulate", Color(1, 1, 1, 0), 0.5)
+	t2.tween_callback(dimmer.hide)
+	t2.tween_callback(component_control_finished.emit)
+
+
+func update_hp():
+	hp_bar.max_value = Global.player_ship.max_hp
+	hp_bar.value = Global.player_ship.hp

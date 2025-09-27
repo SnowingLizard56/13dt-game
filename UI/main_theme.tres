@@ -128,11 +128,47 @@ corner_radius_bottom_left = 5
 expand_margin_top = 5.0
 expand_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f78n"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_otavv"]
+bg_color = Color(0.0975, 0.176292, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.960784, 0.909804, 0.819608, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8wpuh"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47k6m"]
+bg_color = Color(0.0975, 0.176292, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.960784, 0.909804, 0.819608, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_daddk"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3ru8"]
+bg_color = Color(0.0975, 0.176292, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.960784, 0.909804, 0.819608, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovyjt"]
 bg_color = Color(0.0975, 0.176292, 0.25, 1)
@@ -262,9 +298,9 @@ MainMenuButton/font_sizes/font_size = 36
 MainMenuButton/fonts/font = ExtResource("3_qm5hq")
 MainMenuButton/styles/focus = SubResource("StyleBoxFlat_431p2")
 MainMenuButton/styles/hover = SubResource("StyleBoxFlat_p47wn")
-MainMenuButton/styles/hover_mirrored = SubResource("StyleBoxEmpty_5f78n")
-MainMenuButton/styles/hover_pressed = SubResource("StyleBoxEmpty_8wpuh")
-MainMenuButton/styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_daddk")
+MainMenuButton/styles/hover_mirrored = SubResource("StyleBoxFlat_otavv")
+MainMenuButton/styles/hover_pressed = SubResource("StyleBoxFlat_47k6m")
+MainMenuButton/styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_o3ru8")
 MainMenuButton/styles/normal = SubResource("StyleBoxFlat_ovyjt")
 MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_6lkj0")
 MarginContainer/constants/margin_bottom = 10

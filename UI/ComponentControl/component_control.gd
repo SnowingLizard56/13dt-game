@@ -52,7 +52,6 @@ func add_component_option(what: ShipComponent, where: Node):
 	var k: ShipComponentNode = component_scene.instantiate()
 	k.component = what
 	where.add_child(k)
-	k.focus_entered.connect(update_component_stat_display.bind(what))
 	k.focus_entered.connect(focused.emit.bind(k, where == installed_components))
 	if where == installed_components:
 		k.pressed.connect(move_component_node.bind(k, spare_components))
@@ -126,9 +125,9 @@ func reprocess() -> void:
 
 
 # Handle hover of component button
-func update_component_stat_display(component: ShipComponent):
-	cmpnt_title.text = component.name
-	cmpnt_desc.text = component.get_description()
+func update_component_stat_display(c: ShipComponentNode, _left: bool):
+	cmpnt_title.text = c.component.name
+	cmpnt_desc.text = c.component.get_description()
 	
 
 # Handle the clicking of a component button

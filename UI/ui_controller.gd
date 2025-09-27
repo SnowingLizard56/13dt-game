@@ -15,6 +15,7 @@ var xp_tween: Tween
 
 func _ready() -> void:
 	Global.level_up.connect(give_level_up_reward)
+	add_xp(0)
 
 
 func update_health(ship: Ship):

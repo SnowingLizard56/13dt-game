@@ -27,6 +27,18 @@ class_name EventEffect extends Resource
 @export var next_event: MapEvent = null
 
 
+var has_components: bool:
+	get():
+		return (component_table and table_roll_count) or component_list
+
+
+func get_components() -> Array[ShipComponent]:
+	var out: Array[ShipComponent] = component_list.duplicate(true)
+	if component_table:
+		out += component_table.get_loot(table_roll_count, Global.player_ship.get(&"Luck"))
+	return out
+
+
 func apply(map_ui: MapUI, ship: Ship) -> MapEvent:
 	if _console:
 		print(_console)
@@ -38,12 +50,10 @@ func apply(map_ui: MapUI, ship: Ship) -> MapEvent:
 		ship.hp = 1.0
 	elif ship.hp > ship.max_hp:
 		ship.hp = ship.max_hp
+	map_ui.update_hp()
 	
 	# E127
 	map_ui.change_currency(money)
-	
-	# ShipComponents
-	map_ui
 	
 	# Event
 	var other_event: MapEvent = null

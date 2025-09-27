@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="MapEvent" load_steps=6 format=3 uid="uid://ewqu11bcobtx"]
+
+[ext_resource type="Script" uid="uid://bv4bmnyy11eeh" path="res://Objects/event_effect.gd" id="1_wng3y"]
+[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/Scripts/ship_component.gd" id="2_0u8hb"]
+[ext_resource type="Script" uid="uid://lcfv7m2vx331" path="res://Objects/event.gd" id="2_3nifi"]
+[ext_resource type="Resource" uid="uid://deyxdwl06ikyl" path="res://Assets/ShipComponents/NotCommon/impure_e127.tres" id="3_kkcao"]
+
+[sub_resource type="Resource" id="Resource_xpjnb"]
+script = ExtResource("1_wng3y")
+title = "curiouis"
+_console = ""
+health_prop = 0.0
+health_change = 0.0
+money = 0
+component_list = Array[ExtResource("2_0u8hb")]([ExtResource("3_kkcao")])
+table_roll_count = 0
+effects = Array[ExtResource("1_wng3y")]([])
+weights = Array[float]([])
+metadata/_custom_type_script = "uid://bv4bmnyy11eeh"
+
+[resource]
+script = ExtResource("2_3nifi")
+title = "title"
+exposition = "expo"
+options = Array[ExtResource("1_wng3y")]([SubResource("Resource_xpjnb")])
+metadata/_custom_type_script = "uid://lcfv7m2vx331"

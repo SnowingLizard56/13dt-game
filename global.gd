@@ -21,7 +21,7 @@ var joy_stale := true
 var level_seed: int = 1
 var map: MapOwner
 
-@onready var root: Node = get_tree().current_scene
+var root: Node = null
 var map_scene: MapController
 
 @onready var random: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -38,6 +38,10 @@ var tick
 
 
 func _ready() -> void:
+	if get_tree().current_scene is MapOwner:
+		map = get_tree().current_scene
+	else:
+		root = get_tree().current_scene
 	player_ship.set_components()
 
 
@@ -84,14 +88,20 @@ func _process(_delta: float) -> void:
 
 func switch_scene(new_scene: PackedScene):
 	var k: Node = new_scene.instantiate()
-	var old: Node = root
+	if root == null and map:
+		map.hide()
+	else:
+		root.queue_free()
 	root = k
-	old.get_parent().add_child(k)
-	old.queue_free()
+	get_tree().root.add_child(k)
 
 
 func switch_to_map():
 	var old: Node = root
-	root = map
+	if not map:
+		map = MAP_SCENE.instantiate()
+		get_tree().root.add_child(map)
+	else:
+		map.reinit()
+	root = null
 	old.queue_free()
-	map.reinit()

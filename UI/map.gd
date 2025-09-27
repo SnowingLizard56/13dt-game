@@ -13,8 +13,12 @@ const TYPE_NAMES: PackedStringArray = ["Event", "1", "Shop", "Battle", "Rest", "
 @export var cancel_button: CustomButton
 @export var fadeout: ColorRect
 @export var event_screen: Control
+@export var ui: MapUI
 @onready var conf_start: Vector2 = confirmation.position
 @onready var conf_move: Vector2 = confirmation.size * Vector2.RIGHT
+@export var rest_event: MapEvent
+@export var BG_layer: CanvasLayer
+@export var UI_layer: CanvasLayer
 
 var cover:
 	get():
@@ -99,16 +103,19 @@ func _on_icon_selected(neb: Nebula) -> void:
 		await get_tree().create_timer(FADE_TIME + DELAY_TIME).timeout
 		# Switch scene
 		cam.enabled = false
-		hide()
+		real_hide()
 		if neb.type == Nebula.SHOP:
 			Global.switch_scene(Global.SHOP_SCENE)
 		else:
 			Global.switch_scene(load(Global.GAME_FILE_PATH))
 		reset_cam(0)
 	else:
-		# TODO
 		# Event
-		var event = event_pool.pick_random()
+		var event: MapEvent
+		if neb.type == Nebula.EVENT:
+			event = event_pool.pick_random()
+		elif neb.type == Nebula.NAMURANT:
+			event = rest_event
 		event_screen.handle_event(event)
 		await event_screen.event_finished
 		reset_cam(1.2)
@@ -118,5 +125,18 @@ func _on_icon_selected(neb: Nebula) -> void:
 
 func reinit():
 	cam.enabled = true
-	show()
+	real_show()
 	inner.grab_focus(true)
+	fadeout.hide()
+
+
+func real_hide():
+	hide()
+	UI_layer.hide()
+	BG_layer.hide()
+
+
+func real_show():
+	show()
+	UI_layer.show()
+	BG_layer.show()

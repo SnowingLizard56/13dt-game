@@ -17,8 +17,6 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("test"):
-		trauma += 1.0
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()

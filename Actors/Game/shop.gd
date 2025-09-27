@@ -28,6 +28,7 @@ var shake_money_max := 0.0
 
 func _ready() -> void:
 	budget = Global.player_currency
+	currency_display.apply_amount(budget)
 	var available := shop_loot.get_loot(
 		randi_range(3, 5) - randi_range(0, 1),
 		Global.player_ship.get(&"Luck").value)

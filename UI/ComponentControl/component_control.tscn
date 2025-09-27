@@ -265,6 +265,7 @@ text = "Continue"
 script = ExtResource("5_u4yem")
 metadata/_custom_type_script = "uid://dg7hgelew38lk"
 
+[connection signal="focused" from="." to="." method="update_component_stat_display"]
 [connection signal="draw" from="Menu/HBoxContainer/VBoxContainer3/ShipInfo/ShipDisplay" to="." method="draw_player"]
 [connection signal="focus_entered" from="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="show"]
 [connection signal="focus_exited" from="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay" to="Menu/HBoxContainer/VBoxContainer3/ShipInfo/WarningDisplay/Popup" method="hide"]
