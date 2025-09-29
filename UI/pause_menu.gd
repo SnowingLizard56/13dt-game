@@ -68,5 +68,6 @@ func _on_resume_pressed() -> void:
 	t.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.3)
 	t.tween_callback(get_tree().set.bind(&"paused", false))
 	t.tween_callback(hide)
-	t.tween_callback(return_focus_target.grab_focus)
+	if return_focus_target:
+		t.tween_callback(return_focus_target.grab_focus)
 	t.tween_property(Engine, "time_scale", 1.0, 1.0)

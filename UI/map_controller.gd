@@ -129,13 +129,17 @@ func _step():
 		if pool_idx == POOL_SIZE:
 			pool_idx = 0
 			pool = Global.array_shuffle(Nebula.generate_pool(POOL_SIZE))
-		map_next.nebula = pool[pool_idx]
-		pool_idx += 1
-		
-		# Ensure that choices are actually choices
-		if len(map_current.connections) > 1:
-			while map_current.connections[0].nebula.type == map_current.connections[1].nebula.type:
-				map_current.connections[randi_range(0, len(map_current.connections) - 1)].nebula = Nebula.new()
+		if rows_travelled % 5 == 3:
+			# Really hard to tell if this is working tbh.
+			map_next.nebula = Nebula.new(Nebula.XARAGILN)
+		else:
+			map_next.nebula = pool[pool_idx]
+			pool_idx += 1
+			
+			# Ensure that choices are actually choices
+			if len(map_current.connections) > 1:
+				while map_current.connections[0].nebula.type == map_current.connections[1].nebula.type:
+					map_current.connections[randi_range(0, len(map_current.connections) - 1)].nebula = Nebula.new()
 			
 	
 	var last_node: MapIcon = null

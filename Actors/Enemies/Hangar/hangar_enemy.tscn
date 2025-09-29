@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbu0rhls3vawx"]
+
+[ext_resource type="Script" uid="uid://cokijlkvulaxg" path="res://Actors/Enemies/Hangar/hangar_enemy.gd" id="1_ie174"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ie174"]
+
+[node name="HangarEnemy" type="Node2D" groups=["enemies"]]
+z_index = -1
+script = ExtResource("1_ie174")
+death_particle_count = 10
+e127_proportion = 0.8
+xp_value_range = Vector2(3, 5)
+e127_value_range = Vector2(1, 2)
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_ie174")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(0, 0, 15, 15, 15, -15)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DisableTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Burst" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="Firerate" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="death" from="." to="." method="_on_death"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="DisableTimer" to="." method="_on_disable_timer_timeout"]
+[connection signal="timeout" from="Burst" to="." method="_on_burst_timeout"]
+[connection signal="timeout" from="Firerate" to="." method="_on_firerate_timeout"]

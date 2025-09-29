@@ -63,9 +63,10 @@ func _on_component_control_continue_pressed() -> void:
 		shake_money = 0.8
 	else:
 		# Accepted animation:
-		# Switch to map
-		# TODO
-		pass
+		var t := get_tree().create_tween()
+		fade_in.show()
+		t.tween_property(fade_in, "modulate", Color.WHITE, FADE_IN_TIME)
+		t.tween_callback(Global.switch_to_map)
 
 
 func _on_component_control_focused(what: ShipComponentNode, is_left: bool) -> void:

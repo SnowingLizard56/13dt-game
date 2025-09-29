@@ -19,6 +19,8 @@ signal death
 @export var xp_value_range: Vector2
 @export var e127_value_range: Vector2
 
+var gen: EnemyGenerator
+
 
 var x:
 	get():
@@ -40,6 +42,13 @@ var vy:
 		if body_id < 0:
 			return vy
 		return root.level.get_body(body_id).vy * Global.time_scale
+
+
+func _ready() -> void:
+	if body_id >= 0:
+		var body_dict: Dictionary = root.level.get_body(body_id)
+		rotation = randf() * TAU
+		position = Vector2.from_angle(rotation) * body_dict.r
 
 
 func damage(amount: float) -> void:

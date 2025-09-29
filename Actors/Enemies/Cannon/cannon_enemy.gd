@@ -13,12 +13,6 @@ var target_barrel_rotation: float
 var active: bool = false
 
 
-func _ready() -> void:
-	var body_dict: Dictionary = root.level.get_body(body_id)
-	rotation = randf() * TAU
-	position = Vector2.from_angle(rotation) * body_dict.r
-
-
 func _process(delta: float) -> void:
 	target_barrel_rotation = global_position.angle_to_point(root.player.position)
 	

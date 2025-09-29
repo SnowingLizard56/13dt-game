@@ -2,7 +2,7 @@ class_name Nebula extends Resource
 
 # Base type of the node
 # Unclaimed, shop, nam, xar, event
-const WEIGHTS: PackedFloat32Array = [1, 1, 6, 4]
+const WEIGHTS: PackedFloat32Array = [1, 1, 3, 4]
 # Type
 const DATA: Array = [SHOP, NAMURANT, XARAGILN, EVENT]
 

@@ -2,8 +2,19 @@ class_name EnemyGenerator extends Node
 
 const FLYING_ENEMY: PackedScene = preload("res://Actors/Enemies/Flying/flying_enemy.tscn")
 const CANNON_ENEMY: PackedScene = preload("res://Actors/Enemies/Cannon/cannon_enemy.tscn")
+const HANGAR_ENEMY: PackedScene = preload("res://Actors/Enemies/Hangar/hangar_enemy.tscn")
 const LOOSE_ENEMY_LIMIT: int = 64
 const LOOSE_ENEMY_HARD_LIMIT: int = 256
+
+const ENEMY_TYPES: Array[PackedScene] = [CANNON_ENEMY, HANGAR_ENEMY]
+const ENEMY_LAYOUTS: Array[PackedInt32Array] = [
+	[],
+	[0, 0, 0],
+	[1, 1, 1],
+	[0, 0, 0, 1],
+	[1],
+	[0, 1],
+]
 
 @export var enemy_put_node: Node2D
 @onready var flying_spawn_zone: Path2D = $FlyingEnemySpawnZone
@@ -14,9 +25,11 @@ var total_enemies_alive: int = 0
 
 func _on_game_initial_areas_instantiated() -> void:
 	for id in root.areas:
-		var k = CANNON_ENEMY.instantiate()
-		k.body_id = id
-		root.areas[id].add_child(k)
+		for idx in ENEMY_LAYOUTS.pick_random():
+			var k: Enemy = ENEMY_TYPES[idx].instantiate()
+			k.body_id = id
+			k.gen = self
+			root.areas[id].add_child(k)
 
 
 func _on_flying_enemy_spawn_attempt_timer_timeout() -> void:

@@ -4,6 +4,7 @@ const BG_SIZE := Vector2(1152, 648)
 const RIGHT_OFFSET := 325
 const SIZE_SCALING := 0.19
 const TYPE_NAMES: PackedStringArray = ["Event", "1", "Shop", "Battle", "Rest", "5"]
+const FADE_TIME := 0.5
 
 @export var cam: Camera2D
 @export var inner: MapController
@@ -34,6 +35,11 @@ func _ready() -> void:
 		var event: MapEvent = ResourceLoader.load(PATH + fp, "",
 			ResourceLoader.CACHE_MODE_REUSE)
 		event_pool.append(event)
+	fadeout.show()
+	fadeout.modulate.a = 1
+	var t := get_tree().create_tween()
+	t.tween_property(fadeout, "modulate", Color(1, 1, 1, 0), FADE_TIME)
+	t.tween_callback(fadeout.hide)
 
 
 func _on__map_inner_any_icon_pressed() -> void:
@@ -91,7 +97,6 @@ func _on_confirm_pressed() -> void:
 
 func _on_icon_selected(neb: Nebula) -> void:
 	const DELAY_TIME := 1.0
-	const FADE_TIME := 0.7
 	var t: Tween = get_tree().create_tween()
 	
 	if neb.type == Nebula.SHOP or neb.type == Nebula.XARAGILN:
@@ -127,7 +132,11 @@ func reinit():
 	cam.enabled = true
 	real_show()
 	inner.grab_focus(true)
-	fadeout.hide()
+	fadeout.show()
+	fadeout.modulate.a = 1
+	var t := get_tree().create_tween()
+	t.tween_property(fadeout, "modulate", Color(1, 1, 1, 0), FADE_TIME)
+	t.tween_callback(fadeout.hide)
 
 
 func real_hide():

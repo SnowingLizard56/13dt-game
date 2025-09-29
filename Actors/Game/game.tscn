@@ -63,7 +63,6 @@ curve = SubResource("Curve2D_cny57")
 [node name="FlyingEnemySpawnAttemptTimer" type="Timer" parent="EnemyGen"]
 wait_time = 60.0
 one_shot = true
-autostart = true
 
 [node name="Entities" type="Node2D" parent="."]
 unique_name_in_owner = true
