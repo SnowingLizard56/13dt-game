@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cayy6lfeor04i"]
 
-[ext_resource type="Script" uid="uid://dsupbehfw5evf" path="res://Assets/Profiles/unclaimed_profile_draw.gd" id="1_d6rw1"]
+[ext_resource type="Script" uid="uid://dsupbehfw5evf" path="res://Assets/IdeaIcons/unclaimed_profile_draw.gd" id="1_d6rw1"]
 
 [node name="Unclaimed Nebula Profile" type="Node2D"]
 script = ExtResource("1_d6rw1")

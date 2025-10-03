@@ -1,10 +1,10 @@
 class_name MapIcon extends Button
 
-const XARAGILN: PackedScene = preload("res://Assets/Profiles/xaragiln_profile.tscn")
-const NAMURANT: PackedScene = preload("res://Assets/Profiles/namurant_profile.tscn")
-const SHOP: PackedScene = preload("res://Assets/Profiles/s_profile.tscn")
-const UNCLAIMED: PackedScene = preload("res://Assets/Profiles/unclaimed_profile.tscn")
-const EVENT: PackedScene = preload("res://Assets/Profiles/random_profile.tscn")
+const XARAGILN: PackedScene = preload("res://Assets/IdeaIcons/xaragiln_profile.tscn")
+const NAMURANT: PackedScene = preload("res://Assets/IdeaIcons/namurant_profile.tscn")
+const SHOP: PackedScene = preload("res://Assets/IdeaIcons/s_profile.tscn")
+const UNCLAIMED: PackedScene = preload("res://Assets/IdeaIcons/unclaimed_profile.tscn")
+const EVENT: PackedScene = preload("res://Assets/IdeaIcons/random_profile.tscn")
 
 const SCALE_HOVERED: float = 0.46
 const SCALE_PRESSED: float = 0.43

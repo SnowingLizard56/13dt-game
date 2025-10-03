@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://crgrq17w54hj5"]
 
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_6eepy"]
-[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://Actors/custom_button.gd" id="1_xdx0o"]
+[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="1_xdx0o"]
 
 [node name="Option" type="Button"]
 theme = ExtResource("1_6eepy")

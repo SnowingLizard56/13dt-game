@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://qhecmcb4b8gc"]
 
-[ext_resource type="Script" uid="uid://dlnraajxrv2gc" path="res://UI/InGame/minimap.gd" id="1_k4ckb"]
+[ext_resource type="Script" uid="uid://dlnraajxrv2gc" path="res://UI/Battle/minimap.gd" id="1_k4ckb"]
 
 [node name="Minimap" type="Panel"]
 clip_children = 2

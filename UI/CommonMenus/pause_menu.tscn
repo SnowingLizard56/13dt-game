@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dlmalknb0ogn6"]
 
-[ext_resource type="Script" uid="uid://y1ovawcvs6oi" path="res://UI/pause_menu.gd" id="1_jfm1e"]
-[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://Actors/custom_button.gd" id="2_03fe5"]
+[ext_resource type="Script" uid="uid://y1ovawcvs6oi" path="res://UI/CommonMenus/pause_menu.gd" id="1_jfm1e"]
+[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="2_03fe5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cwpn"]
 bg_color = Color(0.0507, 0.0916717, 0.13, 1)

@@ -1,10 +1,10 @@
 extends Node
 
 const DEFAULT_SHIP: Ship = preload("res://Assets/ShipComponents/Base/base_ship.tres")
-const MAIN_MENU_SCENE: PackedScene = preload("res://UI/main_menu.tscn")
-const SHOP_SCENE: PackedScene = preload("res://Actors/Game/shop.tscn")
-const MAP_SCENE: PackedScene = preload("res://map.tscn")
-const GAME_FILE_PATH: String = "res://Actors/Game/game.tscn"
+const MAIN_MENU_SCENE: PackedScene = preload("res://UI/CommonMenus/main_menu.tscn")
+const SHOP_SCENE: PackedScene = preload("res://UI/Shop/shop.tscn")
+const MAP_SCENE: PackedScene = preload("res://UI/Map/map.tscn")
+const GAME_FILE_PATH: String = "res://Actors/game.tscn"
 const PREDICTION_TIMESTEP: float = 5.0 / 8
 
 @onready var game_scene: PackedScene = load(GAME_FILE_PATH)

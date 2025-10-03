@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cj4306gnqlbor"
-path="res://.godot/imported/NowAlt-Regular.otf-761a159f5ff9e2d8370d02a0ef48b85a.fontdata"
+uid="uid://bx76lta0wwppb"
+path="res://.godot/imported/NowAlt-Medium.otf-37a1eb1b2dcb7acd7fa471d0077cc74f.fontdata"
 
 [deps]
 
-source_file="res://Assets/FontsUsed/NowAlt-Regular.otf"
-dest_files=["res://.godot/imported/NowAlt-Regular.otf-761a159f5ff9e2d8370d02a0ef48b85a.fontdata"]
+source_file="res://Assets/Fonts/NowAlt-Medium.otf"
+dest_files=["res://.godot/imported/NowAlt-Medium.otf-37a1eb1b2dcb7acd7fa471d0077cc74f.fontdata"]
 
 [params]
 

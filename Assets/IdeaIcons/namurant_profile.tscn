@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://do8gbvq05s7vo"]
 
-[ext_resource type="Script" uid="uid://dn0qewpjx1pqu" path="res://Assets/Profiles/namurant_profile_draw.gd" id="1_wn0gt"]
+[ext_resource type="Script" uid="uid://dn0qewpjx1pqu" path="res://Assets/IdeaIcons/namurant_profile_draw.gd" id="1_wn0gt"]
 
 [node name="Namurant Profile" type="Node2D"]
 script = ExtResource("1_wn0gt")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://8fmrvoi5rg7i"]
 
-[ext_resource type="Script" uid="uid://c8sm4pl3a7q7b" path="res://Assets/Profiles/xaragiln_profile_draw.gd" id="1_v6tvk"]
+[ext_resource type="Script" uid="uid://c8sm4pl3a7q7b" path="res://Assets/IdeaIcons/xaragiln_profile_draw.gd" id="1_v6tvk"]
 
 [node name="Xaragiln Profile" type="Node2D"]
 script = ExtResource("1_v6tvk")

@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://b03vywmrkf42d"]
 
-[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_offu1"]
-[ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/ComponentControl/component_control.tscn" id="2_h1iqd"]
-[ext_resource type="Script" uid="uid://c5xilw8i0dtne" path="res://Actors/Game/shop.gd" id="2_y6pbu"]
-[ext_resource type="Resource" uid="uid://bhc5qcynkvq0a" path="res://Assets/LootTables/shop.tres" id="3_cpln2"]
-[ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="3_y6pbu"]
-[ext_resource type="Script" uid="uid://dyxox0r1oftf2" path="res://Actors/Game/delta_money.gd" id="6_cpln2"]
+[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_4qhf5"]
+[ext_resource type="Script" uid="uid://c5xilw8i0dtne" path="res://UI/Shop/shop.gd" id="2_eeyqd"]
+[ext_resource type="Resource" uid="uid://bhc5qcynkvq0a" path="res://Assets/LootTables/shop.tres" id="3_sar1i"]
+[ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/ComponentControl/component_control.tscn" id="4_l4q0s"]
+[ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="5_pagdw"]
+[ext_resource type="Script" uid="uid://dyxox0r1oftf2" path="res://UI/Shop/delta_money.gd" id="6_eo7k6"]
 
 [node name="Shop" type="Control"]
 layout_mode = 3
@@ -14,9 +14,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_offu1")
-script = ExtResource("2_y6pbu")
-shop_loot = ExtResource("3_cpln2")
+theme = ExtResource("1_4qhf5")
+script = ExtResource("2_eeyqd")
+shop_loot = ExtResource("3_sar1i")
 
 [node name="BG" type="Control" parent="."]
 layout_mode = 1
@@ -28,10 +28,10 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ComponentControl" parent="." instance=ExtResource("2_h1iqd")]
+[node name="ComponentControl" parent="." instance=ExtResource("4_l4q0s")]
 layout_mode = 1
 
-[node name="CurrencyDisplay" parent="." instance=ExtResource("3_y6pbu")]
+[node name="CurrencyDisplay" parent="." instance=ExtResource("5_pagdw")]
 layout_mode = 1
 offset_left = 16.0
 offset_top = 16.0
@@ -45,7 +45,7 @@ offset_left = 185.0
 offset_top = 16.0
 offset_right = 265.0
 offset_bottom = 62.0
-script = ExtResource("6_cpln2")
+script = ExtResource("6_eo7k6")
 
 [node name="Panel" type="Panel" parent="DeltaMoney"]
 layout_mode = 1

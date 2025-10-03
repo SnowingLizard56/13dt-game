@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dbaqv8ndbpdvk"
-path="res://.godot/imported/monofonto rg.otf-7d5afca2e7ba4bd68a4fa6c108b64ba9.fontdata"
+path="res://.godot/imported/monofonto rg.otf-3db89422c8c7ec01e5dfb5b0ace2b2d8.fontdata"
 
 [deps]
 
-source_file="res://Assets/FontsUsed/monofonto rg.otf"
-dest_files=["res://.godot/imported/monofonto rg.otf-7d5afca2e7ba4bd68a4fa6c108b64ba9.fontdata"]
+source_file="res://Assets/Fonts/monofonto rg.otf"
+dest_files=["res://.godot/imported/monofonto rg.otf-3db89422c8c7ec01e5dfb5b0ace2b2d8.fontdata"]
 
 [params]
 

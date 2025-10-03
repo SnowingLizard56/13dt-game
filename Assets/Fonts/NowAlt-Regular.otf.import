@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://na7ngyssryv6"
-path="res://.godot/imported/BigShouldersDisplay-SemiBold.ttf-36bb769454046aceb1b63ecec3661d6f.fontdata"
+uid="uid://cj4306gnqlbor"
+path="res://.godot/imported/NowAlt-Regular.otf-bd06fc6c561a7279636a296f74037d75.fontdata"
 
 [deps]
 
-source_file="res://Assets/FontsUsed/BigShouldersDisplay-SemiBold.ttf"
-dest_files=["res://.godot/imported/BigShouldersDisplay-SemiBold.ttf-36bb769454046aceb1b63ecec3661d6f.fontdata"]
+source_file="res://Assets/Fonts/NowAlt-Regular.otf"
+dest_files=["res://.godot/imported/NowAlt-Regular.otf-bd06fc6c561a7279636a296f74037d75.fontdata"]
 
 [params]
 

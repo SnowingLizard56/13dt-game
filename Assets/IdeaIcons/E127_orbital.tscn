@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dwsxd5ttvjxsu"]
 
-[ext_resource type="Script" uid="uid://ck530lo0214b8" path="res://Assets/Profiles/E127_orbital_draw.gd" id="1_4v4gt"]
+[ext_resource type="Script" uid="uid://ck530lo0214b8" path="res://Assets/IdeaIcons/E127_orbital_draw.gd" id="1_4v4gt"]
 
 [node name="E127 Orbital" type="Node2D"]
 script = ExtResource("1_4v4gt")

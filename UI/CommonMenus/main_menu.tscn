@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://c1ojd40bw65n1"]
 
-[ext_resource type="Script" uid="uid://dcg2ah83nh5wl" path="res://UI/main_menu_controller.gd" id="1_p8ccj"]
+[ext_resource type="Script" uid="uid://dcg2ah83nh5wl" path="res://UI/CommonMenus/main_menu_controller.gd" id="1_p8ccj"]
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_tk8dj"]
-[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://Actors/custom_button.gd" id="3_d8nwk"]
-[ext_resource type="PackedScene" uid="uid://dwsxd5ttvjxsu" path="res://Assets/Profiles/E127_orbital.tscn" id="4_4cwpn"]
+[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="3_d8nwk"]
+[ext_resource type="PackedScene" uid="uid://dwsxd5ttvjxsu" path="res://Assets/IdeaIcons/E127_orbital.tscn" id="4_4cwpn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8nwk"]
 bg_color = Color(0.0507, 0.0916717, 0.13, 1)

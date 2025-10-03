@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://yoxoaei6uvp3" path="res://UI/ComponentControl/component_control.gd" id="2_uks5t"]
 [ext_resource type="PackedScene" uid="uid://r58cdlaud3e7" path="res://UI/ComponentControl/component.tscn" id="3_frvxf"]
 [ext_resource type="Script" uid="uid://dwgfpgetncjn7" path="res://UI/ComponentControl/warning_display.gd" id="4_68qdt"]
-[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://Actors/custom_button.gd" id="5_u4yem"]
+[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="5_u4yem"]
 
 [node name="ComponentControl" type="Control" node_paths=PackedStringArray("ship_display", "ship_desc", "warning_display", "warning_label", "cmpnt_title", "cmpnt_desc", "installed_count_label", "spare_count_label", "installed_components", "spare_components", "continue_button", "for_moving")]
 layout_mode = 3

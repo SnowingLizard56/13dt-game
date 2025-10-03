@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d23yrshdacsq"]
 
-[ext_resource type="Script" uid="uid://j65gycgkkxjv" path="res://body.gd" id="1_rppho"]
+[ext_resource type="Script" uid="uid://j65gycgkkxjv" path="res://Actors/body.gd" id="1_rppho"]
 
 [sub_resource type="Curve" id="Curve_rppho"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.620635, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bh3uk0qgepwl5"]
 
 [ext_resource type="Script" uid="uid://54eb28m1u7wf" path="res://UI/ComponentControl/currency_display.gd" id="1_sar5q"]
-[ext_resource type="PackedScene" uid="uid://dwsxd5ttvjxsu" path="res://Assets/Profiles/E127_orbital.tscn" id="2_ibcph"]
+[ext_resource type="PackedScene" uid="uid://dwsxd5ttvjxsu" path="res://Assets/IdeaIcons/E127_orbital.tscn" id="2_ibcph"]
 
 [node name="CurrencyDisplay" type="Control"]
 layout_mode = 3

@@ -1,11 +1,11 @@
 [gd_resource type="Theme" load_steps=38 format=3 uid="uid://b3ou7d8b0fupu"]
 
-[ext_resource type="FontFile" uid="uid://bx76lta0wwppb" path="res://Assets/FontsUsed/NowAlt-Medium.otf" id="1_5f78n"]
-[ext_resource type="FontFile" uid="uid://cj4306gnqlbor" path="res://Assets/FontsUsed/NowAlt-Regular.otf" id="1_h32ur"]
-[ext_resource type="FontFile" uid="uid://dbaqv8ndbpdvk" path="res://Assets/FontsUsed/monofonto rg.otf" id="2_5f78n"]
-[ext_resource type="FontFile" uid="uid://by1xkrgvgmeu6" path="res://Assets/FontsUsed/Economica-Bold.ttf" id="2_7m7pu"]
-[ext_resource type="FontFile" uid="uid://0okyiao7xttn" path="res://Assets/FontsUsed/BigShouldersDisplay-ExtraBold.ttf" id="2_cfsd7"]
-[ext_resource type="FontFile" uid="uid://na7ngyssryv6" path="res://Assets/FontsUsed/BigShouldersDisplay-SemiBold.ttf" id="3_qm5hq"]
+[ext_resource type="FontFile" uid="uid://bx76lta0wwppb" path="res://Assets/Fonts/NowAlt-Medium.otf" id="1_5f78n"]
+[ext_resource type="FontFile" uid="uid://cj4306gnqlbor" path="res://Assets/Fonts/NowAlt-Regular.otf" id="1_h32ur"]
+[ext_resource type="FontFile" uid="uid://dbaqv8ndbpdvk" path="res://Assets/Fonts/monofonto rg.otf" id="2_5f78n"]
+[ext_resource type="FontFile" uid="uid://by1xkrgvgmeu6" path="res://Assets/Fonts/Economica-Bold.ttf" id="2_7m7pu"]
+[ext_resource type="FontFile" uid="uid://0okyiao7xttn" path="res://Assets/Fonts/BigShouldersDisplay-ExtraBold.ttf" id="2_cfsd7"]
+[ext_resource type="FontFile" uid="uid://na7ngyssryv6" path="res://Assets/Fonts/BigShouldersDisplay-SemiBold.ttf" id="3_qm5hq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_470mv"]
 draw_center = false

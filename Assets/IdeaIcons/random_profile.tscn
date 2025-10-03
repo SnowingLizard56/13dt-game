@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://breeaqw12q6tx"]
 
-[ext_resource type="Script" uid="uid://c8ibl86bi6ngk" path="res://Assets/Profiles/random_profile_draw.gd" id="1_hthfb"]
+[ext_resource type="Script" uid="uid://c8ibl86bi6ngk" path="res://Assets/IdeaIcons/random_profile_draw.gd" id="1_hthfb"]
 
 [node name="RandomProfile" type="Node2D"]
 script = ExtResource("1_hthfb")

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bx76lta0wwppb"
-path="res://.godot/imported/NowAlt-Medium.otf-9ccd28001de2453ad828166967129859.fontdata"
+uid="uid://0okyiao7xttn"
+path="res://.godot/imported/BigShouldersDisplay-ExtraBold.ttf-3c5314bd257c4f3751a4b26814ed793c.fontdata"
 
 [deps]
 
-source_file="res://Assets/FontsUsed/NowAlt-Medium.otf"
-dest_files=["res://.godot/imported/NowAlt-Medium.otf-9ccd28001de2453ad828166967129859.fontdata"]
+source_file="res://Assets/Fonts/BigShouldersDisplay-ExtraBold.ttf"
+dest_files=["res://.godot/imported/BigShouldersDisplay-ExtraBold.ttf-3c5314bd257c4f3751a4b26814ed793c.fontdata"]
 
 [params]
 

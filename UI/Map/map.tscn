@@ -1,17 +1,17 @@
 [gd_scene load_steps=15 format=3 uid="uid://d8ylv7y4rhyv"]
 
-[ext_resource type="PackedScene" uid="uid://ccbersjv5r4sb" path="res://UI/_map.tscn" id="1_c7s6e"]
-[ext_resource type="Script" uid="uid://ccd38pemkue7r" path="res://UI/map.gd" id="1_wijl4"]
-[ext_resource type="Resource" uid="uid://by12kj0rfiurd" path="res://Assets/Events/Special/a-brief-reprieve.tres" id="2_0t07s"]
-[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="3_e0an3"]
-[ext_resource type="Script" uid="uid://b1gax8ljs4ucw" path="res://UI/map_ui.gd" id="4_71pa8"]
-[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://Actors/custom_button.gd" id="4_p5pve"]
-[ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="5_iw27f"]
-[ext_resource type="Script" uid="uid://dyxox0r1oftf2" path="res://Actors/Game/delta_money.gd" id="6_71pa8"]
-[ext_resource type="Script" uid="uid://b6jo0u6c12615" path="res://event_screen.gd" id="6_oysan"]
-[ext_resource type="PackedScene" uid="uid://crgrq17w54hj5" path="res://UI/event_option_button.tscn" id="7_sb2pt"]
-[ext_resource type="PackedScene" uid="uid://dlmalknb0ogn6" path="res://UI/pause_menu.tscn" id="8_05x41"]
-[ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/ComponentControl/component_control.tscn" id="11_sb2pt"]
+[ext_resource type="Script" uid="uid://ccd38pemkue7r" path="res://UI/Map/map.gd" id="1_hkkqg"]
+[ext_resource type="Resource" uid="uid://by12kj0rfiurd" path="res://Assets/Events/Special/a-brief-reprieve.tres" id="2_4fsbn"]
+[ext_resource type="PackedScene" uid="uid://ccbersjv5r4sb" path="res://UI/Map/_map.tscn" id="3_xgwbs"]
+[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="4_783jd"]
+[ext_resource type="Script" uid="uid://b1gax8ljs4ucw" path="res://UI/Map/map_ui.gd" id="5_ysqor"]
+[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="6_hfjv1"]
+[ext_resource type="Script" uid="uid://b6jo0u6c12615" path="res://UI/Map/event_screen.gd" id="7_civn7"]
+[ext_resource type="PackedScene" uid="uid://crgrq17w54hj5" path="res://UI/Map/event_option_button.tscn" id="8_05n6e"]
+[ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="9_yshux"]
+[ext_resource type="Script" uid="uid://dyxox0r1oftf2" path="res://UI/Shop/delta_money.gd" id="10_2iugf"]
+[ext_resource type="PackedScene" uid="uid://dlmalknb0ogn6" path="res://UI/CommonMenus/pause_menu.tscn" id="11_rpmaj"]
+[ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/ComponentControl/component_control.tscn" id="12_hcj31"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8nwk"]
 bg_color = Color(0.0507, 0.0916717, 0.13, 1)
@@ -35,7 +35,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [node name="Map" type="Node2D" node_paths=PackedStringArray("cam", "inner", "confirmation", "conf_title", "confirm_button", "cancel_button", "fadeout", "event_screen", "ui", "BG_layer", "UI_layer")]
-script = ExtResource("1_wijl4")
+script = ExtResource("1_hkkqg")
 cam = NodePath("Camera")
 inner = NodePath("_MapInner")
 confirmation = NodePath("UI/UI/TravelConfirm")
@@ -45,11 +45,11 @@ cancel_button = NodePath("UI/UI/TravelConfirm/Cancel")
 fadeout = NodePath("UI/Fadeout")
 event_screen = NodePath("UI/UI/EventScreen")
 ui = NodePath("UI/UI")
-rest_event = ExtResource("2_0t07s")
+rest_event = ExtResource("2_4fsbn")
 BG_layer = NodePath("BG")
 UI_layer = NodePath("UI")
 
-[node name="_MapInner" parent="." node_paths=PackedStringArray("background") instance=ExtResource("1_c7s6e")]
+[node name="_MapInner" parent="." node_paths=PackedStringArray("background") instance=ExtResource("3_xgwbs")]
 position = Vector2(576, 575)
 background = NodePath("../BG/Background")
 
@@ -78,8 +78,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme = ExtResource("3_e0an3")
-script = ExtResource("4_71pa8")
+theme = ExtResource("4_783jd")
+script = ExtResource("5_ysqor")
 currency_display = NodePath("CurrencyDisplay")
 currency_delta = NodePath("DeltaMoney")
 hp_bar = NodePath("Health")
@@ -120,7 +120,7 @@ offset_bottom = -16.0
 grow_vertical = 0
 theme_type_variation = &"MainMenuButton"
 text = "Confirm"
-script = ExtResource("4_p5pve")
+script = ExtResource("6_hfjv1")
 metadata/_custom_type_script = "uid://dg7hgelew38lk"
 
 [node name="Cancel" type="Button" parent="UI/UI/TravelConfirm"]
@@ -142,7 +142,7 @@ theme_override_colors/font_hover_color = Color(0.866667, 0.337255, 0.223529, 1)
 theme_override_colors/font_focus_color = Color(0.866667, 0.337255, 0.223529, 1)
 theme_override_styles/focus = SubResource("StyleBoxFlat_d8nwk")
 text = "Cancel"
-script = ExtResource("4_p5pve")
+script = ExtResource("6_hfjv1")
 metadata/_custom_type_script = "uid://dg7hgelew38lk"
 
 [node name="DimBG" type="ColorRect" parent="UI/UI"]
@@ -164,9 +164,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_oysan")
+script = ExtResource("7_civn7")
 dimmer = NodePath("../DimBG")
-option = ExtResource("7_sb2pt")
+option = ExtResource("8_05n6e")
 title = NodePath("Event/Title")
 exposition = NodePath("Event/Exposition")
 options_holder = NodePath("Event/Options")
@@ -233,13 +233,13 @@ grow_vertical = 0
 theme_override_constants/separation = 15
 alignment = 2
 
-[node name="Option" parent="UI/UI/EventScreen/Event/Options" instance=ExtResource("7_sb2pt")]
+[node name="Option" parent="UI/UI/EventScreen/Event/Options" instance=ExtResource("8_05n6e")]
 layout_mode = 2
 
-[node name="Option2" parent="UI/UI/EventScreen/Event/Options" instance=ExtResource("7_sb2pt")]
+[node name="Option2" parent="UI/UI/EventScreen/Event/Options" instance=ExtResource("8_05n6e")]
 layout_mode = 2
 
-[node name="CurrencyDisplay" parent="UI/UI" instance=ExtResource("5_iw27f")]
+[node name="CurrencyDisplay" parent="UI/UI" instance=ExtResource("9_yshux")]
 
 [node name="DeltaMoney" type="Control" parent="UI/UI"]
 layout_mode = 3
@@ -248,7 +248,7 @@ offset_left = 182.0
 offset_top = 45.0
 offset_right = 262.0
 offset_bottom = 91.0
-script = ExtResource("6_71pa8")
+script = ExtResource("10_2iugf")
 
 [node name="Panel" type="Panel" parent="UI/UI/DeltaMoney"]
 layout_mode = 1
@@ -287,10 +287,10 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_05x41")
 value = 10.0
 show_percentage = false
 
-[node name="PauseMenu" parent="UI/UI" instance=ExtResource("8_05x41")]
+[node name="PauseMenu" parent="UI/UI" instance=ExtResource("11_rpmaj")]
 layout_mode = 1
 
-[node name="ComponentControl" parent="UI/UI" instance=ExtResource("11_sb2pt")]
+[node name="ComponentControl" parent="UI/UI" instance=ExtResource("12_hcj31")]
 visible = false
 layout_mode = 1
 
