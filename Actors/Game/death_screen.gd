@@ -51,4 +51,4 @@ func _on_quit_pressed() -> void:
 
 
 func _on_again_pressed() -> void:
-	Global.switch_scene(Global.game_scene)
+	Global.reset()

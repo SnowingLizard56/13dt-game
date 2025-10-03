@@ -7,7 +7,7 @@ const MAP_SCENE: PackedScene = preload("res://map.tscn")
 const GAME_FILE_PATH: String = "res://Actors/Game/game.tscn"
 const PREDICTION_TIMESTEP: float = 5.0 / 8
 
-var game_scene: PackedScene
+@onready var game_scene: PackedScene = load(GAME_FILE_PATH)
 
 @onready var player_ship: Ship = DEFAULT_SHIP.duplicate(true)
 
@@ -35,6 +35,8 @@ var player_currency: int = 0
 var player_xp: float = 0.0
 var player_level: int = 0
 var tick
+
+var using_controller = false
 
 
 func _ready() -> void:
@@ -72,8 +74,8 @@ func _process(_delta: float) -> void:
 		mouse_stale = false
 	
 	var new_joy: Vector2 = Vector2(Input.get_axis("aim_left", "aim_right"), 
-		Input.get_axis("aim_up", "aim_down"))
-	if new_joy == joy_aim:
+		Input.get_axis("aim_up", "aim_down")).normalized()
+	if new_joy == joy_aim or new_joy == Vector2.ZERO:
 		joy_stale = true
 	else:
 		joy_aim = new_joy
@@ -82,8 +84,10 @@ func _process(_delta: float) -> void:
 	# Decide which to use
 	if !joy_stale:
 		aim = joy_aim
+		using_controller = true
 	elif joy_stale and !mouse_stale:
 		aim = mouse_aim
+		using_controller = false
 
 
 func switch_scene(new_scene: PackedScene):
@@ -105,3 +109,14 @@ func switch_to_map():
 		map.reinit()
 	root = null
 	old.queue_free()
+
+
+func reset():
+	if map:
+		map.queue_free()
+		map = null
+	player_ship = DEFAULT_SHIP.duplicate(true)
+	player_currency = 0
+	player_level = 0
+	player_xp = 0
+	switch_scene(game_scene)

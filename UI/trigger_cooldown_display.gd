@@ -14,7 +14,12 @@ const HUD_CD_COLOUR: Color = Color(0.265883, 0.371765, 0.470589, 1.0)
 @export var segment_count := 15
 @export var radius := 11.0
 @export var border := 5.0
+@export var texture_rect: TextureRect
 @onready var root = Global.root
+
+@export var input_icons_controller: Array[CompressedTexture2D]
+@export var input_icons_kbm: Array[CompressedTexture2D]
+
 
 var component: TriggerComponent = null
 
@@ -23,6 +28,7 @@ func _ready() -> void:
 	await Global.frame_next
 	root.player.ship.components_updated.connect(link_component)
 	link_component()
+	texture_rect.show()
 
 
 func _draw() -> void:
@@ -64,3 +70,7 @@ func link_component():
 
 func _process(_delta: float) -> void:
 	queue_redraw()
+	if Global.using_controller:
+		texture_rect.texture = input_icons_controller[trigger_index]
+	else:
+		texture_rect.texture = input_icons_kbm[trigger_index]

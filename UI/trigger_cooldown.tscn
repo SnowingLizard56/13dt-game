@@ -1,11 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://beeae1s4baogj"]
+[gd_scene load_steps=14 format=3 uid="uid://beeae1s4baogj"]
 
 [ext_resource type="Script" uid="uid://c835iptiduba4" path="res://UI/trigger_cooldown_display.gd" id="1_v1nv6"]
 [ext_resource type="PackedScene" uid="uid://do8gbvq05s7vo" path="res://Assets/Profiles/namurant_profile.tscn" id="2_o7dku"]
+[ext_resource type="Texture2D" uid="uid://bebwjhjkpf12i" path="res://Assets/InputIcons/T_X_LT_Light.png" id="2_rik02"]
 [ext_resource type="PackedScene" uid="uid://breeaqw12q6tx" path="res://Assets/Profiles/random_profile.tscn" id="3_gfmyi"]
+[ext_resource type="Texture2D" uid="uid://bhm3tbaijnjbe" path="res://Assets/InputIcons/T_X_RT_Light.png" id="3_qlnga"]
+[ext_resource type="Texture2D" uid="uid://b1e8nef1io5ty" path="res://Assets/InputIcons/T_X_LB_Light.png" id="4_7sfod"]
 [ext_resource type="PackedScene" uid="uid://8fmrvoi5rg7i" path="res://Assets/Profiles/xaragiln_profile.tscn" id="4_vgpi4"]
+[ext_resource type="Texture2D" uid="uid://r8hijmupb36n" path="res://Assets/InputIcons/T_X_RB_Light.png" id="5_1myan"]
+[ext_resource type="Texture2D" uid="uid://bpxqyk4nlavym" path="res://Assets/InputIcons/T_Mouse_Left_Key_White.png" id="6_1pjcg"]
+[ext_resource type="Texture2D" uid="uid://hwl71ms6n6f5" path="res://Assets/InputIcons/T_Mouse_Right_Key_White.png" id="7_svgoj"]
+[ext_resource type="Texture2D" uid="uid://b4hy5b2ux8v2" path="res://Assets/InputIcons/T_Shift_Key_White.png" id="8_1g4cv"]
+[ext_resource type="Texture2D" uid="uid://ntuvh2qm50fh" path="res://Assets/InputIcons/T_Space_Key_White.png" id="9_0k6yd"]
+[ext_resource type="Texture2D" uid="uid://bkck2avtx10tv" path="res://Assets/InputIcons/SGamepad/T_S_LT_Light.png" id="13_qlnga"]
 
-[node name="TriggerCooldown" type="Control"]
+[node name="TriggerCooldown" type="Control" node_paths=PackedStringArray("texture_rect")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchor_right = 0.028
@@ -13,6 +22,9 @@ anchor_bottom = 0.049
 offset_right = -16.256
 offset_bottom = -15.752
 script = ExtResource("1_v1nv6")
+texture_rect = NodePath("TextureRect")
+input_icons_controller = Array[CompressedTexture2D]([ExtResource("2_rik02"), ExtResource("3_qlnga"), ExtResource("4_7sfod"), ExtResource("5_1myan")])
+input_icons_kbm = Array[CompressedTexture2D]([ExtResource("6_1pjcg"), ExtResource("7_svgoj"), ExtResource("8_1g4cv"), ExtResource("9_0k6yd")])
 
 [node name="Namurant Profile" parent="." instance=ExtResource("2_o7dku")]
 visible = false
@@ -40,3 +52,18 @@ count = Array[int]([2, 7, 19, 17, 11, 3])
 radius = 2
 radius_per_layer = 2.33
 draw_outer_circle = false
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.960784, 0.909804, 0.819608, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 37.0
+offset_right = -8.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_qlnga")
+expand_mode = 3
