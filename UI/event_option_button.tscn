@@ -8,6 +8,5 @@ theme = ExtResource("1_6eepy")
 theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 24
 text = "Quit to Menu"
-alignment = 0
 script = ExtResource("1_xdx0o")
 metadata/_custom_type_script = "uid://dg7hgelew38lk"

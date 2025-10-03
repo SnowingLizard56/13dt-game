@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c3dl8amhu3pcq"]
+[gd_scene load_steps=26 format=3 uid="uid://c3dl8amhu3pcq"]
 
 [ext_resource type="Script" uid="uid://cefbhjfki8lhm" path="res://Actors/Game/game_controller.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dy7y8ni7184re" path="res://Actors/Player/player.tscn" id="2_e2o6t"]
@@ -16,6 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://dlmalknb0ogn6" path="res://UI/pause_menu.tscn" id="14_0ac54"]
 [ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://Actors/custom_button.gd" id="14_8vj28"]
 [ext_resource type="Script" uid="uid://6egkb8kxhwbb" path="res://Actors/Game/death_screen.gd" id="15_7ruru"]
+[ext_resource type="Script" uid="uid://bohe5wshno1ub" path="res://Actors/Game/win_screen.gd" id="17_4yj1u"]
+[ext_resource type="Texture2D" uid="uid://dpmxa48jfm5da" path="res://Assets/InputIcons/T_Up_Key_White.png" id="18_smvxu"]
+[ext_resource type="Texture2D" uid="uid://byqdg0j68qrw4" path="res://Assets/InputIcons/T_Down_Key_White.png" id="19_dggqg"]
+[ext_resource type="Texture2D" uid="uid://bb16v5r2syk7p" path="res://Assets/InputIcons/T_Left_Key_White.png" id="20_rqbhw"]
+[ext_resource type="Texture2D" uid="uid://71qqh24yoer1" path="res://Assets/InputIcons/T_Right_Key_White.png" id="21_nkc3k"]
+[ext_resource type="Texture2D" uid="uid://v82ysdfxp7da" path="res://Assets/InputIcons/T_Mouse_XY_Key_White.png" id="22_l5tuw"]
 
 [sub_resource type="Curve2D" id="Curve2D_cny57"]
 _data = {
@@ -346,6 +352,134 @@ text = "Play Again"
 script = ExtResource("14_8vj28")
 metadata/_custom_type_script = "uid://dg7hgelew38lk"
 
+[node name="WinScreen" type="Control" parent="Foreground/UI" node_paths=PackedStringArray("title", "button", "dim", "cover")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_4yj1u")
+titles = PackedStringArray("System Cleared", "Enemies Obliterated", "Mission Success")
+title = NodePath("TitleMarker/Title")
+button = NodePath("ButtonMarker/Continue")
+dim = NodePath("DimBG")
+cover = NodePath("../../Cover")
+
+[node name="DimBG" type="ColorRect" parent="Foreground/UI/WinScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.376471)
+
+[node name="TitleMarker" type="Control" parent="Foreground/UI/WinScreen"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -144.0
+offset_bottom = -144.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Foreground/UI/WinScreen/TitleMarker"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 104.0
+grow_horizontal = 2
+theme_type_variation = &"GameTitle"
+theme_override_colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
+text = "System Clear"
+horizontal_alignment = 1
+
+[node name="ButtonMarker" type="Control" parent="Foreground/UI/WinScreen"]
+anchors_preset = 0
+offset_left = 461.5
+offset_top = 432.0
+offset_right = 461.5
+offset_bottom = 432.0
+
+[node name="Continue" type="Button" parent="Foreground/UI/WinScreen/ButtonMarker"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_right = 250.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"MainMenuButton"
+text = "Continue To Map"
+script = ExtResource("14_8vj28")
+metadata/_custom_type_script = "uid://dg7hgelew38lk"
+
+[node name="InputReminder" type="Control" parent="Foreground/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -144.0
+offset_top = -160.0
+offset_right = 48.0
+offset_bottom = 32.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+
+[node name="Up" type="TextureRect" parent="Foreground/UI/InputReminder"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 64.0
+texture = ExtResource("18_smvxu")
+expand_mode = 1
+
+[node name="Down" type="TextureRect" parent="Foreground/UI/InputReminder"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 192.0
+texture = ExtResource("19_dggqg")
+expand_mode = 1
+
+[node name="Left" type="TextureRect" parent="Foreground/UI/InputReminder"]
+layout_mode = 0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+texture = ExtResource("20_rqbhw")
+expand_mode = 1
+
+[node name="Right" type="TextureRect" parent="Foreground/UI/InputReminder"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 128.0
+texture = ExtResource("21_nkc3k")
+expand_mode = 1
+
+[node name="Aim" type="TextureRect" parent="Foreground/UI/InputReminder"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
+texture = ExtResource("22_l5tuw")
+expand_mode = 1
+
 [node name="Cover" type="ColorRect" parent="Foreground"]
 visible = false
 anchors_preset = 15
@@ -361,3 +495,4 @@ color = Color(0.0588235, 0.105882, 0.14902, 1)
 [connection signal="continue_pressed" from="Foreground/UI/ComponentControl" to="Foreground/UI" method="level_up_finalised"]
 [connection signal="pressed" from="Foreground/UI/DeathScreen/Panel/Quit" to="Foreground/UI/DeathScreen" method="_on_quit_pressed"]
 [connection signal="pressed" from="Foreground/UI/DeathScreen/Panel/Again" to="Foreground/UI/DeathScreen" method="_on_again_pressed"]
+[connection signal="pressed" from="Foreground/UI/WinScreen/ButtonMarker/Continue" to="Foreground/UI/WinScreen" method="_on_continue_pressed"]

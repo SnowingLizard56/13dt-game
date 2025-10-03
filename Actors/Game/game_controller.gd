@@ -104,10 +104,3 @@ func get_prediction(pred_idx: int) -> Level:
 			Vector2(body_pred.x - body_real.x, body_pred.y - body_real.y)
 			)
 	return out
-
-
-func _process(delta: float) -> void:
-	# DEBUG
-	if Input.is_action_just_pressed("test"):
-		Global.set(&"player_ship", player.ship)
-		Global.switch_to_map()

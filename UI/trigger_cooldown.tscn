@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://beeae1s4baogj"]
+[gd_scene load_steps=13 format=3 uid="uid://beeae1s4baogj"]
 
 [ext_resource type="Script" uid="uid://c835iptiduba4" path="res://UI/trigger_cooldown_display.gd" id="1_v1nv6"]
 [ext_resource type="PackedScene" uid="uid://do8gbvq05s7vo" path="res://Assets/Profiles/namurant_profile.tscn" id="2_o7dku"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://hwl71ms6n6f5" path="res://Assets/InputIcons/T_Mouse_Right_Key_White.png" id="7_svgoj"]
 [ext_resource type="Texture2D" uid="uid://b4hy5b2ux8v2" path="res://Assets/InputIcons/T_Shift_Key_White.png" id="8_1g4cv"]
 [ext_resource type="Texture2D" uid="uid://ntuvh2qm50fh" path="res://Assets/InputIcons/T_Space_Key_White.png" id="9_0k6yd"]
-[ext_resource type="Texture2D" uid="uid://bkck2avtx10tv" path="res://Assets/InputIcons/SGamepad/T_S_LT_Light.png" id="13_qlnga"]
 
 [node name="TriggerCooldown" type="Control" node_paths=PackedStringArray("texture_rect")]
 custom_minimum_size = Vector2(32, 32)
@@ -65,5 +64,4 @@ offset_right = -8.0
 offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("13_qlnga")
 expand_mode = 3

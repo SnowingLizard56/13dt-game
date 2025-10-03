@@ -100,7 +100,10 @@ func switch_scene(new_scene: PackedScene):
 	get_tree().root.add_child(k)
 
 
-func switch_to_map():
+func switch_to_map(new_ship: Ship = null):
+	Engine.time_scale = 1
+	if new_ship:
+		set(&"player_ship", new_ship)
 	var old: Node = root
 	if not map:
 		map = MAP_SCENE.instantiate()
