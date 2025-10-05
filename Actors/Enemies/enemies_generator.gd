@@ -8,12 +8,9 @@ const LOOSE_ENEMY_HARD_LIMIT: int = 256
 
 const ENEMY_TYPES: Array[PackedScene] = [CANNON_ENEMY, HANGAR_ENEMY]
 const ENEMY_LAYOUTS: Array[PackedInt32Array] = [
-	[],
 	[0, 0, 0],
 	[1, 1, 1],
 	[0, 0, 0, 1],
-	[1],
-	[0, 1],
 ]
 
 @export var enemy_put_node: Node2D

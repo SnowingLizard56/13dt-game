@@ -49,6 +49,7 @@ func _ready() -> void:
 		var body_dict: Dictionary = root.level.get_body(body_id)
 		rotation = randf() * TAU
 		position = Vector2.from_angle(rotation) * body_dict.r
+		root.level.body_collided.connect(_on_body_collided)
 
 
 func damage(amount: float) -> void:
@@ -93,3 +94,15 @@ func _notification(what: int) -> void:
 	elif what == NOTIFICATION_PREDELETE:
 		# Decrement
 		root.enemy_gen.total_enemies_alive -= 1
+
+
+func _on_body_collided(from: int, to: int):
+	if from == body_id:
+		var old: Dictionary = root.level.get_body(from)
+		rotation = Vector2(old.x, old.y).angle_to_point(Vector2(x, y))
+		body_id = to
+		var body_dict: Dictionary = root.level.get_body(body_id)
+		position = Vector2.from_angle(rotation) * body_dict.r
+	elif to == body_id:
+		var body_dict: Dictionary = root.level.get_body(body_id)
+		position = Vector2.from_angle(rotation) * body_dict.r

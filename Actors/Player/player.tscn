@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dy7y8ni7184re"]
+[gd_scene load_steps=7 format=3 uid="uid://dy7y8ni7184re"]
 
 [ext_resource type="Script" uid="uid://cijjyr2evynnk" path="res://Actors/Player/player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://0ki07udwa4vf" path="res://Actors/Player/laser.tscn" id="2_b63gh"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_4bcxw"]
 b = Vector2(0, 0)
@@ -17,11 +18,14 @@ point_count = 3
 offsets = PackedFloat32Array(0, 0.409756, 0.756098, 1)
 colors = PackedColorArray(0.25, 0.25, 0.25, 1, 0.86, 0.86, 0.86, 1, 0.86, 0.86, 0.86, 1, 1, 1, 1, 1)
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" node_paths=PackedStringArray("thrust", "rotate_container")]
 z_index = 3
 collision_layer = 0
 collision_mask = 18
 script = ExtResource("1_4flbx")
+thrust = NodePath("Container/Thrust")
+rotate_container = NodePath("Container")
+laser_scene = ExtResource("2_b63gh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("SegmentShape2D_4bcxw")
@@ -32,7 +36,9 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_pnakb")
 
-[node name="Thrust" type="CPUParticles2D" parent="."]
+[node name="Container" type="Node2D" parent="."]
+
+[node name="Thrust" type="CPUParticles2D" parent="Container"]
 z_index = -2
 emitting = false
 amount = 32

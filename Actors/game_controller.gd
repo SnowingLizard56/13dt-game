@@ -17,7 +17,7 @@ var predictions: Dictionary[int, Level] = {}
 
 var is_initial_areas_instantiated: bool = false
 signal initial_areas_instantiated
- 
+
 @export var body_scene: PackedScene
 
 

@@ -70,16 +70,19 @@ func _physics_process(delta: float) -> void:
 		MovementModes.AVOID_BODY:
 			# Uh oh uh oh uh oh. run away from scary circle
 			var collided_area: Area2D = path.get_child(colliding_idx).get_collider()
-			var b: Dictionary = root.level.get_body(collided_area.get_meta(&"id"))
-			
-			var coll_pos: Vector2 = Vector2(b.x, b.y)
-			var me_rel_coll: Vector2 = Vector2(x, y) + \
-				path.get_child(colliding_idx).position - coll_pos
-			var pred_rel_coll: Vector2 = me_rel_coll + path.get_child(colliding_idx).target_position
+			if not collided_area:
+				target_thrust = Vector2.ZERO
+			else:
+				var b: Dictionary = root.level.get_body(collided_area.get_meta(&"id"))
+				
+				var coll_pos: Vector2 = Vector2(b.x, b.y)
+				var me_rel_coll: Vector2 = Vector2(x, y) + \
+					path.get_child(colliding_idx).position - coll_pos
+				var pred_rel_coll: Vector2 = me_rel_coll + path.get_child(colliding_idx).target_position
 
-			var angle_to_pred: float = me_rel_coll.angle_to(pred_rel_coll)
+				var angle_to_pred: float = me_rel_coll.angle_to(pred_rel_coll)
 
-			target_thrust = me_rel_coll.rotated(sign(angle_to_pred) * TAU/4)
+				target_thrust = me_rel_coll.rotated(sign(angle_to_pred) * TAU/4)
 		
 		MovementModes.MATCH_PLAYER:
 			if position.length_squared() < PLAYER_RUN_AWAY ** 2:

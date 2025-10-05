@@ -28,8 +28,9 @@ var level: Level
 
 var ship: Ship = null
 @onready var ui: Control = %UI
-@onready var thrust: CPUParticles2D = $Thrust
+@export var thrust: CPUParticles2D
 @onready var hitbox: Area2D = $Hitbox
+@export var rotate_container: Node2D
 
 var trigger_queue: PackedInt32Array = []
 var trigger_timer_queue: PackedFloat32Array = []
@@ -46,6 +47,8 @@ enum DeathSource {
 	FLYING = 2,
 	CANNON = 3,
 }
+
+@export var laser_scene: PackedScene
 
 
 func add_to_trigger_queue(id: int):
@@ -106,7 +109,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		thrust.emitting = false
 	
-	rotate(-delta * ship.acceleration / 80)
+	var rotate_amount := -delta * ship.acceleration / 80
+	rotate(rotate_amount)
+	rotate_container.rotate(-rotate_amount)
 	
 	# Velocity then position
 	vx += ship.acceleration * acceleration_input.x * delta
@@ -170,3 +175,9 @@ func generic_death():
 	player_died.emit()
 	hitbox.get_child(0).set_deferred(&"disabled", true)
 	hide()
+
+
+func make_laser(weapon: LaserWeapon):
+	var k: Laser = laser_scene.instantiate()
+	k.weapon = weapon
+	rotate_container.add_child(k)

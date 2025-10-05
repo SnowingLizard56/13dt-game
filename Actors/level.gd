@@ -2,7 +2,7 @@ class_name Level extends E127Controller
 
 const DENSITIES: PackedFloat64Array = [1.1e6, 1.3e6]
 const BIG_G: float = 6.67e-11
-const WELL_STRENGTH_CUTOFF: float = 0.1
+const WELL_STRENGTH_CUTOFF: float = 0.2
 
 
 var total_mass: float
@@ -40,7 +40,7 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2,
 	
 	# Moons
 	# Set count
-	var moon_count: int = 6
+	var moon_count: int = 3
 	# Set randoms
 	var moon_masses: PackedFloat64Array = []
 	moon_masses.resize(moon_count + 1)
@@ -59,18 +59,17 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2,
 		last = moon_masses[i]
 		moon_masses[i] = proportion * moon_mass
 		moon_influences[i] = sqrt(moon_masses[i] / WELL_STRENGTH_CUTOFF) / distance_scale
-		
 	
 	# Arrange moon distances
 	var moon_distances: PackedFloat64Array = []
 	moon_distances.resize(moon_count + 1)
+	var prev_distance := 0.0
 	
 	var star_radius: float = min_radius
 	
 	for i in moon_count:
 		if i > 0:
-			moon_distances[i] = min_radius + moon_influences[i] + moon_distances[i - 1]
-			
+			moon_distances[i] = min_radius + moon_influences[i]
 		else:
 			moon_distances[i] = min_radius + moon_influences[i]
 		min_radius = moon_distances[i]

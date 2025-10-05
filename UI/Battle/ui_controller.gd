@@ -85,9 +85,9 @@ func give_level_up_reward():
 
 
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("test"):
-		trigger_win()
+#func _process(_delta: float) -> void:
+	#if Input.is_action_just_pressed("test"):
+		#trigger_win()
 
 
 func level_up_finalised() -> void:
