@@ -8,11 +8,12 @@ extends Control
 @onready var player: Player = %Player
 @onready var win_screen: Control = $WinScreen
 @export var loot_table: LootTable
-
+@export var enemy_gen: EnemyGenerator
 
 
 var hp_tween: Tween
 var xp_tween: Tween
+var win_triggered: bool = false
 
 
 func _ready() -> void:
@@ -85,9 +86,11 @@ func give_level_up_reward():
 
 
 
-#func _process(_delta: float) -> void:
-	#if Input.is_action_just_pressed("test"):
-		#trigger_win()
+func _process(_delta: float) -> void:
+	if not win_triggered and enemy_gen.total_enemies_alive == 0:
+		win_triggered = true
+		win_screen.start()
+		
 
 
 func level_up_finalised() -> void:
@@ -101,7 +104,3 @@ func level_up_finalised() -> void:
 	t.tween_callback(component_control.hide)
 	t.tween_callback(get_tree().set.bind(&"paused", false))
 	t.tween_property(Engine, "time_scale", 1.0, 1.0)
-
-
-func trigger_win() -> void:
-	win_screen.start()

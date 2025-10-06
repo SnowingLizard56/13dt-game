@@ -11,6 +11,8 @@ const TIME_MIN := 1.0
 const TIME_MAX := 2.0
 const DISTANCE := 50.0
 
+const SCALE_CURVE : Curve = preload("res://Actors/Player/scale_curve.tres")
+
 var distance: float
 var angle: float
 var time: float = 0.0
@@ -19,7 +21,7 @@ var colour: Color
 enum Types {XP, HP, E127}
 const TYPE_COLOURS: PackedColorArray = [PLAYER_COLOUR, ENEMY_COLOUR, UNKNOWN_COLOUR]
 var type: Types
-var k: float
+var distance_constant: float
 var value: float
 
 signal reach_player
@@ -35,7 +37,7 @@ func _init(t: Types, pos: Vector2, v: float = 1.0) -> void:
 	_process(0)
 	colour = TYPE_COLOURS[t]
 	# Yayyyy magic function
-	k = sqrt((DISTANCE / distance + 1) ** 2 - 1) + 2 * DISTANCE / distance + 0.5
+	distance_constant = sqrt((DISTANCE / distance + 1) ** 2 - 1) + 2 * DISTANCE / distance + 0.5
 	z_index = 3
 
 	
@@ -56,15 +58,20 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	position = Vector2.from_angle(angle) * d(time) * distance
+	position = Vector2.from_angle(angle) * get_distance(time) * distance
+	scale = Vector2.ONE * get_scale_factor(time)
 
 
 func _draw() -> void:
 	draw_rect(Rect2(-2.5, -2.5, 5, 5), colour)
 
 
-func d(t: float):
-	return -k * t ** 2 + k * t - t + 1
+func get_distance(t: float):
+	return -distance_constant * t ** 2 + distance_constant * t - t + 1
+
+
+func get_scale_factor(t: float):
+	return SCALE_CURVE.sample_baked(t)
 
 
 func finish():

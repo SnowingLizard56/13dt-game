@@ -101,7 +101,7 @@ color = Color(0.0588235, 0.105882, 0.14902, 1)
 [node name="Foreground" type="CanvasLayer" parent="."]
 process_mode = 1
 
-[node name="UI" type="Control" parent="Foreground"]
+[node name="UI" type="Control" parent="Foreground" node_paths=PackedStringArray("enemy_gen")]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -112,6 +112,7 @@ grow_vertical = 2
 theme = ExtResource("5_1qbs2")
 script = ExtResource("6_cny57")
 loot_table = ExtResource("8_evbej")
+enemy_gen = NodePath("../../EnemyGen")
 
 [node name="Minimap" parent="Foreground/UI" node_paths=PackedStringArray("levelcontroller") instance=ExtResource("3_feb5d")]
 layout_mode = 1

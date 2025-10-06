@@ -17,7 +17,7 @@ const PERIOD := 0.4
 const AMPLITUDE := 1.0
 
 const CIRCLE_POS := Vector2(25, 0)
-var laser_end := 1000
+var laser_end := 1000.0
 var active = true
 
 

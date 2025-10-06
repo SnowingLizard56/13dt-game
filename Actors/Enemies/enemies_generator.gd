@@ -9,7 +9,7 @@ const LOOSE_ENEMY_HARD_LIMIT: int = 256
 const ENEMY_TYPES: Array[PackedScene] = [CANNON_ENEMY, HANGAR_ENEMY]
 const ENEMY_LAYOUTS: Array[PackedInt32Array] = [
 	[0, 0, 0],
-	[1, 1, 1],
+	[1, 1, 1],	
 	[0, 0, 0, 1],
 ]
 
@@ -17,7 +17,9 @@ const ENEMY_LAYOUTS: Array[PackedInt32Array] = [
 @onready var flying_spawn_zone: Path2D = $FlyingEnemySpawnZone
 @onready var root: LevelController = Global.root
 
+
 var total_enemies_alive: int = 0
+var average_enemy_position: Vector2
 
 
 func _on_game_initial_areas_instantiated() -> void:
@@ -45,3 +47,13 @@ func _on_flying_enemy_spawn_attempt_timer_timeout() -> void:
 		k.x = root.player.x + pos.x + shimmy.x - k.vx * get_process_delta_time()
 		k.y = root.player.y + pos.y + shimmy.y - k.vy * get_process_delta_time()
 	$FlyingEnemySpawnAttemptTimer.start(randf_range(18, 60))
+
+
+func _process(delta: float) -> void:
+	total_enemies_alive = get_tree().get_nodes_in_group("enemies").size()
+	
+	var p := Vector2.ZERO
+	for i in get_tree().get_nodes_in_group("enemies"):
+		p += Vector2(i.x, i.y)
+	average_enemy_position = p / total_enemies_alive
+# Anselwozhere
