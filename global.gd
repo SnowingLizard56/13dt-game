@@ -123,3 +123,26 @@ func reset():
 	player_level = 0
 	player_xp = 0
 	switch_scene(game_scene)
+
+
+func calculate_score(digits: int) -> String:
+	const LEVEL_COEFF := 127
+	const CURRENCY_COEFF := 1.0
+	const XP_COEFF := 0
+	const SELL_VAL_COEFF := 0.2
+	const RANK_COEFF := 635
+	
+	var score: int = 0
+	score += LEVEL_COEFF * player_level
+	score += CURRENCY_COEFF * player_currency
+	score += XP_COEFF * player_xp
+	if map:
+		score += RANK_COEFF * map.inner.rows_travelled
+	for i in player_ship.components:
+		if i.is_basic:
+			continue
+		score += SELL_VAL_COEFF * i.sell_value
+	score = min(score, 10 ** digits - 1)
+	var score_str: String = str(score)
+	score_str = "0".repeat(digits - len(score_str)) + score_str
+	return score_str

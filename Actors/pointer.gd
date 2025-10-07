@@ -6,6 +6,7 @@ const ROTATION_SPEED := TAU * 0.15
 var clear_theta := 0.0
 @export var distance_modulate: Gradient
 
+
 func _process(delta: float) -> void:
 	clear_theta += ROTATION_SPEED * delta
 	queue_redraw()
@@ -17,7 +18,8 @@ func _draw() -> void:
 		var theta: float = e.global_position.angle() 
 		var radius: float
 		# Thank you stackoverflow.
-		# I simplified it though
+		# This gets the radius of the outer rectangle for any given angle from the point at its centre.
+		# Complex derivation, simple answer. Quite nice!
 		if abs(tan(theta)) < rect.size.y / rect.size.x:
 			radius = rect.size.x / (2 * cos(theta))
 		else:

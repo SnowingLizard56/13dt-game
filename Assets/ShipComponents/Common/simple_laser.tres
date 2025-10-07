@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource("2_edv6j")
 dps = 10.0
-sustain = 2.5
+sustain = 3.5
 rotate_speed = 45.0
-width = 10.0
-trigger_cooldown = 3.0
+width = 8.0
+trigger_cooldown = 6.0
 category = 2
 name = "Simple Laser"
 description = "--

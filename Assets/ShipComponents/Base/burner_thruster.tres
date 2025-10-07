@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="ShipThruster" load_steps=3 format=3 uid="uid://die46de8ofiu1"]
 
 [ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_ea5hx"]
-[ext_resource type="Script" uid="uid://bjn3qcowugx7q" path="res://Assets/ShipComponents/_Scripts/ship_thruster.gd" id="1_r3kel"]
+[ext_resource type="Script" uid="uid://bjn3qcowugx7q" path="res://Assets/ShipComponents/_Scripts/ship_thruster.gd" id="2_ole1u"]
 
 [resource]
-script = ExtResource("1_r3kel")
+script = ExtResource("2_ole1u")
 thrust = 1600.0
 name = "Burner Thruster"
 description = "--
@@ -14,4 +14,5 @@ misc_properties = Array[ExtResource("1_ea5hx")]([])
 sell_value = 0
 buy_value = 0
 random_extra_cost = 0
+is_basic = true
 metadata/_custom_type_script = "uid://bjn3qcowugx7q"

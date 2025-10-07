@@ -20,6 +20,7 @@ func _on_player_player_died() -> void:
 	killed_by_label.text = killed_by[%Player.death_source]
 	title_label.text = titles[randi() % len(titles)]
 	tip_label.text = tips[randi() % len(tips)]
+	score_label.text = "Score: " + Global.calculate_score(6)
 	
 	show()
 	

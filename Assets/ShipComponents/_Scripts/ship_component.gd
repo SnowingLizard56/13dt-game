@@ -7,6 +7,7 @@ class_name ShipComponent extends Resource
 @export var sell_value: int
 @export var buy_value: int
 @export var random_extra_cost: int
+@export var is_basic: bool = false
 
 
 func _installed(_ship: Ship):

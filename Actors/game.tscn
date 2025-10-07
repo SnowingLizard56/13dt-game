@@ -31,8 +31,8 @@ _data = {
 point_count = 5
 
 [sub_resource type="Gradient" id="Gradient_irjd8"]
-offsets = PackedFloat32Array(0.97006, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0.972056, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vj28"]
 bg_color = Color(0.0941176, 0.168627, 0.239216, 1)
@@ -135,7 +135,7 @@ script = ExtResource("6_cny57")
 loot_table = ExtResource("8_evbej")
 enemy_gen = NodePath("../../EnemyGen")
 
-[node name="Minimap" parent="Foreground/UI" node_paths=PackedStringArray("levelcontroller") instance=ExtResource("3_feb5d")]
+[node name="Minimap" parent="Foreground/UI" node_paths=PackedStringArray("levelcontroller", "target_parent") instance=ExtResource("3_feb5d")]
 layout_mode = 1
 offset_left = 848.0
 offset_top = 25.0
@@ -144,6 +144,7 @@ offset_bottom = -374.0
 zoom = 0.016
 levelcontroller = NodePath("../../..")
 follow_player = true
+target_parent = NodePath("../../..")
 
 [node name="ComponentControl" parent="Foreground/UI" instance=ExtResource("9_xycor")]
 process_mode = 2

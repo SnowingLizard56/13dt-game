@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="ShipHull" load_steps=3 format=3 uid="uid://cx6qjtcurogox"]
 
 [ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_cwg4c"]
-[ext_resource type="Script" uid="uid://na18bgp2ofyr" path="res://Assets/ShipComponents/_Scripts/ship_hull.gd" id="1_dkmxn"]
+[ext_resource type="Script" uid="uid://na18bgp2ofyr" path="res://Assets/ShipComponents/_Scripts/ship_hull.gd" id="2_gqcan"]
 
 [resource]
-script = ExtResource("1_dkmxn")
+script = ExtResource("2_gqcan")
 max_hp = 100.0
-damage_threshold = 5.0
 name = "Steel Hull"
 description = "--
 Simple hull made of galvanized square steel."
@@ -15,4 +14,5 @@ misc_properties = Array[ExtResource("1_cwg4c")]([])
 sell_value = 0
 buy_value = 0
 random_extra_cost = 0
+is_basic = true
 metadata/_custom_type_script = "uid://na18bgp2ofyr"

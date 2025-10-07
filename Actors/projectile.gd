@@ -114,3 +114,9 @@ func _draw() -> void:
 
 func calculate_damage(target: Node2D):
 	return Vector2(target.vx - vx, target.vy - vy).length_squared() ** 0.25 * mass
+
+
+func _ready() -> void:
+	scale = Vector2.ZERO
+	var t := get_tree().create_tween()
+	t.tween_property(self, "scale", Vector2.ONE, 0.1)
