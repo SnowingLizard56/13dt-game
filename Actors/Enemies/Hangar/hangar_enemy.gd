@@ -48,6 +48,7 @@ func _on_burst_timeout() -> void:
 	var position_offset := Vector2.from_angle(rotation) * SPAWN_DISTANCE + \
 		Vector2.from_angle(rotation + TAU / 4) * randf_range(-SPAWN_VARIATION, SPAWN_VARIATION)
 	
+	k.position = global_position
 	k.x = x + position_offset.x
 	k.y = y + position_offset.y
 	k.vx = vx + cos(rotation) * SPAWN_IV

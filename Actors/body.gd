@@ -17,6 +17,17 @@ var id: int:
 		id = v
 
 
+func _ready() -> void:
+	Global.root.level.body_collided.connect(_on_collision)
+
+
+func is_clear():
+	for i in get_children():
+		if i is Enemy:
+			return false
+	return true
+
+
 func set_prediction(index: int, pos: Vector2):
 	$Predictions.get_child(index - 1).position = pos
 
@@ -32,3 +43,15 @@ func crash_particles(angle: float):
 	emitter.emitting = true
 	emitter.finished.connect(emitter.queue_free)
 	add_child(emitter)
+
+
+func _on_collision(from: int, to: int):
+	if to == id:
+		# Prepare for expand
+		pass
+	elif from == id:
+		# Prepare for queue_free
+		#for i in get_children():
+			#if i is Enemy:
+				#i.reparent_body(to)
+		pass

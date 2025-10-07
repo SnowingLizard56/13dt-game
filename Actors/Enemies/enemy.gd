@@ -49,7 +49,6 @@ func _ready() -> void:
 		var body_dict: Dictionary = root.level.get_body(body_id)
 		rotation = randf() * TAU
 		position = Vector2.from_angle(rotation) * body_dict.r
-		root.level.body_collided.connect(_on_body_collided)
 
 
 func damage(amount: float) -> void:
@@ -59,19 +58,8 @@ func damage(amount: float) -> void:
 		return
 	hp -= amount
 	if hp <= DAMAGE_LEEWAY:
-		for i in death_particle_count:
-			if randf() < e127_proportion:
-				CollectParticle.new(
-					CollectParticle.Types.E127,
-					global_position,
-					randf_range(e127_value_range.x, e127_value_range.y))
-			else:
-				CollectParticle.new(
-					CollectParticle.Types.XP,
-					global_position,
-					randi_range(int(xp_value_range.x), int(xp_value_range.y)))
 		death.emit()
-		queue_free()
+		death_override()
 	else:
 		current_colour = FLASH_COLOUR
 		redraw.emit()
@@ -96,13 +84,25 @@ func _notification(what: int) -> void:
 		root.enemy_gen.total_enemies_alive -= 1
 
 
-func _on_body_collided(from: int, to: int):
-	if from == body_id:
-		var old: Dictionary = root.level.get_body(from)
-		rotation = Vector2(old.x, old.y).angle_to_point(Vector2(x, y))
-		body_id = to
-		var body_dict: Dictionary = root.level.get_body(body_id)
-		position = Vector2.from_angle(rotation) * body_dict.r
-	elif to == body_id:
-		var body_dict: Dictionary = root.level.get_body(body_id)
-		position = Vector2.from_angle(rotation) * body_dict.r
+func reparent_body(body: int):
+	var old: Dictionary = root.level.get_body(body_id)
+	rotation = Vector2(old.x, old.y).angle_to_point(Vector2(x, y))
+	body_id = body
+	var body_dict: Dictionary = root.level.get_body(body_id)
+	position = Vector2.from_angle(rotation) * body_dict.r
+	reparent(root.areas[body])
+
+
+func death_override():
+	for i in death_particle_count:
+		if randf() < e127_proportion:
+			CollectParticle.new(
+				CollectParticle.Types.E127,
+				global_position,
+				randf_range(e127_value_range.x, e127_value_range.y))
+		else:
+			CollectParticle.new(
+				CollectParticle.Types.XP,
+				global_position,
+				randi_range(int(xp_value_range.x), int(xp_value_range.y)))
+	queue_free()

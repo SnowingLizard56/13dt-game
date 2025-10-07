@@ -7,8 +7,9 @@ const INVINCIBILITY_TIME: float = 0.2
 
 signal player_died
 
-# Fun fact! floats are stored with double precision,
-# while floats that are part of Vector2s are single precision.
+# Fun fact! floats are stored with double precision.
+# However, floats that are part of Vector2s are single precision.
+# Though it didnt end up being necessary for my uses... oh well.
 var x: float = 750.0:
 	get():
 		if crashed:
@@ -46,6 +47,7 @@ enum DeathSource {
 	UNKNOWN = 1,
 	FLYING = 2,
 	CANNON = 3,
+	TENDRIL = 4,
 }
 
 @export var laser_scene: PackedScene
@@ -164,6 +166,8 @@ func damage(amount: float, source: int = 1):
 	if ship.hp <= 0:
 		if not source:
 			death_source = DeathSource.UNKNOWN
+		else:
+			death_source = source
 		generic_death()
 	hitbox.collision_layer = 0
 	await get_tree().create_timer(INVINCIBILITY_TIME).timeout

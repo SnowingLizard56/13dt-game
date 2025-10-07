@@ -19,6 +19,7 @@ const PROJECTILE_SPEED: float = 100
 const MAX_HP: float = 50
 const INACCURACY: float = 0.02 * TAU
 const SEPARATION: float = 50
+const KILL_DISTANCE: float = 4000
 
 @onready var path: Node2D = $PathPrediction
 
@@ -117,6 +118,8 @@ func _physics_process(delta: float) -> void:
 	position = Vector2(x - root.player.x, y - root.player.y)
 	
 	# Attempt Projectile Generation
+	if position.length_squared() > KILL_DISTANCE ** 2:
+		queue_free()
 	if position.length_squared() < PLAYER_STOP_APPROACHING ** 2 \
 	and position.length_squared() > PLAYER_RUN_AWAY ** 2:
 		time_until_shoot_attempt -= delta

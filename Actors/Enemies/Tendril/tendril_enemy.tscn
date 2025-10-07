@@ -1,21 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://belgn0dilp0qu"]
+[gd_scene load_steps=2 format=3 uid="uid://belgn0dilp0qu"]
 
 [ext_resource type="Script" uid="uid://bdv34gq4wl61f" path="res://Actors/Enemies/Tendril/tendril_enemy.gd" id="1_c1xxa"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_c1xxa"]
-
-[node name="Tendril Enemy" type="Node2D" groups=["enemies"]]
+[node name="Tendril Enemy" type="Node2D" node_paths=PackedStringArray("hitbox") groups=["enemies"]]
 z_index = -1
 script = ExtResource("1_c1xxa")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+hitbox = NodePath("Segments")
+death_particle_count = 12
+e127_proportion = 0.05
+xp_value_range = Vector2(3, 5)
+e127_value_range = Vector2(5, 10)
 
 [node name="Segments" type="Area2D" parent="."]
 collision_layer = 4
 
-[node name="Segment0" type="CollisionShape2D" parent="Segments"]
-shape = SubResource("SegmentShape2D_c1xxa")
-
 [connection signal="death" from="." to="." method="_on_death"]
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Segments" to="." method="_on_segments_area_entered"]

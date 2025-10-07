@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c3dl8amhu3pcq"]
+[gd_scene load_steps=28 format=3 uid="uid://c3dl8amhu3pcq"]
 
 [ext_resource type="Script" uid="uid://cefbhjfki8lhm" path="res://Actors/game_controller.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dy7y8ni7184re" path="res://Actors/Player/player.tscn" id="2_e2o6t"]
@@ -22,12 +22,17 @@
 [ext_resource type="Texture2D" uid="uid://bb16v5r2syk7p" path="res://Assets/InputIcons/T_Left_Key_White.png" id="20_rqbhw"]
 [ext_resource type="Texture2D" uid="uid://71qqh24yoer1" path="res://Assets/InputIcons/T_Right_Key_White.png" id="21_nkc3k"]
 [ext_resource type="Texture2D" uid="uid://v82ysdfxp7da" path="res://Assets/InputIcons/T_Mouse_XY_Key_White.png" id="22_l5tuw"]
+[ext_resource type="Script" uid="uid://bwtsu0be1xwen" path="res://Actors/pointer.gd" id="23_irjd8"]
 
 [sub_resource type="Curve2D" id="Curve2D_cny57"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -596, -344, 0, 0, 0, 0, -596, 344, 0, 0, 0, 0, 596, 344, 0, 0, 0, 0, 596, -344, 0, 0, 0, 0, -596, -344)
 }
 point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_irjd8"]
+offsets = PackedFloat32Array(0.97006, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vj28"]
 bg_color = Color(0.0941176, 0.168627, 0.239216, 1)
@@ -100,6 +105,22 @@ color = Color(0.0588235, 0.105882, 0.14902, 1)
 
 [node name="Foreground" type="CanvasLayer" parent="."]
 process_mode = 1
+
+[node name="Pointer" type="Control" parent="Foreground"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -569.0
+offset_top = -317.0
+offset_right = 568.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("23_irjd8")
+distance_modulate = SubResource("Gradient_irjd8")
 
 [node name="UI" type="Control" parent="Foreground" node_paths=PackedStringArray("enemy_gen")]
 unique_name_in_owner = true
@@ -228,7 +249,7 @@ again_button = NodePath("Panel/Again")
 panel = NodePath("Panel")
 titles = PackedStringArray("Game Over", "You Died", "Nice Try!", "Next Time!")
 tips = PackedStringArray("Dying is generally not optimal.", "Watch ad to respawn?\nYes      Dismiss", "You control acceleration, not velocity. There\'s no friction in space.", "Bullets deal more damage the faster they\'re going compared to their target.", "You will always start in orbit around a large planet.")
-killed_by = PackedStringArray("You crashed into a planet.", "You died by mysterious means…", "You were killed by an enemy starfighter.", "You were killed by an enemy cannon.")
+killed_by = PackedStringArray("You crashed into a planet.", "You died by mysterious means…", "You were killed by an enemy starfighter.", "You were killed by an enemy cannon.", "A mischievous tendril fricking GOT you.")
 
 [node name="DimBG" type="ColorRect" parent="Foreground/UI/DeathScreen"]
 layout_mode = 1

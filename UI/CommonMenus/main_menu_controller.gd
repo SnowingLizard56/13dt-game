@@ -202,5 +202,5 @@ func get_load_threaded_progress(path: String) -> float:
 
 func scene_switch():
 	Global.game_scene = ResourceLoader.load_threaded_get(Global.GAME_FILE_PATH)
-	Global.switch_scene(Global.game_scene)
+	Global.reset()
 	
