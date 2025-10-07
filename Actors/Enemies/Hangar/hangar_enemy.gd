@@ -11,7 +11,7 @@ const PTS: PackedVector2Array = [
 	Vector2(15, -15)
 ]
 const EMIT_COUNT_WEIGHTS: PackedFloat32Array = [
-	0, 10, 20, 10, 8, 4, 2, 1
+	0, 15, 17, 15, 6, 2, 1, 0.1
 ]
 
 var active: bool = false

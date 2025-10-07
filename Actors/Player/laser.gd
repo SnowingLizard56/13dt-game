@@ -1,9 +1,12 @@
 class_name Laser extends Node2D
 
 const COLOUR := Projectile.COLOUR
-@export var cast: ShapeCast2D
+const TICK_TIME := 0.3
+@export var cast: RayCast2D
+@export var coll: CollisionShape2D
+@export var hitbox: Area2D
 var weapon: LaserWeapon
-@onready var shape: RectangleShape2D = cast.shape
+@onready var shape: RectangleShape2D = coll.shape
 
 var width := 0.0:
 	get():
@@ -22,8 +25,13 @@ var active = true
 
 
 func _ready() -> void:
+	$Tick.wait_time = TICK_TIME
+	shape = RectangleShape2D.new()
+	coll.shape = shape
+	_process(0)
 	global_rotation = Global.aim.angle()
 	cast.position = CIRCLE_POS
+	
 	var t := get_tree().create_tween()
 	t.tween_property(self, "width", weapon.width, PHASE_1_TIME)
 	t.parallel().tween_property(self, "theta", TAU * (weapon.sustain + PHASE_3_TIME) / PERIOD,
@@ -32,30 +40,22 @@ func _ready() -> void:
 	active = false
 	t = get_tree().create_tween()
 	t.tween_property(self, "width", 0, PHASE_3_TIME)
-	queue_free()
+	t.tween_callback(queue_free)
 
 
 func _process(delta: float) -> void:
 	if active:
-		# Collisions, damage
-		laser_end = cast.target_position.x
-		for i in cast.get_collision_count():
-			var hit = cast.get_collider(i)
-			var target: Node = null
-			if hit:
-				target = hit.get_parent()
-			
-			if target is Enemy:
-				target.damage(delta * weapon.dps)
-			elif target is Body:
-				laser_end = to_local(cast.get_collision_point(i)).length() - CIRCLE_POS.x
-				break
+		laser_end = 1000
+		# Shaping
+		if cast.is_colliding():
+			laser_end = cast.get_collision_point().length()
+		coll.position = Vector2(shape.size.x / 2 + CIRCLE_POS.x, 0)
 		# Rotate
 		var diff := angle_difference(global_rotation, Global.aim.angle())
-		rotate(sign(diff) * min(abs(diff), weapon.rotate_speed * delta))
+		rotation_degrees += sign(diff) * min(abs(diff), weapon.rotate_speed * delta)
 	# Draw, Collision
 	queue_redraw()
-	shape.size.y = width
+	shape.size = Vector2(laser_end - CIRCLE_POS.x, width * 2)
 
 
 func _draw() -> void:
@@ -64,3 +64,13 @@ func _draw() -> void:
 		Rect2(CIRCLE_POS - Vector2(0, width), Vector2(laser_end, width * 2)),
 		COLOUR
 	)
+
+
+func by_distance(a: Enemy, b: Enemy):
+	return a.global_position.length_squared() <= b.global_position.length_squared()
+
+
+func _on_tick_timeout() -> void:
+	for i in hitbox.get_overlapping_areas().size():
+		var target: Enemy = hitbox.get_overlapping_areas()[i].get_parent()
+		target.damage(weapon.dps * TICK_TIME)

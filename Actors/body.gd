@@ -17,10 +17,6 @@ var id: int:
 		id = v
 
 
-func _ready() -> void:
-	Global.root.level.body_collided.connect(_on_collision)
-
-
 func is_clear():
 	for i in get_children():
 		if i is Enemy:
@@ -45,13 +41,11 @@ func crash_particles(angle: float):
 	add_child(emitter)
 
 
-func _on_collision(from: int, to: int):
-	if to == id:
-		# Prepare for expand
-		pass
-	elif from == id:
-		# Prepare for queue_free
-		#for i in get_children():
-			#if i is Enemy:
-				#i.reparent_body(to)
-		pass
+func release_enemies() -> Array[Enemy]:
+	# Prepare for queue_free
+	var out: Array[Enemy]
+	for i in get_children():
+		if i is Enemy:
+			remove_child(i)
+			out.append(i)
+	return out

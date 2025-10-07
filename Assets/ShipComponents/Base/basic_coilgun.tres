@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ProjectileWeapon" load_steps=4 format=3 uid="uid://c5jl81m7fc4vy"]
 
-[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/Scripts/ship_property_modifier.gd" id="1_48gtp"]
-[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/Scripts/Specialised/projectile_weapon.gd" id="2_4aekt"]
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_48gtp"]
+[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/_Scripts/Specialised/projectile_weapon.gd" id="2_4aekt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrker"]
 radius = 2.0

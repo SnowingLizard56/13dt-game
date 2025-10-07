@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Ship" load_steps=6 format=3 uid="uid://wwl8nb03jb0u"]
 
-[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/Scripts/ship_component.gd" id="1_ciwnx"]
+[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/_Scripts/ship_component.gd" id="1_k6olo"]
 [ext_resource type="Resource" uid="uid://c5jl81m7fc4vy" path="res://Assets/ShipComponents/Base/basic_coilgun.tres" id="2_p3wel"]
-[ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Assets/ShipComponents/Scripts/ship.gd" id="2_yi7b2"]
 [ext_resource type="Resource" uid="uid://die46de8ofiu1" path="res://Assets/ShipComponents/Base/burner_thruster.tres" id="3_k6olo"]
 [ext_resource type="Resource" uid="uid://cx6qjtcurogox" path="res://Assets/ShipComponents/Base/steel_hull.tres" id="4_c7d2e"]
+[ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Assets/ShipComponents/_Scripts/ship.gd" id="6_lke0h"]
 
 [resource]
-script = ExtResource("2_yi7b2")
-components = Array[ExtResource("1_ciwnx")]([ExtResource("2_p3wel"), ExtResource("3_k6olo"), ExtResource("4_c7d2e")])
+script = ExtResource("6_lke0h")
+components = Array[ExtResource("1_k6olo")]([ExtResource("2_p3wel"), ExtResource("3_k6olo"), ExtResource("4_c7d2e")])
 metadata/_custom_type_script = "uid://c46e5p1ib570o"

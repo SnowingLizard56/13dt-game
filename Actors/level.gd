@@ -2,7 +2,7 @@ class_name Level extends E127Controller
 
 const DENSITIES: PackedFloat64Array = [1.1e6, 1.3e6]
 const BIG_G: float = 6.67e-11
-const WELL_STRENGTH_CUTOFF: float = 0.2
+const WELL_STRENGTH_CUTOFF: float = 0.15
 
 
 var total_mass: float

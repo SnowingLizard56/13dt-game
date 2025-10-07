@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="ShipComponent" load_steps=7 format=3 uid="uid://stjpfq8ilohi"]
 
-[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/Scripts/ship_property_modifier.gd" id="1_ws2j8"]
-[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/Scripts/ship_component.gd" id="2_hfsxm"]
-[ext_resource type="Resource" uid="uid://bdx5xvi8u6mch" path="res://Assets/ShipComponents/Properties/luck.tres" id="2_ut5kk"]
-[ext_resource type="Resource" uid="uid://btj7nchmemu1s" path="res://Assets/ShipComponents/Properties/damage.tres" id="3_gjo43"]
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_ws2j8"]
+[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/_Scripts/ship_component.gd" id="2_hfsxm"]
+[ext_resource type="Resource" uid="uid://bdx5xvi8u6mch" path="res://Assets/ShipComponents/_Properties/luck.tres" id="2_ut5kk"]
+[ext_resource type="Resource" uid="uid://btj7nchmemu1s" path="res://Assets/ShipComponents/_Properties/damage.tres" id="3_gjo43"]
 
 [sub_resource type="Resource" id="Resource_jicb6"]
 script = ExtResource("1_ws2j8")

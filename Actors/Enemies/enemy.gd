@@ -90,7 +90,7 @@ func reparent_body(body: int):
 	body_id = body
 	var body_dict: Dictionary = root.level.get_body(body_id)
 	position = Vector2.from_angle(rotation) * body_dict.r
-	reparent(root.areas[body])
+	root.areas[body].add_child(self)
 
 
 func death_override():

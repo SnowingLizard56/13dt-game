@@ -1,20 +1,20 @@
 [gd_resource type="Resource" script_class="LaserWeapon" load_steps=3 format=3 uid="uid://dsu4tdx3pndg"]
 
-[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/Scripts/ship_property_modifier.gd" id="1_6dfpb"]
-[ext_resource type="Script" uid="uid://cxwp5y60c7hl1" path="res://Assets/ShipComponents/Scripts/Specialised/laser_weapon.gd" id="2_edv6j"]
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_6dfpb"]
+[ext_resource type="Script" uid="uid://cxwp5y60c7hl1" path="res://Assets/ShipComponents/_Scripts/Specialised/laser_weapon.gd" id="2_edv6j"]
 
 [resource]
 script = ExtResource("2_edv6j")
-dps = 20.0
+dps = 10.0
 sustain = 2.5
-rotate_speed = 90.0
+rotate_speed = 45.0
 width = 10.0
 trigger_cooldown = 3.0
 category = 2
 name = "Simple Laser"
 description = "--
 A simple high-power laser. Well, not *that* high-power."
-mass = 0.0
+mass = 10.0
 misc_properties = Array[ExtResource("1_6dfpb")]([])
 sell_value = 35
 buy_value = 50

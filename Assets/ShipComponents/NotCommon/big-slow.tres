@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ProjectileWeapon" load_steps=4 format=3 uid="uid://bdvvsydxnx2n5"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_yt3ej"]
+[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/_Scripts/Specialised/projectile_weapon.gd" id="2_vx780"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yt3ej"]
+radius = 30.0
+
+[resource]
+script = ExtResource("2_vx780")
+projectile_speed = 300.0
+projectile_shape = SubResource("CircleShape2D_yt3ej")
+projectile_mass = 40.0
+trigger_cooldown = 5.0
+category = 2
+name = "HMP-442"
+description = "--
+Fires a large, slow, high-mass projectiles."
+mass = 4.42
+misc_properties = Array[ExtResource("1_yt3ej")]([])
+sell_value = 130
+buy_value = 140
+random_extra_cost = 59
+metadata/_custom_type_script = "uid://dry63dly8f3dp"

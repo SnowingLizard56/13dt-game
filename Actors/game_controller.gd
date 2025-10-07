@@ -17,6 +17,7 @@ var predictions: Dictionary[int, Level] = {}
 
 var is_initial_areas_instantiated: bool = false
 signal initial_areas_instantiated
+var enemy_waitlist: Dictionary[int, Array] = {}
 
 @export var body_scene: PackedScene
 
@@ -68,6 +69,7 @@ func update_areas() -> void:
 			k.id = b.id
 			k.radius = b.r
 			entities.add_child(k)
+			put_enemies(b.id)
 		
 		areas[b.id].position = Vector2(b.x - player.x, b.y - player.y)
 		
@@ -79,7 +81,8 @@ func update_areas() -> void:
 		is_initial_areas_instantiated = true
 
 
-func delete_body_area(old_id: int, _new_id: int) -> void:
+func delete_body_area(old_id: int, new_id: int) -> void:
+	wait_enemies(areas[old_id].release_enemies(), new_id)
 	areas[old_id].queue_free()
 	areas.erase(old_id)
 
@@ -104,3 +107,18 @@ func get_prediction(pred_idx: int) -> Level:
 			Vector2(body_pred.x - body_real.x, body_pred.y - body_real.y)
 			)
 	return out
+
+
+func wait_enemies(enemies: Array[Enemy], id: int):
+	if not id in enemy_waitlist:
+		enemy_waitlist[id] = enemies
+	else:
+		enemy_waitlist[id].append_array(enemies)
+
+
+func put_enemies(id: int):
+	if not id in enemy_waitlist:
+		return
+	for e: Enemy in enemy_waitlist[id]:
+		e.reparent_body(id)
+	enemy_waitlist.erase(id)

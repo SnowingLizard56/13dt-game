@@ -1,19 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://0ki07udwa4vf"]
+[gd_scene load_steps=2 format=3 uid="uid://0ki07udwa4vf"]
 
 [ext_resource type="Script" uid="uid://bmqabmrvejj8g" path="res://Actors/Player/laser.gd" id="1_e4tcq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7fu1n"]
-size = Vector2(5, 20)
-
-[node name="Laser" type="Node2D" node_paths=PackedStringArray("cast")]
+[node name="Laser" type="Node2D" node_paths=PackedStringArray("cast", "coll", "hitbox")]
 z_index = -3
 script = ExtResource("1_e4tcq")
-cast = NodePath("ShapeCast2D")
+cast = NodePath("RayCast2D")
+coll = NodePath("Area2D/CollisionShape2D")
+hitbox = NodePath("Area2D")
 
-[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
-position = Vector2(45, 0)
-shape = SubResource("RectangleShape2D_7fu1n")
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(1000, 0)
-collision_mask = 6
+collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="Tick" type="Timer" parent="."]
+wait_time = 0.15
+autostart = true
+
+[connection signal="timeout" from="Tick" to="." method="_on_tick_timeout"]
