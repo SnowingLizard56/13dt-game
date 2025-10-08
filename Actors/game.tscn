@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c3dl8amhu3pcq"]
+[gd_scene load_steps=31 format=3 uid="uid://c3dl8amhu3pcq"]
 
 [ext_resource type="Script" uid="uid://cefbhjfki8lhm" path="res://Actors/game_controller.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dy7y8ni7184re" path="res://Actors/Player/player.tscn" id="2_e2o6t"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="13_cg6v3"]
 [ext_resource type="PackedScene" uid="uid://dlmalknb0ogn6" path="res://UI/CommonMenus/pause_menu.tscn" id="14_0ac54"]
 [ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="14_8vj28"]
+[ext_resource type="Script" uid="uid://c22k8tjjg7mvj" path="res://UI/rainbow_progress_bar.gd" id="14_a3c1q"]
 [ext_resource type="Script" uid="uid://6egkb8kxhwbb" path="res://UI/Battle/death_screen.gd" id="15_7ruru"]
 [ext_resource type="Script" uid="uid://bohe5wshno1ub" path="res://Actors/win_screen.gd" id="17_4yj1u"]
 [ext_resource type="Texture2D" uid="uid://dpmxa48jfm5da" path="res://Assets/InputIcons/T_Up_Key_White.png" id="18_smvxu"]
@@ -33,6 +34,18 @@ point_count = 5
 [sub_resource type="Gradient" id="Gradient_irjd8"]
 offsets = PackedFloat32Array(0.972056, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_a3c1q"]
+offsets = PackedFloat32Array(0, 0.143, 0.286, 0.429, 0.571, 0.714, 0.857, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.498039, 0, 1, 1, 1, 0, 1, 0.498039, 1, 0, 1, 0, 0.498039, 1, 1, 0.498039, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_46t3c"]
+gradient = SubResource("Gradient_a3c1q")
+width = 1152
+height = 11
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(1.5, 0)
+repeat = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vj28"]
 bg_color = Color(0.0941176, 0.168627, 0.239216, 1)
@@ -203,6 +216,20 @@ grow_vertical = 2
 theme_type_variation = &"LevelUpBar"
 show_percentage = false
 
+[node name="Rainbow" type="TextureProgressBar" parent="Foreground/UI/UpgradeBar/ProgressBar"]
+process_mode = 2
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+texture_progress = SubResource("GradientTexture2D_46t3c")
+script = ExtResource("14_a3c1q")
+
 [node name="TriggerCooldowns" type="VFlowContainer" parent="Foreground/UI"]
 layout_mode = 1
 anchors_preset = 9
@@ -249,7 +276,7 @@ quit_button = NodePath("Panel/Quit")
 again_button = NodePath("Panel/Again")
 panel = NodePath("Panel")
 titles = PackedStringArray("Game Over", "You Died", "Nice Try!", "Next Time!", "Rough.", "RIP")
-tips = PackedStringArray("Dying is generally not optimal.", "Watch ad to respawn?\nYes      Dismiss", "You control acceleration, not velocity. There\'s no friction in space.", "Bullets deal more damage the faster they\'re going compared to their target.", "You will always start in orbit around a large planet.", "127 is a prime number.\nIt\'s also 1 less than 2^7.")
+tips = PackedStringArray("Dying is generally not optimal.", "Watch ad to respawn?\nYes      Dismiss", "You control acceleration, not velocity. There\'s no friction in space.", "Bullets deal more damage the faster they\'re going compared to their target.", "You will always start in orbit around a large planet.", "127 is a prime number.\nIt\'s also 1 less than 2^7.", "It takes as long to decelerate as it does to accelerate.", "Stay in control.", "If your acceleration is too low, you\'ll be at the whims of gravity.", "Stay reactive.")
 killed_by = PackedStringArray("You crashed into a planet.", "You died by mysterious means…", "You were killed by an enemy starfighter.", "You were killed by an enemy cannon.", "A mischievous tendril fricking GOT you.")
 
 [node name="DimBG" type="ColorRect" parent="Foreground/UI/DeathScreen"]
@@ -516,6 +543,7 @@ color = Color(0.0588235, 0.105882, 0.14902, 1)
 [connection signal="timeout" from="EnemyGen/FlyingEnemySpawnAttemptTimer" to="EnemyGen" method="_on_flying_enemy_spawn_attempt_timer_timeout"]
 [connection signal="player_died" from="Player" to="Foreground/UI/DeathScreen" method="_on_player_player_died"]
 [connection signal="continue_pressed" from="Foreground/UI/ComponentControl" to="Foreground/UI" method="level_up_finalised"]
+[connection signal="continue_pressed" from="Foreground/UI/ComponentControl" to="Foreground/UI/UpgradeBar/ProgressBar/Rainbow" method="_on_component_control_continue_pressed"]
 [connection signal="pressed" from="Foreground/UI/DeathScreen/Panel/Quit" to="Foreground/UI/DeathScreen" method="_on_quit_pressed"]
 [connection signal="pressed" from="Foreground/UI/DeathScreen/Panel/Again" to="Foreground/UI/DeathScreen" method="_on_again_pressed"]
 [connection signal="pressed" from="Foreground/UI/WinScreen/ButtonMarker/Continue" to="Foreground/UI/WinScreen" method="_on_continue_pressed"]

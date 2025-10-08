@@ -14,8 +14,7 @@ metadata/_custom_type_script = "uid://cd5jy5orofv6u"
 [resource]
 script = ExtResource("2_l7d12")
 name = "Four-Leaf Panel"
-description = "--
-Bears the insignia of the Sylvian. Thought to bring good luck."
+description = "Bears the insignia of the Sylvian. Thought to bring good luck."
 mass = 4.0
 misc_properties = Array[ExtResource("1_4ru1k")]([SubResource("Resource_jicb6")])
 sell_value = 7

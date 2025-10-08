@@ -14,8 +14,7 @@ projectile_mass = 40.0
 trigger_cooldown = 10.0
 category = 2
 name = "HMP-442"
-description = "--
-Fires a large, slow, high-mass projectiles."
+description = "Fires a large, slow, high-mass projectiles."
 mass = 4.42
 misc_properties = Array[ExtResource("1_yt3ej")]([])
 sell_value = 130

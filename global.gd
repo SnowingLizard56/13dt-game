@@ -146,3 +146,10 @@ func calculate_score(digits: int) -> String:
 	var score_str: String = str(score)
 	score_str = "0".repeat(digits - len(score_str)) + score_str
 	return score_str
+
+
+func trigger_level_up(v: float, cutoff: float, time: float=0):
+	await get_tree().create_timer(time).timeout
+	player_xp += v - cutoff
+	player_level += 1
+	level_up.emit()

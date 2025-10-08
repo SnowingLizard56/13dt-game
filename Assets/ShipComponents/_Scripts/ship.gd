@@ -19,7 +19,6 @@ var thrust: float = 0
 var mass: float = 0
 var max_hp: float = 0
 
-# ther stuff
 var acceleration: float = 0
 var hp: float = 0
 var misc_properties: Dictionary[StringName, ShipProperty] = {}

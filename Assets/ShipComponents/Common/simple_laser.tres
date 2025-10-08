@@ -12,11 +12,11 @@ width = 8.0
 trigger_cooldown = 6.0
 category = 2
 name = "Simple Laser"
-description = "--
-A simple high-power laser. Well, not *that* high-power."
+description = "A simple high-power laser. Well, not *that* high-power."
 mass = 10.0
 misc_properties = Array[ExtResource("1_6dfpb")]([])
 sell_value = 35
 buy_value = 50
 random_extra_cost = 10
+is_basic = false
 metadata/_custom_type_script = "uid://cxwp5y60c7hl1"

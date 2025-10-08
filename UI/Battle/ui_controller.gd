@@ -1,9 +1,11 @@
 extends Control
 
+const XP_UPDATE_TIME := 0.2
 @onready var hp_bar: ProgressBar = $HealthBar/Health
 @onready var buffer_bar: ProgressBar = $HealthBar/Buffer
 @onready var currency_display: CurrencyDisplay = $"CurrencyDisplay"
 @onready var xp_display: ProgressBar = $UpgradeBar/ProgressBar
+@onready var xp_display2: TextureProgressBar = $UpgradeBar/ProgressBar/Rainbow
 @onready var component_control: ComponentControl = $"ComponentControl"
 @onready var player: Player = %Player
 @onready var win_screen: Control = $WinScreen
@@ -14,6 +16,7 @@ extends Control
 var hp_tween: Tween
 var xp_tween: Tween
 var win_triggered: bool = false
+var triggered_levelup: bool = false
 
 
 func _ready() -> void:
@@ -50,24 +53,25 @@ func add_xp(v: float):
 	
 	var cutoff = (POINT_Y - MINIMUM) / POINT_X * Global.player_level + MINIMUM
 	if cutoff - Global.player_xp < v:
-		Global.player_xp += v - cutoff
-		Global.player_level += 1
-		Global.level_up.emit()
+		if not triggered_levelup:
+			triggered_levelup = true
+			Global.trigger_level_up(v, cutoff, XP_UPDATE_TIME)
 	else:
-		Global.player_xp += v
+		triggered_levelup = false
+	Global.player_xp += v
 	
 	update_xp_display(Global.player_xp, cutoff)
 
 
 func update_xp_display(val: float, maxval: float):
-	const UPDATE_TIME := 0.2
-	
 	xp_display.max_value = maxval
+	xp_display2.max_value = maxval
 	
 	if xp_tween:
 		xp_tween.kill()
 	xp_tween = get_tree().create_tween()
-	xp_tween.tween_property(xp_display, "value", val, UPDATE_TIME)
+	xp_tween.tween_property(xp_display, "value", val, XP_UPDATE_TIME)
+	xp_tween.parallel().tween_property(xp_display2, "value", val, XP_UPDATE_TIME)
 
 
 func give_level_up_reward():
@@ -90,12 +94,12 @@ func _process(_delta: float) -> void:
 	if not win_triggered and enemy_gen.total_enemies_alive == 0:
 		win_triggered = true
 		win_screen.start()
-		
 
 
 func level_up_finalised() -> void:
 	component_control.finish()
 	Engine.time_scale = 0.0
+	add_xp(0)
 	var t: Tween = get_tree().create_tween()
 	t.set_ignore_time_scale(true)
 	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
@@ -104,3 +108,4 @@ func level_up_finalised() -> void:
 	t.tween_callback(component_control.hide)
 	t.tween_callback(get_tree().set.bind(&"paused", false))
 	t.tween_property(Engine, "time_scale", 1.0, 1.0)
+	
