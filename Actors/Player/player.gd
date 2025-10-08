@@ -32,6 +32,7 @@ var ship: Ship = null
 @export var thrust: CPUParticles2D
 @onready var hitbox: Area2D = $Hitbox
 @export var rotate_container: Node2D
+@export var death_particles: CPUParticles2D
 
 var trigger_queue: PackedInt32Array = []
 var trigger_timer_queue: PackedFloat32Array = []
@@ -135,6 +136,8 @@ func grav_and_move(delta):
 
 
 func _draw() -> void:
+	if is_dead:
+		return
 	var sq_pts: PackedVector2Array = [
 		Vector2(SPRITE_RADIUS, SPRITE_RADIUS),
 		Vector2(-SPRITE_RADIUS, SPRITE_RADIUS),
@@ -178,7 +181,9 @@ func generic_death():
 	is_dead = true
 	player_died.emit()
 	hitbox.get_child(0).set_deferred(&"disabled", true)
-	hide()
+	if death_source != DeathSource.PLANET:
+		death_particles.emitting = true
+	queue_redraw()
 
 
 func make_laser(weapon: LaserWeapon):

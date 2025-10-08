@@ -21,4 +21,5 @@ misc_properties = Array[ExtResource("1_yt3ej")]([])
 sell_value = 130
 buy_value = 140
 random_extra_cost = 59
+is_basic = false
 metadata/_custom_type_script = "uid://dry63dly8f3dp"
