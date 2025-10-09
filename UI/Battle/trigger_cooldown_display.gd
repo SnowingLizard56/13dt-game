@@ -28,7 +28,6 @@ func _ready() -> void:
 	await Global.frame_next
 	root.player.ship.components_updated.connect(link_component)
 	link_component()
-	texture_rect.show()
 
 
 func _draw() -> void:
@@ -66,6 +65,7 @@ func link_component():
 	
 	if component.category != TriggerComponent.Category.NONE:
 		get_child(component.category).show()
+	texture_rect.show()
 
 
 func _process(_delta: float) -> void:

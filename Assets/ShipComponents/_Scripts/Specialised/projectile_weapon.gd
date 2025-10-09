@@ -3,6 +3,7 @@ class_name ProjectileWeapon extends TriggerComponent
 @export var projectile_speed: float
 @export var projectile_shape: Shape2D
 @export var projectile_mass: float
+@export var cause_particles_planet: bool = false
 
 
 func _trigger(player: Player, ship: Ship):
@@ -13,7 +14,8 @@ func _trigger(player: Player, ship: Ship):
 		Global.aim.x * projectile_speed,
 		Global.aim.y * projectile_speed,
 		projectile_shape,
-		projectile_mass
+		projectile_mass,
+		cause_particles_planet
 		)
 	super(player, ship)
 

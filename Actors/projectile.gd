@@ -2,6 +2,7 @@ class_name Projectile extends Area2D
 
 const COLOUR = Color.RED
 const CULLING_DISTANCE: float = 4096
+const FLYING_ENEMY_MASS: float = 5600
 
 var x: float
 var y: float
@@ -52,6 +53,16 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1, ca
 	mass = m
 	is_enemy = src is Enemy
 	trigger_particles = cause_planet_particles
+	# Recoil
+	var recoil_factor: float = 0.
+	if src is FlyingEnemy:
+		recoil_factor = -m / FLYING_ENEMY_MASS
+	elif src is Player:
+		recoil_factor = -m / (src.ship.mass * 1000)
+	if recoil_factor != 0.0:
+		src.vx += dvx * recoil_factor
+		src.vy += dvy * recoil_factor
+	
 
 
 func _physics_process(delta: float) -> void:

@@ -89,7 +89,6 @@ func give_level_up_reward():
 	t.parallel().tween_property(component_control.for_moving, "position", Vector2.ZERO, 1.0).set_trans(Tween.TRANS_QUAD)
 
 
-
 func _process(_delta: float) -> void:
 	if not win_triggered and enemy_gen.total_enemies_alive == 0:
 		win_triggered = true
