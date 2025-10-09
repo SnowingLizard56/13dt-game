@@ -5,7 +5,6 @@ const XP_UPDATE_TIME := 0.2
 @onready var buffer_bar: ProgressBar = $HealthBar/Buffer
 @onready var currency_display: CurrencyDisplay = $"CurrencyDisplay"
 @onready var xp_display: ProgressBar = $UpgradeBar/ProgressBar
-@onready var xp_display2: TextureProgressBar = $UpgradeBar/ProgressBar/Rainbow
 @onready var component_control: ComponentControl = $"ComponentControl"
 @onready var player: Player = %Player
 @onready var win_screen: Control = $WinScreen
@@ -65,13 +64,11 @@ func add_xp(v: float):
 
 func update_xp_display(val: float, maxval: float):
 	xp_display.max_value = maxval
-	xp_display2.max_value = maxval
 	
 	if xp_tween:
 		xp_tween.kill()
 	xp_tween = get_tree().create_tween()
 	xp_tween.tween_property(xp_display, "value", val, XP_UPDATE_TIME)
-	xp_tween.parallel().tween_property(xp_display2, "value", val, XP_UPDATE_TIME)
 
 
 func give_level_up_reward():
@@ -107,4 +104,3 @@ func level_up_finalised() -> void:
 	t.tween_callback(component_control.hide)
 	t.tween_callback(get_tree().set.bind(&"paused", false))
 	t.tween_property(Engine, "time_scale", 1.0, 1.0)
-	

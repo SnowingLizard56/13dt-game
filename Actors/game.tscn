@@ -218,7 +218,6 @@ show_percentage = false
 
 [node name="Rainbow" type="TextureProgressBar" parent="Foreground/UI/UpgradeBar/ProgressBar"]
 process_mode = 2
-visible = false
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -226,7 +225,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-value = 50.0
+max_value = 1.0
+value = 1.0
 texture_progress = SubResource("GradientTexture2D_46t3c")
 script = ExtResource("14_a3c1q")
 

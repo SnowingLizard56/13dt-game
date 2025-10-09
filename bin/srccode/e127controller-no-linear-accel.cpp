@@ -148,30 +148,16 @@ void E127Controller::naive_step(double delta) {
             // Collision check
             double dr = (bodies[i].r < bodies[j].r ? bodies[j].r - bodies[i].r : bodies[i].r - bodies[j].r) + 2;
             // Do square/cube check then do square distance check
-            if (abs(dx) < dr && abs(dy) < dr && dx*dx + dy*dy < dr*dr) {
+            if (dx < dr && dy < dr && dx*dx + dy*dy < dr*dr) {
                 collisions.push_back(i);
                 collisions.push_back(j);
                 continue;
             }
-            // Using the similar triangles present in the vector calculation
-            double axis_cf_denom = total_scale * delta * pow(dx*dx + dy*dy, -1.5);
-            
-            double b1_axis_cf;
-            // if distance is less than radius
-            if (dx*dx+dy*dy < bodies[j].r*bodies[j].r) {
-                // coeffecient = sqrt(mG/R^3) w/ scale factors
-                b1_axis_cf = sqrt(bodies[j].m * 6.6734E-11 * mass_scale * pow(bodies[j].r * distance_scale, -3.0)) * delta;
-            } else {
-                // otherwise its normal
-                b1_axis_cf = bodies[j].m * axis_cf_denom;
-            }
 
-            double b2_axis_cf;
-            if (dx*dx+dy*dy < bodies[i].r*bodies[i].r) {
-                b2_axis_cf = sqrt(bodies[i].m * 6.6734E-11 * mass_scale * pow(bodies[i].r * distance_scale, -3.0)) * delta;
-            } else {
-                b2_axis_cf = bodies[i].m * axis_cf_denom;
-            }
+            // Using the similar triangles present in the vector calculation
+            double axis_cf_denom = pow(dx*dx + dy*dy, -1.5);
+            double b1_axis_cf = delta * bodies[j].m * axis_cf_denom * total_scale;
+            double b2_axis_cf = delta * bodies[i].m * axis_cf_denom * total_scale;
             // Apply acceleration for body 2
             bodies[j].vx += b2_axis_cf * dx;
             bodies[j].vy += b2_axis_cf * dy;
@@ -510,7 +496,7 @@ Dictionary E127Controller::barnes_hut_probe(double delta, double x, double y, do
             }
         }
         // Using the similar triangles present in the vector calculation
-        double axis_cf = delta * delta * n.m * pow(dx*dx + dy*dy, -1.5) * total_scale;
+        double axis_cf = delta * n.m * pow(dx*dx + dy*dy, -1.5) * total_scale;
         // Apply acceleration
         ax += axis_cf * dx;
         ay += axis_cf * dy;
