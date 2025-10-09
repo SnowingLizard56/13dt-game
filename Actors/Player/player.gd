@@ -46,6 +46,7 @@ var is_dead: bool = false
 var crashed: bool = false
 var crashed_body: int
 var crashed_offset: Vector2
+var damage_hook: Array[Callable]
 
 var death_source: DeathSource
 enum DeathSource {
@@ -171,6 +172,10 @@ func _on_area_entered(area: Area2D) -> void:
 func damage(amount: float, source: int = 1):
 	if invincible and source != DeathSource.PLANET:
 		return
+	for f in damage_hook:
+		if f.call(amount, source):
+			return
+		
 	flash(DAMAGE_FLASH_TIME)
 	if ship.hp - amount <= DAMAGE_LEEWAY and ship.hp > 1:
 		ship.hp = 1.0

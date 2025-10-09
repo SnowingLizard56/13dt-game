@@ -51,7 +51,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if get_tree().paused:
 		pass
-	else:
+	else:	
 		level.naive_step(delta * Global.time_scale)
 		predictions = {0: level}
 		game_rect.position = Vector2(player.x, player.y) - game_rect.size / 2

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Shield" load_steps=3 format=3 uid="uid://vxbmyjcqlcen"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_wndqm"]
+[ext_resource type="Script" uid="uid://ccck1jm3ubbss" path="res://Assets/ShipComponents/_Scripts/Specialised/shield.gd" id="2_vt6ds"]
+
+[resource]
+script = ExtResource("2_vt6ds")
+effect_duration = 3.0
+trigger_cooldown = 8.0
+category = 0
+name = "Faulty Shield Core"
+description = "Blocks one attack within the duration. Handy in a pinch."
+mass = 6.7
+misc_properties = Array[ExtResource("1_wndqm")]([])
+sell_value = 34
+buy_value = 69
+random_extra_cost = 12
+is_basic = false
+metadata/_custom_type_script = "uid://ccck1jm3ubbss"
