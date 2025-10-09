@@ -218,6 +218,7 @@ show_percentage = false
 
 [node name="Rainbow" type="TextureProgressBar" parent="Foreground/UI/UpgradeBar/ProgressBar"]
 process_mode = 2
+visible = false
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -276,7 +277,7 @@ quit_button = NodePath("Panel/Quit")
 again_button = NodePath("Panel/Again")
 panel = NodePath("Panel")
 titles = PackedStringArray("Game Over", "You Died", "Nice Try!", "Next Time!", "Rough.", "RIP")
-tips = PackedStringArray("Dying is generally not optimal.", "Watch ad to respawn?\nYes      Dismiss", "You control acceleration, not velocity. There\'s no friction in space.", "Bullets deal more damage the faster they\'re going compared to their target.", "You will always start in orbit around a large planet.", "127 is a prime number.\nIt\'s also 1 less than 2^7.", "It takes as long to decelerate as it does to accelerate.", "Stay in control.", "If your acceleration is too low, you\'ll be at the whims of gravity.", "Stay reactive.")
+tips = PackedStringArray("Dying is generally not optimal.", "Watch ad to respawn?\nYes      Dismiss", "You control acceleration, not velocity. There\'s no friction in space.", "Bullets deal more damage the faster they\'re going compared to their target.", "You will always start in orbit around a large planet.", "127 is a prime number.\nIt\'s also 1 less than 2^7.", "It takes as long to decelerate as it does to accelerate.", "Stay in control.", "If your acceleration is too low, you\'ll be at the whims of gravity.", "Stay reactive.", "When worlds collide... Enemies survive.", "It can be difficult to tell how effective your thrust is in practice.", "Crashing into a planet will kill you. Every time.")
 killed_by = PackedStringArray("You crashed into a planet.", "You died by mysterious means…", "You were killed by an enemy starfighter.", "You were killed by an enemy cannon.", "A mischievous tendril fricking GOT you.")
 
 [node name="DimBG" type="ColorRect" parent="Foreground/UI/DeathScreen"]
