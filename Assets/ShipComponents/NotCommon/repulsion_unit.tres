@@ -7,6 +7,7 @@
 script = ExtResource("2_a0jni")
 range = 100.0
 effect_duration = 2.0
+damage = 20.0
 trigger_cooldown = 16.0
 category = 0
 name = "Repulsion Unit"

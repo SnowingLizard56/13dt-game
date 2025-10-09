@@ -160,15 +160,15 @@ void E127Controller::naive_step(double delta) {
             // if distance is less than radius
             if (dx*dx+dy*dy < bodies[j].r*bodies[j].r) {
                 // coeffecient = sqrt(mG/R^3) w/ scale factors
-                b1_axis_cf = sqrt(bodies[j].m * 6.6734E-11 * mass_scale * pow(bodies[j].r * distance_scale, -3.0)) * delta;
+                b1_axis_cf = bodies[j].m * 6.6734E-11 * mass_scale * pow(bodies[j].r * distance_scale, -3.0) * delta;
             } else {
                 // otherwise its normal
-                b1_axis_cf = bodies[j].m * axis_cf_denom;
+                b1_axis_cf = bodies[j].m * axis_cf_denom; 
             }
 
             double b2_axis_cf;
             if (dx*dx+dy*dy < bodies[i].r*bodies[i].r) {
-                b2_axis_cf = sqrt(bodies[i].m * 6.6734E-11 * mass_scale * pow(bodies[i].r * distance_scale, -3.0)) * delta;
+                b2_axis_cf = bodies[i].m * 6.6734E-11 * mass_scale * pow(bodies[i].r * distance_scale, -3.0) * delta;
             } else {
                 b2_axis_cf = bodies[i].m * axis_cf_denom;
             }

@@ -7,6 +7,7 @@ var hb: Area2D
 var player_ref: Player
 @export var range: float
 @export var effect_duration: float
+@export var damage: float
 
 
 func _trigger(player: Player, ship: Ship):
@@ -18,7 +19,8 @@ func _trigger(player: Player, ship: Ship):
 	# Make icon
 	hb = Area2D.new()
 	hb.collision_layer = 0
-	hb.collision_mask = 8
+	# 12 = 8 + 4 = projectiles + enemies
+	hb.collision_mask = 12
 	hb.area_entered.connect(_on_area_entered)
 	player.add_child(hb)
 	var coll := CollisionShape2D.new()
@@ -44,8 +46,13 @@ func _on_area_entered(area: Area2D):
 		area.is_enemy = false
 		area.vx -= 3 * (area.vx - player_ref.vx)
 		area.vy -= 3 * (area.vy - player_ref.vy)
+	elif area.get_parent() is Enemy:
+		var target: Enemy = area.get_parent()
+		target.damage(damage)
 
 
 func _get_stat_string() -> String:
 	return """Effect Duration: {effect_duration} s
+	Range: {range} px
+	Energy Output: {damage} J																	
 	""" + super()
