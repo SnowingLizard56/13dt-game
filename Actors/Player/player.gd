@@ -4,6 +4,9 @@ const SPRITE_RADIUS: int = 5
 const DAMAGE_LEEWAY: float = 1.7
 const MAX_ROTATION_SPEED: float = TAU * 0.5
 const INVINCIBILITY_TIME: float = 0.2
+const PLAYER_COLOUR := Color(0.12549, 0.647059, 0.65098, 1)
+const FLASH_COLOUR := Color.WHITE
+const DAMAGE_FLASH_TIME := 0.1
 
 signal player_died
 
@@ -26,6 +29,8 @@ var vx: float = 0.0
 var vy: float = 0.0
 
 var level: Level
+var invincible: bool
+var current_colour: Color = PLAYER_COLOUR
 
 var ship: Ship = null
 @onready var ui: Control = %UI
@@ -53,6 +58,8 @@ enum DeathSource {
 
 @export var laser_scene: PackedScene
 
+var flash_tween: Tween
+
 
 func add_to_trigger_queue(id: int):
 	if not id in trigger_queue:
@@ -67,6 +74,7 @@ func _ready() -> void:
 	# This is so weird but it works whatever
 	ship = Global.get(&"player_ship")
 	ship.set_components()
+	invincible = true
 
 
 func _process(delta: float) -> void:
@@ -144,7 +152,7 @@ func _draw() -> void:
 		Vector2(-SPRITE_RADIUS, -SPRITE_RADIUS),
 		Vector2(SPRITE_RADIUS, -SPRITE_RADIUS)
 	]
-	draw_colored_polygon(sq_pts, Color("20a5a6"))
+	draw_colored_polygon(sq_pts, current_colour)
 
 
 func _on_area_entered(area: Area2D) -> void:
@@ -161,6 +169,9 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func damage(amount: float, source: int = 1):
+	if invincible and source != DeathSource.PLANET:
+		return
+	flash(DAMAGE_FLASH_TIME)
 	if ship.hp - amount <= DAMAGE_LEEWAY and ship.hp > 1:
 		ship.hp = 1.0
 	else:
@@ -190,3 +201,20 @@ func make_laser(weapon: LaserWeapon):
 	var k: Laser = laser_scene.instantiate()
 	k.weapon = weapon
 	rotate_container.add_child(k)
+
+
+func _on_invincibility_timeout_timeout() -> void:
+	invincible = false
+	$InvincibilityFlash.stop()
+
+
+func flash(time: float):
+	if flash_tween:
+		flash_tween.kill()
+	
+	flash_tween = get_tree().create_tween()
+	flash_tween.tween_callback(func(): current_colour = FLASH_COLOUR)
+	flash_tween.tween_callback(queue_redraw)
+	flash_tween.tween_interval(time)
+	flash_tween.tween_callback(func(): current_colour = PLAYER_COLOUR)
+	flash_tween.tween_callback(queue_redraw)
