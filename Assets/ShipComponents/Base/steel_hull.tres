@@ -7,11 +7,10 @@
 script = ExtResource("2_gqcan")
 max_hp = 100.0
 name = "Steel Hull"
-description = "--
-Simple hull made of galvanized square steel."
+description = "Simple hull made of galvanized square steel."
 mass = 10.0
 misc_properties = Array[ExtResource("1_cwg4c")]([])
-sell_value = 0
+sell_value = 999
 buy_value = 0
 random_extra_cost = 0
 is_basic = true

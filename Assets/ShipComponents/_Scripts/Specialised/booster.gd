@@ -14,7 +14,7 @@ func _trigger(player: Player, ship: Ship):
 	Global.root.player.vy +=  Global.aim.y * kick_time * extra_thrust
 	
 	ship.thrust_modifier += extra_thrust
-	await Global.get_tree().create_timer(duration).timeout
+	await timer.timeout
 	ship.thrust_modifier -= extra_thrust
 
 

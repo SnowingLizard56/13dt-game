@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="RepulsionUnit" load_steps=3 format=3 uid="uid://chm5sc3ppjbr8"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_cenoo"]
+[ext_resource type="Script" uid="uid://b0p033g44k3il" path="res://Assets/ShipComponents/_Scripts/Specialised/repulsion_unit.gd" id="2_a0jni"]
+
+[resource]
+script = ExtResource("2_a0jni")
+range = 100.0
+effect_duration = 2.0
+trigger_cooldown = 16.0
+category = 0
+name = "Repulsion Unit"
+description = "Reflects all incoming projectiles. Slow to recharge."
+mass = 6.0
+misc_properties = Array[ExtResource("1_cenoo")]([])
+sell_value = 140
+buy_value = 230
+random_extra_cost = 50
+is_basic = false
+metadata/_custom_type_script = "uid://b0p033g44k3il"

@@ -25,7 +25,7 @@ func _trigger(player: Player, ship: Ship):
 	var t := player.get_tree().create_tween()
 	t.tween_property(icon, "scale", Vector2.ONE, ACTI_TIME)
 	player.damage_hook.append(damage_hook)
-	await player.get_tree().create_timer(effect_duration).timeout
+	await player.get_tree().create_timer(effect_duration, false).timeout
 	if icon:
 		t = player.get_tree().create_tween()
 		t.tween_property(icon, "scale", Vector2.ZERO, ACTI_TIME)

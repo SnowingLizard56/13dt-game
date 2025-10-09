@@ -16,7 +16,7 @@ enum Category {
 
 func _trigger(player: Player, _ship: Ship):
 	trigger_ready = false
-	timer = player.get_tree().create_timer(trigger_cooldown)
+	timer = player.get_tree().create_timer(trigger_cooldown, false)
 	await timer.timeout
 	trigger_ready = true
 	timer = null

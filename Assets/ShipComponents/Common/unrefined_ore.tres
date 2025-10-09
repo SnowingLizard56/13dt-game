@@ -7,10 +7,10 @@
 script = ExtResource("2_4biyn")
 name = "Rare Metals"
 description = "Useless for our purposes. Might sell for something."
-mass = 10.0
+mass = 4.0
 misc_properties = Array[ExtResource("1_7wf1v")]([])
-sell_value = 100
-buy_value = -50
-random_extra_cost = 6
+sell_value = 127
+buy_value = -63
+random_extra_cost = -1
 is_basic = false
 metadata/_custom_type_script = "uid://bvhobxwrsqcti"

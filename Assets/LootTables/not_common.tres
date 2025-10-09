@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ddyfayvy5r4u6" path="res://Assets/LootTables/loot_table.gd" id="1_mo57r"]
 [ext_resource type="Resource" uid="uid://ck5bie47363cg" path="res://Assets/ShipComponents/NotCommon/eight-leaf_panel.tres" id="2_c858m"]
-[ext_resource type="Resource" uid="uid://deyxdwl06ikyl" path="res://Assets/ShipComponents/NotCommon/impure_e127.tres" id="3_fdfdx"]
+[ext_resource type="Resource" uid="uid://chm5sc3ppjbr8" path="res://Assets/ShipComponents/NotCommon/repulsion_unit.tres" id="3_fdfdx"]
 [ext_resource type="Resource" uid="uid://bdvvsydxnx2n5" path="res://Assets/ShipComponents/NotCommon/big-slow.tres" id="4_fdfdx"]
 
 [sub_resource type="Resource" id="Resource_jjdcp"]

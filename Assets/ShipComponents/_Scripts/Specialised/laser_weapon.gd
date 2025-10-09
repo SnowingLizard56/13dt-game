@@ -12,7 +12,7 @@ func _trigger(player: Player, ship: Ship):
 	trigger_ready = false
 	# Make laser
 	player.make_laser(self)
-	await player.get_tree().create_timer(sustain).timeout
+	await player.get_tree().create_timer(sustain, false).timeout
 	super(player, ship)
 
 

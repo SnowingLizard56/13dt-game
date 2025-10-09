@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ProjectileWeapon" load_steps=4 format=3 uid="uid://bc7iuhladgamu"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_3rcdo"]
+[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/_Scripts/Specialised/projectile_weapon.gd" id="2_cf45k"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrker"]
+radius = 2.0
+height = 10.0
+
+[resource]
+script = ExtResource("2_cf45k")
+projectile_speed = 600.0
+projectile_shape = SubResource("CapsuleShape2D_xrker")
+projectile_mass = 1.0
+cause_particles_planet = false
+trigger_cooldown = 0.667
+category = 2
+name = "Basic Coilgun"
+description = "Simple magnet-based projectile propulsion system."
+mass = 3.0
+misc_properties = Array[ExtResource("1_3rcdo")]([])
+sell_value = 40
+buy_value = 40
+random_extra_cost = 20
+is_basic = false
+metadata/_custom_type_script = "uid://dry63dly8f3dp"
