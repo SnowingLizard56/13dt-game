@@ -14,6 +14,10 @@ func _installed(_ship: Ship):
 	pass
 
 
+func _uninstalled(_ship:Ship):
+	pass
+
+
 func _get_stat_string() -> String:
 	return """Mass: {mass} T"""
 

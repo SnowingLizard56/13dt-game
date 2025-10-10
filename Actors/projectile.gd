@@ -140,6 +140,6 @@ func _ready() -> void:
 
 func apply_recoil(t: float):
 	var delta := get_process_delta_time()
-	source.vx += _dvx * recoil_factor * delta / RECOIL_TIME
-	source.vy += _dvy * recoil_factor * delta / RECOIL_TIME
-	
+	if source:
+		source.vx += _dvx * recoil_factor * delta / RECOIL_TIME
+		source.vy += _dvy * recoil_factor * delta / RECOIL_TIME

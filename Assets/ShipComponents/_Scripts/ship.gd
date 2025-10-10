@@ -43,6 +43,8 @@ var thrust_modifier: float = 0:
 
 
 func set_components(_components: Array[ShipComponent] = []) -> void:
+	for i in components:
+		i._uninstalled(self)
 	var hp_ratio = hp / max_hp
 	if max_hp == 0:
 		hp_ratio = 1
@@ -131,3 +133,10 @@ func _get(property: StringName) -> Variant:
 	if !misc_properties.has(property):
 		return null
 	return misc_properties[property]
+
+
+func has_component(component_name: String) -> bool:
+	for c in components:
+		if c.name == component_name:
+			return true
+	return false

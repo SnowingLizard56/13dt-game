@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="DebrisCollector" load_steps=3 format=3 uid="uid://d3j2qmqhl3hjw"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_yglx5"]
+[ext_resource type="Script" uid="uid://4q6na1y5bm1a" path="res://Assets/ShipComponents/_Scripts/Specialised/debris_collector.gd" id="2_eduat"]
+
+[resource]
+script = ExtResource("2_eduat")
+proj_speed = 50
+proj_mass = 1.6
+count = 6
+name = "Debris Collector"
+description = "Releases collected debris when you get hit."
+mass = 3.0
+misc_properties = Array[ExtResource("1_yglx5")]([])
+sell_value = 60
+buy_value = 75
+random_extra_cost = 20
+is_basic = false
+metadata/_custom_type_script = "uid://4q6na1y5bm1a"

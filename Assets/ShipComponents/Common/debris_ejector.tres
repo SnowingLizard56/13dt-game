@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="DebrisEjector" load_steps=3 format=3 uid="uid://dwps73fev6abi"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_crckr"]
+[ext_resource type="Script" uid="uid://crodye3gibwm1" path="res://Assets/ShipComponents/_Scripts/Specialised/debris_ejector.gd" id="2_2yhhu"]
+
+[resource]
+script = ExtResource("2_2yhhu")
+projectile_speed = 50.0
+projectile_mass = 1.6
+spread = 10.0
+count = 8
+trigger_cooldown = 2.0
+category = 2
+name = "Debris Ejector"
+description = "Spreads slow-moving debris. Best used when gravity is strong."
+mass = 5.0
+misc_properties = Array[ExtResource("1_crckr")]([])
+sell_value = 40
+buy_value = 79
+random_extra_cost = 8
+is_basic = false
+metadata/_custom_type_script = "uid://crodye3gibwm1"
