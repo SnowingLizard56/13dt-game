@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LootTable" load_steps=18 format=3 uid="uid://dc0kvoufr8sps"]
+[gd_resource type="Resource" script_class="LootTable" load_steps=20 format=3 uid="uid://dc0kvoufr8sps"]
 
 [ext_resource type="Script" uid="uid://ddyfayvy5r4u6" path="res://Assets/LootTables/loot_table.gd" id="1_6rf0d"]
 [ext_resource type="Resource" uid="uid://bo7benomsklhh" path="res://Assets/ShipComponents/Common/burner_booster.tres" id="2_rrt56"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://bc7iuhladgamu" path="res://Assets/ShipComponents/Common/basic_coilgun2.tres" id="7_lt4bo"]
 [ext_resource type="Resource" uid="uid://dwps73fev6abi" path="res://Assets/ShipComponents/Common/debris_ejector.tres" id="8_0ndlo"]
 [ext_resource type="Resource" uid="uid://d3j2qmqhl3hjw" path="res://Assets/ShipComponents/Common/debris_collector.tres" id="9_py6mr"]
+[ext_resource type="Resource" uid="uid://grayyqbqukma" path="res://Assets/ShipComponents/Common/unsuppress_recoil.tres" id="10_py6mr"]
 
 [sub_resource type="Resource" id="Resource_vh5gc"]
 script = ExtResource("1_6rf0d")
@@ -66,8 +67,15 @@ table = Array[ExtResource("1_6rf0d")]([])
 component = ExtResource("9_py6mr")
 metadata/_custom_type_script = "uid://ddyfayvy5r4u6"
 
+[sub_resource type="Resource" id="Resource_cm24y"]
+script = ExtResource("1_6rf0d")
+weight = 1.0
+table = Array[ExtResource("1_6rf0d")]([])
+component = ExtResource("10_py6mr")
+metadata/_custom_type_script = "uid://ddyfayvy5r4u6"
+
 [resource]
 script = ExtResource("1_6rf0d")
 weight = 75.0
-table = Array[ExtResource("1_6rf0d")]([SubResource("Resource_vh5gc"), SubResource("Resource_hogus"), SubResource("Resource_w1bih"), SubResource("Resource_lt4bo"), SubResource("Resource_a4qt0"), SubResource("Resource_0ndlo"), SubResource("Resource_b2v13"), SubResource("Resource_78iib")])
+table = Array[ExtResource("1_6rf0d")]([SubResource("Resource_vh5gc"), SubResource("Resource_hogus"), SubResource("Resource_w1bih"), SubResource("Resource_lt4bo"), SubResource("Resource_a4qt0"), SubResource("Resource_0ndlo"), SubResource("Resource_b2v13"), SubResource("Resource_78iib"), SubResource("Resource_cm24y")])
 metadata/_custom_type_script = "uid://ddyfayvy5r4u6"

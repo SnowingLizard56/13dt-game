@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ShipComponent" load_steps=5 format=3 uid="uid://grayyqbqukma"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_ns2m4"]
+[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/_Scripts/ship_component.gd" id="2_5hib6"]
+[ext_resource type="Resource" uid="uid://cjukr0ty56u1v" path="res://Assets/ShipComponents/_Properties/recoil.tres" id="2_6yncj"]
+
+[sub_resource type="Resource" id="Resource_4hu1v"]
+script = ExtResource("1_ns2m4")
+property = ExtResource("2_6yncj")
+modify_amount = 35.0
+modify_type = 1
+metadata/_custom_type_script = "uid://cd5jy5orofv6u"
+
+[resource]
+script = ExtResource("2_5hib6")
+name = "Unsuppress Recoil"
+description = "Minor tinkering with your weapons could make their recoil much more noticeable."
+mass = 0.5
+misc_properties = Array[ExtResource("1_ns2m4")]([SubResource("Resource_4hu1v")])
+sell_value = 25
+buy_value = 60
+random_extra_cost = 0
+is_basic = false
+metadata/_custom_type_script = "uid://bvhobxwrsqcti"

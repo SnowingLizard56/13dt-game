@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ShipHull" load_steps=5 format=3 uid="uid://c5fwsyt4nx5b3"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_cwf2c"]
+[ext_resource type="Resource" uid="uid://c0x2y3p3loq3f" path="res://Assets/ShipComponents/_Properties/damage_taken_flat.tres" id="2_alv2n"]
+[ext_resource type="Script" uid="uid://na18bgp2ofyr" path="res://Assets/ShipComponents/_Scripts/ship_hull.gd" id="2_i7f31"]
+
+[sub_resource type="Resource" id="Resource_35j5h"]
+script = ExtResource("1_cwf2c")
+property = ExtResource("2_alv2n")
+modify_amount = -5.0
+modify_type = 0
+metadata/_custom_type_script = "uid://cd5jy5orofv6u"
+
+[resource]
+script = ExtResource("2_i7f31")
+max_hp = 133.33
+name = "Prime-Reinforced Hull"
+description = "Steel forged using E127 instead of carbon forms the basis of this hull."
+mass = 15.0
+misc_properties = Array[ExtResource("1_cwf2c")]([SubResource("Resource_35j5h")])
+sell_value = 400
+buy_value = 450
+random_extra_cost = 100
+is_basic = false
+metadata/_custom_type_script = "uid://na18bgp2ofyr"

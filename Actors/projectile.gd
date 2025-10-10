@@ -19,6 +19,8 @@ var recoil_factor: float
 var _dvx: float
 var _dvy: float
 
+var impact_hook: Array[Callable]
+
 signal hit_body(id: int)
 
 
@@ -141,5 +143,8 @@ func _ready() -> void:
 func apply_recoil(t: float):
 	var delta := get_process_delta_time()
 	if source:
-		source.vx += _dvx * recoil_factor * delta / RECOIL_TIME
-		source.vy += _dvy * recoil_factor * delta / RECOIL_TIME
+		var mult: float = recoil_factor * delta / RECOIL_TIME
+		if source is Player:
+			mult *= source.ship.get(&"Recoil")
+		source.vx += _dvx * mult
+		source.vy += _dvy * mult

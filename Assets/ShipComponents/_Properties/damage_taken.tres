@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShipProperty" load_steps=2 format=3 uid="uid://ub04d6cssu87"]
+
+[ext_resource type="Script" uid="uid://dsgv718n0eoq4" path="res://Assets/ShipComponents/_Scripts/ship_property.gd" id="1_tieer"]
+
+[resource]
+script = ExtResource("1_tieer")
+property_name = &"Damage Taken"
+default_value = 1.0
+unit = ""
+metadata/_custom_type_script = "uid://dsgv718n0eoq4"

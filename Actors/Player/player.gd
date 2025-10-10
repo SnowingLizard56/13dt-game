@@ -172,10 +172,17 @@ func _on_area_entered(area: Area2D) -> void:
 func damage(amount: float, source: int = 1):
 	if invincible and source != DeathSource.PLANET:
 		return
+	
+	amount *= ship.get(&"Damage Taken")
+	amount += ship.get(&"Flat Damage Taken")
+	
+	if amount <= 0.0:
+		return
+	
 	for f in damage_hook:
 		if f.call(amount, source):
 			return
-		
+	
 	flash(DAMAGE_FLASH_TIME)
 	if ship.hp - amount <= DAMAGE_LEEWAY and ship.hp > 1:
 		ship.hp = 1.0

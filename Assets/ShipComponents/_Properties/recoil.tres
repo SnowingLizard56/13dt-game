@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShipProperty" load_steps=2 format=3 uid="uid://cjukr0ty56u1v"]
+
+[ext_resource type="Script" uid="uid://dsgv718n0eoq4" path="res://Assets/ShipComponents/_Scripts/ship_property.gd" id="1_28ojb"]
+
+[resource]
+script = ExtResource("1_28ojb")
+property_name = &"Recoil"
+default_value = 1.0
+unit = ""
+metadata/_custom_type_script = "uid://dsgv718n0eoq4"

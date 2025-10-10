@@ -1,18 +1,33 @@
-[gd_resource type="Resource" script_class="LootTable" load_steps=5 format=3 uid="uid://c1ygnf8vsgufa"]
+[gd_resource type="Resource" script_class="LootTable" load_steps=8 format=3 uid="uid://c1ygnf8vsgufa"]
 
 [ext_resource type="Script" uid="uid://ddyfayvy5r4u6" path="res://Assets/LootTables/loot_table.gd" id="1_sxpwy"]
-[ext_resource type="Resource" uid="uid://dc0kvoufr8sps" path="res://Assets/LootTables/common.tres" id="2_036wh"]
+[ext_resource type="Resource" uid="uid://b7x0sf0n644rv" path="res://Assets/ShipComponents/Shop/prime-integrated.tres" id="3_g2ji5"]
 [ext_resource type="Resource" uid="uid://bvdyb3fdxujd" path="res://Assets/ShipComponents/Shop/en-cg.tres" id="3_yecpm"]
+[ext_resource type="Resource" uid="uid://c5fwsyt4nx5b3" path="res://Assets/ShipComponents/Shop/prime-reinforced.tres" id="4_yc760"]
 
 [sub_resource type="Resource" id="Resource_yecpm"]
 script = ExtResource("1_sxpwy")
-weight = 75.0
+weight = 1.0
 table = Array[ExtResource("1_sxpwy")]([])
 component = ExtResource("3_yecpm")
+metadata/_custom_type_script = "uid://ddyfayvy5r4u6"
+
+[sub_resource type="Resource" id="Resource_a3esp"]
+script = ExtResource("1_sxpwy")
+weight = 1.0
+table = Array[ExtResource("1_sxpwy")]([])
+component = ExtResource("3_g2ji5")
+metadata/_custom_type_script = "uid://ddyfayvy5r4u6"
+
+[sub_resource type="Resource" id="Resource_cvlcm"]
+script = ExtResource("1_sxpwy")
+weight = 1.0
+table = Array[ExtResource("1_sxpwy")]([])
+component = ExtResource("4_yc760")
 metadata/_custom_type_script = "uid://ddyfayvy5r4u6"
 
 [resource]
 script = ExtResource("1_sxpwy")
 weight = 15.0
-table = Array[ExtResource("1_sxpwy")]([ExtResource("2_036wh"), SubResource("Resource_yecpm")])
+table = Array[ExtResource("1_sxpwy")]([SubResource("Resource_yecpm"), SubResource("Resource_a3esp"), SubResource("Resource_cvlcm")])
 metadata/_custom_type_script = "uid://ddyfayvy5r4u6"
