@@ -276,6 +276,7 @@ Component/styles/pressed = SubResource("StyleBoxEmpty_cfsd7")
 CurrencyLabel/base_type = &"Label"
 CurrencyLabel/colors/font_color = Color(0.96, 0.96, 0.96, 1)
 CurrencyLabel/fonts/font = ExtResource("2_5f78n")
+EnemiesRemainingLabel/base_type = &"Label"
 GameTitle/base_type = &"Label"
 GameTitle/font_sizes/font_size = 86
 GameTitle/fonts/font = ExtResource("2_cfsd7")

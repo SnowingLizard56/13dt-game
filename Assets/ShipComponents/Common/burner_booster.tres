@@ -1,13 +1,30 @@
-[gd_resource type="Resource" script_class="Booster" load_steps=3 format=3 uid="uid://bo7benomsklhh"]
+[gd_resource type="Resource" script_class="Booster" load_steps=6 format=3 uid="uid://bo7benomsklhh"]
 
 [ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_l726n"]
 [ext_resource type="Script" uid="uid://c58sp5q1mwllg" path="res://Assets/ShipComponents/_Scripts/Specialised/booster.gd" id="2_n6i4a"]
+[ext_resource type="Script" uid="uid://42lw7an8xwxg" path="res://Assets/ShipComponents/_Scripts/thrust_particle_profile.gd" id="3_nolqk"]
+
+[sub_resource type="Gradient" id="Gradient_8gtf5"]
+offsets = PackedFloat32Array(0, 0.409756, 0.756098, 1)
+colors = PackedColorArray(0.25, 0.25, 0.25, 1, 0.86, 0.86, 0.86, 1, 0.86, 0.86, 0.86, 1, 1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_e4mob"]
+script = ExtResource("3_nolqk")
+amount = 32
+lifetime = 1.0
+speed_min = 50.0
+speed_max = 80.0
+spread = 5.0
+color = Color(0.866667, 0.337255, 0.223529, 1)
+color_intitial_ramp = SubResource("Gradient_8gtf5")
+metadata/_custom_type_script = "uid://42lw7an8xwxg"
 
 [resource]
 script = ExtResource("2_n6i4a")
 extra_thrust = 1400.0
 duration = 2.0
 kick_time = 0.05
+visual_profile = SubResource("Resource_e4mob")
 trigger_cooldown = 5.0
 category = 0
 name = "Burner Booster"

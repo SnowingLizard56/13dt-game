@@ -8,7 +8,7 @@ script = ExtResource("1_c1xxa")
 hitbox = NodePath("Segments")
 death_particle_count = 12
 e127_proportion = 0.05
-xp_value_range = Vector2(3, 5)
+xp_value_range = Vector2(2, 3)
 e127_value_range = Vector2(5, 10)
 
 [node name="Segments" type="Area2D" parent="."]

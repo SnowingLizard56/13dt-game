@@ -6,6 +6,19 @@ signal took_damage(amnt: float)
 var trigger_components: Array[TriggerComponent] = []
 signal components_updated
 
+var base_thrust_profile: ThrustParticleProfile:
+	set(v):
+		base_thrust_profile = v
+		thrust_profile_updated.emit(v)
+var thrust_profile_override: ThrustParticleProfile:
+	set(v):
+		if v == null:
+			thrust_profile_updated.emit(base_thrust_profile)
+		else:
+			thrust_profile_updated.emit(v)
+		thrust_profile_override = v
+signal thrust_profile_updated(new: ThrustParticleProfile)
+
 # Warnings
 var no_hull: bool
 var has_multiple_hulls: bool
@@ -60,8 +73,10 @@ func set_components(_components: Array[ShipComponent] = []) -> void:
 		if cmpnt is ShipThruster:
 			if !no_thruster:
 				has_multiple_thrusters = true
-			no_thruster = false
-			thrust = max(thrust, cmpnt.thrust)
+			else:
+				no_thruster = false
+				thrust = max(thrust, cmpnt.thrust)
+				base_thrust_profile = cmpnt.visual_profile
 		elif cmpnt is ShipHull:
 			if !no_hull:
 				has_multiple_hulls = true

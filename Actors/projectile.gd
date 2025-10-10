@@ -3,6 +3,7 @@ class_name Projectile extends Area2D
 const COLOUR = Color.RED
 const CULLING_DISTANCE: float = 4096
 const FLYING_ENEMY_MASS: float = 5600
+const RECOIL_TIME: float = 0.1
 
 var x: float
 var y: float
@@ -14,12 +15,17 @@ var root: LevelController
 var mass: float
 var is_enemy: bool
 var trigger_particles: bool
+var recoil_factor: float
+var _dvx: float
+var _dvy: float
 
 signal hit_body(id: int)
 
 
 func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1, cause_planet_particles: bool = false) -> void:
 	hide()
+	_dvx = dvx
+	_dvy = dvy
 	vx = src.vx + dvx
 	vy = src.vy + dvy
 	var spawn_distance := Vector2(dvx, dvy).normalized()
@@ -54,15 +60,14 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1, ca
 	is_enemy = src is Enemy
 	trigger_particles = cause_planet_particles
 	# Recoil
-	var recoil_factor: float = 0.
+	recoil_factor = 0.
 	if src is FlyingEnemy:
 		recoil_factor = -m / FLYING_ENEMY_MASS
 	elif src is Player:
 		recoil_factor = -m / (src.ship.mass * 1000)
 	if recoil_factor != 0.0:
-		src.vx += dvx * recoil_factor
-		src.vy += dvy * recoil_factor
-	
+		var t := get_tree().create_tween()
+		t.tween_method(apply_recoil, 0, RECOIL_TIME, RECOIL_TIME)
 
 
 func _physics_process(delta: float) -> void:
@@ -131,3 +136,10 @@ func _ready() -> void:
 	scale = Vector2.ZERO
 	var t := get_tree().create_tween()
 	t.tween_property(self, "scale", Vector2.ONE, 0.1)
+
+
+func apply_recoil(t: float):
+	var delta := get_process_delta_time()
+	source.vx += _dvx * recoil_factor * delta / RECOIL_TIME
+	source.vy += _dvy * recoil_factor * delta / RECOIL_TIME
+	

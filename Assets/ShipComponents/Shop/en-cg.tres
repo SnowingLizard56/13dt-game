@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ProjectileWeapon" load_steps=4 format=3 uid="uid://bvdyb3fdxujd"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_y1uhu"]
+[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/_Scripts/Specialised/projectile_weapon.gd" id="2_ptn5l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y1uhu"]
+radius = 3.0
+height = 12.0
+
+[resource]
+script = ExtResource("2_ptn5l")
+projectile_speed = 400.0
+projectile_shape = SubResource("CapsuleShape2D_y1uhu")
+projectile_mass = 3.0
+cause_particles_planet = true
+trigger_cooldown = 1.0
+category = 2
+name = "Enhanced Coilgun"
+description = "This coilgun fires a larger than average projectile, at a much lower weight than is usual."
+mass = 2.0
+misc_properties = Array[ExtResource("1_y1uhu")]([])
+sell_value = 30
+buy_value = 60
+random_extra_cost = 10
+is_basic = false
+metadata/_custom_type_script = "uid://dry63dly8f3dp"

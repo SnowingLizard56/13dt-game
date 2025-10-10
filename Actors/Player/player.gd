@@ -223,3 +223,9 @@ func flash(time: float):
 	flash_tween.tween_interval(time)
 	flash_tween.tween_callback(func(): current_colour = PLAYER_COLOUR)
 	flash_tween.tween_callback(queue_redraw)
+
+
+func _on_ship_thrust_profile_updated(new: ThrustParticleProfile):
+	if new == null:
+		return
+	new.apply(thrust)

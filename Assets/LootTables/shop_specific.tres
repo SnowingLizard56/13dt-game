@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=5 format=3 uid="uid://c1ygnf8vsgufa"]
+
+[ext_resource type="Script" uid="uid://ddyfayvy5r4u6" path="res://Assets/LootTables/loot_table.gd" id="1_sxpwy"]
+[ext_resource type="Resource" uid="uid://dc0kvoufr8sps" path="res://Assets/LootTables/common.tres" id="2_036wh"]
+[ext_resource type="Resource" uid="uid://bvdyb3fdxujd" path="res://Assets/ShipComponents/Shop/en-cg.tres" id="3_yecpm"]
+
+[sub_resource type="Resource" id="Resource_yecpm"]
+script = ExtResource("1_sxpwy")
+weight = 75.0
+table = Array[ExtResource("1_sxpwy")]([])
+component = ExtResource("3_yecpm")
+metadata/_custom_type_script = "uid://ddyfayvy5r4u6"
+
+[resource]
+script = ExtResource("1_sxpwy")
+weight = 15.0
+table = Array[ExtResource("1_sxpwy")]([ExtResource("2_036wh"), SubResource("Resource_yecpm")])
+metadata/_custom_type_script = "uid://ddyfayvy5r4u6"

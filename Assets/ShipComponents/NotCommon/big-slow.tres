@@ -11,6 +11,7 @@ script = ExtResource("2_vx780")
 projectile_speed = 160.0
 projectile_shape = SubResource("CircleShape2D_yt3ej")
 projectile_mass = 40.0
+cause_particles_planet = true
 trigger_cooldown = 10.0
 category = 2
 name = "HMP-442"
