@@ -4,18 +4,18 @@
 [ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/_Scripts/Specialised/projectile_weapon.gd" id="2_vx780"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yt3ej"]
-radius = 30.0
+radius = 25.0
 
 [resource]
 script = ExtResource("2_vx780")
-projectile_speed = 160.0
+projectile_speed = 95.0
 projectile_shape = SubResource("CircleShape2D_yt3ej")
-projectile_mass = 40.0
+projectile_mass = 100.0
 cause_particles_planet = true
 trigger_cooldown = 10.0
 category = 2
 name = "HMP-442"
-description = "Fires a large, slow, high-mass projectiles."
+description = "Fires large, slow, high-mass projectiles."
 mass = 4.42
 misc_properties = Array[ExtResource("1_yt3ej")]([])
 sell_value = 130

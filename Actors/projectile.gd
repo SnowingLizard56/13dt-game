@@ -144,7 +144,6 @@ func _draw() -> void:
 
 func calculate_damage(target: Node2D):
 	var damage: float = Vector2(target.vx - vx, target.vy - vy).length_squared() * mass
-	print(damage)
 	return damage * PROJECTILE_DAMAGE_FACTOR
 
 

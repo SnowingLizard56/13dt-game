@@ -67,7 +67,7 @@ func add_to_trigger_queue(id: int):
 	if not id in trigger_queue:
 		trigger_queue.append(id)
 		if trigger_timer_queue:
-			trigger_timer_queue.append(0.05)
+			trigger_timer_queue.append(0.0)
 		else:
 			trigger_timer_queue.append(0.0)
 

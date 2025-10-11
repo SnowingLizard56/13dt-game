@@ -12,7 +12,6 @@ var base_thrust_profile: ThrustParticleProfile:
 		thrust_profile_updated.emit(v)
 var thrust_profile_override: ThrustParticleProfile:
 	set(v):
-		print("set success")
 		if v == null:
 			thrust_profile_updated.emit(base_thrust_profile)
 		else:

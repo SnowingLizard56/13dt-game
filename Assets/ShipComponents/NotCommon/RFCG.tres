@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ProjectileWeapon" load_steps=4 format=3 uid="uid://lo4vpm3nvdkg"]
+
+[ext_resource type="Script" uid="uid://cd5jy5orofv6u" path="res://Assets/ShipComponents/_Scripts/ship_property_modifier.gd" id="1_4d7an"]
+[ext_resource type="Script" uid="uid://dry63dly8f3dp" path="res://Assets/ShipComponents/_Scripts/Specialised/projectile_weapon.gd" id="2_lkixw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4d7an"]
+radius = 1.5
+
+[resource]
+script = ExtResource("2_lkixw")
+projectile_speed = 225.0
+projectile_shape = SubResource("CircleShape2D_4d7an")
+projectile_mass = 2.17
+cause_particles_planet = false
+trigger_cooldown = 0.15
+category = 2
+name = "RFCG-7S"
+description = "The Rapid Fire Coilgun (RFCG) series does exactly as is advertised."
+mass = 12.5
+misc_properties = Array[ExtResource("1_4d7an")]([])
+sell_value = 100
+buy_value = 120
+random_extra_cost = 20
+is_basic = false
+metadata/_custom_type_script = "uid://dry63dly8f3dp"

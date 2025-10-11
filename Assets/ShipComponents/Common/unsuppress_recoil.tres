@@ -7,8 +7,8 @@
 [sub_resource type="Resource" id="Resource_4hu1v"]
 script = ExtResource("1_ns2m4")
 property = ExtResource("2_6yncj")
-modify_amount = 35.0
-modify_type = 1
+modify_amount = 19.0
+modify_type = 0
 metadata/_custom_type_script = "uid://cd5jy5orofv6u"
 
 [resource]
@@ -17,8 +17,8 @@ name = "Unsuppress Recoil"
 description = "Minor tinkering with your weapons could make their recoil much more noticeable."
 mass = 0.5
 misc_properties = Array[ExtResource("1_ns2m4")]([SubResource("Resource_4hu1v")])
-sell_value = 25
-buy_value = 60
+sell_value = 10
+buy_value = 25
 random_extra_cost = 0
 is_basic = false
 metadata/_custom_type_script = "uid://bvhobxwrsqcti"
