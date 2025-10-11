@@ -2,9 +2,10 @@ class_name CannonEnemy extends Enemy
 
 const MAX_HP: float = 125
 const MAX_ANGLE: float = 0.2 * TAU
-const PROJECTILE_IV: float = 300
+const PROJECTILE_IV: float = 365 # Like a year. lol
 const MAX_ROTATION_SPEED: float = 0.2 * TAU
 const PROJECTILE_OFFSET_DIST: float = 15.0
+const PROJECTILE_MASS: float = 7.3
 
 @onready var barrel: Node2D = $Barrel
 @onready var barrel_vis: Node2D = $Barrel/Barrel
@@ -47,7 +48,7 @@ func fire_bullet() -> void:
 		PROJECTILE_IV * dir.x,
 		PROJECTILE_IV * dir.y,
 		shape,
-		1.1,
+		PROJECTILE_MASS,
 		true
 	)
 	p.x += dir.x * PROJECTILE_OFFSET_DIST

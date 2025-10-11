@@ -3,7 +3,6 @@ class_name Player extends Area2D
 const SPRITE_RADIUS: int = 5
 const DAMAGE_LEEWAY: float = 1.7
 const MAX_ROTATION_SPEED: float = TAU * 0.5
-const INVINCIBILITY_TIME: float = 0.2
 const PLAYER_COLOUR := Color(0.12549, 0.647059, 0.65098, 1)
 const FLASH_COLOUR := Color.WHITE
 const DAMAGE_FLASH_TIME := 0.1
@@ -31,10 +30,12 @@ var vy: float = 0.0
 var level: Level
 var invincible: bool
 var current_colour: Color = PLAYER_COLOUR
+var invincibility_time: float = 0.5
 
 var ship: Ship = null
 @onready var ui: Control = %UI
 @export var thrust: CPUParticles2D
+@onready var thrust_current: CPUParticles2D = thrust
 @onready var hitbox: Area2D = $Hitbox
 @export var rotate_container: Node2D
 @export var death_particles: CPUParticles2D
@@ -76,6 +77,7 @@ func _ready() -> void:
 	ship = Global.get(&"player_ship")
 	ship.set_components()
 	invincible = true
+	ship.thrust_profile_updated.connect(_on_ship_thrust_profile_updated)
 
 
 func _process(delta: float) -> void:
@@ -173,8 +175,8 @@ func damage(amount: float, source: int = 1):
 	if invincible and source != DeathSource.PLANET:
 		return
 	
-	amount *= ship.get(&"Damage Taken")
-	amount += ship.get(&"Flat Damage Taken")
+	amount *= ship.get(&"Damage Taken").value
+	amount += ship.get(&"Flat Damage Taken").value
 	
 	if amount <= 0.0:
 		return
@@ -195,9 +197,9 @@ func damage(amount: float, source: int = 1):
 		else:
 			death_source = source
 		generic_death()
-	hitbox.collision_layer = 0
-	await get_tree().create_timer(INVINCIBILITY_TIME).timeout
-	hitbox.collision_layer = 1
+	invincible = true
+	$InvincibilityTimeout.start(invincibility_time)
+	$InvincibilityFlash.start()
 
 
 func generic_death():
@@ -235,4 +237,4 @@ func flash(time: float):
 func _on_ship_thrust_profile_updated(new: ThrustParticleProfile):
 	if new == null:
 		return
-	new.apply(thrust)
+	thrust = new.apply(thrust)

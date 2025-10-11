@@ -15,11 +15,12 @@ const PLAYER_STOP_APPROACHING: float = 300
 const PLAYER_RUN_AWAY: float = 100
 const ORBIT_SPEED: float = 127
 const ORBIT_THRUST_PROPORTION: float = 0.31
-const PROJECTILE_SPEED: float = 100
+const PROJECTILE_SPEED: float = 175
 const MAX_HP: float = 50
 const INACCURACY: float = 0.02 * TAU
 const SEPARATION: float = 50
 const KILL_DISTANCE: float = 4000
+const PROJECTILE_MASS: float = 4.0
 
 @onready var path: Node2D = $PathPrediction
 
@@ -65,7 +66,6 @@ func _physics_process(delta: float) -> void:
 			else:
 				# Accelerate, approach position of player
 				mode = MovementModes.APPROACH_PLAYER
-
 	
 	match mode:
 		MovementModes.AVOID_BODY:
@@ -135,7 +135,8 @@ func _physics_process(delta: float) -> void:
 					self, 
 					projectile_speed.x,
 					projectile_speed.y,
-					projectile_shape
+					projectile_shape,
+					PROJECTILE_MASS
 					)
 				p.x = x + vx * delta
 				p.y = y + vy * delta

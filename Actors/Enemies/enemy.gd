@@ -56,18 +56,19 @@ func damage(amount: float) -> void:
 	
 	if hp < 0:
 		return
+	
+	current_colour = FLASH_COLOUR
+	redraw.emit()
+	queue_redraw()
+	await get_tree().create_timer(0.1).timeout
+	current_colour = ENEMY_COLOUR
+	queue_redraw()
+	redraw.emit()
+	
 	hp -= amount
 	if hp <= DAMAGE_LEEWAY:
 		death.emit()
 		death_override()
-	else:
-		current_colour = FLASH_COLOUR
-		redraw.emit()
-		queue_redraw()
-		await get_tree().create_timer(0.1).timeout
-		current_colour = ENEMY_COLOUR
-		queue_redraw()
-		redraw.emit()
 
 
 func get_max_hp() -> float:

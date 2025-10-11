@@ -1,7 +1,7 @@
 class_name HangarEnemy extends Enemy
 
 const FLYING_ENEMY: PackedScene = preload("res://Actors/Enemies/Flying/flying_enemy.tscn")
-const MAX_HP := 57.0
+const MAX_HP := 228.0
 const SPAWN_IV := 200.0
 const SPAWN_DISTANCE := 20
 const SPAWN_VARIATION := 15.0

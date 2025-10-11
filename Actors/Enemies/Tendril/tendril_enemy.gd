@@ -1,6 +1,6 @@
 class_name TendrilEnemy extends Enemy
 
-const MAX_HP := 240.0
+const MAX_HP := 179.0
 const SEGMENT_LENGTH := 50.0
 const SEGMENTS_MIN := 4
 const SEGMENTS_MAX := 8

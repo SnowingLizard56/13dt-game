@@ -4,6 +4,7 @@ const COLOUR = Color.RED
 const CULLING_DISTANCE: float = 4096
 const FLYING_ENEMY_MASS: float = 5600
 const RECOIL_TIME: float = 0.1
+const PROJECTILE_DAMAGE_FACTOR: float = 0.5 * 0.0001
 
 var x: float
 var y: float
@@ -18,6 +19,7 @@ var trigger_particles: bool
 var recoil_factor: float
 var _dvx: float
 var _dvy: float
+var alive_time: float
 
 var impact_hook: Array[Callable]
 
@@ -74,6 +76,7 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1, ca
 
 func _physics_process(delta: float) -> void:
 	var grav: Dictionary = root.level.barnes_hut_probe(Global.time_scale, x, y, 1.4)
+	alive_time += delta
 	position = Vector2(x - root.player.x, y - root.player.y)
 	vx += grav.ax * delta
 	vy += grav.ay * delta
@@ -85,6 +88,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_collision_area_entered(area: Area2D) -> void:
+	var target: Node2D = area.get_parent()
 	if area is Body:
 		# Hit body. by bye
 		hit_body.emit(area.get_meta("id"))
@@ -92,11 +96,19 @@ func _on_collision_area_entered(area: Area2D) -> void:
 			area.crash_particles(area.position.angle_to_point(position))
 		queue_free()
 		return
-	var target: Node2D = area.get_parent()
+	
 	if target is Enemy and is_enemy:
 		return
 	if target is Player and not is_enemy:
 		return
+		
+	if not is_enemy:
+		for i in impact_hook:
+			if area is Body:
+				i.call(self, area)
+			else:
+				i.call(self, target)
+	
 	if target is Enemy:
 		target.damage(calculate_damage(target))
 		queue_free()
@@ -131,7 +143,9 @@ func _draw() -> void:
 
 
 func calculate_damage(target: Node2D):
-	return Vector2(target.vx - vx, target.vy - vy).length_squared() ** 0.25 * mass
+	var damage: float = Vector2(target.vx - vx, target.vy - vy).length_squared() * mass
+	print(damage)
+	return damage * PROJECTILE_DAMAGE_FACTOR
 
 
 func _ready() -> void:
@@ -145,6 +159,6 @@ func apply_recoil(t: float):
 	if source:
 		var mult: float = recoil_factor * delta / RECOIL_TIME
 		if source is Player:
-			mult *= source.ship.get(&"Recoil")
+			mult *= source.ship.get(&"Recoil").value
 		source.vx += _dvx * mult
 		source.vy += _dvy * mult

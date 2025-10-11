@@ -13,6 +13,7 @@ func _installed(ship: Ship):
 
 
 func _uninstalled(ship: Ship):
+	player = Global.root.player
 	player.damage_hook.erase(damage_hook)
 
 

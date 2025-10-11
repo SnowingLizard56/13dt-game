@@ -16,10 +16,10 @@ func _trigger(player: Player, ship: Ship):
 	t.tween_method(apply_kick, 0, KICK_APPLY_TIME, KICK_APPLY_TIME)
 	
 	ship.thrust_modifier += extra_thrust
-	ship.base_thrust_profile = visual_profile
-	await timer.timeout
-	if ship.base_thrust_profile == visual_profile:
-		ship.base_thrust_profile = null
+	ship.thrust_profile_override = visual_profile
+	await player.get_tree().create_timer(duration).timeout
+	if ship.thrust_profile_override == visual_profile:
+		ship.thrust_profile_override = null
 	ship.thrust_modifier -= extra_thrust
 
 
