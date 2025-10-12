@@ -11,12 +11,8 @@ class_name EventEffect extends Resource
 ## Change in e127. Can be negative.
 @export var money: int = 0
 @export_category("ShipComponents")
-## Components that will always be offered to player
-@export var component_list: Array[ShipComponent] = []
-## Table to be rolled on a number of times to offer ShipComponents to player
-@export var component_table: LootTable
-## Number of times to roll on table
-@export var table_roll_count: int = 0
+## Tables to be rolled on. 
+@export var component_list: Array[LootTable] = []
 @export_category("Random Effects")
 ## Random Effects
 @export var effects: Array[EventEffect] = []
@@ -29,13 +25,13 @@ class_name EventEffect extends Resource
 
 var has_components: bool:
 	get():
-		return (component_table and table_roll_count) or component_list
+		return component_list != []
 
 
 func get_components() -> Array[ShipComponent]:
-	var out: Array[ShipComponent] = component_list.duplicate(true)
-	if component_table:
-		out += component_table.get_loot(table_roll_count, Global.player_ship.get(&"Luck"))
+	var out: Array[ShipComponent] = []
+	for i in component_list:
+		out += i.get_loot(1, Global.player_ship.get(&"Luck"))
 	return out
 
 

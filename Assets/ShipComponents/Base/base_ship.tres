@@ -1,14 +1,21 @@
-[gd_resource type="Resource" script_class="Ship" load_steps=8 format=3 uid="uid://wwl8nb03jb0u"]
+[gd_resource type="Resource" script_class="Ship" load_steps=14 format=3 uid="uid://wwl8nb03jb0u"]
 
 [ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/_Scripts/ship_component.gd" id="1_k6olo"]
 [ext_resource type="Resource" uid="uid://c5jl81m7fc4vy" path="res://Assets/ShipComponents/Base/basic_coilgun.tres" id="2_p3wel"]
 [ext_resource type="Resource" uid="uid://die46de8ofiu1" path="res://Assets/ShipComponents/Base/burner_thruster.tres" id="3_k6olo"]
 [ext_resource type="Resource" uid="uid://cx6qjtcurogox" path="res://Assets/ShipComponents/Base/steel_hull.tres" id="4_c7d2e"]
-[ext_resource type="Resource" uid="uid://grayyqbqukma" path="res://Assets/ShipComponents/Common/unsuppress_recoil.tres" id="6_c7d2e"]
+[ext_resource type="Script" uid="uid://dsgv718n0eoq4" path="res://Assets/ShipComponents/_Scripts/ship_property.gd" id="5_hcr0n"]
 [ext_resource type="Script" uid="uid://c46e5p1ib570o" path="res://Assets/ShipComponents/_Scripts/ship.gd" id="6_lke0h"]
-[ext_resource type="Resource" uid="uid://bdvvsydxnx2n5" path="res://Assets/ShipComponents/NotCommon/big-slow.tres" id="6_uejgx"]
+[ext_resource type="Resource" uid="uid://btj7nchmemu1s" path="res://Assets/ShipComponents/_Properties/damage.tres" id="6_uthjk"]
+[ext_resource type="Resource" uid="uid://cdekilacg46cv" path="res://Assets/ShipComponents/_Properties/damage_flat.tres" id="7_ln1a4"]
+[ext_resource type="Resource" uid="uid://ub04d6cssu87" path="res://Assets/ShipComponents/_Properties/damage_taken.tres" id="8_qjfi6"]
+[ext_resource type="Resource" uid="uid://c0x2y3p3loq3f" path="res://Assets/ShipComponents/_Properties/damage_taken_flat.tres" id="9_bljwr"]
+[ext_resource type="Resource" uid="uid://bdx5xvi8u6mch" path="res://Assets/ShipComponents/_Properties/luck.tres" id="10_r7qya"]
+[ext_resource type="Resource" uid="uid://cjukr0ty56u1v" path="res://Assets/ShipComponents/_Properties/recoil.tres" id="11_wlit2"]
+[ext_resource type="Resource" uid="uid://bxdkjhnu8ne1x" path="res://Assets/ShipComponents/_Properties/regen.tres" id="12_ntiv4"]
 
 [resource]
 script = ExtResource("6_lke0h")
-components = Array[ExtResource("1_k6olo")]([ExtResource("2_p3wel"), ExtResource("3_k6olo"), ExtResource("4_c7d2e"), ExtResource("6_c7d2e"), ExtResource("6_uejgx")])
+components = Array[ExtResource("1_k6olo")]([ExtResource("2_p3wel"), ExtResource("3_k6olo"), ExtResource("4_c7d2e")])
+properties_base = Array[ExtResource("5_hcr0n")]([ExtResource("6_uthjk"), ExtResource("7_ln1a4"), ExtResource("8_qjfi6"), ExtResource("9_bljwr"), ExtResource("10_r7qya"), ExtResource("11_wlit2"), ExtResource("12_ntiv4")])
 metadata/_custom_type_script = "uid://c46e5p1ib570o"

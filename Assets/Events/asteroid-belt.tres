@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="MapEvent" load_steps=10 format=3 uid="uid://coiardlskwr7j"]
 
 [ext_resource type="Script" uid="uid://bv4bmnyy11eeh" path="res://UI/Map/event_effect.gd" id="1_0mkxq"]
-[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/_Scripts/ship_component.gd" id="2_3hb0i"]
+[ext_resource type="Script" uid="uid://ddyfayvy5r4u6" path="res://Assets/LootTables/loot_table.gd" id="2_3hb0i"]
 [ext_resource type="Script" uid="uid://lcfv7m2vx331" path="res://UI/Map/event.gd" id="2_o2cop"]
 
 [sub_resource type="Resource" id="Resource_lqaar"]
@@ -12,7 +12,6 @@ health_prop = 0.0
 health_change = 0.0
 money = 0
 component_list = Array[ExtResource("2_3hb0i")]([])
-table_roll_count = 0
 effects = Array[ExtResource("1_0mkxq")]([])
 weights = Array[float]([])
 metadata/_custom_type_script = "uid://bv4bmnyy11eeh"
@@ -32,7 +31,6 @@ health_prop = 0.0
 health_change = 0.0
 money = 150
 component_list = Array[ExtResource("2_3hb0i")]([])
-table_roll_count = 0
 effects = Array[ExtResource("1_0mkxq")]([])
 weights = Array[float]([])
 next_event = SubResource("Resource_p03mn")
@@ -53,7 +51,6 @@ health_prop = -0.33
 health_change = 0.0
 money = 0
 component_list = Array[ExtResource("2_3hb0i")]([])
-table_roll_count = 0
 effects = Array[ExtResource("1_0mkxq")]([])
 weights = Array[float]([])
 next_event = SubResource("Resource_4cotv")
@@ -67,7 +64,6 @@ health_prop = 0.0
 health_change = 0.0
 money = 0
 component_list = Array[ExtResource("2_3hb0i")]([])
-table_roll_count = 0
 effects = Array[ExtResource("1_0mkxq")]([SubResource("Resource_jlm2h"), SubResource("Resource_4y2ty")])
 weights = Array[float]([1.0, 1.0])
 metadata/_custom_type_script = "uid://bv4bmnyy11eeh"

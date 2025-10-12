@@ -162,7 +162,7 @@ func _step():
 			last_node = map_node
 	
 	# If overbuffered. Remove first WIDTH elements.
-	if map.size() / WIDTH > BUFFER_ROWS:
+	if map.size() / WIDTH as int > BUFFER_ROWS:
 		if map_start:
 			map_start.queue_free()
 		for i in WIDTH:

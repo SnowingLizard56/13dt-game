@@ -23,7 +23,7 @@ func _trigger(player: Player, ship: Ship):
 	ship.thrust_modifier -= extra_thrust
 
 
-func apply_kick(t: float):
+func apply_kick(_t: float):
 	var delta: float = Global.get_process_delta_time()
 	Global.root.player.vx += Global.aim.x * kick_time * extra_thrust * delta / KICK_APPLY_TIME
 	Global.root.player.vy += Global.aim.y * kick_time * extra_thrust * delta / KICK_APPLY_TIME

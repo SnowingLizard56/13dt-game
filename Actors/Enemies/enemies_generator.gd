@@ -54,7 +54,7 @@ func _on_flying_enemy_spawn_attempt_timer_timeout() -> void:
 	$FlyingEnemySpawnAttemptTimer.start(randf_range(18, 60))
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	total_enemies_alive = get_tree().get_nodes_in_group("enemies").size()
 	
 	var p := Vector2.ZERO

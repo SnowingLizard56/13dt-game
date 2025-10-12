@@ -476,3 +476,7 @@ pause={
 2d_physics/layer_14="Pred5"
 2d_physics/layer_15="Pred6"
 2d_physics/layer_16="Pred7"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true

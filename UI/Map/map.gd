@@ -21,20 +21,16 @@ const FADE_TIME := 0.5
 @export var BG_layer: CanvasLayer
 @export var UI_layer: CanvasLayer
 
+@export var event_pool: Array[MapEvent] = []
+
 var cover:
 	get():
 		return fadeout
-var event_pool: Array[MapEvent] = []
 
 signal icon_selected(neb: Nebula)
 
 
 func _ready() -> void:
-	const PATH: String = "res://Assets/Events/"
-	for fp in DirAccess.get_files_at(PATH):
-		var event: MapEvent = ResourceLoader.load(PATH + fp, "",
-			ResourceLoader.CACHE_MODE_REUSE)
-		event_pool.append(event)
 	fadeout.show()
 	fadeout.modulate.a = 1
 	var t := get_tree().create_tween()

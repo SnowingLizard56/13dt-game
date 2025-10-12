@@ -3,6 +3,7 @@ class_name Ship extends Resource
 signal took_damage(amnt: float)
 
 @export var components: Array[ShipComponent] = []
+@export var properties_base: Array[ShipProperty]
 var trigger_components: Array[TriggerComponent] = []
 signal components_updated
 
@@ -112,11 +113,8 @@ func trigger(trigger_index: int, player: Player) -> void:
 
 
 func reset_misc_properties():
-	const PATH: String = "res://Assets/ShipComponents/_Properties/"
-	for fp in DirAccess.get_files_at(PATH):
-		var property: ShipProperty = ResourceLoader.load(PATH + fp, "",
-			ResourceLoader.CACHE_MODE_REUSE)
-		misc_properties[property.property_name] = property
+	for p in properties_base:
+		misc_properties[p.property_name] = p.duplicate(true)
 
 
 func _get_property_list() -> Array[Dictionary]:

@@ -1,0 +1,122 @@
+[gd_resource type="Resource" script_class="MapEvent" load_steps=16 format=3 uid="uid://n6b7f0sgqmeq"]
+
+[ext_resource type="Script" uid="uid://bv4bmnyy11eeh" path="res://UI/Map/event_effect.gd" id="1_1yndf"]
+[ext_resource type="Script" uid="uid://lcfv7m2vx331" path="res://UI/Map/event.gd" id="2_a6q0f"]
+[ext_resource type="Script" uid="uid://ddyfayvy5r4u6" path="res://Assets/LootTables/loot_table.gd" id="2_ci7yh"]
+[ext_resource type="Resource" uid="uid://dc0kvoufr8sps" path="res://Assets/LootTables/common.tres" id="4_be6fq"]
+[ext_resource type="Resource" uid="uid://bb7n6io7kcjod" path="res://Assets/LootTables/not_common.tres" id="5_v4705"]
+
+[sub_resource type="Resource" id="Resource_be6fq"]
+script = ExtResource("1_1yndf")
+title = "Thank goodness that's behind us."
+_console = ""
+health_prop = 0.0
+health_change = -20.0
+money = 0
+component_list = Array[ExtResource("2_ci7yh")]([])
+effects = Array[ExtResource("1_1yndf")]([])
+weights = Array[float]([])
+metadata/_custom_type_script = "uid://bv4bmnyy11eeh"
+
+[sub_resource type="Resource" id="Resource_v4705"]
+script = ExtResource("2_a6q0f")
+title = "Source Planet"
+exposition = "As you move to jump from the system, the planet suddenly lurches out and hits you. You quickly make the jump, and escape the planet."
+options = Array[ExtResource("1_1yndf")]([SubResource("Resource_be6fq")])
+metadata/_custom_type_script = "uid://lcfv7m2vx331"
+
+[sub_resource type="Resource" id="Resource_uwnip"]
+script = ExtResource("1_1yndf")
+title = "Steer well clear."
+_console = ""
+health_prop = 0.0
+health_change = 0.0
+money = 0
+component_list = Array[ExtResource("2_ci7yh")]([])
+effects = Array[ExtResource("1_1yndf")]([])
+weights = Array[float]([])
+next_event = SubResource("Resource_v4705")
+metadata/_custom_type_script = "uid://bv4bmnyy11eeh"
+
+[sub_resource type="Resource" id="Resource_axw87"]
+script = ExtResource("1_1yndf")
+title = "Take them."
+_console = ""
+health_prop = 0.0
+health_change = 0.0
+money = 35
+component_list = Array[ExtResource("2_ci7yh")]([ExtResource("4_be6fq"), ExtResource("5_v4705")])
+effects = Array[ExtResource("1_1yndf")]([])
+weights = Array[float]([])
+metadata/_custom_type_script = "uid://bv4bmnyy11eeh"
+
+[sub_resource type="Resource" id="Resource_2o0tj"]
+script = ExtResource("2_a6q0f")
+title = "A Stunning Victory!"
+exposition = "Your attack is a success. The source planet quickly retreats, leaving behind some element prime and some things that might be useful..."
+options = Array[ExtResource("1_1yndf")]([SubResource("Resource_axw87")])
+metadata/_custom_type_script = "uid://lcfv7m2vx331"
+
+[sub_resource type="Resource" id="Resource_p4sch"]
+script = ExtResource("1_1yndf")
+title = ""
+_console = ""
+health_prop = 0.0
+health_change = 0.0
+money = 0
+component_list = Array[ExtResource("2_ci7yh")]([])
+effects = Array[ExtResource("1_1yndf")]([])
+weights = Array[float]([])
+next_event = SubResource("Resource_2o0tj")
+metadata/_custom_type_script = "uid://bv4bmnyy11eeh"
+
+[sub_resource type="Resource" id="Resource_1l8o2"]
+script = ExtResource("1_1yndf")
+title = "Retreat!"
+_console = ""
+health_prop = 0.0
+health_change = -50.0
+money = 0
+component_list = Array[ExtResource("2_ci7yh")]([])
+effects = Array[ExtResource("1_1yndf")]([])
+weights = Array[float]([])
+metadata/_custom_type_script = "uid://bv4bmnyy11eeh"
+
+[sub_resource type="Resource" id="Resource_71amk"]
+script = ExtResource("2_a6q0f")
+title = "Ouch!!"
+exposition = "The planet is tough. Which logically makes sense, now that you look at it. It must be what, a thousand times bigger than your ship? You had no chance."
+options = Array[ExtResource("1_1yndf")]([SubResource("Resource_1l8o2")])
+metadata/_custom_type_script = "uid://lcfv7m2vx331"
+
+[sub_resource type="Resource" id="Resource_xu3lg"]
+script = ExtResource("1_1yndf")
+title = ""
+_console = ""
+health_prop = 0.0
+health_change = 0.0
+money = 0
+component_list = Array[ExtResource("2_ci7yh")]([])
+effects = Array[ExtResource("1_1yndf")]([])
+weights = Array[float]([])
+next_event = SubResource("Resource_71amk")
+metadata/_custom_type_script = "uid://bv4bmnyy11eeh"
+
+[sub_resource type="Resource" id="Resource_vnrc0"]
+script = ExtResource("1_1yndf")
+title = "Attack it!"
+_console = ""
+health_prop = 0.0
+health_change = 0.0
+money = 0
+component_list = Array[ExtResource("2_ci7yh")]([])
+effects = Array[ExtResource("1_1yndf")]([SubResource("Resource_p4sch"), SubResource("Resource_xu3lg")])
+weights = Array[float]([1.0, 2.0])
+metadata/_custom_type_script = "uid://bv4bmnyy11eeh"
+
+[resource]
+script = ExtResource("2_a6q0f")
+title = "Source Planet"
+exposition = "There's only one body in this system. It's incredibly large, and it's... writhing?"
+options = Array[ExtResource("1_1yndf")]([SubResource("Resource_uwnip"), SubResource("Resource_vnrc0")])
+metadata/_custom_type_script = "uid://lcfv7m2vx331"

@@ -63,7 +63,6 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2,
 	# Arrange moon distances
 	var moon_distances: PackedFloat64Array = []
 	moon_distances.resize(moon_count + 1)
-	var prev_distance := 0.0
 	
 	var star_radius: float = min_radius
 	

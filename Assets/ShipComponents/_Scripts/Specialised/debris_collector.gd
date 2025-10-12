@@ -7,12 +7,12 @@ var player: Player
 @export var count := 6
 
 
-func _installed(ship: Ship):
+func _installed(_ship: Ship):
 	player = Global.root.player
 	player.damage_hook.append(damage_hook)
 
 
-func _uninstalled(ship: Ship):
+func _uninstalled(_ship: Ship):
 	player = Global.root.player
 	player.damage_hook.erase(damage_hook)
 

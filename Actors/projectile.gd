@@ -153,7 +153,7 @@ func _ready() -> void:
 	t.tween_property(self, "scale", Vector2.ONE, 0.1)
 
 
-func apply_recoil(t: float):
+func apply_recoil(_t: float):
 	var delta := get_process_delta_time()
 	if source:
 		var mult: float = recoil_factor * delta / RECOIL_TIME

@@ -133,15 +133,15 @@ func calculate_score(digits: int) -> String:
 	const RANK_COEFF := 635
 	
 	var score: int = 0
-	score += LEVEL_COEFF * player_level
-	score += CURRENCY_COEFF * player_currency
-	score += XP_COEFF * player_xp
+	score += LEVEL_COEFF * player_level as int
+	score += CURRENCY_COEFF * player_currency as int
+	score += XP_COEFF * player_xp as int
 	if map:
 		score += RANK_COEFF * map.inner.rows_travelled
 	for i in player_ship.components:
 		if i.is_basic:
 			continue
-		score += SELL_VAL_COEFF * i.sell_value
+		score += SELL_VAL_COEFF * i.sell_value as int
 	score = min(score, 10 ** digits - 1)
 	var score_str: String = str(score)
 	score_str = "0".repeat(digits - len(score_str)) + score_str

@@ -5,7 +5,7 @@ const WIDTH := 2.0
 const FADEOUT_TIME := 0.5
 var hb: Area2D
 var player_ref: Player
-@export var range: float
+@export var effect_range: float
 @export var effect_duration: float
 @export var damage: float
 
@@ -26,7 +26,7 @@ func _trigger(player: Player, ship: Ship):
 	var coll := CollisionShape2D.new()
 	hb.add_child(coll)
 	coll.shape = CircleShape2D.new()
-	coll.shape.radius = range
+	coll.shape.radius = effect_range
 	hb.draw.connect(draw_icon)
 	hb.scale = Vector2.ZERO
 	var t := player.get_tree().create_tween()
@@ -36,7 +36,7 @@ func _trigger(player: Player, ship: Ship):
 
 
 func draw_icon():
-	hb.draw_circle(Vector2.ZERO, range, PLAYER_COLOUR, false, WIDTH)
+	hb.draw_circle(Vector2.ZERO, effect_range, PLAYER_COLOUR, false, WIDTH)
 
 
 func _on_area_entered(area: Area2D):
@@ -53,6 +53,6 @@ func _on_area_entered(area: Area2D):
 
 func _get_stat_string() -> String:
 	return """Effect Duration: {effect_duration} s
-	Range: {range} px
+	Range: {effect_range} px
 	Energy Output: {damage} J																	
 	""" + super()

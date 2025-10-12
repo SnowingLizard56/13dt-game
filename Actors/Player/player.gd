@@ -195,7 +195,7 @@ func damage(amount: float, source: int = 1):
 		if not source:
 			death_source = DeathSource.UNKNOWN
 		else:
-			death_source = source
+			death_source = source as DeathSource
 		generic_death()
 	invincible = true
 	$InvincibilityTimeout.start(invincibility_time)
