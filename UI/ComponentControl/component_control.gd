@@ -184,6 +184,6 @@ func finish() -> Array[ShipComponent]:
 
 
 func start_display_only(ship: Ship):
-	working_ship = ship
+	working_ship = ship.duplicate(true)
 	load_ship(working_ship, false)
 	reprocess()

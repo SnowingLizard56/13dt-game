@@ -54,6 +54,29 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.376471)
 
+[node name="ComponentControl" parent="." instance=ExtResource("3_5aml0")]
+layout_mode = 1
+
+[node name="DimBG" parent="ComponentControl" index="0"]
+visible = false
+
+[node name="HBoxContainer" parent="ComponentControl/Menu" index="0"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+offset_left = 96.0
+offset_top = -202.0
+offset_right = 676.0
+offset_bottom = 202.0
+grow_horizontal = 1
+
+[node name="SpareComponents" parent="ComponentControl/Menu/HBoxContainer" index="2"]
+visible = false
+
+[node name="Continue" parent="ComponentControl/Menu" index="1"]
+visible = false
+
 [node name="Container" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -95,29 +118,6 @@ theme_override_colors/font_focus_color = Color(0.866667, 0.337255, 0.223529, 1)
 theme_override_styles/focus = SubResource("StyleBoxFlat_d8nwk")
 text = "Main Menu"
 script = ExtResource("2_03fe5")
-
-[node name="ComponentControl" parent="." instance=ExtResource("3_5aml0")]
-layout_mode = 1
-
-[node name="DimBG" parent="ComponentControl" index="0"]
-visible = false
-
-[node name="HBoxContainer" parent="ComponentControl/Menu" index="0"]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_right = 0.0
-anchor_bottom = 0.5
-offset_left = 96.0
-offset_top = -202.0
-offset_right = 676.0
-offset_bottom = 202.0
-grow_horizontal = 1
-
-[node name="SpareComponents" parent="ComponentControl/Menu/HBoxContainer" index="2"]
-visible = false
-
-[node name="Continue" parent="ComponentControl/Menu" index="1"]
-visible = false
 
 [connection signal="pressed" from="Container/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Container/Options" to="." method="_on_options_pressed"]

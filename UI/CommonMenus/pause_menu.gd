@@ -21,11 +21,11 @@ func _process(_delta: float) -> void:
 		paused = not paused
 
 
-func _ready() -> void:
-	component_display.start_display_only(Global.player_ship)
-
-
 func start():
+	component_display.finish()
+	await Global.frame_next
+	component_display.start_display_only(Global.player_ship)
+	
 	main_menu_button_pressed_once = false
 	main_menu_button.text = "Main Menu"
 	
