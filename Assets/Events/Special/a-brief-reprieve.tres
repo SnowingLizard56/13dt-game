@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="MapEvent" load_steps=5 format=3 uid="uid://by12kj0rfiurd"]
 
 [ext_resource type="Script" uid="uid://bv4bmnyy11eeh" path="res://UI/Map/event_effect.gd" id="1_7k716"]
-[ext_resource type="Script" uid="uid://bvhobxwrsqcti" path="res://Assets/ShipComponents/_Scripts/ship_component.gd" id="2_x2ju6"]
+[ext_resource type="Script" uid="uid://ddyfayvy5r4u6" path="res://Assets/LootTables/loot_table.gd" id="2_78yi0"]
 [ext_resource type="Script" uid="uid://lcfv7m2vx331" path="res://UI/Map/event.gd" id="3_x2ju6"]
 
 [sub_resource type="Resource" id="Resource_xwq3s"]
@@ -11,8 +11,7 @@ _console = ""
 health_prop = 0.2
 health_change = 0.0
 money = 0
-component_list = Array[ExtResource("2_x2ju6")]([])
-table_roll_count = 0
+component_list = Array[ExtResource("2_78yi0")]([])
 effects = Array[ExtResource("1_7k716")]([])
 weights = Array[float]([])
 metadata/_custom_type_script = "uid://bv4bmnyy11eeh"

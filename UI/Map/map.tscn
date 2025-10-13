@@ -160,7 +160,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.376471)
 
-[node name="EventScreen" type="Control" parent="UI/UI" node_paths=PackedStringArray("dimmer", "title", "exposition", "options_holder", "map_ui")]
+[node name="EventScreen" type="Control" parent="UI/UI" node_paths=PackedStringArray("dimmer", "title", "options_holder", "map_ui")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -172,7 +172,6 @@ script = ExtResource("7_civn7")
 dimmer = NodePath("../DimBG")
 option = ExtResource("8_05n6e")
 title = NodePath("Event/Title")
-exposition = NodePath("")
 options_holder = NodePath("Event/Options")
 map_ui = NodePath("..")
 

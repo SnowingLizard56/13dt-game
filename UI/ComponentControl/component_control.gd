@@ -48,23 +48,24 @@ func draw_player():
 
 
 # Adds a component button to the scene and sets up signals
-func add_component_option(what: ShipComponent, where: Node):
+func add_component_option(what: ShipComponent, where: Node, allow_swap: bool = true):
 	var k: ShipComponentNode = component_scene.instantiate()
 	k.component = what
 	where.add_child(k)
 	k.focus_entered.connect(focused.emit.bind(k, where == installed_components))
-	if where == installed_components:
-		k.pressed.connect(move_component_node.bind(k, spare_components))
-		k.swap_cost = what.sell_value
-	else:
-		k.pressed.connect(move_component_node.bind(k, installed_components))
-		k.swap_cost = what.buy_value
+	if allow_swap:
+		if where == installed_components:
+			k.pressed.connect(move_component_node.bind(k, spare_components))
+			k.swap_cost = what.sell_value
+		else:
+			k.pressed.connect(move_component_node.bind(k, installed_components))
+			k.swap_cost = what.buy_value
 
 
 # Add all components from the given ship to the scene
-func load_ship(ship: Ship) -> void:
+func load_ship(ship: Ship, allow_swap: bool = true) -> void:
 	for cmpnt in ship.components:
-		add_component_option(cmpnt, installed_components)
+		add_component_option(cmpnt, installed_components, allow_swap)
 
 
 # Recalculate and display the overall ship
@@ -180,3 +181,9 @@ func finish() -> Array[ShipComponent]:
 	for n: ShipComponentNode in installed_components.get_children():
 		n.queue_free()
 	return out
+
+
+func start_display_only(ship: Ship):
+	working_ship = ship
+	load_ship(working_ship, false)
+	reprocess()

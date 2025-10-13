@@ -13,6 +13,7 @@ const PTS: PackedVector2Array = [
 const EMIT_COUNT_WEIGHTS: PackedFloat32Array = [
 	0, 15, 17, 15, 6, 2, 1, 0.1
 ]
+const NO_SPAWN_COUNT := 32
 
 var active: bool = false
 var burst_count = 0
@@ -43,6 +44,13 @@ func _on_disable_timer_timeout() -> void:
 
 func _on_burst_timeout() -> void:
 	burst_count -= 1
+	if burst_count == 0:
+		$Burst.stop()
+		$Firerate.start()
+	
+	if get_tree().get_nodes_in_group("enemies").size() >= NO_SPAWN_COUNT:
+		return
+	
 	var k = FLYING_ENEMY.instantiate()
 	
 	var position_offset := Vector2.from_angle(rotation) * SPAWN_DISTANCE + \
@@ -54,9 +62,6 @@ func _on_burst_timeout() -> void:
 	k.vx = vx + cos(rotation) * SPAWN_IV
 	k.vy = vy + sin(rotation) * SPAWN_IV
 	gen.enemy_put_node.add_child(k)
-	if burst_count == 0:
-		$Burst.stop()
-		$Firerate.start()
 
 
 func _on_firerate_timeout() -> void:

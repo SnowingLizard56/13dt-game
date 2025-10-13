@@ -46,11 +46,7 @@ func update_all():
 
 
 func add_xp(v: float):
-	const MINIMUM := 100.0
-	const POINT_X := 100.0
-	const POINT_Y := 1000.0
-	
-	var cutoff = (POINT_Y - MINIMUM) / POINT_X * Global.player_level + MINIMUM
+	var cutoff = GlobalOptions.calculate_xp_cutoff()
 	if cutoff - Global.player_xp < v:
 		if not triggered_levelup:
 			triggered_levelup = true

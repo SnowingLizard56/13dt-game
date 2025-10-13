@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Global="*res://global.gd"
 LevelGenerator="*res://Actors/level_generator.gd"
+GlobalOptions="*res://global_options.gd"
 
 [display]
 

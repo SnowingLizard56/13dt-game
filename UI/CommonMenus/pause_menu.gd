@@ -5,19 +5,24 @@ var main_menu_button_pressed_once: bool = false
 @onready var resume_button: Button = $Container/Resume
 @onready var options_button: Button = $Container/Options
 @onready var main_menu_button: Button = $Container/MainMenu
+@onready var component_display: ComponentControl = $ComponentControl
 
 var paused: bool = false
 var return_focus_target: Control
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("pause") and not Global.root.player.is_dead:
 		return_focus_target = get_viewport().gui_get_focus_owner()
 		if paused:
 			_on_resume_pressed()
 		elif not get_tree().paused:
 			start()
 		paused = not paused
+
+
+func _ready() -> void:
+	component_display.start_display_only(Global.player_ship)
 
 
 func start():
@@ -29,6 +34,7 @@ func start():
 	resume_button.modulate.a = 0.0
 	options_button.modulate.a = 0.0
 	main_menu_button.modulate.a = 0.0
+	component_display.modulate.a = 0.0
 	dimmer.modulate.a = 0.0
 	get_tree().paused = true
 	
@@ -40,6 +46,7 @@ func start():
 	t.tween_property(resume_button, "modulate", Color.WHITE, 0.3)
 	t.parallel().tween_property(options_button, "modulate", Color.WHITE, 0.3)
 	t.parallel().tween_property(main_menu_button, "modulate", Color.WHITE, 0.3)
+	t.parallel().tween_property(component_display, "modulate", Color.WHITE, 0.3)
 
 
 func _on_main_menu_pressed() -> void:

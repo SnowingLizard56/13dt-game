@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlmalknb0ogn6"]
+[gd_scene load_steps=7 format=3 uid="uid://dlmalknb0ogn6"]
 
 [ext_resource type="Script" uid="uid://y1ovawcvs6oi" path="res://UI/CommonMenus/pause_menu.gd" id="1_jfm1e"]
+[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_mbt7y"]
 [ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="2_03fe5"]
+[ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/ComponentControl/component_control.tscn" id="3_5aml0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cwpn"]
 bg_color = Color(0.0507, 0.0916717, 0.13, 1)
@@ -40,6 +42,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_mbt7y")
 script = ExtResource("1_jfm1e")
 
 [node name="DimBG" type="ColorRect" parent="."]
@@ -53,13 +56,15 @@ color = Color(0, 0, 0, 0.376471)
 
 [node name="Container" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 444.0
-offset_top = 136.5
-offset_right = -516.0
-offset_bottom = -136.5
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 250.0
+offset_top = -186.0
+offset_right = 442.0
+offset_bottom = 186.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 114
@@ -91,6 +96,31 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_d8nwk")
 text = "Main Menu"
 script = ExtResource("2_03fe5")
 
+[node name="ComponentControl" parent="." instance=ExtResource("3_5aml0")]
+layout_mode = 1
+
+[node name="DimBG" parent="ComponentControl" index="0"]
+visible = false
+
+[node name="HBoxContainer" parent="ComponentControl/Menu" index="0"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+offset_left = 96.0
+offset_top = -202.0
+offset_right = 676.0
+offset_bottom = 202.0
+grow_horizontal = 1
+
+[node name="SpareComponents" parent="ComponentControl/Menu/HBoxContainer" index="2"]
+visible = false
+
+[node name="Continue" parent="ComponentControl/Menu" index="1"]
+visible = false
+
 [connection signal="pressed" from="Container/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Container/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Container/MainMenu" to="." method="_on_main_menu_pressed"]
+
+[editable path="ComponentControl"]
