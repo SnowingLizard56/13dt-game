@@ -7,10 +7,7 @@ signal took_damage(amnt: float)
 var trigger_components: Array[TriggerComponent] = []
 signal components_updated
 
-var base_thrust_profile: ThrustParticleProfile:
-	set(v):
-		base_thrust_profile = v
-		thrust_profile_updated.emit(v)
+var base_thrust_profile: ThrustParticleProfile
 var thrust_profile_override: ThrustParticleProfile:
 	set(v):
 		if v == null:

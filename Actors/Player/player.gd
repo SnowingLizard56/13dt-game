@@ -35,7 +35,6 @@ var invincibility_time: float = 0.5
 var ship: Ship = null
 @onready var ui: Control = %UI
 @export var thrust: CPUParticles2D
-@onready var thrust_current: CPUParticles2D = thrust
 @onready var hitbox: Area2D = $Hitbox
 @onready var invincibility_timeout: Timer = $InvincibilityTimeout
 @onready var invincibility_flash: Timer = $InvincibilityFlash
@@ -123,7 +122,8 @@ func _physics_process(delta: float) -> void:
 			thrust.global_rotation = acceleration_input.angle()
 		thrust.emitting = true
 	else:
-		thrust.emitting = false
+		if thrust:
+			thrust.emitting = false
 	
 	var rotate_amount := -delta * ship.acceleration / 80
 	rotate(rotate_amount)
