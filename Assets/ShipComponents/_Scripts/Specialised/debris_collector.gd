@@ -1,7 +1,7 @@
 class_name DebrisCollector extends ShipComponent
 
 const BONUS_PROJECTILES := 3
-const PROJ_RADIUS := 3.
+const PROJ_RADIUS := 3.0
 var player: Player
 @export var proj_speed := 50
 @export var proj_mass := 1.6
@@ -19,6 +19,7 @@ func _uninstalled(_ship: Ship):
 
 
 func damage_hook(_amt: float, src: int):
+	# If planet, youre dead anyway. womp womp no bullets for you
 	if src == Player.DeathSource.PLANET:
 		return
 	for i in count + int(player.ship.has_component("Debris Ejector")) * BONUS_PROJECTILES:

@@ -14,15 +14,14 @@ const FADE_IN_TIME: float = 0.5
 @onready var delta_money: Control = $DeltaMoney
 @onready var currency_position: Vector2 = $CurrencyDisplay.position
 @onready var fade_in: ColorRect = $FadeIn
+@export var shop_loot: LootTable
 
 var budget: int
-@export var shop_loot: LootTable
 var shake_money := 0.0:
 	set(v):
 		if v > shake_money:
 			shake_money_max = v
 		shake_money = v
-
 var shake_money_max := 0.0
 
 
@@ -30,10 +29,12 @@ func _ready() -> void:
 	budget = Global.player_currency
 	currency_display.apply_amount(budget)
 	var available := shop_loot.get_loot(
-		randi_range(3, 5) - randi_range(0, 1),
+		randi_range(3, 5) - randi_range(0, 1), # 2 -> 5, favor 3 & 4
 		Global.player_ship.get(&"Luck").value)
-	
+	# Setup component control
 	component_control.start(available, Global.player_ship)
+	
+	# Animation...
 	var tween := get_tree().create_tween()
 	tween.tween_property(fade_in, "modulate", Color(1, 1, 1, 0), FADE_IN_TIME)
 	tween.tween_callback(fade_in.hide)
@@ -79,7 +80,8 @@ func _on_component_control_focused(what: ShipComponentNode, is_left: bool) -> vo
 func _process(delta: float) -> void:
 	if shake_money:
 		shake_money = max(shake_money - delta, 0)
+	# Big equation :yikes:
 	currency_display.position = currency_position\
 		+ shake_money * MONEY_SHAKE_AMPLITUDE * Vector2(
-		sin(MONEY_SHAKE_SPEED * (shake_money_max - shake_money))
-		, 0)
+		sin(MONEY_SHAKE_SPEED * (shake_money_max - shake_money)),
+		0)

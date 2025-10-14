@@ -12,7 +12,7 @@ var player_ref: Player
 
 
 func _trigger(player: Player, ship: Ship):
-	if !trigger_ready:
+	if not trigger_ready:
 		return
 	player_ref = player
 	super(player, ship)

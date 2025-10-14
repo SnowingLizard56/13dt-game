@@ -1,6 +1,7 @@
 extends Control
 
 const SCORE_LABEL_PREFIX := "Score: "
+const PANEL_MOVE_AMOUNT := Vector2(0, 800.0)
 
 @export var dim_bg: ColorRect
 @export var title_label: Label
@@ -17,14 +18,14 @@ const SCORE_LABEL_PREFIX := "Score: "
 
 
 func _on_player_player_died() -> void:
-	const PANEL_MOVE_AMOUNT := Vector2(0, 800.0)
+	# Set up visuals; Ensure base position for animations
+	show()
+	panel.position += PANEL_MOVE_AMOUNT
 	
 	killed_by_label.text = killed_by[%Player.death_source]
 	title_label.text = titles[randi() % len(titles)]
 	tip_label.text = tips[randi() % len(tips)]
 	score_label.text = SCORE_LABEL_PREFIX + Global.calculate_score(6)
-	
-	show()
 	
 	title_label.modulate.a = 0.0
 	score_label.modulate.a = 0.0
@@ -33,8 +34,8 @@ func _on_player_player_died() -> void:
 	quit_button.modulate.a = 0.0
 	again_button.modulate.a = 0.0
 	dim_bg.modulate.a = 0.0
-	panel.position += PANEL_MOVE_AMOUNT
 	
+	# Start show animation
 	var tween := get_tree().create_tween()
 	tween.tween_interval(3.0)
 	tween.tween_property(dim_bg, "modulate", Color.WHITE, 0.5)

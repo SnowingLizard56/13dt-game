@@ -63,7 +63,7 @@ func update_areas() -> void:
 	const TICK_CUTOFF: int = 3
 	var this_frame: int = Time.get_ticks_msec()
 	for b in level.get_bodies():
-		if !areas.has(b.id):
+		if not areas.has(b.id):
 			var k: Body = body_scene.instantiate()
 			areas[b.id] = k
 			k.id = b.id

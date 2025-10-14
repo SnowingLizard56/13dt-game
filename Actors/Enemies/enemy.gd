@@ -73,17 +73,9 @@ func damage(amount: float) -> void:
 
 
 func get_max_hp() -> float:
+	# Necessary for getting MAX_HP in subclasses
 	assert(&"MAX_HP" in self)
 	return self.MAX_HP
-
-
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_READY:
-		# Increment
-		root.enemy_gen.total_enemies_alive += 1
-	elif what == NOTIFICATION_PREDELETE:
-		# Decrement
-		root.enemy_gen.total_enemies_alive -= 1
 
 
 func reparent_body(body: int):
@@ -95,7 +87,8 @@ func reparent_body(body: int):
 	root.areas[body].add_child(self)
 
 
-func death_override():
+func death_override(): # Virtual # Why it no working D:
+	# Exists to be overridden
 	for i in death_particle_count:
 		if randf() < e127_proportion:
 			CollectParticle.new(

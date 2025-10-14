@@ -105,7 +105,7 @@ func _step():
 			var disallow_left = current == 0 or line_cross_right[current - 1]
 			var disallow_right = (current + 1) == WIDTH or line_cross_left[current + 1]
 			
-			var diff: int = Global.random.randi_range(-int(!disallow_left), int(!disallow_right))
+			var diff: int = Global.random.randi_range(-int(not disallow_left), int(not disallow_right))
 			
 			# Next index
 			indices[i] += diff
@@ -145,7 +145,7 @@ func _step():
 	for i in WIDTH:
 		# Add new to tree
 		var map_node = map[map.size() - WIDTH + i]
-		# if theyre in-map
+		# If theyre in the map...
 		if map_node.in_map:
 			map_node.list_position = i + WIDTH * rows_travelled
 			map_node.map_position = Vector2(i, rows_travelled)

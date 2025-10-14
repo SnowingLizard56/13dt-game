@@ -1,6 +1,6 @@
 extends Control
 
-const COLOUR := Color("ffefa1")
+const COLOUR := Color(1, 0.937255, 0.631373, 1)
 const SIDE_LENGTH := 20
 const CURVE_RADIUS := 5
 
@@ -29,10 +29,10 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	# Triangle
+	# Circles in each corner of inner triangle
 	for pos in [top, left, right]:
 		draw_circle(pos, CURVE_RADIUS, COLOUR)
-	# Hexagon but weird
+	# Edges of circles: forming smooth edged triangle
 	draw_colored_polygon(pts, COLOUR)
 	# Exclamation Mark
 	draw_circle(Vector2(top.x, 8), 3, Color.BLACK)

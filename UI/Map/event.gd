@@ -4,6 +4,7 @@ class_name MapEvent extends Resource
 @export_multiline var exposition: String = "-"
 @export var options: Array[EventEffect] = []:
 	get():
+		# If no options, add a "nothing" option
 		if options == []:
 			var ee = EventEffect.new()
 			ee.title = "Continue"

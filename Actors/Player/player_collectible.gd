@@ -40,7 +40,7 @@ func _init(_t: Types, pos: Vector2, v: float = 1.0) -> void:
 	distance_constant = sqrt((DISTANCE / distance + 1) ** 2 - 1) + 2 * DISTANCE / distance + 0.5
 	z_index = 3
 
-	
+
 func _ready() -> void:
 	rotation = randf() * TAU
 	var tween: Tween = get_tree().create_tween()
@@ -81,6 +81,8 @@ func finish():
 	elif type == Types.E127:
 		Global.player_currency += int(value)
 	elif type == Types.HP:
-		Global.root.player.ship.hp = min(Global.root.player.ship.max_hp, Global.root.player.ship.hp + value)
+		Global.root.player.ship.hp = min(
+			Global.root.player.ship.max_hp,
+			Global.root.player.ship.hp + value)
 	Global.root.ui.update_all()
 	queue_free()

@@ -17,7 +17,6 @@ func _ready() -> void:
 
 func _process(delta:float) -> void:
 	rotate(delta/6)
-	# Update texture
 
 
 func _draw() -> void:

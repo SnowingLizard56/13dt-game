@@ -38,7 +38,7 @@ enum MovementModes {
 
 
 func _physics_process(delta: float) -> void:
-	if !root.level: return
+	if not root.level: return
 	var grav: Dictionary = root.level.barnes_hut_probe(Global.time_scale, x, y)
 	# Cast Resolution
 	var colliding_idx: int = -1

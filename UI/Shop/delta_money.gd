@@ -17,9 +17,11 @@ func apply_amount(v: int):
 	else:
 		label.text = "+"
 		label.modulate = SOLID_COLOUR
+	# No more than 3 characters
 	v = min(v, max_value)
 	var out: String = str(v)
 	
+	# No less than 3 characters
 	if len(out) < length:
 		out = "0".repeat(length - len(out)) + out
 	label.text += out

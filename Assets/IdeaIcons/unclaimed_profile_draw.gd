@@ -27,6 +27,7 @@ func _process(_delta: float) -> void:
 
 
 func draw_blob(node: Node2D) -> void:
+	# Coming back to this. What on earth are these names. Whatever they're pretty clear
 	node.rotation = randf_range(0, TAU)
 	var distance: float = randf() * radius - outer_ring_dist - max_blob_radius
 	var blob_radius: float = randf_range(min_blob_radius, max_blob_radius)

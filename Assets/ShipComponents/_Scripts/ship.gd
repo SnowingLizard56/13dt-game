@@ -74,18 +74,23 @@ func set_components(_components: Array[ShipComponent] = []) -> void:
 			misc_properties[p.property_name].modifiers.append(p)
 		
 		if cmpnt is ShipThruster:
-			if !no_thruster:
+			# Handle thruster(s)
+			if not no_thruster:
 				has_multiple_thrusters = true
 			else:
 				no_thruster = false
 				thrust = max(thrust, cmpnt.thrust)
 				base_thrust_profile = cmpnt.visual_profile
+				
 		elif cmpnt is ShipHull:
-			if !no_hull:
+			# Handle hull(s)
+			if not no_hull:
 				has_multiple_hulls = true
 			no_hull = false
 			max_hp = max(cmpnt.max_hp, max_hp)
+			
 		elif cmpnt is TriggerComponent:
+			# Handle triggers
 			no_triggers = false
 			if len(trigger_components) == 4:
 				too_many_triggers = true
@@ -107,7 +112,6 @@ func damage(amnt: float):
 
 
 func trigger(trigger_index: int, player: Player) -> void:
-	assert(trigger_index < 4, str(trigger_index) + " is not a valid trigger index (>3)")
 	if trigger_index < len(trigger_components):
 		trigger_components[trigger_index]._trigger(player, self)
 
@@ -128,7 +132,7 @@ func _get_property_list() -> Array[Dictionary]:
 
 
 func _get(property: StringName) -> Variant:
-	if !misc_properties.has(property):
+	if not misc_properties.has(property):
 		return null
 	return misc_properties[property]
 

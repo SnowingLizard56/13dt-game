@@ -133,7 +133,7 @@ func _physics_process(delta: float) -> void:
 	vx += ship.acceleration * acceleration_input.x * delta
 	vy += ship.acceleration * acceleration_input.y * delta
 	
-	if !level:
+	if not level:
 		level = get_parent().level
 	
 	grav_and_move(delta)

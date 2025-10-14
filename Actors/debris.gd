@@ -7,12 +7,11 @@ const DEBRIS_COLOUR := Color(1, 0.937255, 0.631373, 1)
 var vx: float = 0
 var vy: float = 0
 
-
 @onready var root: LevelController = get_tree().current_scene
 
 
 func _physics_process(delta: float) -> void:
-	if !root.level: return
+	if not root.level: return
 	var grav: Dictionary = root.level.barnes_hut_probe(Global.time_scale, x, y)
 	vx += grav.ax * delta
 	vy += grav.ay * delta

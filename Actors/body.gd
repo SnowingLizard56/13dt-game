@@ -1,5 +1,6 @@
 class_name Body extends Area2D
 
+const COLOUR := Color(0.960784, 0.909804, 0.819608, 1)
 
 @onready var predictions: Node2D = $Predictions
 @onready var particles: CPUParticles2D = $CrashParticles
@@ -21,6 +22,7 @@ var id: int:
 
 
 func is_clear():
+	# If any enemies are inhabiting this planet, return false
 	for i in get_children():
 		if i is Enemy:
 			return false
@@ -32,7 +34,7 @@ func set_prediction(index: int, pos: Vector2):
 
 
 func _draw():
-	draw_circle(Vector2.ZERO, radius, "f5e8d1")
+	draw_circle(Vector2.ZERO, radius, COLOUR)
 
 
 func crash_particles(angle: float):

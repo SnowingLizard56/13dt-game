@@ -26,7 +26,8 @@ var impact_hook: Array[Callable]
 signal hit_body(id: int)
 
 
-func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1, cause_planet_particles: bool = false) -> void:
+func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1,
+	cause_planet_particles: bool = false) -> void:
 	hide()
 	_dvx = dvx
 	_dvy = dvy
@@ -135,7 +136,7 @@ func _draw() -> void:
 		var radius: float = get_child(0).shape.radius
 		var pos: Vector2 = Vector2(height / 2 - radius, 0)
 		for i in [-1, 1]:
-			draw_circle(i*pos, radius, COLOUR)
+			draw_circle(i * pos, radius, COLOUR)
 		draw_rect(
 			Rect2(-pos - Vector2(0, radius), 2 * (pos + Vector2(0, radius))),
 			COLOUR

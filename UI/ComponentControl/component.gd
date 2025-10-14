@@ -13,4 +13,6 @@ func _ready() -> void:
 
 
 func draw_trigger_icon():
+	# In theory, this would separate components with triggers from
+	# Components without triggers at a glance
 	pass

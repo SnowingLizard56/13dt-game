@@ -35,10 +35,14 @@ func _process(delta: float) -> void:
 
 
 func move_to(target: MapIcon):
-	var t := get_tree().create_tween()
-	t.tween_property(self, "position", target.position + target.SCALE_NORMAL * target.size / 2, MOVE_TIME)\
-		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
-	t.tween_callback(destination_reached.emit)
+	var tween := get_tree().create_tween()
+	tween.tween_property(
+		self,
+		"position",
+		target.position + target.SCALE_NORMAL * target.size / 2,
+		MOVE_TIME
+		).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	tween.tween_callback(destination_reached.emit)
 	await destination_reached
 	my_icon = target
 	target.queue_redraw()

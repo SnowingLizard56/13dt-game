@@ -87,7 +87,7 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2,
 				* sqrt(mass * BIG_G / moon_distances[i]) / distance_scale,
 			DENSITIES[1]
 		)
-		if !first_moon_radius:
+		if not first_moon_radius:
 			first_moon_radius = radius
 	
 	var distance: float = star_radius + (moon_distances[0] - first_moon_radius - star_radius) / 2

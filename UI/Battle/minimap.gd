@@ -23,7 +23,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if !level:
+	if not level:
 		level = levelcontroller.level
 		return
 	if hb.get_overlapping_areas():
@@ -34,7 +34,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_drawer_draw() -> void:
-	if !level:
+	if not level:
 		return
 	var d: Node2D = get_child(0)
 	var x: float = 0

@@ -50,7 +50,7 @@ func start():
 
 
 func _on_main_menu_pressed() -> void:
-	if !main_menu_button_pressed_once:
+	if not main_menu_button_pressed_once:
 		main_menu_button_pressed_once = true
 		main_menu_button.text = "Abandon Run?"
 		return

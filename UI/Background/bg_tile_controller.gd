@@ -4,8 +4,7 @@ var layers: Array[Layer] = []
 @onready var player: Player = %Player
 
 
-func new_layer(factor: float, 
-	group: BackgroundQuad.DecorationGroup = BackgroundQuad.DecorationGroup.DISTANT) -> Layer:
+func new_layer(factor: float) -> Layer:
 	var layer := Layer.new()
 	
 	for i in [-Vector2i.ONE, Vector2i.UP, Vector2i.LEFT, Vector2i.ZERO]:
@@ -15,7 +14,6 @@ func new_layer(factor: float,
 		add_child(q)
 		layer.quads.append(q)
 	
-	layer.group = group
 	layer.game_size = get_parent().game_rect.size
 	layer.parallax_factor = factor
 	layers.append(layer)
@@ -28,11 +26,11 @@ func _process(_delta: float) -> void:
 
 
 class Layer:
+	# Subclass to handle each quarter of the background
 	var layer_seed: int = randi() % 2 ** 32
 	var parallax_factor: float = 1.0
 	var quads: Array[BackgroundQuad] = []
 	var game_size: Vector2
-	var group: BackgroundQuad.DecorationGroup
 	
 	func update_position(player:Player):
 		for i in quads:
@@ -41,7 +39,7 @@ class Layer:
 				i.grid_pos.y * game_size.y - parallax_factor * player.y
 			)
 		var corner: Vector2 = quads[0].position + game_size
-		# Eugh
+		# Eugh. This is bulky. Necessary though
 		if corner.x < -game_size.x / 2:
 			# Swap l/r, new l needs queue redraw
 			quads[0].queue_redraw()
@@ -70,7 +68,7 @@ class Layer:
 			quads[3] = temp
 		
 		if corner.y < -game_size.y / 2:
-			# Swap t/b, new ? needs queue redraw
+			# Swap t/b, new t needs queue redraw
 			quads[0].queue_redraw()
 			quads[1].queue_redraw()
 			quads[0].grid_pos.y += 2
@@ -83,7 +81,7 @@ class Layer:
 			quads[1] = quads[3]
 			quads[3] = temp
 		elif corner.y > game_size.y / 2:
-			# Swap t/b, new ? needs queue redraw
+			# Swap t/b, new b needs queue redraw
 			quads[2].queue_redraw()
 			quads[3].queue_redraw()
 			quads[2].grid_pos.y -= 2

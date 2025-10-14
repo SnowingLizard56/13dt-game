@@ -27,6 +27,7 @@ func _ready() -> void:
 	frequencies.resize(segments)
 	rotations.fill(0)
 	v_rotations.fill(0)
+	# Setup segments
 	for i in segments:
 		frequencies[i] = randf_range(0.1, 0.25)
 		var k = CollisionShape2D.new()
@@ -35,6 +36,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# Lots of comments here bc i had to think about it lol
 	var start := Vector2.ZERO
 	var relpos := Vector2(x, y)
 	var rotsum := 0.0
@@ -43,7 +45,8 @@ func _physics_process(delta: float) -> void:
 		# Shape ref
 		var shape: SegmentShape2D = hitbox.get_child(i).shape
 		# Acceleration
-		var target_angle = (shape.a + relpos).angle_to_point(Vector2(root.player.x, root.player.y)) - rotsum
+		var target_angle = (shape.a + relpos).angle_to_point(Vector2(root.player.x, root.player.y))
+		target_angle -= rotsum
 		var diff = angle_difference(rotations[i] + rotation, target_angle)
 		v_rotations[i] += sign(diff) * ACCELERATION * delta
 		# Velocity

@@ -12,7 +12,7 @@ var type := UNCLAIMED
 var is_friendly: bool
 
 
-func _init(_type=null) -> void:
+func _init(_type = null) -> void:
 	if _type == null:
 		# Choose type
 		self.type = DATA[Global.random.rand_weighted(WEIGHTS)]

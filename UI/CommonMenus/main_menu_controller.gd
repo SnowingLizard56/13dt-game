@@ -180,12 +180,12 @@ func _on_play_pressed() -> void:
 
 func play_animation_finished():
 	const SHIFT_TIME := 3.0
-	if !get_load_threaded_progress(Global.GAME_FILE_PATH) == 1.0:
+	if not get_load_threaded_progress(Global.GAME_FILE_PATH) == 1.0:
 		await game_scene_loaded
 	if len(LevelGenerator.levels_ready) == 0:
 		await LevelGenerator.level_generated
 	
-	# mini animation, scene switch
+	# Mini animation, scene switch
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_interval(0.5)
 	tween.tween_property(e127, "scale", Vector2.ONE * 8, SHIFT_TIME * 0.1)\

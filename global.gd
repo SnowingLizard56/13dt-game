@@ -47,9 +47,9 @@ func _ready() -> void:
 	player_ship.set_components()
 
 
-# Not my code. An algorithm essentially the same as Array.shuffle()
-# Except it uses its own random number generator
 func array_shuffle(array: Array) -> Array:
+	# Not my code. An algorithm essentially the same as Array.shuffle()
+	# Except it uses its own random number generator
 	# Each item except last two
 	for i in len(array) - 2:
 		# Swap it with a random index to the right
@@ -65,7 +65,7 @@ func _process(_delta: float) -> void:
 	tick = Time.get_ticks_usec()
 	
 	# Get each device aim
-	var new_mouse: Vector2 = (get_viewport().get_mouse_position() -\
+	var new_mouse: Vector2 = (get_viewport().get_mouse_position() - \
 		get_viewport().get_visible_rect().get_center()).normalized()
 	if new_mouse == mouse_aim:
 		mouse_stale = true
@@ -82,10 +82,10 @@ func _process(_delta: float) -> void:
 		joy_stale = false
 	
 	# Decide which to use
-	if !joy_stale:
+	if not joy_stale:
 		aim = joy_aim
 		using_controller = true
-	elif joy_stale and !mouse_stale:
+	elif joy_stale and not mouse_stale:
 		aim = mouse_aim
 		using_controller = false
 
@@ -148,7 +148,7 @@ func calculate_score(digits: int) -> String:
 	return score_str
 
 
-func trigger_level_up(v: float, cutoff: float, time: float=0):
+func trigger_level_up(v: float, cutoff: float, time: float = 0):
 	await get_tree().create_timer(time).timeout
 	player_xp += v - cutoff
 	player_level += 1

@@ -2,7 +2,7 @@ class_name CannonEnemy extends Enemy
 
 const MAX_HP: float = 125
 const MAX_ANGLE: float = 0.2 * TAU
-const PROJECTILE_IV: float = 365 # Like a year. lol
+const PROJECTILE_IV: float = 365 # Like a year. lol. haha
 const MAX_ROTATION_SPEED: float = 0.2 * TAU
 const PROJECTILE_OFFSET_DIST: float = 15.0
 const PROJECTILE_MASS: float = 7.3
@@ -43,15 +43,17 @@ func _on_barrel_draw() -> void:
 
 
 func fire_bullet() -> void:
+	# Animate barrel recoil
 	var tween: Tween = get_tree().create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(barrel_vis, "position", ANIM_RECOIL_POSITION, ANIM_RECOIL_TIME)
 	tween.tween_property(barrel_vis, "position", Vector2.ZERO, ANIM_RECOVER_TIME)
 	
+	# Spawn projectile
 	var shape = CircleShape2D.new()
 	var dir := Vector2.from_angle(barrel.global_rotation)
 	shape.radius = PROJECTILE_RADIUS
-	var p := Projectile.new(
+	var projectile := Projectile.new(
 		self,
 		PROJECTILE_IV * dir.x,
 		PROJECTILE_IV * dir.y,
@@ -59,23 +61,28 @@ func fire_bullet() -> void:
 		PROJECTILE_MASS,
 		true
 	)
-	p.x += dir.x * PROJECTILE_OFFSET_DIST
-	p.y += dir.y * PROJECTILE_OFFSET_DIST
-	p._physics_process(get_physics_process_delta_time())
+	# Give projectile an offset
+	projectile.x += dir.x * PROJECTILE_OFFSET_DIST
+	projectile.y += dir.y * PROJECTILE_OFFSET_DIST
+	projectile._physics_process(get_physics_process_delta_time())
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	# Activate
 	active = true
 	fire_rate.paused = false
+	# Stop deactivate
 	if fire_rate.is_stopped():
 		fire_rate.start()
 	disable_timer.stop()
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	# Prepare trigger deactivate
 	disable_timer.start()
 
 
 func _on_disable_timer_timeout() -> void:
+	# Deactivate
 	active = false
 	fire_rate.paused = true

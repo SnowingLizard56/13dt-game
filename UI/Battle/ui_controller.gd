@@ -79,7 +79,8 @@ func give_level_up_reward():
 	var tween: Tween = get_tree().create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(component_control, "modulate", Color.WHITE, 0.3)
-	tween.parallel().tween_property(component_control.for_moving, "position", Vector2.ZERO, 1.0).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(component_control.for_moving, "position", Vector2.ZERO, 1.0)\
+		.set_trans(Tween.TRANS_QUAD)
 
 
 func _process(_delta: float) -> void:
@@ -89,14 +90,22 @@ func _process(_delta: float) -> void:
 
 
 func level_up_finalised() -> void:
+	# Get back at it tiger
 	component_control.finish()
 	Engine.time_scale = 0.0
 	add_xp(0)
+	
+	# I regret my previous comment
+	# Animation!
 	var tween: Tween = get_tree().create_tween()
 	tween.set_ignore_time_scale(true)
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(component_control, "modulate", Color(1, 1, 1, 0), 0.3)
-	tween.parallel().tween_property(component_control.for_moving, "position", Vector2(0, 648), 1.0).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(
+		component_control.for_moving,
+		"position",
+		Vector2(0, 648),
+		1.0).set_trans(Tween.TRANS_QUAD)
 	tween.tween_callback(component_control.hide)
 	tween.tween_callback(get_tree().set.bind(&"paused", false))
 	tween.tween_property(Engine, "time_scale", 1.0, 1.0)

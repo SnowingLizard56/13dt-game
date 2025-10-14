@@ -7,7 +7,7 @@ class_name ProjectileWeapon extends TriggerComponent
 
 
 func _trigger(player: Player, ship: Ship):
-	if !trigger_ready:
+	if not trigger_ready:
 		return
 	Projectile.new(
 		player,

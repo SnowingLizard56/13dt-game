@@ -34,7 +34,7 @@ func _draw() -> void:
 	draw_circle(size / 2, 100 * scale_val / SCALE_NORMAL, HUD_COLOUR)
 	if map.focused_icon == self:
 		draw_circle(size / 2, 100 * scale_val / SCALE_NORMAL, PLAYER_COLOUR, false, 3.0)
-	if !nebula:
+	if not nebula:
 		return
 	if drawn:
 		return

@@ -8,13 +8,15 @@ const KICK_APPLY_TIME := 0.1
 
 
 func _trigger(player: Player, ship: Ship):
-	if !trigger_ready:
+	if not trigger_ready:
 		return
 	super(player, ship)
 	
 	var tween := player.get_tree().create_tween()
 	tween.tween_method(apply_kick, 0, KICK_APPLY_TIME, KICK_APPLY_TIME)
 	
+	# Apply, wait, remove
+	# Will break in conjunction with any thrust doublers or the like
 	ship.thrust_modifier += extra_thrust
 	ship.thrust_profile_override = visual_profile
 	await player.get_tree().create_timer(duration).timeout

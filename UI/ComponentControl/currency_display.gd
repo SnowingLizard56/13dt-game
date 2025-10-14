@@ -15,9 +15,11 @@ func apply_amount(v: int):
 		label.modulate = ENEMY_COLOUR
 	else:
 		label.modulate = SOLID_COLOUR
+	# No more than 6 characters
 	v = min(v, max_val)
 	var out: String = str(v)
 	
+	# Leading 0s for no less than 6 characters
 	if len(out) < length:
 		out = "0".repeat(length - len(out)) + out
 	label.text = out

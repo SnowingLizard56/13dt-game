@@ -25,15 +25,17 @@ var component: TriggerComponent = null
 
 
 func _ready() -> void:
+	# Hacky solution but whateverrr
 	await Global.frame_next
 	root.player.ship.components_updated.connect(link_component)
 	link_component()
 
 
 func _draw() -> void:
-	if !component:
+	if not component:
 		hide()
 		return
+	# Background
 	show()
 	draw_circle(size / 2, radius + border, HUD_BG_COLOUR)
 	
