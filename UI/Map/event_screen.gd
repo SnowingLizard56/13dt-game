@@ -21,12 +21,12 @@ func handle_event(event: MapEvent, dim: bool = true):
 	show()
 	position.y = BG_SIZE.y
 	
-	var t := get_tree().create_tween()
+	var tween := get_tree().create_tween()
 	if dim:
 		dimmer.modulate.a = 0
 		dimmer.show()
-		t.tween_property(dimmer, "modulate", Color.WHITE, DIM_TIME)
-	t.tween_property(self, "position", Vector2.ZERO, MOVE_TIME)
+		tween.tween_property(dimmer, "modulate", Color.WHITE, DIM_TIME)
+	tween.tween_property(self, "position", Vector2.ZERO, MOVE_TIME)
 	
 	title.text = event.title
 	exposition.text = event.exposition
@@ -37,25 +37,25 @@ func handle_event(event: MapEvent, dim: bool = true):
 		k.text = opt.title
 		k.pressed.connect(option_chosen.bind(opt))
 	
-	t.tween_callback(options_holder.get_child(-1).grab_focus)
+	tween.tween_callback(options_holder.get_child(-1).grab_focus)
 
 
 func option_chosen(opt: EventEffect):
-	var t := get_tree().create_tween()
+	var tween := get_tree().create_tween()
 	for button in options_holder.get_children():
 		for connection in button.pressed.get_connections():
 			connection.signal.disconnect(connection.callable)
-	t.tween_property(self, "position", Vector2(0, BG_SIZE.y), MOVE_TIME)
+	tween.tween_property(self, "position", Vector2(0, BG_SIZE.y), MOVE_TIME)
 	var next_event := opt.apply(map_ui, Global.player_ship)
 	
 	if next_event:
-		t.tween_callback(handle_event.bind(next_event, false))
+		tween.tween_callback(handle_event.bind(next_event, false))
 	elif opt.has_components:
-		t.tween_callback(func(): map_ui.offer_components(opt.get_components()))
+		tween.tween_callback(func(): map_ui.offer_components(opt.get_components()))
 		await map_ui.component_control_finished
 		event_finished.emit()
 	else:
-		t.tween_property(dimmer, "modulate", Color(1, 1, 1, 0), DIM_TIME)
-		t.tween_callback(hide)
-		t.tween_callback(dimmer.hide)
-		t.tween_callback(event_finished.emit)
+		tween.tween_property(dimmer, "modulate", Color(1, 1, 1, 0), DIM_TIME)
+		tween.tween_callback(hide)
+		tween.tween_callback(dimmer.hide)
+		tween.tween_callback(event_finished.emit)

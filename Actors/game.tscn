@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c3dl8amhu3pcq"]
+[gd_scene load_steps=30 format=3 uid="uid://c3dl8amhu3pcq"]
 
 [ext_resource type="Script" uid="uid://cefbhjfki8lhm" path="res://Actors/game_controller.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dy7y8ni7184re" path="res://Actors/Player/player.tscn" id="2_e2o6t"]
@@ -24,12 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://71qqh24yoer1" path="res://Assets/InputIcons/T_Right_Key_White.png" id="21_nkc3k"]
 [ext_resource type="Texture2D" uid="uid://v82ysdfxp7da" path="res://Assets/InputIcons/T_Mouse_XY_Key_White.png" id="22_l5tuw"]
 [ext_resource type="Script" uid="uid://bwtsu0be1xwen" path="res://Actors/pointer.gd" id="23_irjd8"]
-
-[sub_resource type="Curve2D" id="Curve2D_cny57"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -596, -344, 0, 0, 0, 0, -596, 344, 0, 0, 0, 0, 596, 344, 0, 0, 0, 0, 596, -344, 0, 0, 0, 0, -596, -344)
-}
-point_count = 5
 
 [sub_resource type="Gradient" id="Gradient_irjd8"]
 offsets = PackedFloat32Array(0.972056, 1)
@@ -80,13 +74,6 @@ script = ExtResource("2_u58dc")
 process_mode = 1
 script = ExtResource("3_cny57")
 enemy_put_node = NodePath("../Entities")
-
-[node name="FlyingEnemySpawnZone" type="Path2D" parent="EnemyGen"]
-curve = SubResource("Curve2D_cny57")
-
-[node name="FlyingEnemySpawnAttemptTimer" type="Timer" parent="EnemyGen"]
-wait_time = 60.0
-one_shot = true
 
 [node name="Entities" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -557,7 +544,6 @@ grow_vertical = 2
 color = Color(0.0588235, 0.105882, 0.14902, 1)
 
 [connection signal="initial_areas_instantiated" from="." to="EnemyGen" method="_on_game_initial_areas_instantiated"]
-[connection signal="timeout" from="EnemyGen/FlyingEnemySpawnAttemptTimer" to="EnemyGen" method="_on_flying_enemy_spawn_attempt_timer_timeout"]
 [connection signal="player_died" from="Player" to="Foreground/UI/DeathScreen" method="_on_player_player_died"]
 [connection signal="continue_pressed" from="Foreground/UI/ComponentControl" to="Foreground/UI" method="level_up_finalised"]
 [connection signal="continue_pressed" from="Foreground/UI/ComponentControl" to="Foreground/UI/UpgradeBar/ProgressBar/Rainbow" method="_on_component_control_continue_pressed"]

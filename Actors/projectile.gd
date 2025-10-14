@@ -70,8 +70,8 @@ func _init(src: Node2D, dvx: float, dvy: float, shape: Shape2D, m: float = 1, ca
 	elif src is Player:
 		recoil_factor = -m / (src.ship.mass * 1000)
 	if recoil_factor != 0.0:
-		var t := get_tree().create_tween()
-		t.tween_method(apply_recoil, 0, RECOIL_TIME, RECOIL_TIME)
+		var tween := get_tree().create_tween()
+		tween.tween_method(apply_recoil, 0, RECOIL_TIME, RECOIL_TIME)
 
 
 func _physics_process(delta: float) -> void:
@@ -149,8 +149,8 @@ func calculate_damage(target: Node2D):
 
 func _ready() -> void:
 	scale = Vector2.ZERO
-	var t := get_tree().create_tween()
-	t.tween_property(self, "scale", Vector2.ONE, 0.1)
+	var tween := get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector2.ONE, 0.1)
 
 
 func apply_recoil(_t: float):

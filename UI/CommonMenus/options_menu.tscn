@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://4eep2s4cgner"]
+
+[ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_dbcl7"]
+[ext_resource type="Script" uid="uid://cmhdoaw1uqaqs" path="res://UI/CommonMenus/options_menu.gd" id="2_csd1w"]
+[ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="3_gsi08"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2jq5r"]
+bg_color = Color(0.0941176, 0.168627, 0.239216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wtuvm"]
+bg_color = Color(0.0507, 0.0916717, 0.13, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.866667, 0.337255, 0.223529, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_dbcl7")
+script = ExtResource("2_csd1w")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 384.0
+offset_top = 64.8
+offset_right = -384.0
+offset_bottom = -64.8
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HUDPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_2jq5r")
+
+[node name="Title" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -168.0
+offset_right = 168.0
+offset_bottom = 104.0
+grow_horizontal = 2
+theme_type_variation = &"GameTitle"
+theme_override_colors/font_color = Color(0.960784, 0.909804, 0.819608, 1)
+text = "Options"
+horizontal_alignment = 1
+
+[node name="Audio" type="HSlider" parent="Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 72.0
+offset_top = 24.0
+offset_right = -61.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Done" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -76.5
+offset_top = -64.0
+offset_right = 76.5
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"MainMenuButton"
+theme_override_colors/font_hover_pressed_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_colors/font_hover_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_colors/font_focus_color = Color(0.866667, 0.337255, 0.223529, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_wtuvm")
+text = "Confirm"
+script = ExtResource("3_gsi08")
+metadata/_custom_type_script = "uid://dg7hgelew38lk"
+
+[connection signal="drag_ended" from="Panel/Audio" to="." method="_on_audio_drag_ended"]
+[connection signal="pressed" from="Panel/Done" to="." method="_on_done_pressed"]

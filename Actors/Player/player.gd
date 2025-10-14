@@ -37,6 +37,8 @@ var ship: Ship = null
 @export var thrust: CPUParticles2D
 @onready var thrust_current: CPUParticles2D = thrust
 @onready var hitbox: Area2D = $Hitbox
+@onready var invincibility_timeout: Timer = $InvincibilityTimeout
+@onready var invincibility_flash: Timer = $InvincibilityFlash
 @export var rotate_container: Node2D
 @export var death_particles: CPUParticles2D
 
@@ -198,8 +200,8 @@ func damage(amount: float, source: int = 1):
 			death_source = source as DeathSource
 		generic_death()
 	invincible = true
-	$InvincibilityTimeout.start(invincibility_time)
-	$InvincibilityFlash.start()
+	invincibility_timeout.start(invincibility_time)
+	invincibility_flash.start()
 
 
 func generic_death():
@@ -219,7 +221,7 @@ func make_laser(weapon: LaserWeapon):
 
 func _on_invincibility_timeout_timeout() -> void:
 	invincible = false
-	$InvincibilityFlash.stop()
+	invincibility_flash.stop()
 
 
 func flash(time: float):

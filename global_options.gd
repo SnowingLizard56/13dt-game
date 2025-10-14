@@ -1,5 +1,6 @@
 extends Node
 
+const SECTION := "WHY"
 const DIFFICULTY_XP_SETTINGS: PackedFloat32Array = [
 	40., 100., 400.,
 	70., 100., 700.,
@@ -13,7 +14,15 @@ enum Difficulty {
 	UNFORGIVING = 3,
 	VERY_DIFFICULT = 4
 }
+
 var difficulty := Difficulty.HARD
+var config := ConfigFile.new()
+var err := config.load("user://opt.cfg")
+
+
+func _ready() -> void:
+	if err != OK:
+		difficulty = config.get_value(SECTION, "difficulty", 2) as Difficulty
 
 
 func spawn_enemies_mid() -> bool:

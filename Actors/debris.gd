@@ -1,5 +1,7 @@
+# Unused
 extends Area2D
 
+const DEBRIS_COLOUR := Color(1, 0.937255, 0.631373, 1)
 @onready var x: float = position.x
 @onready var y: float = position.y
 var vx: float = 0
@@ -32,6 +34,7 @@ func _draw() -> void:
 	angs.resize(VERTEX_COUNT)
 	dists.resize(VERTEX_COUNT)
 	for i in VERTEX_COUNT:
+		# Random 90th of TAU
 		angs[i] = randi_range(0, 90) * TAU/90
 	for i in VERTEX_COUNT:
 		dists[i] = 12 - randf() * 5
@@ -44,4 +47,4 @@ func _draw() -> void:
 	centroid /= VERTEX_COUNT
 	for i in VERTEX_COUNT:
 		pts[i] -= centroid
-	draw_colored_polygon(pts, "ffefa1")
+	draw_colored_polygon(pts, DEBRIS_COLOUR)

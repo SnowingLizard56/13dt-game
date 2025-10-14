@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=38 format=3 uid="uid://b3ou7d8b0fupu"]
+[gd_resource type="Theme" load_steps=45 format=3 uid="uid://b3ou7d8b0fupu"]
 
 [ext_resource type="FontFile" uid="uid://bx76lta0wwppb" path="res://Assets/Fonts/NowAlt-Medium.otf" id="1_5f78n"]
 [ext_resource type="FontFile" uid="uid://cj4306gnqlbor" path="res://Assets/Fonts/NowAlt-Regular.otf" id="1_h32ur"]
@@ -80,6 +80,56 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cfsd7"]
+
+[sub_resource type="Gradient" id="Gradient_5f78n"]
+offsets = PackedFloat32Array(0.9, 1)
+colors = PackedColorArray(0.1638, 0.29617, 0.42, 1, 0.0936, 0.16924, 0.24, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8wpuh"]
+gradient = SubResource("Gradient_5f78n")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.527778)
+
+[sub_resource type="Gradient" id="Gradient_daddk"]
+offsets = PackedFloat32Array(0.9, 1)
+colors = PackedColorArray(0.12549, 0.647059, 0.65098, 1, 0.12549, 0.647059, 0.65098, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_431p2"]
+gradient = SubResource("Gradient_daddk")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.527778)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akx5b"]
+bg_color = Color(0.105045, 0.541639, 0.544922, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pm317"]
+bg_color = Color(0.105045, 0.541639, 0.544922, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64xjp"]
+bg_color = Color(0.0530225, 0.0949987, 0.134766, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu2f5"]
 bg_color = Color(0.0941176, 0.168627, 0.239216, 1)
@@ -283,6 +333,11 @@ EventExposition/fonts/normal_font = ExtResource("1_h32ur")
 GameTitle/base_type = &"Label"
 GameTitle/font_sizes/font_size = 86
 GameTitle/fonts/font = ExtResource("2_cfsd7")
+HSlider/icons/grabber = SubResource("GradientTexture2D_8wpuh")
+HSlider/icons/grabber_highlight = SubResource("GradientTexture2D_431p2")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_akx5b")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_pm317")
+HSlider/styles/slider = SubResource("StyleBoxFlat_64xjp")
 HUDPanel/base_type = &"Panel"
 HUDPanel/styles/panel = SubResource("StyleBoxFlat_uu2f5")
 HealthBarBuffer/base_type = &"ProgressBar"

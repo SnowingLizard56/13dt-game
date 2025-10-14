@@ -22,25 +22,25 @@ func _trigger(player: Player, ship: Ship):
 	player.add_child(icon)
 	icon.draw.connect(draw_icon)
 	icon.scale = Vector2.ZERO
-	var t := player.get_tree().create_tween()
-	t.tween_property(icon, "scale", Vector2.ONE, ACTI_TIME)
+	var tween := player.get_tree().create_tween()
+	tween.tween_property(icon, "scale", Vector2.ONE, ACTI_TIME)
 	player.damage_hook.append(damage_hook)
 	await player.get_tree().create_timer(effect_duration, false).timeout
 	if icon:
-		t = player.get_tree().create_tween()
-		t.tween_property(icon, "scale", Vector2.ZERO, ACTI_TIME)
-		t.tween_callback(icon.queue_free)
-		t.tween_callback(func(): player_ref.damage_hook.erase(damage_hook))
+		tween = player.get_tree().create_tween()
+		tween.tween_property(icon, "scale", Vector2.ZERO, ACTI_TIME)
+		tween.tween_callback(icon.queue_free)
+		tween.tween_callback(func(): player_ref.damage_hook.erase(damage_hook))
 		icon = null
 
 
 func damage_hook(_amount: float, _source: int):
 	if icon:
-		var t := player_ref.get_tree().create_tween()
-		t.tween_property(icon, "scale", Vector2.ONE * SCALE, FADE_TIME)
-		t.parallel().tween_property(icon, "modulate", Color(1, 1, 1, 0), FADE_TIME)
-		t.tween_callback(icon.queue_free)
-		t.tween_callback(func(): player_ref.damage_hook.erase(damage_hook))
+		var tween := player_ref.get_tree().create_tween()
+		tween.tween_property(icon, "scale", Vector2.ONE * SCALE, FADE_TIME)
+		tween.parallel().tween_property(icon, "modulate", Color(1, 1, 1, 0), FADE_TIME)
+		tween.tween_callback(icon.queue_free)
+		tween.tween_callback(func(): player_ref.damage_hook.erase(damage_hook))
 		icon = null
 		return true
 	else:

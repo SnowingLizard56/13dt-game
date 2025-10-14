@@ -3,7 +3,10 @@ class_name Level extends E127Controller
 const DENSITIES: PackedFloat64Array = [1.1e6, 1.3e6]
 const BIG_G: float = 6.67e-11
 const WELL_STRENGTH_CUTOFF: float = 0.15
-
+const MASS_EXP_MIN := 14.25
+const MASS_EXP_MAX := 14.75
+const MOON_PRO_MIN := 0.13
+const MOON_PRO_MAX := 0.19
 
 var total_mass: float
 var clockwise: float
@@ -16,7 +19,7 @@ var player_spawn_vy: float
 
 func _init() -> void:
 	# Randomly generate some parameters
-	total_mass = 10 ** randf_range(14.25, 14.75)
+	total_mass = 10 ** randf_range(MASS_EXP_MIN, MASS_EXP_MAX)
 	distance_scale = 10000
 	if randi_range(0, 1) == 0:
 		clockwise = TAU / 4
@@ -30,7 +33,7 @@ func distribute_bodies() -> void:
 
 func add_bodies(mass: float, centre: Vector2, velocity: Vector2,
 		min_radius: float, max_radius: float) -> void:
-	var moon_mass: float = mass * randf_range(0.13, 0.19)
+	var moon_mass: float = mass * randf_range(MOON_PRO_MIN, MOON_PRO_MAX)
 	mass -= moon_mass
 	
 	# Main body

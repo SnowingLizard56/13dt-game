@@ -19,21 +19,21 @@ func start():
 	button.position = Vector2(0, 250)
 	title.text = titles[randi() % len(titles)]
 	dim.modulate.a = 0
-	var t := get_tree().create_tween()
-	t.set_ignore_time_scale()
-	t.tween_property(Engine, "time_scale", 0, SLOW_TIME)
-	t.tween_property(dim, "modulate", Color.WHITE, DIM_TIME)
-	t.tween_property(title, "position", Vector2.ZERO, TITLE_MOVE_TIME).set_trans(Tween.TRANS_ELASTIC)
-	t.tween_interval(INTERVAL_TIME)
-	t.tween_property(button, "position", Vector2.ZERO, BUTTON_MOVE_TIME)
-	t.tween_callback(button.grab_focus)
+	var tween := get_tree().create_tween()
+	tween.set_ignore_time_scale()
+	tween.tween_property(Engine, "time_scale", 0, SLOW_TIME)
+	tween.tween_property(dim, "modulate", Color.WHITE, DIM_TIME)
+	tween.tween_property(title, "position", Vector2.ZERO, TITLE_MOVE_TIME).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_interval(INTERVAL_TIME)
+	tween.tween_property(button, "position", Vector2.ZERO, BUTTON_MOVE_TIME)
+	tween.tween_callback(button.grab_focus)
 
 
 func _on_continue_pressed() -> void:
 	var FADEOUT_TIME := 0.7
 	cover.show()
 	cover.modulate.a = 0
-	var t := get_tree().create_tween()
-	t.set_ignore_time_scale()
-	t.tween_property(cover, "modulate", Color.WHITE, FADEOUT_TIME)
-	t.tween_callback(func(): Global.switch_to_map(Global.root.player.ship))
+	var tween := get_tree().create_tween()
+	tween.set_ignore_time_scale()
+	tween.tween_property(cover, "modulate", Color.WHITE, FADEOUT_TIME)
+	tween.tween_callback(func(): Global.switch_to_map(Global.root.player.ship))

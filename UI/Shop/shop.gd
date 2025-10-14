@@ -34,9 +34,9 @@ func _ready() -> void:
 		Global.player_ship.get(&"Luck").value)
 	
 	component_control.start(available, Global.player_ship)
-	var t := get_tree().create_tween()
-	t.tween_property(fade_in, "modulate", Color(1, 1, 1, 0), FADE_IN_TIME)
-	t.tween_callback(fade_in.hide)
+	var tween := get_tree().create_tween()
+	tween.tween_property(fade_in, "modulate", Color(1, 1, 1, 0), FADE_IN_TIME)
+	tween.tween_callback(fade_in.hide)
 
 
 func _on_bg_draw() -> void:
@@ -63,10 +63,10 @@ func _on_component_control_continue_pressed() -> void:
 		shake_money = 0.8
 	else:
 		# Accepted animation:
-		var t := get_tree().create_tween()
+		var tween := get_tree().create_tween()
 		fade_in.show()
-		t.tween_property(fade_in, "modulate", Color.WHITE, FADE_IN_TIME)
-		t.tween_callback(Global.switch_to_map)
+		tween.tween_property(fade_in, "modulate", Color.WHITE, FADE_IN_TIME)
+		tween.tween_callback(Global.switch_to_map)
 
 
 func _on_component_control_focused(what: ShipComponentNode, is_left: bool) -> void:

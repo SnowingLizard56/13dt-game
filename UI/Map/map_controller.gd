@@ -45,10 +45,10 @@ func _ready() -> void:
 func take_step():
 	at_row += 1
 	_step()
-	var t := get_tree().create_tween()
-	t.tween_property(self, "position", position - Vector2(0, SEPARATION.y), 1.0)\
+	var tween := get_tree().create_tween()
+	tween.tween_property(self, "position", position - Vector2(0, SEPARATION.y), 1.0)\
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	t.tween_callback(queue_redraw)
+	tween.tween_callback(queue_redraw)
 	player_icon = focused_icon
 	focused_icon = null
 	position_indi.move_to(player_icon)
@@ -138,8 +138,7 @@ func _step():
 			
 			# Ensure that choices are actually choices
 			if len(map_current.connections) > 1:
-				while map_current.connections[0].nebula.type == map_current.connections[1].nebula.type:
-					map_current.connections[randi_range(0, len(map_current.connections) - 1)].nebula = Nebula.new()
+				ensure_choice(map_current)
 			
 	
 	var last_node: MapIcon = null
@@ -241,3 +240,8 @@ func release_focus():
 	for i in player_icon.connections:
 		i.focus_mode = Control.FOCUS_NONE
 		i.release_focus()
+
+
+func ensure_choice(icon: MapIcon):
+	while icon.connections[0].nebula.type == icon.connections[1].nebula.type:
+			icon.connections[randi_range(0, len(icon.connections) - 1)].nebula = Nebula.new()

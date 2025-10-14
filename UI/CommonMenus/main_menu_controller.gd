@@ -9,6 +9,7 @@ const PLAYER_ROTATION_SPEED: float = 0.8
 const PLAYER_ORBIT_SPEED: float = TAU / 13
 const PLANET_RADIUS: float = 200.0
 const SCREEN_CENTRE: Vector2 = Vector2(576, 324)
+const ZOOM_INTO_RECT: Rect2 = Rect2(-72, -40, 144, 81)
 
 @onready var planet: Control = $Background/Planet
 @onready var distant: Node2D = $Background/Distant
@@ -104,7 +105,7 @@ func _on_distant_draw() -> void:
 		var vrect: Rect2 = get_viewport_rect()
 		var pos: Vector2 = vrect.size * Vector2(randf(), randf()) - vrect.size / 2
 		distant.draw_circle(pos, 1.0 / distant.scale.x, Color.WHITE)
-	distant.draw_rect(Rect2(-72, -40, 144, 81), BG_COLOUR)
+	distant.draw_rect(ZOOM_INTO_RECT, BG_COLOUR)
 	randomize()
 
 
@@ -144,12 +145,12 @@ func _on_symbol_cover_draw() -> void:
 
 
 func _on_exit_pressed() -> void:
-	var t: Tween = get_tree().create_tween()
+	var tween: Tween = get_tree().create_tween()
 	fade.show()
 	fade.modulate.a = 0.0
-	t.tween_property(fade, "modulate", Color.WHITE, 0.3)
-	t.tween_interval(0.3)
-	t.tween_callback(get_tree().quit)
+	tween.tween_property(fade, "modulate", Color.WHITE, 0.3)
+	tween.tween_interval(0.3)
+	tween.tween_callback(get_tree().quit)
 
 
 func _on_play_pressed() -> void:
@@ -160,18 +161,18 @@ func _on_play_pressed() -> void:
 	play_button.release_focus()
 	loading_screen.show()
 	e127.scale = Vector2.ONE * 8
-	var t: Tween = get_tree().create_tween()
-	t.tween_property(exit_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
-	t.tween_property(play_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
-	t.tween_property(options_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
-	t.tween_property(title, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
-	t.tween_property(orbit, "scale", Vector2.ZERO, PLANET_ZOOMOUT_TIME)\
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(exit_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
+	tween.tween_property(play_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
+	tween.tween_property(options_button, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
+	tween.tween_property(title, "modulate", Color(1.0, 1.0, 1.0, 0.0), MENU_ELEMENT_FADE_TIME)
+	tween.tween_property(orbit, "scale", Vector2.ZERO, PLANET_ZOOMOUT_TIME)\
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
-	t.parallel().tween_property(planet, "scale", Vector2.ZERO, PLANET_ZOOMOUT_TIME)\
+	tween.parallel().tween_property(planet, "scale", Vector2.ZERO, PLANET_ZOOMOUT_TIME)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
-	t.tween_property(e127, "scale", Vector2.ONE, ORBITALS_ZOOMIN_TIME)\
+	tween.tween_property(e127, "scale", Vector2.ONE, ORBITALS_ZOOMIN_TIME)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
-	t.tween_callback(play_animation_finished)
+	tween.tween_callback(play_animation_finished)
 	
 	ResourceLoader.load_threaded_request(Global.GAME_FILE_PATH)
 	game_started = true
@@ -185,13 +186,13 @@ func play_animation_finished():
 		await LevelGenerator.level_generated
 	
 	# mini animation, scene switch
-	var t: Tween = get_tree().create_tween()
-	t.tween_interval(0.5)
-	t.tween_property(e127, "scale", Vector2.ONE * 8, SHIFT_TIME * 0.1)\
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_interval(0.5)
+	tween.tween_property(e127, "scale", Vector2.ONE * 8, SHIFT_TIME * 0.1)\
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
-	t.tween_property(distant, "scale", Vector2.ONE * 8, SHIFT_TIME * 0.9)\
+	tween.tween_property(distant, "scale", Vector2.ONE * 8, SHIFT_TIME * 0.9)\
 		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
-	t.tween_callback(scene_switch)
+	tween.tween_callback(scene_switch)
 
 
 func get_load_threaded_progress(path: String) -> float:
@@ -203,4 +204,3 @@ func get_load_threaded_progress(path: String) -> float:
 func scene_switch():
 	Global.game_scene = ResourceLoader.load_threaded_get(Global.GAME_FILE_PATH)
 	Global.reset()
-	

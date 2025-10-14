@@ -40,13 +40,13 @@ func start():
 	
 	resume_button.grab_focus()
 	
-	var t := get_tree().create_tween()
-	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	t.tween_property(dimmer, "modulate", Color.WHITE, 0.3)
-	t.tween_property(resume_button, "modulate", Color.WHITE, 0.3)
-	t.parallel().tween_property(options_button, "modulate", Color.WHITE, 0.3)
-	t.parallel().tween_property(main_menu_button, "modulate", Color.WHITE, 0.3)
-	t.parallel().tween_property(component_display, "modulate", Color.WHITE, 0.3)
+	var tween := get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(dimmer, "modulate", Color.WHITE, 0.3)
+	tween.tween_property(resume_button, "modulate", Color.WHITE, 0.3)
+	tween.parallel().tween_property(options_button, "modulate", Color.WHITE, 0.3)
+	tween.parallel().tween_property(main_menu_button, "modulate", Color.WHITE, 0.3)
+	tween.parallel().tween_property(component_display, "modulate", Color.WHITE, 0.3)
 
 
 func _on_main_menu_pressed() -> void:
@@ -54,13 +54,13 @@ func _on_main_menu_pressed() -> void:
 		main_menu_button_pressed_once = true
 		main_menu_button.text = "Abandon Run?"
 		return
-	var t := get_tree().create_tween()
-	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	var tween := get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	Global.root.cover.modulate.a = 0.0
 	Global.root.cover.show()
-	t.tween_property(Global.root.cover, "modulate", Color.WHITE, 0.2)
-	t.tween_callback(get_tree().set.bind(&"paused", false))
-	t.tween_callback(Global.switch_scene.bind(Global.MAIN_MENU_SCENE))
+	tween.tween_property(Global.root.cover, "modulate", Color.WHITE, 0.2)
+	tween.tween_callback(get_tree().set.bind(&"paused", false))
+	tween.tween_callback(Global.switch_scene.bind(Global.MAIN_MENU_SCENE))
 
 
 func _on_options_pressed() -> void:
@@ -69,12 +69,12 @@ func _on_options_pressed() -> void:
 
 func _on_resume_pressed() -> void:
 	Engine.time_scale = 0.0
-	var t := get_tree().create_tween()
-	t.set_ignore_time_scale()
-	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	t.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.3)
-	t.tween_callback(get_tree().set.bind(&"paused", false))
-	t.tween_callback(hide)
+	var tween := get_tree().create_tween()
+	tween.set_ignore_time_scale()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.3)
+	tween.tween_callback(get_tree().set.bind(&"paused", false))
+	tween.tween_callback(hide)
 	if return_focus_target:
-		t.tween_callback(return_focus_target.grab_focus)
-	t.tween_property(Engine, "time_scale", 1.0, 1.0)
+		tween.tween_callback(return_focus_target.grab_focus)
+	tween.tween_property(Engine, "time_scale", 1.0, 1.0)

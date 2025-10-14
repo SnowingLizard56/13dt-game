@@ -2,7 +2,7 @@ class_name MapPlayer extends Node2D
 
 const RADIUS := 38.0
 const GAP := TAU * 0.1
-const PLAYER_COLOUR := Color("20a5a6")
+const PLAYER_COLOUR := Color(0.12549, 0.647059, 0.65098, 1)
 const PLAYER_RADIUS := 10.0
 const OUTER_SPEED := TAU * 0.125
 const INNER_SPEED := TAU * 0.2

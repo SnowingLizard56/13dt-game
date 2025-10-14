@@ -76,10 +76,10 @@ func give_level_up_reward():
 	# Completely offscreen
 	component_control.for_moving.position = Vector2(0, 648)
 	
-	var t: Tween = get_tree().create_tween()
-	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	t.tween_property(component_control, "modulate", Color.WHITE, 0.3)
-	t.parallel().tween_property(component_control.for_moving, "position", Vector2.ZERO, 1.0).set_trans(Tween.TRANS_QUAD)
+	var tween: Tween = get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(component_control, "modulate", Color.WHITE, 0.3)
+	tween.parallel().tween_property(component_control.for_moving, "position", Vector2.ZERO, 1.0).set_trans(Tween.TRANS_QUAD)
 
 
 func _process(_delta: float) -> void:
@@ -92,11 +92,11 @@ func level_up_finalised() -> void:
 	component_control.finish()
 	Engine.time_scale = 0.0
 	add_xp(0)
-	var t: Tween = get_tree().create_tween()
-	t.set_ignore_time_scale(true)
-	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	t.tween_property(component_control, "modulate", Color(1, 1, 1, 0), 0.3)
-	t.parallel().tween_property(component_control.for_moving, "position", Vector2(0, 648), 1.0).set_trans(Tween.TRANS_QUAD)
-	t.tween_callback(component_control.hide)
-	t.tween_callback(get_tree().set.bind(&"paused", false))
-	t.tween_property(Engine, "time_scale", 1.0, 1.0)
+	var tween: Tween = get_tree().create_tween()
+	tween.set_ignore_time_scale(true)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(component_control, "modulate", Color(1, 1, 1, 0), 0.3)
+	tween.parallel().tween_property(component_control.for_moving, "position", Vector2(0, 648), 1.0).set_trans(Tween.TRANS_QUAD)
+	tween.tween_callback(component_control.hide)
+	tween.tween_callback(get_tree().set.bind(&"paused", false))
+	tween.tween_property(Engine, "time_scale", 1.0, 1.0)

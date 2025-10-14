@@ -19,16 +19,16 @@ func _on_level_up() -> void:
 	modulate.a = 0.0
 	value = 1.0
 	show()
-	var t := get_tree().create_tween()
-	t.set_ignore_time_scale()
-	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	t.tween_property(self, "modulate", Color.WHITE, FADE_TIME)
+	var tween := get_tree().create_tween()
+	tween.set_ignore_time_scale()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(self, "modulate", Color.WHITE, FADE_TIME)
 
 
 func _on_component_control_continue_pressed() -> void:
 	get_parent().value = 0.0
-	var t := get_tree().create_tween()
-	t.set_ignore_time_scale()
-	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	t.tween_property(self, "value", 0.0, SHRINK_TIME)
-	t.tween_callback(hide)
+	var tween := get_tree().create_tween()
+	tween.set_ignore_time_scale()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(self, "value", 0.0, SHRINK_TIME)
+	tween.tween_callback(hide)

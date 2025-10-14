@@ -42,10 +42,10 @@ func _ready() -> void:
 	ui.set_health(player.ship)
 	
 	cover.show()
-	var t: Tween = get_tree().create_tween()
-	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	t.tween_property(cover, "modulate", Color(1.0, 1.0, 1.0, 0.0), 1.0)
-	t.tween_callback(cover.hide)
+	var tween: Tween = get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(cover, "modulate", Color(1.0, 1.0, 1.0, 0.0), 1.0)
+	tween.tween_callback(cover.hide)
 
 
 func _physics_process(delta: float) -> void:

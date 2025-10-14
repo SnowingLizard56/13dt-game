@@ -3,6 +3,7 @@ class_name Enemy extends Node2D
 const DAMAGE_LEEWAY: float = 1.0
 const ENEMY_COLOUR: Color = Color(0.866667, 0.337255, 0.223529, 1.0)
 const FLASH_COLOUR := Color.WHITE
+const FLASH_TIME := 0.1
 
 var current_colour:= ENEMY_COLOUR
 
@@ -60,7 +61,7 @@ func damage(amount: float) -> void:
 	current_colour = FLASH_COLOUR
 	redraw.emit()
 	queue_redraw()
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(FLASH_TIME).timeout
 	current_colour = ENEMY_COLOUR
 	queue_redraw()
 	redraw.emit()

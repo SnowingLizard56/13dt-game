@@ -77,8 +77,8 @@ func death_override():
 	hitbox.collision_layer = 0
 	hitbox.collision_mask = 0
 	# Animation
-	var t := get_tree().create_tween()
-	t.tween_property(self, "length_mult", 0.0, SHRINK_TIME)
+	var tween := get_tree().create_tween()
+	tween.tween_property(self, "length_mult", 0.0, SHRINK_TIME)
 	await get_tree().create_timer(SHRINK_TIME).timeout
 	super()
 

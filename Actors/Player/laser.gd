@@ -7,6 +7,7 @@ const TICK_TIME := 0.3
 @export var hitbox: Area2D
 var weapon: LaserWeapon
 @onready var shape: RectangleShape2D = coll.shape
+@onready var tick: Timer = $Tick
 
 var width := 0.0:
 	get():
@@ -25,22 +26,22 @@ var active = true
 
 
 func _ready() -> void:
-	$Tick.wait_time = TICK_TIME
+	tick.wait_time = TICK_TIME
 	shape = RectangleShape2D.new()
 	coll.shape = shape
 	_process(0)
 	global_rotation = Global.aim.angle()
 	cast.position = CIRCLE_POS
 	
-	var t := get_tree().create_tween()
-	t.tween_property(self, "width", weapon.width, PHASE_1_TIME)
-	t.parallel().tween_property(self, "theta", TAU * (weapon.sustain + PHASE_3_TIME) / PERIOD,
+	var tween := get_tree().create_tween()
+	tween.tween_property(self, "width", weapon.width, PHASE_1_TIME)
+	tween.parallel().tween_property(self, "theta", TAU * (weapon.sustain + PHASE_3_TIME) / PERIOD,
 		weapon.sustain + PHASE_3_TIME)
 	await get_tree().create_timer(weapon.sustain).timeout
 	active = false
-	t = get_tree().create_tween()
-	t.tween_property(self, "width", 0, PHASE_3_TIME)
-	t.tween_callback(queue_free)
+	tween = get_tree().create_tween()
+	tween.tween_property(self, "width", 0, PHASE_3_TIME)
+	tween.tween_callback(queue_free)
 
 
 func _process(delta: float) -> void:

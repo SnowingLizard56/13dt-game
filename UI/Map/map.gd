@@ -33,9 +33,9 @@ signal icon_selected(neb: Nebula)
 func _ready() -> void:
 	fadeout.show()
 	fadeout.modulate.a = 1
-	var t := get_tree().create_tween()
-	t.tween_property(fadeout, "modulate", Color(1, 1, 1, 0), FADE_TIME)
-	t.tween_callback(fadeout.hide)
+	var tween := get_tree().create_tween()
+	tween.tween_property(fadeout, "modulate", Color(1, 1, 1, 0), FADE_TIME)
+	tween.tween_callback(fadeout.hide)
 
 
 func _on__map_inner_any_icon_pressed() -> void:
@@ -55,28 +55,28 @@ func _on__map_inner_any_icon_pressed() -> void:
 	cancel_button.disabled = false
 	confirm_button.grab_focus()
 	
-	var t := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	t.tween_property(cam, "position", end_position, 0.75)
-	t.parallel().tween_property(confirmation, "position", conf_start, 0.75)
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(cam, "position", end_position, 0.75)
+	tween.parallel().tween_property(confirmation, "position", conf_start, 0.75)
 
 
 func reset_cam(time: float):
-	var t := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	t.tween_property(cam, "position", BG_SIZE / 2, time)
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(cam, "position", BG_SIZE / 2, time)
 	if confirmation.visible:
-		t.parallel().tween_property(confirmation, "position", conf_start - conf_move, time)
-		t.tween_callback(confirmation.hide)
-		t.tween_callback(inner.grab_focus)
+		tween.parallel().tween_property(confirmation, "position", conf_start - conf_move, time)
+		tween.tween_callback(confirmation.hide)
+		tween.tween_callback(inner.grab_focus)
 
 
 func reset_cam_to_mid(time: float):
-	var t := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	var avg_pos = inner.player_icon.global_position + inner.player_icon.size * SIZE_SCALING
-	t.tween_property(cam, "position", avg_pos, time)
+	tween.tween_property(cam, "position", avg_pos, time)
 	if confirmation.visible:
-		t.parallel().tween_property(confirmation, "position", conf_start - conf_move, time)
-		t.tween_callback(confirmation.hide)
-		t.tween_callback(inner.grab_focus)
+		tween.parallel().tween_property(confirmation, "position", conf_start - conf_move, time)
+		tween.tween_callback(confirmation.hide)
+		tween.tween_callback(inner.grab_focus)
 
 
 func _on_cancel_pressed() -> void:
@@ -93,14 +93,14 @@ func _on_confirm_pressed() -> void:
 
 func _on_icon_selected(neb: Nebula) -> void:
 	const DELAY_TIME := 1.0
-	var t: Tween = get_tree().create_tween()
+	var tween: Tween = get_tree().create_tween()
 	
 	if neb.type == Nebula.SHOP or neb.type == Nebula.XARAGILN:
 		# Fade out
 		fadeout.show()
 		fadeout.modulate.a = 0
-		t.tween_interval(DELAY_TIME)
-		t.tween_property(fadeout, "modulate", Color.WHITE, FADE_TIME)
+		tween.tween_interval(DELAY_TIME)
+		tween.tween_property(fadeout, "modulate", Color.WHITE, FADE_TIME)
 		await get_tree().create_timer(FADE_TIME + DELAY_TIME).timeout
 		# Switch scene
 		cam.enabled = false
@@ -130,9 +130,9 @@ func reinit():
 	inner.grab_focus(true)
 	fadeout.show()
 	fadeout.modulate.a = 1
-	var t := get_tree().create_tween()
-	t.tween_property(fadeout, "modulate", Color(1, 1, 1, 0), FADE_TIME)
-	t.tween_callback(fadeout.hide)
+	var tween := get_tree().create_tween()
+	tween.tween_property(fadeout, "modulate", Color(1, 1, 1, 0), FADE_TIME)
+	tween.tween_callback(fadeout.hide)
 
 
 func real_hide():

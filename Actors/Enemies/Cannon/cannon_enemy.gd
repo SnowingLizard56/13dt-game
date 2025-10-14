@@ -6,9 +6,17 @@ const PROJECTILE_IV: float = 365 # Like a year. lol
 const MAX_ROTATION_SPEED: float = 0.2 * TAU
 const PROJECTILE_OFFSET_DIST: float = 15.0
 const PROJECTILE_MASS: float = 7.3
+const BODY_RADIUS := 10.0
+const BARREL_RECT := Rect2(Vector2(0, -4), Vector2(20, 8))
+const ANIM_RECOIL_POSITION := Vector2(-5, 0)
+const ANIM_RECOIL_TIME := 0.1
+const ANIM_RECOVER_TIME := 0.1
+const PROJECTILE_RADIUS := 5.0
 
 @onready var barrel: Node2D = $Barrel
 @onready var barrel_vis: Node2D = $Barrel/Barrel
+@onready var fire_rate: Timer = $Firerate
+@onready var disable_timer = $DisableTimer
 
 var target_barrel_rotation: float
 var active: bool = false
@@ -24,25 +32,25 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, 10, current_colour)
+	draw_circle(Vector2.ZERO, BODY_RADIUS, current_colour)
 
 
 func _on_barrel_draw() -> void:
 	barrel_vis.draw_rect(
-		Rect2(Vector2(0, -4), Vector2(20, 8)),
+		BARREL_RECT,
 		current_colour
 	)
 
 
 func fire_bullet() -> void:
-	var t: Tween = get_tree().create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.tween_property(barrel_vis, "position", Vector2(-5, 0), 0.1)
-	t.tween_property(barrel_vis, "position", Vector2(0, 0), 0.5)
+	var tween: Tween = get_tree().create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(barrel_vis, "position", ANIM_RECOIL_POSITION, ANIM_RECOIL_TIME)
+	tween.tween_property(barrel_vis, "position", Vector2.ZERO, ANIM_RECOVER_TIME)
 	
 	var shape = CircleShape2D.new()
 	var dir := Vector2.from_angle(barrel.global_rotation)
-	shape.radius = 5
+	shape.radius = PROJECTILE_RADIUS
 	var p := Projectile.new(
 		self,
 		PROJECTILE_IV * dir.x,
@@ -58,16 +66,16 @@ func fire_bullet() -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	active = true
-	$Firerate.paused = false
-	if $Firerate.is_stopped():
-		$Firerate.start()
-	$DisableTimer.stop()
+	fire_rate.paused = false
+	if fire_rate.is_stopped():
+		fire_rate.start()
+	disable_timer.stop()
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	$DisableTimer.start()
+	disable_timer.start()
 
 
 func _on_disable_timer_timeout() -> void:
 	active = false
-	$Firerate.paused = true
+	fire_rate.paused = true

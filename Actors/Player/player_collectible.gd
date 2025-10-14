@@ -27,34 +27,34 @@ var value: float
 signal reach_player
 
 
-func _init(t: Types, pos: Vector2, v: float = 1.0) -> void:
-	type = t
+func _init(_t: Types, pos: Vector2, v: float = 1.0) -> void:
+	type = _t
 	pos += Vector2(randf_range(-1, 1), randf_range(-1, 1)) * 5
 	angle = pos.angle()
 	distance = pos.length()
 	Global.root.add_child(self)
 	value = v
 	_process(0)
-	colour = TYPE_COLOURS[t]
-	# Yayyyy magic function
+	colour = TYPE_COLOURS[_t]
+	# https://www.desmos.com/calculator/ma54a7nhhp
 	distance_constant = sqrt((DISTANCE / distance + 1) ** 2 - 1) + 2 * DISTANCE / distance + 0.5
 	z_index = 3
 
 	
 func _ready() -> void:
 	rotation = randf() * TAU
-	var t: Tween = get_tree().create_tween()
+	var tween: Tween = get_tree().create_tween()
 	var lifetime = randf_range(TIME_MIN, TIME_MAX)
-	t.tween_property(self, "angle",
+	tween.tween_property(self, "angle",
 		angle + randf_range(-ALLOWED_ANGLE_OFFSET, ALLOWED_ANGLE_OFFSET),
 		lifetime
 		)
-	t.parallel().tween_property(
+	tween.parallel().tween_property(
 		self, "time",
 		1.0,
 		lifetime
 	)
-	t.tween_callback(finish)
+	tween.tween_callback(finish)
 
 
 func _process(_delta: float) -> void:
@@ -66,12 +66,12 @@ func _draw() -> void:
 	draw_rect(Rect2(-2.5, -2.5, 5, 5), colour)
 
 
-func get_distance(t: float):
-	return -distance_constant * t ** 2 + distance_constant * t - t + 1
+func get_distance(time: float):
+	return -distance_constant * time ** 2 + distance_constant * time - time + 1
 
 
-func get_scale_factor(t: float):
-	return SCALE_CURVE.sample_baked(t)
+func get_scale_factor(time: float):
+	return SCALE_CURVE.sample_baked(time)
 
 
 func finish():

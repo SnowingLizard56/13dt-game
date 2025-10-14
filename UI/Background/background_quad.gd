@@ -4,18 +4,8 @@ var grid_pos: Vector2i
 var player: Player
 
 var layer: BackgroundParallaxController.Layer
-
-
-enum DecorationGroup {
-	DISTANT,
-}
-
-var decoration_groups: Array[Array] = [
-	[pinprick, hole],
-]
-const DECORATION_WEIGHTS: Array[Array] = [
-	[5, 0],
-]
+const MIN := 3.
+const MAX := 8.
 
 
 func _ready() -> void:
@@ -24,10 +14,9 @@ func _ready() -> void:
 
 func _draw() -> void:
 	Global.random.seed = grid_pos.x + grid_pos.y * 2**16 + Global.level_seed + layer.layer_seed
-	var count: float =  Global.random.randf_range(3, 8)
+	var count: float =  Global.random.randf_range(MIN, MAX)
 	while count > 0:
-		var idx: int = Global.random.rand_weighted(DECORATION_WEIGHTS[layer.group])
-		count -= decoration_groups[layer.group][idx].call(Vector2(
+		count -= pinprick(Vector2(
 			Global.random.randf_range(0, layer.game_size.x),
 			Global.random.randf_range(0, layer.game_size.y)))
 
@@ -39,12 +28,3 @@ func pinprick(pos: Vector2) -> float:
 			Color.WHITE
 			)
 	return 0.5
-
-
-func hole(pos: Vector2) -> float:
-	draw_circle(
-		pos,
-		5,
-		Color.BLACK
-	)
-	return 8

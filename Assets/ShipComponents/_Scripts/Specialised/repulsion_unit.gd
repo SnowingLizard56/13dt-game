@@ -29,10 +29,10 @@ func _trigger(player: Player, ship: Ship):
 	coll.shape.radius = effect_range
 	hb.draw.connect(draw_icon)
 	hb.scale = Vector2.ZERO
-	var t := player.get_tree().create_tween()
-	t.tween_property(hb, "scale", Vector2.ONE, effect_duration)
-	t.tween_property(hb, "modulate", Color(1, 1, 1, 0), FADEOUT_TIME)
-	t.tween_callback(hb.queue_free)
+	var tween := player.get_tree().create_tween()
+	tween.tween_property(hb, "scale", Vector2.ONE, effect_duration)
+	tween.tween_property(hb, "modulate", Color(1, 1, 1, 0), FADEOUT_TIME)
+	tween.tween_callback(hb.queue_free)
 
 
 func draw_icon():

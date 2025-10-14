@@ -1,5 +1,7 @@
 extends Control
 
+const SCORE_LABEL_PREFIX := "Score: "
+
 @export var dim_bg: ColorRect
 @export var title_label: Label
 @export var score_label: Label
@@ -20,7 +22,7 @@ func _on_player_player_died() -> void:
 	killed_by_label.text = killed_by[%Player.death_source]
 	title_label.text = titles[randi() % len(titles)]
 	tip_label.text = tips[randi() % len(tips)]
-	score_label.text = "Score: " + Global.calculate_score(6)
+	score_label.text = SCORE_LABEL_PREFIX + Global.calculate_score(6)
 	
 	show()
 	
@@ -33,18 +35,18 @@ func _on_player_player_died() -> void:
 	dim_bg.modulate.a = 0.0
 	panel.position += PANEL_MOVE_AMOUNT
 	
-	var t := get_tree().create_tween()
-	t.tween_interval(3.0)
-	t.tween_property(dim_bg, "modulate", Color.WHITE, 0.5)
-	t.tween_property(panel, "position", panel.position - PANEL_MOVE_AMOUNT, 0.5)\
+	var tween := get_tree().create_tween()
+	tween.tween_interval(3.0)
+	tween.tween_property(dim_bg, "modulate", Color.WHITE, 0.5)
+	tween.tween_property(panel, "position", panel.position - PANEL_MOVE_AMOUNT, 0.5)\
 		.set_trans(Tween.TRANS_QUAD)
-	t.tween_property(title_label, "modulate", Color.WHITE, 0.3)
-	t.tween_property(score_label, "modulate", Color.WHITE, 0.3)
-	t.tween_property(killed_by_label, "modulate", Color.WHITE, 0.3)
-	t.tween_property(tip_label, "modulate", Color.WHITE, 0.3)
-	t.tween_callback(quit_button.grab_focus)
-	t.tween_property(quit_button, "modulate", Color.WHITE, 0.3)
-	t.parallel().tween_property(again_button, "modulate", Color.WHITE, 0.3)
+	tween.tween_property(title_label, "modulate", Color.WHITE, 0.3)
+	tween.tween_property(score_label, "modulate", Color.WHITE, 0.3)
+	tween.tween_property(killed_by_label, "modulate", Color.WHITE, 0.3)
+	tween.tween_property(tip_label, "modulate", Color.WHITE, 0.3)
+	tween.tween_callback(quit_button.grab_focus)
+	tween.tween_property(quit_button, "modulate", Color.WHITE, 0.3)
+	tween.parallel().tween_property(again_button, "modulate", Color.WHITE, 0.3)
 
 
 func _on_quit_pressed() -> void:

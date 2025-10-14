@@ -22,11 +22,11 @@ func _ready() -> void:
 	for i in strand_count:
 		strand_angles[i] = randf() * TAU
 		strand_speeds[i] = randf_range(-1, 1) * strand_speed_magnitude
-		var t = Timer.new()
-		add_child(t)
-		t.wait_time = randf_range(time_min, time_max)
-		t.timeout.connect(replace_strand.bind(i))
-		t.start()
+		var time = Timer.new()
+		add_child(time)
+		time.wait_time = randf_range(time_min, time_max)
+		time.timeout.connect(replace_strand.bind(i))
+		time.start()
 
 
 func _process(delta: float) -> void:

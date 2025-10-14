@@ -8,11 +8,11 @@ var num: int
 
 
 func _ready() -> void:
-	var t: Timer = Timer.new()
-	add_child(t)
-	t.wait_time = 0.14
-	t.timeout.connect(queue_redraw)
-	t.start()
+	var timer: Timer = Timer.new()
+	add_child(timer)
+	timer.wait_time = 0.14
+	timer.timeout.connect(queue_redraw)
+	timer.start()
 
 
 func _process(delta:float) -> void:

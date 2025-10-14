@@ -12,8 +12,8 @@ func _trigger(player: Player, ship: Ship):
 		return
 	super(player, ship)
 	
-	var t := player.get_tree().create_tween()
-	t.tween_method(apply_kick, 0, KICK_APPLY_TIME, KICK_APPLY_TIME)
+	var tween := player.get_tree().create_tween()
+	tween.tween_method(apply_kick, 0, KICK_APPLY_TIME, KICK_APPLY_TIME)
 	
 	ship.thrust_modifier += extra_thrust
 	ship.thrust_profile_override = visual_profile

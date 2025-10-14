@@ -1,6 +1,15 @@
 class_name ComponentControl extends Control
 
-const SHIP_SPRITE_RADIUS = 20
+const SHIP_SPRITE_RADIUS := 20.0
+const PLAYER_COLOUR := Color(0.12549, 0.647059, 0.65098, 1)
+const MANY_HULL_WARNING := "Ship has multiple hulls. Only the first is active.\n"
+const NO_HULL_WARNING := "Ship has no hull.\n"
+const MANY_THRUSTER_WARNING := "Ship has multiple thrusters. Only the first is active.\n"
+const NO_THRUSTER_WARNING := "Ship has no thruster.\n"
+const MANY_TRIGGER_WARNING := "Only the first four components with triggers are accessible.\n"
+const NO_TRIGGER_WARNING := "Ship has no triggers.\n"
+const SHIP_DESCRIPTION := "Hull Points: {3}\nMass: {0} T\nThrust: {1} kN\nAcceleration: {2} pxs⁻²"
+const MAX_COMPONENTS := 7
 
 @export var ship_display: Control
 @export var component_scene: PackedScene
@@ -44,7 +53,7 @@ func draw_player():
 		Vector2(-SHIP_SPRITE_RADIUS, -SHIP_SPRITE_RADIUS),
 		Vector2(SHIP_SPRITE_RADIUS, -SHIP_SPRITE_RADIUS)
 	]
-	ship_display.draw_colored_polygon(sq_pts, Color("20a5a6"))
+	ship_display.draw_colored_polygon(sq_pts, PLAYER_COLOUR)
 
 
 # Adds a component button to the scene and sets up signals
@@ -79,17 +88,17 @@ func reprocess() -> void:
 	warning_label.text = ""
 	
 	if working_ship.has_multiple_hulls:
-		warning_label.text += "Ship has multiple hulls. Only the first is active.\n"
+		warning_label.text += MANY_HULL_WARNING
 	if working_ship.no_hull:
-		warning_label.text += "Ship has no hull.\n"
+		warning_label.text += NO_HULL_WARNING
 	if working_ship.has_multiple_thrusters:
-		warning_label.text += "Ship has multiple thrusters. Only the first is active.\n"
+		warning_label.text += MANY_THRUSTER_WARNING
 	if working_ship.no_thruster:
-		warning_label.text += "Ship has no thruster.\n"
+		warning_label.text += NO_THRUSTER_WARNING
 	if working_ship.too_many_triggers:
-		warning_label.text += "Only the first four components with triggers are accessible.\n"
+		warning_label.text += MANY_TRIGGER_WARNING
 	if working_ship.no_triggers:
-		warning_label.text += "Ship has no triggers.\n"
+		warning_label.text += NO_TRIGGER_WARNING
 	
 	if warning_label.text != "":
 		warning_label.text = warning_label.text.rstrip("\n")
@@ -107,15 +116,11 @@ func reprocess() -> void:
 	if spare_components.get_child_count() > 0:
 		spare_components.get_child(-1).focus_neighbor_bottom = continue_button.get_path()
 	
-	installed_count_label.text = str(installed_components.get_child_count()) + "/7"
-	spare_count_label.text = str(spare_components.get_child_count()) + "/7"
+	installed_count_label.text = str(installed_components.get_child_count()) + "/" + str(MAX_COMPONENTS)
+	spare_count_label.text = str(spare_components.get_child_count()) + "/" + str(MAX_COMPONENTS)
 	
 	# Ship display
-	ship_desc.text = \
-	"""Hull Points: {3}
-	Mass: {0} T
-	Thrust: {1} kN
-	Acceleration: {2} pxs⁻²""".format(round_to_dp([
+	ship_desc.text = SHIP_DESCRIPTION.format(round_to_dp([
 		working_ship.mass,
 		working_ship.thrust,
 		working_ship.acceleration,
@@ -133,7 +138,7 @@ func update_component_stat_display(c: ShipComponentNode, _left: bool):
 
 # Handle the clicking of a component button
 func move_component_node(node: ShipComponentNode, where: VBoxContainer):
-	if where.get_child_count() == 7:
+	if where.get_child_count() == MAX_COMPONENTS:
 		return
 	node.reparent(where)
 	for c in node.pressed.get_connections():

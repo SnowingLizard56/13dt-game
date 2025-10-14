@@ -13,6 +13,9 @@ const HITBOX_SIZE: float = 200.0
 
 const HUD_COLOUR: Color = Color(0.0741176, 0.132941, 0.188235, 1)
 const PLAYER_COLOUR: Color = Color(0.12549, 0.647059, 0.65098, 1)
+const EVENT_COLOUR := Color(1, 0.937255, 0.631373, 1)
+const PLAIN_COLOUR := Color(0.960784, 0.909804, 0.819608, 1)
+const ENEMY_COLOUR := Color(0.866667, 0.337255, 0.223529, 1)
 
 var in_map: bool = false
 var connections: Array[MapIcon]
@@ -40,21 +43,21 @@ func _draw() -> void:
 	match nebula.type:
 		nebula.EVENT:
 			profile = EVENT.instantiate()
-			profile.colour = Color("ffefa1")
+			profile.colour = EVENT_COLOUR
 		nebula.UNCLAIMED:
 			# Circle
 			profile = UNCLAIMED.instantiate()
-			profile.colour = Color("f5e8d1")
+			profile.colour = PLAIN_COLOUR
 		nebula.XARAGILN:
 			# Namurant profile
 			profile = XARAGILN.instantiate()
-			profile.colour = Color("dd5639")
+			profile.colour = ENEMY_COLOUR
 		nebula.NAMURANT:
 			profile = NAMURANT.instantiate()
-			profile.colour = Color("20a5a6")
+			profile.colour = PLAYER_COLOUR
 		nebula.SHOP:
 			profile = SHOP.instantiate()
-			profile.colour = Color("f5e8d1")
+			profile.colour = PLAIN_COLOUR
 	#
 	add_child(profile)
 	profile.position = size / 2

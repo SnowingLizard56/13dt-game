@@ -1,6 +1,7 @@
 class_name DebrisCollector extends ShipComponent
 
 const BONUS_PROJECTILES := 3
+const PROJ_RADIUS := 3.
 var player: Player
 @export var proj_speed := 50
 @export var proj_mass := 1.6
@@ -23,7 +24,7 @@ func damage_hook(_amt: float, src: int):
 	for i in count + int(player.ship.has_component("Debris Ejector")) * BONUS_PROJECTILES:
 		var theta := TAU * randf()
 		var shape := CircleShape2D.new()
-		shape.radius = 3
+		shape.radius = PROJ_RADIUS
 		Projectile.new(
 			player,
 			proj_speed * cos(theta),
