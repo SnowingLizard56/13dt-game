@@ -8,13 +8,14 @@ const SPAWN_VARIATION := 15.0
 const PTS: PackedVector2Array = [
 	Vector2.ZERO,
 	Vector2(15, 15),
-	Vector2(15, -15)
+	Vector2(15, -15),
 ]
-const EMIT_COUNT_WEIGHTS: PackedFloat32Array = [
-	0, 15, 17, 15, 6, 2, 1, 0.1
-]
+const EMIT_COUNT_WEIGHTS: PackedFloat32Array = [0, 15, 17, 15, 6, 2, 1, 0.1]
 const NO_SPAWN_COUNT := 32
 
+@onready var burst = $Burst
+@onready var fire_rate = $Firerate
+@onready var disable_timer = $DisableTimer
 var active: bool = false
 var burst_count = 0
 
@@ -26,27 +27,27 @@ func _draw() -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	active = true
-	$Firerate.paused = false
-	$Burst.paused = false
-	if $Firerate.is_stopped() and $Burst.is_stopped():
-		$Firerate.start()
-	$DisableTimer.stop()
+	fire_rate.paused = false
+	burst.paused = false
+	if fire_rate.is_stopped() and burst.is_stopped():
+		fire_rate.start()
+	disable_timer.stop()
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	$DisableTimer.start()
+	disable_timer.start()
 
 
 func _on_disable_timer_timeout() -> void:
 	active = false
-	$Firerate.paused = true
+	fire_rate.paused = true
 
 
 func _on_burst_timeout() -> void:
 	burst_count -= 1
 	if burst_count == 0:
-		$Burst.stop()
-		$Firerate.start()
+		burst.stop()
+		fire_rate.start()
 	
 	if get_tree().get_nodes_in_group("enemies").size() >= NO_SPAWN_COUNT:
 		return
@@ -65,5 +66,5 @@ func _on_burst_timeout() -> void:
 
 
 func _on_firerate_timeout() -> void:
-	$Burst.start()
+	burst.start()
 	burst_count = Global.random.rand_weighted(EMIT_COUNT_WEIGHTS)

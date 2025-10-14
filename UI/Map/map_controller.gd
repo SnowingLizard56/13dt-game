@@ -244,4 +244,4 @@ func release_focus():
 
 func ensure_choice(icon: MapIcon):
 	while icon.connections[0].nebula.type == icon.connections[1].nebula.type:
-			icon.connections[randi_range(0, len(icon.connections) - 1)].nebula = Nebula.new()
+		icon.connections[randi_range(0, len(icon.connections) - 1)].nebula = Nebula.new()

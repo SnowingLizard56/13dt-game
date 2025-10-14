@@ -2,7 +2,7 @@ class_name Body extends Area2D
 
 const COLOUR := Color(0.960784, 0.909804, 0.819608, 1)
 
-@onready var predictions: Node2D = $Predictions
+@export var predictions: Node2D
 @onready var particles: CPUParticles2D = $CrashParticles
 
 var radius: float:

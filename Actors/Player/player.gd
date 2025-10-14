@@ -12,13 +12,13 @@ signal player_died
 # Fun fact! floats are stored with double precision.
 # However, floats that are part of Vector2s are single precision.
 # Though it didnt end up being necessary for my uses... oh well.
-var x: float = 750.0:
+var x: float = 0.0:
 	get():
 		if crashed:
 			return level.get_body(crashed_body).x + crashed_offset.x
 		else:
 			return x
-var y: float = 750.0:
+var y: float = 0.0:
 	get():
 		if crashed:
 			return level.get_body(crashed_body).y + crashed_offset.y

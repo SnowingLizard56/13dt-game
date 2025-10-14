@@ -66,12 +66,12 @@ func _draw() -> void:
 	draw_rect(Rect2(-2.5, -2.5, 5, 5), colour)
 
 
-func get_distance(time: float):
-	return -distance_constant * time ** 2 + distance_constant * time - time + 1
+func get_distance(var_time: float):
+	return -distance_constant * var_time ** 2 + distance_constant * var_time - var_time + 1
 
 
-func get_scale_factor(time: float):
-	return SCALE_CURVE.sample_baked(time)
+func get_scale_factor(var_time: float):
+	return SCALE_CURVE.sample_baked(var_time)
 
 
 func finish():

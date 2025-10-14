@@ -18,8 +18,7 @@ const ENEMY_LAYOUTS: Array[PackedInt32Array] = [
 	[2, 2, 1],
 ]
 
-@export var enemy_put_node: Node2D
-@onready var flying_spawn_zone: Path2D = $FlyingEnemySpawnZone
+@export var enemy_put_node: Node2Ds
 @onready var root: LevelController = Global.root
 
 var total_enemies_alive: int = 0
