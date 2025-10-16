@@ -1,7 +1,7 @@
 class_name Projectile extends Area2D
 
 const COLOUR = Color.RED
-const CULLING_DISTANCE: float = 4096
+const CULLING_DISTANCE: float = 2048
 const FLYING_ENEMY_MASS: float = 5600
 const RECOIL_TIME: float = 0.1
 const PROJECTILE_DAMAGE_FACTOR: float = 0.5 * 0.0001

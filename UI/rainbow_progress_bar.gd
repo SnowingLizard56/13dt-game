@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _on_level_up() -> void:
 	modulate.a = 0.0
-	value = 1.0
+	value = max_value
 	show()
 	var tween := get_tree().create_tween()
 	tween.set_ignore_time_scale()

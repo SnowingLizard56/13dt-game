@@ -24,6 +24,7 @@ func _draw() -> void:
 			radius = rect.size.x / (2 * cos(theta))
 		else:
 			radius = rect.size.y / (2 * sin(theta))
+		# If within the rect, skip displaying this one
 		if e.global_position.length_squared() < radius ** 2:
 			continue
 		var pos = e.global_position.limit_length(abs(radius))

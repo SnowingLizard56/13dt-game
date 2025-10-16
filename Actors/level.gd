@@ -104,7 +104,7 @@ func add_bodies(mass: float, centre: Vector2, velocity: Vector2,
 func generate_body(mass: float, position: Vector2, velocity: Vector2, density: float) -> float:
 	# Pass most values.
 	# Cube root of 3m/4πd = r
-	var r = pow(3 * mass / (2 * TAU * density), 1.0 / 3.0)
-	if r > 1:
-		add_body(mass, r, position.x, position.y, velocity.x, velocity.y)
-	return r
+	var radius = pow(3 * mass / (2 * TAU * density), 1.0 / 3.0)
+	radius = max(radius, 5.0)
+	add_body(mass, radius, position.x, position.y, velocity.x, velocity.y)
+	return radius

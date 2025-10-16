@@ -1,16 +1,16 @@
 extends Control
 
 const XP_UPDATE_TIME := 0.2
+
 @onready var hp_bar: ProgressBar = $HealthBar/Health
 @onready var buffer_bar: ProgressBar = $HealthBar/Buffer
-@onready var currency_display: CurrencyDisplay = $"CurrencyDisplay"
+@onready var currency_display: CurrencyDisplay = $CurrencyDisplay
 @onready var xp_display: ProgressBar = $UpgradeBar/ProgressBar
-@onready var component_control: ComponentControl = $"ComponentControl"
+@onready var component_control: ComponentControl = $ComponentControl
 @onready var player: Player = %Player
 @onready var win_screen: Control = $WinScreen
 @export var loot_table: LootTable
 @export var enemy_gen: EnemyGenerator
-
 
 var hp_tween: Tween
 var xp_tween: Tween

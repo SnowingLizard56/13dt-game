@@ -5,6 +5,7 @@ const RIGHT_OFFSET := 325
 const SIZE_SCALING := 0.19
 const TYPE_NAMES: PackedStringArray = ["Event", "1", "Shop", "Battle", "Rest", "5"]
 const FADE_TIME := 0.5
+const ARROW_TEXT := " -> "
 
 @export var cam: Camera2D
 @export var inner: MapController
@@ -49,7 +50,7 @@ func _on__map_inner_any_icon_pressed() -> void:
 	
 	confirmation.show()
 	confirmation.position = conf_start - conf_move
-	conf_title.text = TYPE_NAMES[inner.player_icon.nebula.type] + " -> "\
+	conf_title.text = TYPE_NAMES[inner.player_icon.nebula.type] + ARROW_TEXT\
 		+ TYPE_NAMES[inner.focused_icon.nebula.type]
 	confirm_button.disabled = false
 	cancel_button.disabled = false

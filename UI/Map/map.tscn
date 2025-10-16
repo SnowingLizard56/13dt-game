@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d8ylv7y4rhyv"]
+[gd_scene load_steps=19 format=3 uid="uid://d8ylv7y4rhyv"]
 
 [ext_resource type="Script" uid="uid://ccd38pemkue7r" path="res://UI/Map/map.gd" id="1_hkkqg"]
 [ext_resource type="Resource" uid="uid://by12kj0rfiurd" path="res://Assets/Events/Special/a-brief-reprieve.tres" id="2_4fsbn"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://n6b7f0sgqmeq" path="res://Assets/Events/confusing-encounter.tres" id="5_783jd"]
 [ext_resource type="Script" uid="uid://b1gax8ljs4ucw" path="res://UI/Map/map_ui.gd" id="5_ysqor"]
 [ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="6_hfjv1"]
+[ext_resource type="Resource" uid="uid://dfpg4pm5e4rox" path="res://Assets/Events/pulsar.tres" id="6_ysqor"]
 [ext_resource type="Script" uid="uid://b6jo0u6c12615" path="res://UI/Map/event_screen.gd" id="7_civn7"]
 [ext_resource type="PackedScene" uid="uid://crgrq17w54hj5" path="res://UI/Map/event_option_button.tscn" id="8_05n6e"]
 [ext_resource type="PackedScene" uid="uid://bh3uk0qgepwl5" path="res://UI/ComponentControl/currency_display.tscn" id="9_yshux"]
@@ -51,7 +52,7 @@ ui = NodePath("UI/UI")
 rest_event = ExtResource("2_4fsbn")
 BG_layer = NodePath("BG")
 UI_layer = NodePath("UI")
-event_pool = Array[ExtResource("3_783jd")]([ExtResource("4_ysqor"), ExtResource("5_783jd")])
+event_pool = Array[ExtResource("3_783jd")]([ExtResource("4_ysqor"), ExtResource("5_783jd"), ExtResource("6_ysqor")])
 
 [node name="_MapInner" parent="." node_paths=PackedStringArray("background") instance=ExtResource("3_xgwbs")]
 position = Vector2(576, 575)
@@ -160,7 +161,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.376471)
 
-[node name="EventScreen" type="Control" parent="UI/UI" node_paths=PackedStringArray("dimmer", "title", "options_holder", "map_ui")]
+[node name="EventScreen" type="Control" parent="UI/UI" node_paths=PackedStringArray("dimmer", "title", "exposition", "options_holder", "map_ui")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -172,6 +173,7 @@ script = ExtResource("7_civn7")
 dimmer = NodePath("../DimBG")
 option = ExtResource("8_05n6e")
 title = NodePath("Event/Title")
+exposition = NodePath("Event/Exposition")
 options_holder = NodePath("Event/Options")
 map_ui = NodePath("..")
 

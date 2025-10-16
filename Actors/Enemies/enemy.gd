@@ -54,8 +54,9 @@ func _ready() -> void:
 
 func damage(amount: float) -> void:
 	amount *= root.player.ship.get(&"All Damage").value
+	amount *= GlobalOptions.get_damage_dealt_multiplier()
 	
-	if hp < 0:
+	if hp <= 0:
 		return
 	
 	current_colour = FLASH_COLOUR

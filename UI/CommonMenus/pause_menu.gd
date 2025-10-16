@@ -1,5 +1,8 @@
 class_name PauseMenu extends Control
 
+const MAIN_MENU_DEFAULT_TEXT = "Main Menu"
+const MAIN_MENU_PRESSED_ONCE_TEXT = "Abandon Run?"
+
 var main_menu_button_pressed_once: bool = false
 @onready var dimmer: ColorRect = $DimBG
 @onready var resume_button: Button = $Container/Resume
@@ -27,7 +30,7 @@ func start():
 	component_display.start_display_only(Global.player_ship)
 	
 	main_menu_button_pressed_once = false
-	main_menu_button.text = "Main Menu"
+	main_menu_button.text = MAIN_MENU_DEFAULT_TEXT
 	
 	show()
 	modulate.a = 1.0
@@ -52,7 +55,7 @@ func start():
 func _on_main_menu_pressed() -> void:
 	if not main_menu_button_pressed_once:
 		main_menu_button_pressed_once = true
-		main_menu_button.text = "Abandon Run?"
+		main_menu_button.text = MAIN_MENU_PRESSED_ONCE_TEXT
 		return
 	var tween := get_tree().create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)

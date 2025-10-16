@@ -1,7 +1,7 @@
 class_name Player extends Area2D
 
 const SPRITE_RADIUS: int = 5
-const DAMAGE_LEEWAY: float = 1.7
+const DAMAGE_LEEWAY: float = 30
 const MAX_ROTATION_SPEED: float = TAU * 0.5
 const PLAYER_COLOUR := Color(0.12549, 0.647059, 0.65098, 1)
 const FLASH_COLOUR := Color.WHITE
@@ -42,8 +42,6 @@ var ship: Ship = null
 @export var death_particles: CPUParticles2D
 
 var trigger_queue: PackedInt32Array = []
-var trigger_timer_queue: PackedFloat32Array = []
-
 var is_dead: bool = false
 var crashed: bool = false
 var crashed_body: int
@@ -67,10 +65,6 @@ var flash_tween: Tween
 func add_to_trigger_queue(id: int):
 	if not id in trigger_queue:
 		trigger_queue.append(id)
-		if trigger_timer_queue:
-			trigger_timer_queue.append(0.0)
-		else:
-			trigger_timer_queue.append(0.0)
 
 
 func _ready() -> void:
@@ -94,12 +88,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("trigger_4"):
 		add_to_trigger_queue(3)
 	
-	if trigger_timer_queue:
-		trigger_timer_queue[0] -= delta
-		if trigger_timer_queue[0] <= 0.0:
-			ship.trigger(trigger_queue[0], self)
-			trigger_queue.remove_at(0)
-			trigger_timer_queue.remove_at(0)
+	if trigger_queue:
+		ship.trigger(trigger_queue[0], self)
+		trigger_queue.remove_at(0)
 
 
 func _physics_process(delta: float) -> void:
@@ -179,6 +170,7 @@ func damage(amount: float, source: int = 1):
 	
 	amount *= ship.get(&"Damage Taken").value
 	amount += ship.get(&"Flat Damage Taken").value
+	amount *= GlobalOptions.get_damage_taken_multiplier()
 	
 	if amount <= 0.0:
 		return
@@ -188,7 +180,7 @@ func damage(amount: float, source: int = 1):
 			return
 	
 	flash(DAMAGE_FLASH_TIME)
-	if ship.hp - amount <= DAMAGE_LEEWAY and ship.hp > 1:
+	if ship.hp - amount >= -DAMAGE_LEEWAY and ship.hp - amount < 1.0 and ship.hp > 1:
 		ship.hp = 1.0
 	else:
 		ship.hp -= amount

@@ -67,10 +67,6 @@ func _draw() -> void:
 	)
 
 
-func by_distance(a: Enemy, b: Enemy):
-	return a.global_position.length_squared() <= b.global_position.length_squared()
-
-
 func _on_tick_timeout() -> void:
 	for i in hitbox.get_overlapping_areas().size():
 		var target: Enemy = hitbox.get_overlapping_areas()[i].get_parent()

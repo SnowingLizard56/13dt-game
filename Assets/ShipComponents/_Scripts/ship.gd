@@ -123,7 +123,7 @@ func _get_property_list() -> Array[Dictionary]:
 	for i in misc_properties:
 		properties.append({
 				"name": misc_properties[i].property_name,
-				"type": TYPE_FLOAT,
+				"type": TYPE_OBJECT,
 			})
 	return properties
 
