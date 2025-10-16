@@ -403,8 +403,9 @@ text = "Play Again"
 script = ExtResource("14_8vj28")
 metadata/_custom_type_script = "uid://dg7hgelew38lk"
 
-[node name="PauseMenu" parent="Foreground/UI" instance=ExtResource("14_0ac54")]
+[node name="PauseMenu" parent="Foreground/UI" node_paths=PackedStringArray("component_control") instance=ExtResource("14_0ac54")]
 layout_mode = 1
+component_control = NodePath("../ComponentControl")
 
 [node name="WinScreen" type="Control" parent="Foreground/UI" node_paths=PackedStringArray("title", "button", "dim", "cover")]
 visible = false

@@ -9,6 +9,7 @@ var main_menu_button_pressed_once: bool = false
 @onready var options_button: Button = $Container/Options
 @onready var main_menu_button: Button = $Container/MainMenu
 @onready var component_display: ComponentControl = $ComponentControl
+@export var component_control: ComponentControl
 
 var paused: bool = false
 var return_focus_target: Control
@@ -16,7 +17,11 @@ var pause_anim_running := false
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("pause") and not Global.root.player.is_dead:
+	if Input.is_action_just_pressed("pause"):
+		if Global.root.player.is_dead:
+			return
+		if component_control.visible:
+			return
 		if pause_anim_running:
 			return
 		return_focus_target = get_viewport().gui_get_focus_owner()
