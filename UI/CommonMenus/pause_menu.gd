@@ -12,10 +12,13 @@ var main_menu_button_pressed_once: bool = false
 
 var paused: bool = false
 var return_focus_target: Control
+var pause_anim_running := false
 
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause") and not Global.root.player.is_dead:
+		if pause_anim_running:
+			return
 		return_focus_target = get_viewport().gui_get_focus_owner()
 		if paused:
 			_on_resume_pressed()
@@ -25,6 +28,7 @@ func _process(_delta: float) -> void:
 
 
 func start():
+	pause_anim_running = true
 	component_display.finish()
 	await Global.frame_next
 	component_display.start_display_only(Global.player_ship)
@@ -50,6 +54,7 @@ func start():
 	tween.parallel().tween_property(options_button, "modulate", Color.WHITE, 0.3)
 	tween.parallel().tween_property(main_menu_button, "modulate", Color.WHITE, 0.3)
 	tween.parallel().tween_property(component_display, "modulate", Color.WHITE, 0.3)
+	tween.tween_callback(func(): pause_anim_running = false)
 
 
 func _on_main_menu_pressed() -> void:
