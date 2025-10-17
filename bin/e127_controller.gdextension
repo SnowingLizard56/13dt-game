@@ -7,13 +7,13 @@ reloadable = true
 [libraries]
 
 macos.debug = "res://bin/libe127controller.macos.template_debug.framework"
-macos.release = "res://bin/libe127controller.macos.template_release.framework"
+macos.release = "res://bin/libe127controller.macos.template_debug.framework"
 ios.debug = "res://bin/libe127controller.ios.template_debug.xcframework"
 ios.release = "res://bin/libe127controller.ios.template_release.xcframework"
 windows.debug.x86_32 = "res://bin/libe127controller.windows.template_debug.x86_32.dll"
-windows.release.x86_32 = "res://bin/libe127controller.windows.template_release.x86_32.dll"
+windows.release.x86_32 = "res://bin/libe127controller.windows.template_debug.x86_32.dll"
 windows.debug.x86_64 = "res://bin/libe127controller.windows.template_debug.x86_64.dll"
-windows.release.x86_64 = "res://bin/libe127controller.windows.template_release.x86_64.dll"
+windows.release.x86_64 = "res://bin/libe127controller.windows.template_debug.x86_64.dll"
 linux.debug.x86_64 = "res://bin/libe127controller.linux.template_debug.x86_64.so"
 linux.release.x86_64 = "res://bin/libe127controller.linux.template_release.x86_64.so"
 linux.debug.arm64 = "res://bin/libe127controller.linux.template_debug.arm64.so"
