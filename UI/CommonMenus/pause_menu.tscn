@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlmalknb0ogn6"]
+[gd_scene load_steps=9 format=3 uid="uid://dlmalknb0ogn6"]
 
 [ext_resource type="Script" uid="uid://y1ovawcvs6oi" path="res://UI/CommonMenus/pause_menu.gd" id="1_jfm1e"]
 [ext_resource type="Theme" uid="uid://b3ou7d8b0fupu" path="res://UI/main_theme.tres" id="1_mbt7y"]
 [ext_resource type="Script" uid="uid://dg7hgelew38lk" path="res://UI/custom_button.gd" id="2_03fe5"]
 [ext_resource type="PackedScene" uid="uid://1tgshqqd08qg" path="res://UI/ComponentControl/component_control.tscn" id="3_5aml0"]
+[ext_resource type="Script" uid="uid://yoxoaei6uvp3" path="res://UI/ComponentControl/component_control.gd" id="4_y5gej"]
+[ext_resource type="Script" uid="uid://dwgfpgetncjn7" path="res://UI/ComponentControl/warning_display.gd" id="5_b54j5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cwpn"]
 bg_color = Color(0.0507, 0.0916717, 0.13, 1)
@@ -56,6 +58,7 @@ color = Color(0, 0, 0, 0.376471)
 
 [node name="ComponentControl" parent="." instance=ExtResource("3_5aml0")]
 layout_mode = 1
+script = ExtResource("4_y5gej")
 
 [node name="DimBG" parent="ComponentControl" index="0"]
 visible = false
@@ -70,6 +73,9 @@ offset_top = -202.0
 offset_right = 676.0
 offset_bottom = 202.0
 grow_horizontal = 1
+
+[node name="WarningDisplay" parent="ComponentControl/Menu/HBoxContainer/VBoxContainer3/ShipInfo" index="1"]
+script = ExtResource("5_b54j5")
 
 [node name="SpareComponents" parent="ComponentControl/Menu/HBoxContainer" index="2"]
 visible = false
