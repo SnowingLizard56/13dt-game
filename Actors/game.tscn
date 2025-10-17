@@ -546,8 +546,6 @@ color = Color(0.0588235, 0.105882, 0.14902, 1)
 
 [connection signal="initial_areas_instantiated" from="." to="EnemyGen" method="_on_game_initial_areas_instantiated"]
 [connection signal="player_died" from="Player" to="Foreground/UI/DeathScreen" method="_on_player_player_died"]
-[connection signal="continue_pressed" from="Foreground/UI/ComponentControl" to="Foreground/UI" method="level_up_finalised"]
-[connection signal="continue_pressed" from="Foreground/UI/ComponentControl" to="Foreground/UI/UpgradeBar/ProgressBar/Rainbow" method="_on_component_control_continue_pressed"]
 [connection signal="pressed" from="Foreground/UI/DeathScreen/Panel/Quit" to="Foreground/UI/DeathScreen" method="_on_quit_pressed"]
 [connection signal="pressed" from="Foreground/UI/DeathScreen/Panel/Again" to="Foreground/UI/DeathScreen" method="_on_again_pressed"]
 [connection signal="pressed" from="Foreground/UI/WinScreen/ButtonMarker/Continue" to="Foreground/UI/WinScreen" method="_on_continue_pressed"]

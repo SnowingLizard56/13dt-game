@@ -131,6 +131,7 @@ func reinit():
 	inner.grab_focus(true)
 	fadeout.show()
 	fadeout.modulate.a = 1
+	ui.currency_display.apply_amount(Global.player_currency)
 	var tween := get_tree().create_tween()
 	tween.tween_property(fadeout, "modulate", Color(1, 1, 1, 0), FADE_TIME)
 	tween.tween_callback(fadeout.hide)

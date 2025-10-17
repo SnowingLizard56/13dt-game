@@ -67,6 +67,7 @@ func _on_component_control_continue_pressed() -> void:
 		var tween := get_tree().create_tween()
 		fade_in.show()
 		tween.tween_property(fade_in, "modulate", Color.WHITE, FADE_IN_TIME)
+		tween.tween_callback(func():Global.player_currency = budget)
 		tween.tween_callback(Global.switch_to_map)
 
 

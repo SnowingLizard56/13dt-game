@@ -94,6 +94,7 @@ func level_up_finalised() -> void:
 	component_control.finish()
 	Engine.time_scale = 0.0
 	add_xp(0)
+	player.damage(0)
 	
 	# I regret my previous comment
 	# Animation!

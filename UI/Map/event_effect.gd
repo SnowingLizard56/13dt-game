@@ -31,7 +31,7 @@ var has_components: bool:
 func get_components() -> Array[ShipComponent]:
 	var out: Array[ShipComponent] = []
 	for i in component_list:
-		out += i.get_loot(1, Global.player_ship.get(&"Luck"))
+		out += i.get_loot(1, Global.player_ship.get(&"Luck").value)
 	return out
 
 

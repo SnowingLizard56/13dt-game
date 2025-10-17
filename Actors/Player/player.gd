@@ -172,7 +172,7 @@ func damage(amount: float, source: int = 1):
 	amount += ship.get(&"Flat Damage Taken").value
 	amount *= GlobalOptions.get_damage_taken_multiplier()
 	
-	if amount <= 0.0:
+	if amount <= 0.0 and ship.max_hp != 0.0:
 		return
 	
 	for f in damage_hook:
